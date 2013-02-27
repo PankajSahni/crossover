@@ -1,0 +1,324 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0404D0E816DE1324000BC07A /* Default-568h@2x.png */; };
+		04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD982F16DE2568003E8AA8 /* GameKit.framework */; };
+		04DD983416DE3C7B003E8AA8 /* GameCenterFiles in Resources */ = {isa = PBXBuildFile; fileRef = 04DD983316DE3C7B003E8AA8 /* GameCenterFiles */; };
+		04E4687D16DE0A88008479F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687C16DE0A88008479F0 /* UIKit.framework */; };
+		04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687E16DE0A88008479F0 /* Foundation.framework */; };
+		04E4688116DE0A88008479F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4688016DE0A88008479F0 /* CoreGraphics.framework */; };
+		04E4688716DE0A88008479F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E4688516DE0A88008479F0 /* InfoPlist.strings */; };
+		04E4688916DE0A88008479F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688816DE0A88008479F0 /* main.m */; };
+		04E4688D16DE0A88008479F0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688C16DE0A88008479F0 /* AppDelegate.m */; };
+		04E4689016DE0A88008479F0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688F16DE0A88008479F0 /* ViewController.m */; };
+		04E4689316DE0A89008479F0 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */; };
+		04E4689616DE0A89008479F0 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4689416DE0A89008479F0 /* ViewController_iPad.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0404D0E816DE1324000BC07A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		04DD983116DE2596003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GameKit.framework; sourceTree = "<group>"; };
+		04DD983316DE3C7B003E8AA8 /* GameCenterFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GameCenterFiles; sourceTree = "<group>"; };
+		04E4687816DE0A88008479F0 /* crossover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crossover.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04E4687C16DE0A88008479F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		04E4687E16DE0A88008479F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		04E4688016DE0A88008479F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		04E4688416DE0A88008479F0 /* crossover-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "crossover-Info.plist"; sourceTree = "<group>"; };
+		04E4688616DE0A88008479F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		04E4688816DE0A88008479F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		04E4688A16DE0A88008479F0 /* crossover-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "crossover-Prefix.pch"; sourceTree = "<group>"; };
+		04E4688B16DE0A88008479F0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		04E4688C16DE0A88008479F0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		04E4688E16DE0A88008479F0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		04E4688F16DE0A88008479F0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		04E4689216DE0A89008479F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		04E4689516DE0A89008479F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		04E4687516DE0A88008479F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */,
+				04E4687D16DE0A88008479F0 /* UIKit.framework in Frameworks */,
+				04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */,
+				04E4688116DE0A88008479F0 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04E4686D16DE0A88008479F0 = {
+			isa = PBXGroup;
+			children = (
+				04DD982F16DE2568003E8AA8 /* GameKit.framework */,
+				0404D0E816DE1324000BC07A /* Default-568h@2x.png */,
+				04E4688216DE0A88008479F0 /* crossover */,
+				04E4687B16DE0A88008479F0 /* Frameworks */,
+				04E4687916DE0A88008479F0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		04E4687916DE0A88008479F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				04E4687816DE0A88008479F0 /* crossover.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		04E4687B16DE0A88008479F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04DD983116DE2596003E8AA8 /* GameKit.framework */,
+				04E4687C16DE0A88008479F0 /* UIKit.framework */,
+				04E4687E16DE0A88008479F0 /* Foundation.framework */,
+				04E4688016DE0A88008479F0 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		04E4688216DE0A88008479F0 /* crossover */ = {
+			isa = PBXGroup;
+			children = (
+				04DD983316DE3C7B003E8AA8 /* GameCenterFiles */,
+				04E4688B16DE0A88008479F0 /* AppDelegate.h */,
+				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
+				04E4688E16DE0A88008479F0 /* ViewController.h */,
+				04E4688F16DE0A88008479F0 /* ViewController.m */,
+				04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */,
+				04E4689416DE0A89008479F0 /* ViewController_iPad.xib */,
+				04E4688316DE0A88008479F0 /* Supporting Files */,
+			);
+			path = crossover;
+			sourceTree = "<group>";
+		};
+		04E4688316DE0A88008479F0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				04E4688416DE0A88008479F0 /* crossover-Info.plist */,
+				04E4688516DE0A88008479F0 /* InfoPlist.strings */,
+				04E4688816DE0A88008479F0 /* main.m */,
+				04E4688A16DE0A88008479F0 /* crossover-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04E4687716DE0A88008479F0 /* crossover */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04E4689916DE0A89008479F0 /* Build configuration list for PBXNativeTarget "crossover" */;
+			buildPhases = (
+				04E4687416DE0A88008479F0 /* Sources */,
+				04E4687516DE0A88008479F0 /* Frameworks */,
+				04E4687616DE0A88008479F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = crossover;
+			productName = crossover;
+			productReference = 04E4687816DE0A88008479F0 /* crossover.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		04E4686F16DE0A88008479F0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 04E4687216DE0A88008479F0 /* Build configuration list for PBXProject "crossover" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 04E4686D16DE0A88008479F0;
+			productRefGroup = 04E4687916DE0A88008479F0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04E4687716DE0A88008479F0 /* crossover */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04E4687616DE0A88008479F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04E4688716DE0A88008479F0 /* InfoPlist.strings in Resources */,
+				04E4689316DE0A89008479F0 /* ViewController_iPhone.xib in Resources */,
+				04E4689616DE0A89008479F0 /* ViewController_iPad.xib in Resources */,
+				0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */,
+				04DD983416DE3C7B003E8AA8 /* GameCenterFiles in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04E4687416DE0A88008479F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04E4688916DE0A88008479F0 /* main.m in Sources */,
+				04E4688D16DE0A88008479F0 /* AppDelegate.m in Sources */,
+				04E4689016DE0A88008479F0 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		04E4688516DE0A88008479F0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04E4688616DE0A88008479F0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04E4689216DE0A89008479F0 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		04E4689416DE0A89008479F0 /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04E4689516DE0A89008479F0 /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		04E4689716DE0A89008479F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PROVISIONING_PROFILE = "2CF1480B-902A-4E58-9903-7F8FA7F2FCB6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF24D991-9D42-4173-A2AE-CD16BE6FFEA9";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		04E4689816DE0A89008479F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		04E4689A16DE0A89008479F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "crossover/crossover-Prefix.pch";
+				INFOPLIST_FILE = "crossover/crossover-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		04E4689B16DE0A89008479F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "crossover/crossover-Prefix.pch";
+				INFOPLIST_FILE = "crossover/crossover-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04E4687216DE0A88008479F0 /* Build configuration list for PBXProject "crossover" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04E4689716DE0A89008479F0 /* Debug */,
+				04E4689816DE0A89008479F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		04E4689916DE0A89008479F0 /* Build configuration list for PBXNativeTarget "crossover" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04E4689A16DE0A89008479F0 /* Debug */,
+				04E4689B16DE0A89008479F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 04E4686F16DE0A88008479F0 /* Project object */;
+}

@@ -1,0 +1,353 @@
+Tcrossover
+v5
+r1
+cCheck dependencies
+cProcessInfoPlistFile /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Info.plist crossover/crossover-Info.plist
+cProcessPCH /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/main.o /Users/mac/Desktop/iphone_learning/crossover/crossover/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/ViewController.o /Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/AppDelegate.o /Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover normal i386
+cGenerateDSYMFile /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app.dSYM /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover
+cCopyStringsFile /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/InfoPlist.strings crossover/en.lproj/InfoPlist.strings
+cCompileXIB /Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPhone.xib
+cCompileXIB /Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPad.xib
+cCpResource Default-568h@2x.png DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Default-568h@2x.png
+cTouch /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk
+c000000004F453DF80000000000000110
+t1329937912
+s272
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c000000004F68C5090000000000244490
+t1332266249
+s2376848
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004F68C5130000000000353830
+t1332266259
+s3487792
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c000000004F68C52C0000000000905E40
+t1332266284
+s9461312
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk
+c0000000050EDEAFB0000000000000110
+t1357769467
+s272
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c0000000050F4CA800000000000228FE0
+t1358219904
+s2265056
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c0000000050F4CA8C00000000003DDFA0
+t1358219916
+s4054944
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/GameKit.framework/GameKit
+c0000000050F4CA910000000000374370
+t1358219921
+s3621744
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c0000000050F4CAC80000000000AB6230
+t1358219976
+s11231792
+
+N/Users/mac/Desktop/iphone_learning/crossover/Default-568h@2x.png
+c0000000050D2E57400000000000048A2
+t1355998580
+s18594
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-avavmviwvhtuawcfvordycnwfnwk/crossover-Prefix.pch.pth
+t1361959889
+s4678440
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch.pth
+t1361964587
+s4678440
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-fouevjjoqpvgfvbhsydionctfsev/crossover-Prefix.pch.pth
+t2
+s0
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/AppDelegate.o
+t1361964587
+s90704
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/ViewController.o
+t1361964587
+s68808
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/crossover.LinkFileList
+c00000000512DD3560000000000000209
+t1361957718
+s521
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/main.o
+t1361964587
+s3300
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app
+t1361964588
+s238
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app.dSYM
+t1361964588
+s102
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Default-568h@2x.png
+t1361959890
+s18594
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Info.plist
+t1361959888
+s905
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/PkgInfo
+t1361959888
+s8
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover
+t1361964588
+s22228
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/InfoPlist.strings
+t1361957726
+s42
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/ViewController_iPad.nib
+t1361959894
+s822
+
+N/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/ViewController_iPhone.nib
+t1361959894
+s862
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.h
+c00000000512DD308000000000000016D
+t1361957640
+s365
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.m
+c00000000512DD3080000000000000A2B
+t1361957640
+s2603
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.h
+c00000000512DD30800000000000000D8
+t1361957640
+s216
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.m
+c00000000512DD308000000000000030B
+t1361957640
+s779
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Prefix.pch
+c00000000512DD3080000000000000141
+t1361957640
+s321
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/InfoPlist.strings
+c00000000512DD308000000000000002D
+t1361957640
+s45
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPad.xib
+c00000000512DD3090000000000001454
+t1361957641
+s5204
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPhone.xib
+c00000000512DD309000000000000146B
+t1361957641
+s5227
+
+N/Users/mac/Desktop/iphone_learning/crossover/crossover/main.m
+c00000000512DD3080000000000000151
+t1361957640
+s337
+
+Ncrossover/crossover-Info.plist
+c00000000512DD30800000000000005B6
+t1361957640
+s1462
+
+CBuild AST from /Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.m
+r0
+
+CBuild AST from /Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.m
+r0
+
+CBuild AST from /Users/mac/Desktop/iphone_learning/crossover/crossover/main.m
+r0
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies7dec96b325deb641^058698b325deb641^---0#1#0#--18"Check dependencies36"0BEB541D-53E9-4B7D-B121-99B560149C49-
+
+CCompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/AppDelegate.o /Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s383657387.253632
+e383657387.536387
+r1
+xCompileC
+xDerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/AppDelegate.o
+x/Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Compile /Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.mcc2541ab25deb641^a95089ab25deb641^---0#0#0#-19%DVTDocumentLocation2@84"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.m0000000000000000^4035"CompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/AppDelegate.o crossover/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mac/Desktop/iphone_learning/crossover    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=6.0 -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-generated-files.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-own-target-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-all-target-headers.hmap -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-project-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources/i386 -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources -F/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator -F/Users/mac/Desktop/iphone_learning/crossover -include /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch -MMD -MT dependencies -MF /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/AppDelegate.d --serialize-diagnostics /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/AppDelegate.dia -c /Users/mac/Desktop/iphone_learning/crossover/crossover/AppDelegate.m -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/AppDelegate.o36"A942BBA4-0026-4F61-8D7C-4F881D1E4F72-
+
+CCompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/ViewController.o /Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s383657387.253640
+e383657387.533825
+r1
+xCompileC
+xDerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/ViewController.o
+x/Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection79"Compile /Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.m1c2341ab25deb641^04a988ab25deb641^---0#0#0#-19%DVTDocumentLocation2@87"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.m0000000000000000^4053"CompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/ViewController.o crossover/ViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mac/Desktop/iphone_learning/crossover    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=6.0 -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-generated-files.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-own-target-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-all-target-headers.hmap -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-project-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources/i386 -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources -F/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator -F/Users/mac/Desktop/iphone_learning/crossover -include /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch -MMD -MT dependencies -MF /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/ViewController.d --serialize-diagnostics /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/ViewController.dia -c /Users/mac/Desktop/iphone_learning/crossover/crossover/ViewController.m -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/ViewController.o36"B16B4393-A4C3-412D-92D1-F9E9FD0D5E15-
+
+CCompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/main.o /Users/mac/Desktop/iphone_learning/crossover/crossover/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s383657387.253610
+e383657387.531301
+r1
+xCompileC
+xDerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/main.o
+x/Users/mac/Desktop/iphone_learning/crossover/crossover/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection69"Compile /Users/mac/Desktop/iphone_learning/crossover/crossover/main.m661641ab25deb641^360388ab25deb641^---0#0#0#-19%DVTDocumentLocation2@77"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/main.m0000000000000000^3993"CompileC DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/main.o crossover/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mac/Desktop/iphone_learning/crossover    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=6.0 -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-generated-files.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-own-target-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-all-target-headers.hmap -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-project-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources/i386 -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources -F/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator -F/Users/mac/Desktop/iphone_learning/crossover -include /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch -MMD -MT dependencies -MF /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/main.d --serialize-diagnostics /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/main.dia -c /Users/mac/Desktop/iphone_learning/crossover/crossover/main.m -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/main.o36"088A0CAE-74FD-4F5B-9DF7-DAD2F5D0C7BC-
+
+CCompileXIB /Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPad.xib
+s383652690.183931
+e383652694.060468
+r1
+xCompileXIB
+x/Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPad.xib
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection97"Compiling /Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPad.xib2b312f5213deb641^9f8e0f5613deb641^---0#0#0#-19%DVTDocumentLocation2@103"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPad.xib0000000000000000^984"CompileXIB crossover/en.lproj/ViewController_iPad.xib    cd /Users/mac/Desktop/iphone_learning/crossover    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 6.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/ViewController_iPad.nib /Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPad.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk36"4916E586-98C9-400D-95D3-5A8F158902DE-
+
+CCompileXIB /Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPhone.xib
+s383652690.183923
+e383652694.057841
+r1
+xCompileXIB
+x/Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPhone.xib
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection99"Compiling /Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPhone.xibad322f5213deb641^31cf0e5613deb641^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPhone.xib0000000000000000^990"CompileXIB crossover/en.lproj/ViewController_iPhone.xib    cd /Users/mac/Desktop/iphone_learning/crossover    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 6.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/ViewController_iPhone.nib /Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/ViewController_iPhone.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk36"A82048C3-4A6C-4C3E-A03D-0C73AA4F71B4-
+
+CCopyStringsFile /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/InfoPlist.strings crossover/en.lproj/InfoPlist.strings
+s383650526.266634
+e383650526.795028
+r1
+xCopyStringsFile
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/InfoPlist.strings
+xcrossover/en.lproj/InfoPlist.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy crossover/en.lproj/InfoPlist.stringsc07644de0adeb641^6a87cbde0adeb641^---0#0#0#-19%DVTDocumentLocation2@97"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/en.lproj/InfoPlist.strings0000000000000000^657"CopyStringsFile DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj/InfoPlist.strings crossover/en.lproj/InfoPlist.strings    cd /Users/mac/Desktop/iphone_learning/crossover    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/en.lproj -- crossover/en.lproj/InfoPlist.strings36"7393E1CC-7F09-48BC-8378-75F7C085FBC1-
+
+CCpResource Default-568h@2x.png DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Default-568h@2x.png
+s383652690.183948
+e383652690.189546
+r1
+xCpResource
+xDefault-568h@2x.png
+xDerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Default-568h@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection97"Copy DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Default-568h@2x.pnga9332f5213deb641^0d8c305213deb641^---0#0#0#-19%DVTDocumentLocation2@153"file://localhost/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Default-568h@2x.png000000000080d041^672"CpResource "Default-568h@2x.png" "DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Default-568h@2x.png"    cd /Users/mac/Desktop/iphone_learning/crossover    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mac/Desktop/iphone_learning/crossover/Default-568h@2x.png" /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app36"1DB5E21A-EE7D-4CA6-AED7-C57DF7A403BA-
+
+CGenerateDSYMFile /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app.dSYM /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover
+s383657388.196772
+e383657388.281753
+r1
+xGenerateDSYMFile
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app.dSYM
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection131"Generate /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app.dSYMc57332ac25deb641^d5cd49ac25deb641^---0#0#0#-19%DVTDocumentLocation2@139"file://localhost/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app.dSYM/0000000000000000^779"GenerateDSYMFile DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app.dSYM DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover    cd /Users/mac/Desktop/iphone_learning/crossover    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app.dSYM36"1165ACDB-6507-43A2-A2F3-A89E3B02C801-
+
+CLd /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover normal i386
+s383657387.543173
+e383657388.189825
+r1
+xLd
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover
+xnormal
+xi386
+old: warning: ignoring file /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/GameKit, missing required architecture i386 in file /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/GameKit (2 slices)
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection132"Link /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossoveraa278bab25deb641^0f9b30ac25deb641^-224"ld: warning: ignoring file /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/GameKit, missing required architecture i386 in file /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/GameKit (2 slices)1(21%IDEActivityLogMessage2@210"Ignoring file /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/GameKit, missing required architecture i386 in file /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/GameKit (2 slices)-383657387#0#224#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#27"Apple Mach-O Linker Warning--0#0#0#--1417"Ld DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover normal i386    cd /Users/mac/Desktop/iphone_learning/crossover    setenv IPHONEOS_DEPLOYMENT_TARGET 6.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -L/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator -F/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator -F/Users/mac/Desktop/iphone_learning/crossover -filelist /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/Objects-normal/i386/crossover.LinkFileList -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime -Xlinker -no_implicit_dylibs -mios-simulator-version-min=6.0 -framework GameKit -framework UIKit -framework Foundation -framework CoreGraphics -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/crossover36"7CCB68DC-D8B4-4385-8BD8-A4BE0F930845-
+
+CProcessInfoPlistFile /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Info.plist crossover/crossover-Info.plist
+s383652688.220756
+e383652688.226182
+r1
+xProcessInfoPlistFile
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Info.plist
+xcrossover/crossover-Info.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection38"Process crossover/crossover-Info.plist5ea0385013deb641^a3e8395013deb641^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Info.plist0000000000000000^775"ProcessInfoPlistFile DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Info.plist crossover/crossover-Info.plist    cd /Users/mac/Desktop/iphone_learning/crossover    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility crossover/crossover-Info.plist -genpkginfo /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app/Info.plist36"83C340F0-FCFA-47F5-B9E3-1036DDD90865-
+
+CProcessPCH /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-avavmviwvhtuawcfvordycnwfnwk/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s383652688.234484
+e383652689.212326
+r1
+xProcessPCH
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-avavmviwvhtuawcfvordycnwfnwk/crossover-Prefix.pch.pth
+xcrossover/crossover-Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Precompile crossover/crossover-Prefix.pch512f3c5013deb641^cd5a365113deb641^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Prefix.pch0000000000000000^3833"ProcessPCH DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-avavmviwvhtuawcfvordycnwfnwk/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mac/Desktop/iphone_learning/crossover    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=6.0 -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-generated-files.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-own-target-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-all-target-headers.hmap -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-project-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources/i386 -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources -F/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator --serialize-diagnostics /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-avavmviwvhtuawcfvordycnwfnwk/crossover-Prefix.pch.dia -c /Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Prefix.pch -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-avavmviwvhtuawcfvordycnwfnwk/crossover-Prefix.pch.pth -MMD -MT dependencies -MF /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-avavmviwvhtuawcfvordycnwfnwk/crossover-Prefix.pch.d36"5505C249-2D6C-4242-9C41-51867D191843-
+
+CProcessPCH /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s383657385.631843
+e383657387.244945
+r1
+xProcessPCH
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch.pth
+xcrossover/crossover-Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Precompile crossover/crossover-Prefix.pch2fe0a1a925deb641^0fb43eab25deb641^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Prefix.pch0000000000000000^3880"ProcessPCH DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mac/Desktop/iphone_learning/crossover    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=6.0 -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-generated-files.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-own-target-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-all-target-headers.hmap -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-project-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources/i386 -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources -F/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator -F/Users/mac/Desktop/iphone_learning/crossover --serialize-diagnostics /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch.dia -c /Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Prefix.pch -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch.pth -MMD -MT dependencies -MF /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-bhwqueqcwhmvhwgotrjqzqruyjoc/crossover-Prefix.pch.d36"53D80042-5223-4DC2-AACA-4A12D58F5086-
+
+CProcessPCH /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-fouevjjoqpvgfvbhsydionctfsev/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s383650518.889844
+e383650524.451289
+r1
+xProcessPCH
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-fouevjjoqpvgfvbhsydionctfsev/crossover-Prefix.pch.pth
+xcrossover/crossover-Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Precompile crossover/crossover-Prefix.pch8196eed60adeb641^f98573dc0adeb641^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Prefix.pch0000000000000000^3648"ProcessPCH DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-fouevjjoqpvgfvbhsydionctfsev/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mac/Desktop/iphone_learning/crossover    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator5.1.sdk -fexceptions -fasm-blocks -Wprotocol -Wdeprecated-declarations -mmacosx-version-min=10.6 -g -Wno-conversion -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -D__IPHONE_OS_VERSION_MIN_REQUIRED=50100 -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-generated-files.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-own-target-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-all-target-headers.hmap -iquote /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/crossover-project-headers.hmap -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/include -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources/i386 -I/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/crossover.build/Debug-iphonesimulator/crossover.build/DerivedSources -F/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator --serialize-diagnostics /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-fouevjjoqpvgfvbhsydionctfsev/crossover-Prefix.pch.dia -c /Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Prefix.pch -o /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-fouevjjoqpvgfvbhsydionctfsev/crossover-Prefix.pch.pth -MMD -MT dependencies -MF /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Intermediates/PrecompiledHeaders/crossover-Prefix-fouevjjoqpvgfvbhsydionctfsev/crossover-Prefix.pch.d36"DCF2132E-8A8A-4218-9739-22CDFB5BB914-
+
+CProcessPCH /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Index/PrecompiledHeaders/crossover-Prefix-ccperyfklfpxxbfquqgvocrvkitf_ast/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Index/PrecompiledHeaders/crossover-Prefix-feexhfusljhderbvwkpdqzpuzlwe_ast/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CProcessPCH /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Index/PrecompiledHeaders/crossover-Prefix-hhmyxczzxvcgrybvefuhcjpxxokd_ast/crossover-Prefix.pch.pth crossover/crossover-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.astbuilder
+r0
+
+CTouch /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app
+s383657388.308924
+e383657388.368762
+r1
+xTouch
+x/Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection123"Touch /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app1c294fac25deb641^ed665eac25deb641^---0#0#0#--466"Touch DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app    cd /Users/mac/Desktop/iphone_learning/crossover    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/mac/Desktop/iphone_learning/crossover/DerivedData/crossover/Build/Products/Debug-iphonesimulator/crossover.app36"70A0E420-AE22-4654-A2DA-CB6E3356E885-
+
