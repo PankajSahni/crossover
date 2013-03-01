@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0404D0E816DE1324000BC07A /* Default-568h@2x.png */; };
+		04A2D87A16E0E0F5001ECD83 /* framework in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87916E0E0F5001ECD83 /* framework */; };
+		04A2D87C16E0E11A001ECD83 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87B16E0E11A001ECD83 /* images */; };
+		04A2D87E16E0E135001ECD83 /* Supporting in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87D16E0E135001ECD83 /* Supporting */; };
 		04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD982F16DE2568003E8AA8 /* GameKit.framework */; };
-		04DD983416DE3C7B003E8AA8 /* GameCenterFiles in Resources */ = {isa = PBXBuildFile; fileRef = 04DD983316DE3C7B003E8AA8 /* GameCenterFiles */; };
 		04E4687D16DE0A88008479F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687C16DE0A88008479F0 /* UIKit.framework */; };
 		04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687E16DE0A88008479F0 /* Foundation.framework */; };
 		04E4688116DE0A88008479F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4688016DE0A88008479F0 /* CoreGraphics.framework */; };
@@ -23,9 +25,11 @@
 
 /* Begin PBXFileReference section */
 		0404D0E816DE1324000BC07A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
+		04A2D87B16E0E11A001ECD83 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		04A2D87D16E0E135001ECD83 /* Supporting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Supporting; sourceTree = "<group>"; };
 		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		04DD983116DE2596003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GameKit.framework; sourceTree = "<group>"; };
-		04DD983316DE3C7B003E8AA8 /* GameCenterFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GameCenterFiles; sourceTree = "<group>"; };
 		04E4687816DE0A88008479F0 /* crossover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crossover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E4687C16DE0A88008479F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04E4687E16DE0A88008479F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,7 +94,8 @@
 		04E4688216DE0A88008479F0 /* crossover */ = {
 			isa = PBXGroup;
 			children = (
-				04DD983316DE3C7B003E8AA8 /* GameCenterFiles */,
+				04A2D87D16E0E135001ECD83 /* Supporting */,
+				04A2D87916E0E0F5001ECD83 /* framework */,
 				04E4688B16DE0A88008479F0 /* AppDelegate.h */,
 				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
 				04E4688E16DE0A88008479F0 /* ViewController.h */,
@@ -105,6 +110,7 @@
 		04E4688316DE0A88008479F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				04A2D87B16E0E11A001ECD83 /* images */,
 				04E4688416DE0A88008479F0 /* crossover-Info.plist */,
 				04E4688516DE0A88008479F0 /* InfoPlist.strings */,
 				04E4688816DE0A88008479F0 /* main.m */,
@@ -167,7 +173,9 @@
 				04E4689316DE0A89008479F0 /* ViewController_iPhone.xib in Resources */,
 				04E4689616DE0A89008479F0 /* ViewController_iPad.xib in Resources */,
 				0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */,
-				04DD983416DE3C7B003E8AA8 /* GameCenterFiles in Resources */,
+				04A2D87A16E0E0F5001ECD83 /* framework in Resources */,
+				04A2D87C16E0E11A001ECD83 /* images in Resources */,
+				04A2D87E16E0E135001ECD83 /* Supporting in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +228,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -236,8 +244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "2CF1480B-902A-4E58-9903-7F8FA7F2FCB6";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF24D991-9D42-4173-A2AE-CD16BE6FFEA9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F1EBF35E-E254-426D-8B53-2A1D720E4EFE";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

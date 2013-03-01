@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import <GameKit/GKPlayer.h>
+#import <GameKit/GKDefines.h>
 
 @interface ViewController ()
 
@@ -17,6 +19,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
+        if(error == nil){
+            NSLog(@"successfully logged in !!!");
+        }else{
+            NSLog(@"not logged in");
+        }
+    } ];
     /*[[GameKitHelper sharedGameKitHelper]
      authenticateLocalPlayer];*/
 	// Do any additional setup after loading the view, typically from a nib.

@@ -1,0 +1,30 @@
+dependencies: \
+  /Users/mac/Desktop/iphone_learning/crossover/crossover/crossover-Prefix.pch \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GameKit.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKAchievement.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKAchievementDescription.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKDefines.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKError.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKLeaderboard.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKLocalPlayer.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKPlayer.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKMatch.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKTurnBasedMatch.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKMatchmaker.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKScore.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKVoiceChat.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKChallenge.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKNotificationBanner.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKChallengeEventHandler.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKMatchmakerViewController.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKTurnBasedMatchmakerViewController.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKLeaderboardViewController.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKGameCenterViewController.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKAchievementViewController.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKFriendRequestComposeViewController.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKPeerPickerController.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKSession.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKPublicProtocols.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKPublicConstants.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKSessionError.h \
+  /Users/mac/Desktop/iphone_learning/crossover/GameKit.framework/Headers/GKVoiceChatService.h
