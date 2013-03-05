@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0404D0E816DE1324000BC07A /* Default-568h@2x.png */; };
+		04245B2616E6122D008E87E2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2516E6122D008E87E2 /* icon.png */; };
+		04245B2816E6127E008E87E2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2716E6127E008E87E2 /* icon@2x.png */; };
+		04245B2A16E6128C008E87E2 /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2916E6128C008E87E2 /* icon-72.png */; };
+		04245B2C16E6128F008E87E2 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2B16E6128F008E87E2 /* icon-72@2x.png */; };
+		04245B2E16E612D1008E87E2 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2D16E612D1008E87E2 /* images */; };
 		04A2D87A16E0E0F5001ECD83 /* framework in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87916E0E0F5001ECD83 /* framework */; };
 		04A2D87C16E0E11A001ECD83 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87B16E0E11A001ECD83 /* images */; };
 		04A2D87E16E0E135001ECD83 /* Supporting in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87D16E0E135001ECD83 /* Supporting */; };
@@ -25,6 +30,11 @@
 
 /* Begin PBXFileReference section */
 		0404D0E816DE1324000BC07A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		04245B2516E6122D008E87E2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		04245B2716E6127E008E87E2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		04245B2916E6128C008E87E2 /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
+		04245B2B16E6128F008E87E2 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
+		04245B2D16E612D1008E87E2 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
 		04A2D87B16E0E11A001ECD83 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		04A2D87D16E0E135001ECD83 /* Supporting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Supporting; sourceTree = "<group>"; };
@@ -64,6 +74,11 @@
 		04E4686D16DE0A88008479F0 = {
 			isa = PBXGroup;
 			children = (
+				04245B2B16E6128F008E87E2 /* icon-72@2x.png */,
+				04245B2916E6128C008E87E2 /* icon-72.png */,
+				04245B2716E6127E008E87E2 /* icon@2x.png */,
+				04245B2516E6122D008E87E2 /* icon.png */,
+				04245B2D16E612D1008E87E2 /* images */,
 				04DD982F16DE2568003E8AA8 /* GameKit.framework */,
 				0404D0E816DE1324000BC07A /* Default-568h@2x.png */,
 				04E4688216DE0A88008479F0 /* crossover */,
@@ -145,7 +160,7 @@
 		04E4686F16DE0A88008479F0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 			};
 			buildConfigurationList = 04E4687216DE0A88008479F0 /* Build configuration list for PBXProject "crossover" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -176,6 +191,11 @@
 				04A2D87A16E0E0F5001ECD83 /* framework in Resources */,
 				04A2D87C16E0E11A001ECD83 /* images in Resources */,
 				04A2D87E16E0E135001ECD83 /* Supporting in Resources */,
+				04245B2616E6122D008E87E2 /* icon.png in Resources */,
+				04245B2816E6127E008E87E2 /* icon@2x.png in Resources */,
+				04245B2A16E6128C008E87E2 /* icon-72.png in Resources */,
+				04245B2C16E6128F008E87E2 /* icon-72@2x.png in Resources */,
+				04245B2E16E612D1008E87E2 /* images in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +248,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
 				COPY_PHASE_STRIP = NO;
@@ -256,6 +280,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
