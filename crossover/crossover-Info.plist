@@ -44,6 +44,8 @@
 			<true/>
 		</dict>
 	</dict>
+	<key>UIInterfaceOrientation</key>
+	<string>UIInterfaceOrientationLandscapeRight</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.kiwitech.kiwitechdev.apns</string>
 	<key>CFBundleInfoDictionaryVersion</key>
