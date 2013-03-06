@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "GameController.h"
 #import <GameKit/GKPlayer.h>
 #import <GameKit/GKDefines.h>
 

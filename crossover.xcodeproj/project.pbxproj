@@ -23,7 +23,7 @@
 		04E4688716DE0A88008479F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04E4688516DE0A88008479F0 /* InfoPlist.strings */; };
 		04E4688916DE0A88008479F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688816DE0A88008479F0 /* main.m */; };
 		04E4688D16DE0A88008479F0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688C16DE0A88008479F0 /* AppDelegate.m */; };
-		04E4689016DE0A88008479F0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688F16DE0A88008479F0 /* ViewController.m */; };
+		04E4689016DE0A88008479F0 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688F16DE0A88008479F0 /* GameController.m */; };
 		04E4689316DE0A89008479F0 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */; };
 		04E4689616DE0A89008479F0 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4689416DE0A89008479F0 /* ViewController_iPad.xib */; };
 /* End PBXBuildFile section */
@@ -49,8 +49,8 @@
 		04E4688A16DE0A88008479F0 /* crossover-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "crossover-Prefix.pch"; sourceTree = "<group>"; };
 		04E4688B16DE0A88008479F0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04E4688C16DE0A88008479F0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		04E4688E16DE0A88008479F0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		04E4688F16DE0A88008479F0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		04E4688E16DE0A88008479F0 /* GameController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
+		04E4688F16DE0A88008479F0 /* GameController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		04E4689216DE0A89008479F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		04E4689516DE0A89008479F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,8 +111,8 @@
 				04A2D87916E0E0F5001ECD83 /* framework */,
 				04E4688B16DE0A88008479F0 /* AppDelegate.h */,
 				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
-				04E4688E16DE0A88008479F0 /* ViewController.h */,
-				04E4688F16DE0A88008479F0 /* ViewController.m */,
+				04E4688E16DE0A88008479F0 /* GameController.h */,
+				04E4688F16DE0A88008479F0 /* GameController.m */,
 				04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */,
 				04E4689416DE0A89008479F0 /* ViewController_iPad.xib */,
 				04E4688316DE0A88008479F0 /* Supporting Files */,
@@ -206,7 +206,7 @@
 			files = (
 				04E4688916DE0A88008479F0 /* main.m in Sources */,
 				04E4688D16DE0A88008479F0 /* AppDelegate.m in Sources */,
-				04E4689016DE0A88008479F0 /* ViewController.m in Sources */,
+				04E4689016DE0A88008479F0 /* GameController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
