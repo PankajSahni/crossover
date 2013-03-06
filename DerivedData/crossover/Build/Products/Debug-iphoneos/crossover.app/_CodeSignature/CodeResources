@@ -22,11 +22,11 @@
 		</data>
 		<key>en.lproj/ViewController_iPad.nib</key>
 		<data>
-		l1WAszRkf5Dz8RnsLcuPVjnZuM8=
+		S8rEn1iubDHgbOaS+I7Cuh70GBw=
 		</data>
 		<key>en.lproj/ViewController_iPhone.nib</key>
 		<data>
-		6OaETbIwSLqKQkhCKRidJXz42ms=
+		c3u2X+mGePtlxn1g3IZ4cVPIqys=
 		</data>
 		<key>framework/GameKit.framework/GameKit</key>
 		<data>
@@ -143,6 +143,30 @@
 		<key>framework/GameKit.framework/Headers/GameKit.h</key>
 		<data>
 		0UuG9kgEjOnzTSuUbTQ2ORTos9o=
+		</data>
+		<key>icon-72.png</key>
+		<data>
+		m/tw4yzJyEB1m8Y4OFr670WvZ4Y=
+		</data>
+		<key>icon-72@2x.png</key>
+		<data>
+		WqF2PVtYuig7K/tAIp5bKsAVKxM=
+		</data>
+		<key>icon.png</key>
+		<data>
+		dNR4Iidw9k/cov95+2hZBDJAbuo=
+		</data>
+		<key>icon@2x.png</key>
+		<data>
+		O7BeFzZQx2dzpM8sPbvS/dd710Q=
+		</data>
+		<key>images/app_icon_100.png</key>
+		<data>
+		GePaxb1m8VS3lhpl9DdgpDF1Y38=
+		</data>
+		<key>images/app_icon_72.png</key>
+		<data>
+		YTT0hfWsvhE0H5P6IEuxxAl6YvY=
 		</data>
 		<key>images/bar1.png</key>
 		<data>
@@ -324,9 +348,33 @@
 		<data>
 		6K+pwicrX3piCVl7RHFzCgdNiQM=
 		</data>
-		<key>images/icon_72.png</key>
+		<key>images/icon-72.png</key>
 		<data>
 		E2buR4hTAC9y3dE/inyV+wGo5pQ=
+		</data>
+		<key>images/icon-72@2x.png</key>
+		<data>
+		HfqTPIRlRDW1smxM7638lGtxQ20=
+		</data>
+		<key>images/icon-Small-50.png</key>
+		<data>
+		tmj8S/SUGQEk7vx03xsJonjRRQ0=
+		</data>
+		<key>images/icon-Small.png</key>
+		<data>
+		BUlJDvTqFMiivEnv4jXfjxsC8OQ=
+		</data>
+		<key>images/icon-Small@2x.png</key>
+		<data>
+		p7DcjFPFQaT4HC3FA2ucs20lQug=
+		</data>
+		<key>images/icon.png</key>
+		<data>
+		gXUe+L4oMgeNH0FrrrEdatqohLg=
+		</data>
+		<key>images/icon@2x.png</key>
+		<data>
+		3iSNLnZe8HncOcT6Nl1Wq9DJFXk=
 		</data>
 		<key>images/medium.png</key>
 		<data>
