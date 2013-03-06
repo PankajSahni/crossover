@@ -12,6 +12,8 @@
 		04245B2816E6127E008E87E2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2716E6127E008E87E2 /* icon@2x.png */; };
 		04245B2A16E6128C008E87E2 /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2916E6128C008E87E2 /* icon-72.png */; };
 		04245B2C16E6128F008E87E2 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2B16E6128F008E87E2 /* icon-72@2x.png */; };
+		0463662716E770FA00D80C4A /* GlobalUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463662616E770FA00D80C4A /* GlobalUtility.m */; };
+		0463662A16E7719200D80C4A /* GlobalSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463662916E7719200D80C4A /* GlobalSingleton.m */; };
 		04A2D87A16E0E0F5001ECD83 /* framework in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87916E0E0F5001ECD83 /* framework */; };
 		04A2D87C16E0E11A001ECD83 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87B16E0E11A001ECD83 /* images */; };
 		04A2D87E16E0E135001ECD83 /* Supporting in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87D16E0E135001ECD83 /* Supporting */; };
@@ -34,6 +36,10 @@
 		04245B2916E6128C008E87E2 /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
 		04245B2B16E6128F008E87E2 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
 		04245B2D16E612D1008E87E2 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		0463662516E770FA00D80C4A /* GlobalUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalUtility.h; path = crossover/model/GlobalUtility.h; sourceTree = "<group>"; };
+		0463662616E770FA00D80C4A /* GlobalUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalUtility.m; path = crossover/model/GlobalUtility.m; sourceTree = "<group>"; };
+		0463662816E7719200D80C4A /* GlobalSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalSingleton.h; sourceTree = "<group>"; };
+		0463662916E7719200D80C4A /* GlobalSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalSingleton.m; sourceTree = "<group>"; };
 		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
 		04A2D87B16E0E11A001ECD83 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		04A2D87D16E0E135001ECD83 /* Supporting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Supporting; sourceTree = "<group>"; };
@@ -72,6 +78,10 @@
 		04E4686D16DE0A88008479F0 = {
 			isa = PBXGroup;
 			children = (
+				0463662816E7719200D80C4A /* GlobalSingleton.h */,
+				0463662916E7719200D80C4A /* GlobalSingleton.m */,
+				0463662516E770FA00D80C4A /* GlobalUtility.h */,
+				0463662616E770FA00D80C4A /* GlobalUtility.m */,
 				04245B2B16E6128F008E87E2 /* icon-72@2x.png */,
 				04245B2916E6128C008E87E2 /* icon-72.png */,
 				04245B2716E6127E008E87E2 /* icon@2x.png */,
@@ -205,6 +215,8 @@
 				04E4688916DE0A88008479F0 /* main.m in Sources */,
 				04E4688D16DE0A88008479F0 /* AppDelegate.m in Sources */,
 				04E4689016DE0A88008479F0 /* GameController.m in Sources */,
+				0463662716E770FA00D80C4A /* GlobalUtility.m in Sources */,
+				0463662A16E7719200D80C4A /* GlobalSingleton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

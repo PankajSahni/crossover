@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GlobalSingleton.h"
 @interface ViewController : UIViewController
 -(void) getPopOver;
 -(UIView *) getDarkBackground:(CGRect)cgrect;

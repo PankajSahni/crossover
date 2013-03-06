@@ -17,6 +17,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    int device_height = (int)([ [ UIScreen mainScreen ] bounds ].size.height);
+    
+    switch (device_height) {
+        case 480:
+            [GlobalSingleton sharedManager].string_my_device_type = @"iphone";
+            break;
+        case 123:
+            [GlobalSingleton sharedManager].string_my_device_type = @"iphone";
+            break;
+        default:
+            break;
+    }
+    if(device_height == 480){
+        
+    }
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {

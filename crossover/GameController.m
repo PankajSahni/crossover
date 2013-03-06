@@ -26,15 +26,22 @@
             NSLog(@"not logged in");
         }
     } ];*/
-[self getPopOver];
+    
+
+    
+    
+    NSLog(@"device_height from controller %@",
+          [GlobalSingleton sharedManager].string_my_device_type);
+    [self getPopOver];
+   // NSLog(@"int value %d", [[ [ UIScreen mainScreen ] bounds ].size.height intValue];
 }
 
 
 -(void) getPopOver{
-    int int_current_width = self.view.frame.size.width;
-    int int_current_height = self.view.frame.size.height;
-    NSLog(@"height %d",int_current_height);
-    NSLog(@"width %d",int_current_width);
+    int int_current_height = self.view.frame.size.width;
+    int int_current_width = self.view.frame.size.height;
+    /*NSLog(@"height %d",int_current_height);
+    NSLog(@"width %d",int_current_width);*/
     /*CGRect frame_view_game_yellow_board = CGRectMake(int_yellow_background_x,int_yellow_background_y,int_yellow_background_width,int_yellow_background_height);*/
     
     CGRect cgrect_dark_background = [self getNewDimensionsByReducingHeight:int_current_height
@@ -45,6 +52,7 @@
     CGRect cgrect_get_popover = [self getNewDimensionsByReducingHeight:int_current_height
                                                                  width:int_current_width toPixel:10];
     UIView *view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];
+    view_popover.backgroundColor = [UIColor greenColor];
     [view_dark_background addSubview:view_popover];
     
 }
