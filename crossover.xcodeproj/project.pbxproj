@@ -12,7 +12,6 @@
 		04245B2816E6127E008E87E2 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2716E6127E008E87E2 /* icon@2x.png */; };
 		04245B2A16E6128C008E87E2 /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2916E6128C008E87E2 /* icon-72.png */; };
 		04245B2C16E6128F008E87E2 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2B16E6128F008E87E2 /* icon-72@2x.png */; };
-		04245B2E16E612D1008E87E2 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04245B2D16E612D1008E87E2 /* images */; };
 		04A2D87A16E0E0F5001ECD83 /* framework in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87916E0E0F5001ECD83 /* framework */; };
 		04A2D87C16E0E11A001ECD83 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87B16E0E11A001ECD83 /* images */; };
 		04A2D87E16E0E135001ECD83 /* Supporting in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87D16E0E135001ECD83 /* Supporting */; };
@@ -193,7 +192,6 @@
 				04245B2816E6127E008E87E2 /* icon@2x.png in Resources */,
 				04245B2A16E6128C008E87E2 /* icon-72.png in Resources */,
 				04245B2C16E6128F008E87E2 /* icon-72@2x.png in Resources */,
-				04245B2E16E612D1008E87E2 /* images in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

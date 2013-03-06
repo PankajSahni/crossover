@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+-(void) getPopOver;
+-(UIView *) getDarkBackground:(CGRect)cgrect;
 
+-(CGRect)getNewDimensionsByReducingHeight:(int)height
+                                    width:(int)width toPixel:(int)pixel;
 @end
