@@ -12,9 +12,34 @@
 @synthesize dictionary_my_device_dimensions;
 //@synthesize delegate_refresh_my_data;
 
- /*NSDictionary *dictionary_my_device_dimensions =
-[[NSDictionary alloc] initWithObjectsAndKeys:
- @"width", @"width", @"height", @"height", nil];*/
+-(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
+    if([device_type isEqualToString:@"iphone"]){
+        NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                           @"480", @"width",
+                                           @"320", @"height",
+                                           @"10", @"popover_size", nil];
+        return device_dimensions;
+    }else if([device_type isEqualToString:@"ipad"]){
+        NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                           @"1024", @"width",
+                                           @"768", @"height",
+                                           @"20", @"popover_size",
+                                           nil];
+        return device_dimensions;
+    }else{
+        NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                           @"568", @"width",
+                                           @"320", @"height",
+                                           @"10", @"popover_size",
+                                           nil];
+        return device_dimensions;
+    }
+ 
+    
+    
+    
+}
+
 
 
 /*-(NSDictionary *)modelHitWebservice:(NSString *)hit_page with_json:(NSString *)json_data;

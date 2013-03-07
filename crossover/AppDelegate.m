@@ -17,20 +17,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    int device_height = (int)([ [ UIScreen mainScreen ] bounds ].size.height);
+    //[application setStatusBarHidden:withAnimation:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
+    int device_height = (int)([ [ UIScreen mainScreen ] bounds ].size.height);
+    //NSLog(@"device_height %d",device_height);
     switch (device_height) {
         case 480:
             [GlobalSingleton sharedManager].string_my_device_type = @"iphone";
             break;
-        case 123:
-            [GlobalSingleton sharedManager].string_my_device_type = @"iphone";
+        case 1024:
+            [GlobalSingleton sharedManager].string_my_device_type = @"ipad";
+            break;
+        case 568:
+            [GlobalSingleton sharedManager].string_my_device_type = @"iphone5";
             break;
         default:
             break;
-    }
-    if(device_height == 480){
-        
     }
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

@@ -27,6 +27,7 @@
 		04E4689016DE0A88008479F0 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688F16DE0A88008479F0 /* GameController.m */; };
 		04E4689316DE0A89008479F0 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */; };
 		04E4689616DE0A89008479F0 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E4689416DE0A89008479F0 /* ViewController_iPad.xib */; };
+		04E632E616E871FF00A40608 /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E632E516E871FF00A40608 /* GameModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,8 @@
 		04E4688F16DE0A88008479F0 /* GameController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		04E4689216DE0A89008479F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		04E4689516DE0A89008479F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		04E632E416E871FF00A40608 /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameModel.h; sourceTree = "<group>"; };
+		04E632E516E871FF00A40608 /* GameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +124,8 @@
 				04E4688B16DE0A88008479F0 /* AppDelegate.h */,
 				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
 				04E4688E16DE0A88008479F0 /* GameController.h */,
+				04E632E416E871FF00A40608 /* GameModel.h */,
+				04E632E516E871FF00A40608 /* GameModel.m */,
 				04E4688F16DE0A88008479F0 /* GameController.m */,
 				04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */,
 				04E4689416DE0A89008479F0 /* ViewController_iPad.xib */,
@@ -217,6 +222,7 @@
 				04E4689016DE0A88008479F0 /* GameController.m in Sources */,
 				0463662716E770FA00D80C4A /* GlobalUtility.m in Sources */,
 				0463662A16E7719200D80C4A /* GlobalSingleton.m in Sources */,
+				04E632E616E871FF00A40608 /* GameModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
