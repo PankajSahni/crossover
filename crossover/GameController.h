@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "GlobalSingleton.h"
 #import "GlobalUtility.h"
+#import "GameModel.h"
 @interface ViewController : UIViewController{
     GlobalUtility *globalUtilityObject;
+    GameModel *gameModelObject;
 }
--(void) getPopOver;
+@property (nonatomic, retain) UIImageView *imageview_main_background;
+@property (nonatomic, retain) UIView *view_popover;
+@property (nonatomic, retain) UIImageView *imageview_new_game;
+@property (nonatomic, retain) UIImageView *imageview_help;
+@property (nonatomic, retain) UIImageView *imageview_share;
+-(UIView *) getPopOver;
 -(UIView *) getDarkBackground:(CGRect)cgrect;
 
 -(CGRect)getNewDimensionsByReducingHeight:(int)height

@@ -36,11 +36,11 @@
 		04245B2716E6127E008E87E2 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		04245B2916E6128C008E87E2 /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
 		04245B2B16E6128F008E87E2 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
-		04245B2D16E612D1008E87E2 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
-		0463662516E770FA00D80C4A /* GlobalUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalUtility.h; path = crossover/model/GlobalUtility.h; sourceTree = "<group>"; };
-		0463662616E770FA00D80C4A /* GlobalUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalUtility.m; path = crossover/model/GlobalUtility.m; sourceTree = "<group>"; };
-		0463662816E7719200D80C4A /* GlobalSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalSingleton.h; sourceTree = "<group>"; };
-		0463662916E7719200D80C4A /* GlobalSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalSingleton.m; sourceTree = "<group>"; };
+		04245B2D16E612D1008E87E2 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../images; sourceTree = "<group>"; };
+		0463662516E770FA00D80C4A /* GlobalUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalUtility.h; path = model/GlobalUtility.h; sourceTree = "<group>"; };
+		0463662616E770FA00D80C4A /* GlobalUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalUtility.m; path = model/GlobalUtility.m; sourceTree = "<group>"; };
+		0463662816E7719200D80C4A /* GlobalSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalSingleton.h; path = ../GlobalSingleton.h; sourceTree = "<group>"; };
+		0463662916E7719200D80C4A /* GlobalSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalSingleton.m; path = ../GlobalSingleton.m; sourceTree = "<group>"; };
 		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
 		04A2D87B16E0E11A001ECD83 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		04A2D87D16E0E135001ECD83 /* Supporting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Supporting; sourceTree = "<group>"; };
@@ -81,15 +81,10 @@
 		04E4686D16DE0A88008479F0 = {
 			isa = PBXGroup;
 			children = (
-				0463662816E7719200D80C4A /* GlobalSingleton.h */,
-				0463662916E7719200D80C4A /* GlobalSingleton.m */,
-				0463662516E770FA00D80C4A /* GlobalUtility.h */,
-				0463662616E770FA00D80C4A /* GlobalUtility.m */,
 				04245B2B16E6128F008E87E2 /* icon-72@2x.png */,
 				04245B2916E6128C008E87E2 /* icon-72.png */,
 				04245B2716E6127E008E87E2 /* icon@2x.png */,
 				04245B2516E6122D008E87E2 /* icon.png */,
-				04245B2D16E612D1008E87E2 /* images */,
 				04DD982F16DE2568003E8AA8 /* GameKit.framework */,
 				0404D0E816DE1324000BC07A /* Default-568h@2x.png */,
 				04E4688216DE0A88008479F0 /* crossover */,
@@ -119,16 +114,21 @@
 		04E4688216DE0A88008479F0 /* crossover */ = {
 			isa = PBXGroup;
 			children = (
-				04A2D87D16E0E135001ECD83 /* Supporting */,
-				04A2D87916E0E0F5001ECD83 /* framework */,
+				04245B2D16E612D1008E87E2 /* images */,
+				0463662816E7719200D80C4A /* GlobalSingleton.h */,
+				0463662916E7719200D80C4A /* GlobalSingleton.m */,
 				04E4688B16DE0A88008479F0 /* AppDelegate.h */,
 				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
 				04E4688E16DE0A88008479F0 /* GameController.h */,
+				04E4688F16DE0A88008479F0 /* GameController.m */,
 				04E632E416E871FF00A40608 /* GameModel.h */,
 				04E632E516E871FF00A40608 /* GameModel.m */,
-				04E4688F16DE0A88008479F0 /* GameController.m */,
 				04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */,
 				04E4689416DE0A89008479F0 /* ViewController_iPad.xib */,
+				0463662516E770FA00D80C4A /* GlobalUtility.h */,
+				0463662616E770FA00D80C4A /* GlobalUtility.m */,
+				04A2D87D16E0E135001ECD83 /* Supporting */,
+				04A2D87916E0E0F5001ECD83 /* framework */,
 				04E4688316DE0A88008479F0 /* Supporting Files */,
 			);
 			path = crossover;
@@ -281,7 +281,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F1EBF35E-E254-426D-8B53-2A1D720E4EFE";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -306,7 +306,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

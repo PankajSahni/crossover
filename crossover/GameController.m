@@ -10,22 +10,55 @@
 #import <GameKit/GKPlayer.h>
 #import <GameKit/GKDefines.h>
 #import "GlobalUtility.h"
+#import "GameModel.h"
 
 @interface ViewController ()
 @property (readonly) GlobalUtility *globalUtilityObject;
+@property (readonly) GameModel *gameModelObject;
 @end
 
 @implementation ViewController
-
+@synthesize imageview_new_game;
+@synthesize imageview_help;
+@synthesize imageview_share;
+@synthesize imageview_main_background;
 - (GlobalUtility *) globalUtilityObject{
     if(!globalUtilityObject){
         globalUtilityObject = [[GlobalUtility alloc] init];
     }
     return globalUtilityObject;
 }
+- (GameModel *) gameModelObject{
+    if(!gameModelObject){
+        gameModelObject = [[GameModel alloc] init];
+    }
+    return gameModelObject;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    imageview_main_background = [[UIImageView alloc] init];
+    UIImage *image_background = [UIImage imageNamed:@"images/blank.png"];
+    UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
+    
+    NSDictionary *device_dimensions =
+    [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    CGRect rect_temp = CGRectMake(0 , 0,
+                                  [[device_dimensions valueForKey:@"width"] intValue],
+                                  [[device_dimensions valueForKey:@"height"] intValue]);
+    imageview_background.frame = rect_temp;
+    
+    /* temp */
+   /* UIImage *image_background1 = [UIImage imageNamed:@"images/hard.png"];
+    UIImageView *imageview_background1 = [[UIImageView alloc] initWithImage:image_background1];
+    rect_temp = CGRectMake(0 , 0,100,100);
+    imageview_background1.frame = rect_temp;*/
+    
+    /*temp */
+    [imageview_main_background addSubview:imageview_background];
+    //[imageview_main_background addSubview:imageview_background1];
+    [self.view addSubview:imageview_main_background];
+    
     /*[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
         if(error == nil){
             NSLog(@"successfully logged in !!!");
@@ -35,35 +68,68 @@
     } ];*/
     
     
-    
-    
-    //NSLog(@"device_height from controller %@",
-      //    [GlobalSingleton sharedManager].string_my_device_type);
-    [self getPopOver];
-   // NSLog(@"int value %d", [[ [ UIScreen mainScreen ] bounds ].size.height intValue];
+    [self getPopOverToStartPlayer];
 }
 
 
--(void) getPopOver{
+-(void) getPopOverToStartPlayer{
     
+    UIView *view_popover = [self getPopOver];
+    
+    
+    int button_width = 240;
+    int button_height = 100;
+    int button_x = 390;
+    int button_y = 200;
+
+    CGRect rect_temp = CGRectMake(button_x , button_y, button_width,button_height);
+   // UIImage *image_new_game = [UIImage imageNamed:@"images/new_game.png"];
+    //imageview_new_game = [[UIImageView alloc] initWithImage:image_new_game];
+    //imageview_new_game.frame = rect_temp;
+    //[imageview_new_game setUserInteractionEnabled:TRUE];
+    //[view_popover addSubview:imageview_new_game];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = rect_temp;
+    [btn setBackgroundImage:[UIImage imageNamed:@"images/new_game.png"]
+                   forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(move) forControlEvents:UIControlEventTouchUpInside];
+    [view_popover addSubview:btn];
+    
+    int new_button_height = button_y + button_height;
+    rect_temp = CGRectMake(button_x , new_button_height, button_width,button_height);
+    UIImage *image_help = [UIImage imageNamed:@"images/help.png"];
+    imageview_help = [[UIImageView alloc] initWithImage:image_help];
+    imageview_help.frame = rect_temp;
+    [view_popover addSubview:imageview_help];
+    
+    new_button_height = new_button_height + button_height;
+   
+    rect_temp = CGRectMake(button_x , new_button_height, button_width,70);
+    UIImage *image_share = [UIImage imageNamed:@"images/share_btn.png"];
+    imageview_share = [[UIImageView alloc] initWithImage:image_share];
+    imageview_share.frame = rect_temp;
+    [view_popover addSubview:imageview_share];
+    
+    [imageview_main_background addSubview:view_popover];
+    
+}
+
+-(void)move{
+    NSLog(@"move");
+}
+-(UIView *) getPopOver{
     NSDictionary *device_dimensions =
     [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     
-    CGRect cgrect_dark_background = [self getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]
-                                                                     width:[[device_dimensions valueForKey:@"width"] intValue]
-                                                                   toPixel:0];
-    //NSLog(@"RECT: %@",NSStringFromCGRect(cgrect_dark_background));
-    UIView *view_dark_background = [self getDarkBackground:cgrect_dark_background];
-    [self.view addSubview:view_dark_background];
     CGRect cgrect_get_popover = [self getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]
                                                                  width:[[device_dimensions valueForKey:@"width"] intValue]
                                                                toPixel:[[device_dimensions valueForKey:@"popover_size"] intValue]];
     UIView *view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];
-    view_popover.backgroundColor = [UIColor greenColor];
-    [view_dark_background addSubview:view_popover];
+    view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.5];
     
+    return view_popover;
 }
-
 -(UIView *) getDarkBackground:(CGRect)cgrect{
     UIView *view_dark_background = [[UIView alloc] initWithFrame:cgrect];
     view_dark_background.backgroundColor = [UIColor blackColor];
@@ -77,10 +143,6 @@
     int y = pixel;
     int local_width = width - 2*pixel;
     int local_height = height - 2*pixel;
-    /*NSLog(@"x %d", x);
-     NSLog(@"y %d", y);
-     NSLog(@"local_width %d", local_width);
-     NSLog(@"local_height %d", local_height);*/
     CGRect rect_local = CGRectMake(x, y, local_width, local_height);
     return rect_local;
     

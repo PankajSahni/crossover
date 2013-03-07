@@ -23,7 +23,7 @@
         NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
                                            @"1024", @"width",
                                            @"768", @"height",
-                                           @"20", @"popover_size",
+                                           @"5", @"popover_size",
                                            nil];
         return device_dimensions;
     }else{
