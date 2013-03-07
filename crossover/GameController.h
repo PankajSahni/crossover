@@ -13,13 +13,16 @@
 @interface ViewController : UIViewController{
     GlobalUtility *globalUtilityObject;
     GameModel *gameModelObject;
+    UIButton *button_new_game;
+    UIButton *button_help;
+    UIButton *button_share;
 }
 @property (nonatomic, retain) UIImageView *imageview_main_background;
 @property (nonatomic, retain) UIView *view_popover;
 @property (nonatomic, retain) UIImageView *imageview_new_game;
 @property (nonatomic, retain) UIImageView *imageview_help;
 @property (nonatomic, retain) UIImageView *imageview_share;
--(UIView *) getPopOver;
+-(void) getPopOver;
 -(UIView *) getDarkBackground:(CGRect)cgrect;
 
 -(CGRect)getNewDimensionsByReducingHeight:(int)height

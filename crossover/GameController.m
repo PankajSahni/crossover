@@ -74,7 +74,6 @@
 
 -(void) getPopOverToStartPlayer{
     
-    UIView *view_popover = [self getPopOver];
     
     
     int button_width = 240;
@@ -83,42 +82,45 @@
     int button_y = 200;
 
     CGRect rect_temp = CGRectMake(button_x , button_y, button_width,button_height);
-   // UIImage *image_new_game = [UIImage imageNamed:@"images/new_game.png"];
-    //imageview_new_game = [[UIImageView alloc] initWithImage:image_new_game];
-    //imageview_new_game.frame = rect_temp;
-    //[imageview_new_game setUserInteractionEnabled:TRUE];
-    //[view_popover addSubview:imageview_new_game];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = rect_temp;
-    [btn setBackgroundImage:[UIImage imageNamed:@"images/new_game.png"]
+    button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_new_game.frame = rect_temp;
+    [button_new_game setBackgroundImage:[UIImage imageNamed:@"images/new_game.png"]
                    forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(move) forControlEvents:UIControlEventTouchUpInside];
-    [view_popover addSubview:btn];
+    [button_new_game addTarget:self action:@selector(move) forControlEvents:UIControlEventTouchUpInside];
+    //[imageview_main_background addSubview:view_popover];
+    [self.view addSubview:button_new_game];
     
     int new_button_height = button_y + button_height;
     rect_temp = CGRectMake(button_x , new_button_height, button_width,button_height);
-    UIImage *image_help = [UIImage imageNamed:@"images/help.png"];
-    imageview_help = [[UIImageView alloc] initWithImage:image_help];
-    imageview_help.frame = rect_temp;
-    [view_popover addSubview:imageview_help];
+    button_help.frame = rect_temp;
+    [button_help setBackgroundImage:[UIImage imageNamed:@"images/help.png"]
+                           forState:UIControlStateNormal];
+    [button_help addTarget:self action:@selector(move1) forControlEvents:UIControlEventTouchUpInside];
+    //[imageview_main_background addSubview:view_popover];
+    [self.view addSubview:button_help];
     
     new_button_height = new_button_height + button_height;
-   
     rect_temp = CGRectMake(button_x , new_button_height, button_width,70);
-    UIImage *image_share = [UIImage imageNamed:@"images/share_btn.png"];
-    imageview_share = [[UIImageView alloc] initWithImage:image_share];
-    imageview_share.frame = rect_temp;
-    [view_popover addSubview:imageview_share];
+    button_share = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_share.frame = rect_temp;
+    [button_share setBackgroundImage:[UIImage imageNamed:@"images/share.png"]
+                            forState:UIControlStateNormal];
+    [button_share addTarget:self action:@selector(move) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_share];
+    //pankaj
     
-    [imageview_main_background addSubview:view_popover];
-    
-}
+    }
 
 -(void)move{
     NSLog(@"move");
+    [button_new_game removeFromSuperview];
 }
--(UIView *) getPopOver{
+-(void)move1{
+    NSLog(@"move");
+    [button_new_game removeFromSuperview];
+}
+-(void) getPopOver{
     NSDictionary *device_dimensions =
     [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     
@@ -127,8 +129,8 @@
                                                                toPixel:[[device_dimensions valueForKey:@"popover_size"] intValue]];
     UIView *view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];
     view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.5];
-    
-    return view_popover;
+    [self.view addSubview:view_popover];
+    //return view_popover;
 }
 -(UIView *) getDarkBackground:(CGRect)cgrect{
     UIView *view_dark_background = [[UIView alloc] initWithFrame:cgrect];
