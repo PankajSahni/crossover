@@ -12,9 +12,9 @@
 @synthesize dictionary_my_device_dimensions;
 //@synthesize delegate_refresh_my_data;
 
- NSDictionary *dictionary_my_device_dimensions =
+ /*NSDictionary *dictionary_my_device_dimensions =
 [[NSDictionary alloc] initWithObjectsAndKeys:
- @"width", @"width", @"height", @"height", nil];
+ @"width", @"width", @"height", @"height", nil];*/
 
 
 /*-(NSDictionary *)modelHitWebservice:(NSString *)hit_page with_json:(NSString *)json_data;
