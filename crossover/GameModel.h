@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface GameModel : NSObject
--(CGRect)getButtonNewGame;
+//-(CGRect)getButtonNewGame;
 @end
