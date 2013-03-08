@@ -69,11 +69,17 @@ static GlobalSingleton *sharedManager; // self
     
     CGRect resizedFrame = CGRectMake(0,0,0,0);
     
-    if(![[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"ipad"]){
+    if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"]){
         
         resizedFrame = CGRectMake((xVal*480)/1024 ,
                                   (yVal *320)/768,
                                   (widthVal*480)/1024 ,
+                                  (heightVal *320)/768);
+    }else if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]){
+        
+        resizedFrame = CGRectMake((xVal*568)/1024 ,
+                                  (yVal *320)/768,
+                                  (widthVal*568)/1024 ,
                                   (heightVal *320)/768);
     }
     else{
@@ -81,6 +87,23 @@ static GlobalSingleton *sharedManager; // self
         resizedFrame = CGRectMake(xVal,yVal,widthVal,heightVal);
     }
     return resizedFrame;
+    
+}
+
+- (int )getXAccordingToDevice:(int )int_x{
+    
+    float x = int_x;
+    if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"]){
+        
+       x = (int_x*568)/1024;
+    }else if(![[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"ipad5"]){
+        x = (int_x*480)/1024;
+    }
+    else{
+        
+        
+    }
+    return (int)x;
     
 }
 - (id)copyWithZone:(NSZone *)zone

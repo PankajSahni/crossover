@@ -17,4 +17,5 @@
                                         yValue:(float )yVal
                                          width:(float )widthVal
                                         height:(float )heightVal;
+- (int )getXAccordingToDevice:(int )int_x;
 @end

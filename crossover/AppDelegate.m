@@ -21,7 +21,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     int device_height = (int)([ [ UIScreen mainScreen ] bounds ].size.height);
-    //NSLog(@"device_height %d",device_height);
+    NSLog(@"device_height %d",device_height);
     switch (device_height) {
         case 480:
             [GlobalSingleton sharedManager].string_my_device_type = @"iphone";

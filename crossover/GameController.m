@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"hello");
+    //NSLog(@"hello");
     UIImage *image_background = [UIImage imageNamed:@"images/blank.png"];
     UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
     
@@ -45,15 +45,15 @@
 
     imageview_background.frame = rect_temp;
     
-    /* temp */
+    /* temp 
    UIImage *image_background1 = [UIImage imageNamed:@"images/hard.png"];
     UIImageView *imageview_background1 = [[UIImageView alloc] initWithImage:image_background1];
     rect_temp = CGRectMake(100 , 100,200,200);
     imageview_background1.frame = rect_temp;
     
-    /*temp */
+    temp */
     [self.view addSubview:imageview_background];
-    [self.view addSubview:imageview_background1];
+    //[self.view addSubview:imageview_background1];
     //[self.view addSubview:imageview_main_background];
     
     /*[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
@@ -71,11 +71,10 @@
 
 -(void) getPopOverToStartPlayer{
     [self getPopOver];
-    
     int button_width = 240;
     int button_height = 100;
-    int button_x = 390;
-    int button_y = 200;
+    int button_x = 1024/2 - button_width/2;
+    int button_y = 250;
     CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
     
     button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -111,7 +110,7 @@
     }
 
 -(void)startGame{
-    NSLog(@"move");
+    //NSLog(@"move");
     
     button_new_game.alpha = 0.5;
     button_help.alpha = 0.5;
@@ -132,19 +131,6 @@
                          [button_share removeFromSuperview];
                          [view_popover removeFromSuperview];
                      }];
-    
-    
-    /*[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:1.0];
-	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
-						   forView:[self view]
-							 cache:NO];
-	[button_new_game removeFromSuperview];
-    [button_help removeFromSuperview];
-    [button_share removeFromSuperview];
-	[view_popover removeFromSuperview];*/
-	
-    
 	[UIView commitAnimations];
 }
 
@@ -157,7 +143,17 @@
                                                                  width:[[device_dimensions valueForKey:@"width"] intValue]
                                                                toPixel:[[device_dimensions valueForKey:@"popover_size"] intValue]];
     view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];
-   view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.8];
+    view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.8];
+    int logo_width = 400;
+    int logo_x = 1024/2 - logo_width/2;
+    //NSLog(@"fiigit %d",[[device_dimensions valueForKey:@"width"] intValue]/2);
+    CGRect cgrect_crossover_logo =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:logo_x yValue:70 width:logo_width height:120];
+    UIImage *image_crossover_logo = [UIImage imageNamed:@"images/crossover.png"];
+    UIImageView *imageview_crossover_logo =
+    [[UIImageView alloc] initWithImage:image_crossover_logo];
+    imageview_crossover_logo.frame = cgrect_crossover_logo;
+    [view_popover addSubview:imageview_crossover_logo];
     [self.view addSubview:view_popover];
 }
 /*-(UIView *) getDarkBackground:(CGRect)cgrect{
