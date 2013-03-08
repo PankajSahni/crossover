@@ -44,6 +44,8 @@
 		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
 		04A2D87B16E0E11A001ECD83 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		04A2D87D16E0E135001ECD83 /* Supporting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Supporting; sourceTree = "<group>"; };
+		04D23AF716E9ACFA00FBA9E0 /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
+		04D23AF816E9ACFA00FBA9E0 /* Global.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		04E4687816DE0A88008479F0 /* crossover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crossover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E4687C16DE0A88008479F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -121,6 +123,8 @@
 				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
 				04E4688E16DE0A88008479F0 /* GameController.h */,
 				04E4688F16DE0A88008479F0 /* GameController.m */,
+				04D23AF716E9ACFA00FBA9E0 /* Global.h */,
+				04D23AF816E9ACFA00FBA9E0 /* Global.m */,
 				04E632E416E871FF00A40608 /* GameModel.h */,
 				04E632E516E871FF00A40608 /* GameModel.m */,
 				04E4689116DE0A89008479F0 /* ViewController_iPhone.xib */,

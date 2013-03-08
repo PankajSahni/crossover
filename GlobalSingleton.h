@@ -12,6 +12,9 @@
 + (GlobalSingleton *)sharedManager;
 @property (nonatomic, retain) NSString *string_my_device_type;
 
-//@property (nonatomic, retain) NSString *string_my_fb_name;
-//@property (nonatomic, retain) NSString *string_my_device_token;
+
+- (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
+                                        yValue:(float )yVal
+                                         width:(float )widthVal
+                                        height:(float )heightVal;
 @end

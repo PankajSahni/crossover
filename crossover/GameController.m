@@ -11,7 +11,7 @@
 #import <GameKit/GKDefines.h>
 #import "GlobalUtility.h"
 #import "GameModel.h"
-
+#import "GlobalSingleton.h"
 @interface ViewController ()
 @property (readonly) GlobalUtility *globalUtilityObject;
 @property (readonly) GameModel *gameModelObject;
@@ -42,6 +42,7 @@
     CGRect rect_temp = CGRectMake(0 , 0,
                                   [[device_dimensions valueForKey:@"width"] intValue],
                                   [[device_dimensions valueForKey:@"height"] intValue]);
+
     imageview_background.frame = rect_temp;
     
     /* temp */
@@ -75,7 +76,7 @@
     int button_height = 100;
     int button_x = 390;
     int button_y = 200;
-    CGRect rect_temp = CGRectMake(button_x , button_y, button_width,button_height);
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
     
     button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
     button_new_game.frame = rect_temp;
@@ -85,7 +86,8 @@
     [self.view addSubview:button_new_game];
     
     int new_button_y = button_y + button_height;
-    rect_temp = CGRectMake(button_x , new_button_y, button_width,button_height);
+    rect_temp = 
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
     button_help = [UIButton buttonWithType:UIButtonTypeCustom];
     button_help.frame = rect_temp;
     [button_help setBackgroundImage:[UIImage imageNamed:@"images/help.png"]
@@ -95,7 +97,9 @@
     [self.view addSubview:button_help];
     
     new_button_y = new_button_y + button_height;
-    rect_temp = CGRectMake(button_x , new_button_y, button_width,70);
+    rect_temp = 
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
+    
     button_share = [UIButton buttonWithType:UIButtonTypeCustom];
     button_share.frame = rect_temp;
     [button_share setBackgroundImage:[UIImage imageNamed:@"images/share_btn.png"]
@@ -126,7 +130,8 @@
     NSDictionary *device_dimensions =
     [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     
-    CGRect cgrect_get_popover = [self getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]
+    CGRect cgrect_get_popover =
+    [self getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]
                                                                  width:[[device_dimensions valueForKey:@"width"] intValue]
                                                                toPixel:[[device_dimensions valueForKey:@"popover_size"] intValue]];
     view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];

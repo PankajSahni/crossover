@@ -62,7 +62,27 @@ static GlobalSingleton *sharedManager; // self
 	
     return nil; //on subsequent allocation attempts return nil
 }
-
+- (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
+                                        yValue:(float )yVal
+                                         width:(float )widthVal
+                                        height:(float )heightVal{
+    
+    CGRect resizedFrame = CGRectMake(0,0,0,0);
+    
+    if(![[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"ipad"]){
+        
+        resizedFrame = CGRectMake((xVal*480)/1024 ,
+                                  (yVal *320)/768,
+                                  (widthVal*480)/1024 ,
+                                  (heightVal *320)/768);
+    }
+    else{
+        
+        resizedFrame = CGRectMake(xVal,yVal,widthVal,heightVal);
+    }
+    return resizedFrame;
+    
+}
 - (id)copyWithZone:(NSZone *)zone
 {
     return self;
