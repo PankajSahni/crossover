@@ -112,7 +112,29 @@
 
 -(void)startGame{
     NSLog(@"move");
-    [UIView beginAnimations:nil context:nil];
+    
+    button_new_game.alpha = 0.5;
+    button_help.alpha = 0.5;
+    button_share.alpha = 0.5;
+    view_popover.alpha = 0.5;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         //theView.center = newCenter;
+                         button_new_game.alpha = 0;
+                         button_help.alpha = 0;
+                         button_share.alpha = 0;
+                         view_popover.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                         // Do other things
+                         [button_new_game removeFromSuperview];
+                         [button_help removeFromSuperview];
+                         [button_share removeFromSuperview];
+                         [view_popover removeFromSuperview];
+                     }];
+    
+    
+    /*[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:1.0];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
 						   forView:[self view]
@@ -120,7 +142,7 @@
 	[button_new_game removeFromSuperview];
     [button_help removeFromSuperview];
     [button_share removeFromSuperview];
-	[view_popover removeFromSuperview];
+	[view_popover removeFromSuperview];*/
 	
     
 	[UIView commitAnimations];
@@ -135,7 +157,7 @@
                                                                  width:[[device_dimensions valueForKey:@"width"] intValue]
                                                                toPixel:[[device_dimensions valueForKey:@"popover_size"] intValue]];
     view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];
-   view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.5];
+   view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.8];
     [self.view addSubview:view_popover];
 }
 /*-(UIView *) getDarkBackground:(CGRect)cgrect{
