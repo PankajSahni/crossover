@@ -17,6 +17,10 @@
 		04A2D87A16E0E0F5001ECD83 /* framework in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87916E0E0F5001ECD83 /* framework */; };
 		04A2D87C16E0E11A001ECD83 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87B16E0E11A001ECD83 /* images */; };
 		04A2D87E16E0E135001ECD83 /* Supporting in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87D16E0E135001ECD83 /* Supporting */; };
+		04D23AFD16E9EC9200FBA9E0 /* GameCenter-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D23AF916E9EC9100FBA9E0 /* GameCenter-72.png */; };
+		04D23AFE16E9EC9200FBA9E0 /* GameCenter-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D23AFA16E9EC9100FBA9E0 /* GameCenter-72@2x.png */; };
+		04D23AFF16E9EC9200FBA9E0 /* GameCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D23AFB16E9EC9200FBA9E0 /* GameCenter.png */; };
+		04D23B0016E9EC9200FBA9E0 /* GameCenter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D23AFC16E9EC9200FBA9E0 /* GameCenter@2x.png */; };
 		04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD982F16DE2568003E8AA8 /* GameKit.framework */; };
 		04E4687D16DE0A88008479F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687C16DE0A88008479F0 /* UIKit.framework */; };
 		04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687E16DE0A88008479F0 /* Foundation.framework */; };
@@ -46,6 +50,10 @@
 		04A2D87D16E0E135001ECD83 /* Supporting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Supporting; sourceTree = "<group>"; };
 		04D23AF716E9ACFA00FBA9E0 /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		04D23AF816E9ACFA00FBA9E0 /* Global.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
+		04D23AF916E9EC9100FBA9E0 /* GameCenter-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GameCenter-72.png"; path = "images/GameCenter-72.png"; sourceTree = SOURCE_ROOT; };
+		04D23AFA16E9EC9100FBA9E0 /* GameCenter-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GameCenter-72@2x.png"; path = "images/GameCenter-72@2x.png"; sourceTree = SOURCE_ROOT; };
+		04D23AFB16E9EC9200FBA9E0 /* GameCenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GameCenter.png; path = images/GameCenter.png; sourceTree = SOURCE_ROOT; };
+		04D23AFC16E9EC9200FBA9E0 /* GameCenter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GameCenter@2x.png"; path = "images/GameCenter@2x.png"; sourceTree = SOURCE_ROOT; };
 		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		04E4687816DE0A88008479F0 /* crossover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crossover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E4687C16DE0A88008479F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -116,9 +124,13 @@
 		04E4688216DE0A88008479F0 /* crossover */ = {
 			isa = PBXGroup;
 			children = (
+				04D23AFC16E9EC9200FBA9E0 /* GameCenter@2x.png */,
+				04D23AF916E9EC9100FBA9E0 /* GameCenter-72.png */,
+				04D23AFA16E9EC9100FBA9E0 /* GameCenter-72@2x.png */,
+				04D23AFB16E9EC9200FBA9E0 /* GameCenter.png */,
 				04245B2D16E612D1008E87E2 /* images */,
-				0463662816E7719200D80C4A /* GlobalSingleton.h */,
 				0463662916E7719200D80C4A /* GlobalSingleton.m */,
+				0463662816E7719200D80C4A /* GlobalSingleton.h */,
 				04E4688B16DE0A88008479F0 /* AppDelegate.h */,
 				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
 				04E4688E16DE0A88008479F0 /* GameController.h */,
@@ -211,6 +223,10 @@
 				04245B2816E6127E008E87E2 /* icon@2x.png in Resources */,
 				04245B2A16E6128C008E87E2 /* icon-72.png in Resources */,
 				04245B2C16E6128F008E87E2 /* icon-72@2x.png in Resources */,
+				04D23AFD16E9EC9200FBA9E0 /* GameCenter-72.png in Resources */,
+				04D23AFE16E9EC9200FBA9E0 /* GameCenter-72@2x.png in Resources */,
+				04D23AFF16E9EC9200FBA9E0 /* GameCenter.png in Resources */,
+				04D23B0016E9EC9200FBA9E0 /* GameCenter@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

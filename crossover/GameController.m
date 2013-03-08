@@ -65,11 +65,11 @@
     } ];*/
     
     
-    [self getPopOverToStartPlayer];
+    [self getPopOverToStartGame];
 }
 
 
--(void) getPopOverToStartPlayer{
+-(void) getPopOverToStartGame{
     [self getPopOver];
     int button_width = 240;
     int button_height = 100;
@@ -91,7 +91,7 @@
     button_help.frame = rect_temp;
     [button_help setBackgroundImage:[UIImage imageNamed:@"images/help.png"]
                            forState:UIControlStateNormal];
-    [button_help addTarget:self action:@selector(startGame) forControlEvents:UIControlEventTouchUpInside];
+    [button_help addTarget:self action:@selector(help) forControlEvents:UIControlEventTouchUpInside];
     //NSLog(@"buttons %@", button_help);
     [self.view addSubview:button_help];
     
@@ -103,15 +103,53 @@
     button_share.frame = rect_temp;
     [button_share setBackgroundImage:[UIImage imageNamed:@"images/share_btn.png"]
                             forState:UIControlStateNormal];
-    [button_share addTarget:self action:@selector(startGame) forControlEvents:UIControlEventTouchUpInside];
+    [button_share addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_share];
     //pankaj
     
     }
 
--(void)startGame{
-    //NSLog(@"move");
+-(void) getPopOverToSelectPlayer{
+    [self getPopOver];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x = 1024/2 - button_width/2;
+    int button_y = 250;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
     
+    button_vs_computer = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_vs_computer.frame = rect_temp;
+    [button_vs_computer setBackgroundImage:[UIImage imageNamed:@"images/playervscomputer.png"]
+                               forState:UIControlStateNormal];
+    [button_vs_computer addTarget:self action:@selector(playerVsPlayer) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_vs_computer];
+    
+    int new_button_y = button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
+    button_vs_gamecenter = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_vs_gamecenter.frame = rect_temp;
+    [button_vs_gamecenter setBackgroundImage:[UIImage imageNamed:@"GameCenter.png"]
+                           forState:UIControlStateNormal];
+    [button_vs_gamecenter addTarget:self action:@selector(playerVsGameCenter) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_vs_gamecenter];
+    
+    new_button_y = new_button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
+    
+    button_vs_player = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_vs_player.frame = rect_temp;
+    [button_vs_player setBackgroundImage:[UIImage imageNamed:@"images/playervsplayer.png"]
+                            forState:UIControlStateNormal];
+    [button_vs_player addTarget:self action:@selector(playerVsComputer) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_vs_player];
+    //pankaj
+    
+}
+
+
+-(void)startGame{  
     button_new_game.alpha = 0.5;
     button_help.alpha = 0.5;
     button_share.alpha = 0.5;
@@ -123,6 +161,7 @@
                          button_help.alpha = 0;
                          button_share.alpha = 0;
                          view_popover.alpha = 0;
+                        
                      }
                      completion:^(BOOL finished){
                          // Do other things
@@ -130,10 +169,49 @@
                          [button_help removeFromSuperview];
                          [button_share removeFromSuperview];
                          [view_popover removeFromSuperview];
+                         [self getPopOverToSelectPlayer];
                      }];
 	[UIView commitAnimations];
 }
-
+-(void)help{
+    NSLog(@"help");
+    
+}
+-(void)share{
+    NSLog(@"share");
+    
+}
+-(void)playerVsPlayer{
+    NSLog(@"share");
+    
+}
+-(void)playerVsComputer{
+    NSLog(@"share");
+    
+}
+-(void)playerVsGameCenter{
+    button_vs_player.alpha = 0.5;
+    button_vs_computer.alpha = 0.5;
+    button_vs_gamecenter.alpha = 0.5;
+    view_popover.alpha = 0.5;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         //theView.center = newCenter;
+                         button_vs_player.alpha = 0;
+                         button_vs_computer.alpha = 0;
+                         button_vs_gamecenter.alpha = 0;
+                         view_popover.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         [button_vs_player removeFromSuperview];
+                         [button_vs_computer removeFromSuperview];
+                         [button_vs_gamecenter removeFromSuperview];
+                         [view_popover removeFromSuperview];
+                     }];
+	[UIView commitAnimations];
+    
+}
 -(void) getPopOver{
     NSDictionary *device_dimensions =
     [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
@@ -146,7 +224,6 @@
     view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.8];
     int logo_width = 400;
     int logo_x = 1024/2 - logo_width/2;
-    //NSLog(@"fiigit %d",[[device_dimensions valueForKey:@"width"] intValue]/2);
     CGRect cgrect_crossover_logo =
     [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:logo_x yValue:70 width:logo_width height:120];
     UIImage *image_crossover_logo = [UIImage imageNamed:@"images/crossover.png"];
@@ -156,13 +233,7 @@
     [view_popover addSubview:imageview_crossover_logo];
     [self.view addSubview:view_popover];
 }
-/*-(UIView *) getDarkBackground:(CGRect)cgrect{
-    UIView *view_dark_background = [[UIView alloc] initWithFrame:cgrect];
-    view_dark_background.backgroundColor = [UIColor blackColor];
-    view_dark_background.alpha = 0.5;
-    return view_dark_background;
-    
-}*/
+
 -(CGRect)getNewDimensionsByReducingHeight:(int)height
                                     width:(int)width toPixel:(int)pixel{
     int x = pixel;

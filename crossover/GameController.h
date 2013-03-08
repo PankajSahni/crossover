@@ -16,6 +16,9 @@
     UIButton *button_new_game;
     UIButton *button_help;
     UIButton *button_share;
+    UIButton *button_vs_player;
+    UIButton *button_vs_computer;
+    UIButton *button_vs_gamecenter;
     UIView *view_popover;
 }
 -(void) getPopOver;
