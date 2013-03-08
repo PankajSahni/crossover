@@ -33,13 +33,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSDictionary *device_dimensions =
+    [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    CGRect rect_temp = CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
+                                  [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
+                                  21,21);
+    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
+    spinner.frame = rect_temp;
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    
+    [spinner startAnimating];
     //NSLog(@"hello");
     UIImage *image_background = [UIImage imageNamed:@"images/blank.png"];
     UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
     
-    NSDictionary *device_dimensions =
-    [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
-    CGRect rect_temp = CGRectMake(0 , 0,
+    
+    rect_temp = CGRectMake(0 , 0,
                                   [[device_dimensions valueForKey:@"width"] intValue],
                                   [[device_dimensions valueForKey:@"height"] intValue]);
 
@@ -53,19 +63,31 @@
     
     temp */
     [self.view addSubview:imageview_background];
+    
     //[self.view addSubview:imageview_background1];
     //[self.view addSubview:imageview_main_background];
     
-    /*[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
-        if(error == nil){
-            NSLog(@"successfully logged in !!!");
-        }else{
-            NSLog(@"not logged in");
-        }
-    } ];*/
+    /**/
     
     
     [self getPopOverToStartGame];
+}
+
+-(void)authenticateWithGameCenter{
+    [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
+        if(error == nil){
+            NSLog(@"successfully logged in !!!");
+            [spinner stopAnimating];
+            [spinner removeFromSuperview];
+            [view_popover removeFromSuperview];
+            
+        }else{
+            NSLog(@"not logged in");
+            [spinner stopAnimating];
+            [spinner removeFromSuperview];
+            [view_popover removeFromSuperview];
+        }
+    }];
 }
 
 
@@ -193,21 +215,23 @@
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
     button_vs_gamecenter.alpha = 0.5;
-    view_popover.alpha = 0.5;
+    //view_popover.alpha = 0.5;
     [UIView animateWithDuration:1.0
                      animations:^{
                          //theView.center = newCenter;
                          button_vs_player.alpha = 0;
                          button_vs_computer.alpha = 0;
                          button_vs_gamecenter.alpha = 0;
-                         view_popover.alpha = 0;
+                         //view_popover.alpha = 0;
                          
                      }
                      completion:^(BOOL finished){
                          [button_vs_player removeFromSuperview];
                          [button_vs_computer removeFromSuperview];
                          [button_vs_gamecenter removeFromSuperview];
-                         [view_popover removeFromSuperview];
+                         
+                         [self.view addSubview:spinner];
+                         [self authenticateWithGameCenter];
                      }];
 	[UIView commitAnimations];
     

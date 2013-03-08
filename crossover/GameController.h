@@ -20,9 +20,9 @@
     UIButton *button_vs_computer;
     UIButton *button_vs_gamecenter;
     UIView *view_popover;
+    UIActivityIndicatorView *spinner;
 }
 -(void) getPopOver;
-//-(UIView *) getDarkBackground:(CGRect)cgrect;
 
 -(CGRect)getNewDimensionsByReducingHeight:(int)height
                                     width:(int)width toPixel:(int)pixel;
