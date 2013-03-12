@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface BoardUIView : UIView
-@property (nonatomic, retain) UIImageView *imageview_crossover_logo1;
 @end
