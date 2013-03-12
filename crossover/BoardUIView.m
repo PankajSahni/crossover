@@ -14,14 +14,14 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:20 yValue:20 width:500 height:500];
+        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:40 yValue:160 width:550 height:550];
         [self setFrame:cgrect_temp];
         self.backgroundColor = [UIColor greenColor];
         UIImage *image_board = [UIImage imageNamed:@"images/board.png"];
         UIImageView *imageview_board =
         [[UIImageView alloc] initWithImage:image_board];
         cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:20 yValue:20 width:600 height:500];
-        imageview_board.frame = cgrect_temp;
+        imageview_board.frame = self.bounds;
         
         UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
         //position button
