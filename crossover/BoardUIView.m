@@ -7,18 +7,21 @@
 //
 
 #import "BoardUIView.h"
-
+#import "GlobalSingleton.h"
 @implementation BoardUIView
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [self setFrame:CGRectMake(100, 100, 100, 100)];
+        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:20 yValue:20 width:500 height:500];
+        [self setFrame:cgrect_temp];
+        self.backgroundColor = [UIColor greenColor];
         UIImage *image_board = [UIImage imageNamed:@"images/board.png"];
         UIImageView *imageview_board =
         [[UIImageView alloc] initWithImage:image_board];
-        imageview_board.frame = CGRectMake(50, 50, 100, 100);
+        cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:20 yValue:20 width:600 height:500];
+        imageview_board.frame = cgrect_temp;
         
         UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
         //position button
@@ -36,7 +39,7 @@
 }
 
 -(void)myButtonClicked:(id)sender{
-    NSLog(@"move2");
+    NSLog(@"board view");
 
 }
 

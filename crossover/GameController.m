@@ -66,15 +66,11 @@
     imageview_background.frame = rect_temp;
  
     [self.view addSubview:imageview_background];
-   [self.boardModelObject setFrame:CGRectMake(100, 100, 100, 100)];
       [self.view addSubview:self.boardModelObject];
 
     //[self getPopOverToStartGame];
 }
--(void)myButtonClicked:(UIButton*)sender{
-    NSLog(@"move2");
-    
-}
+
 -(void)authenticateWithGameCenter{
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
         if(error == nil){
