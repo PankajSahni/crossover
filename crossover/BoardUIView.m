@@ -8,11 +8,28 @@
 
 #import "BoardUIView.h"
 #import "GlobalSingleton.h"
+#import "GlobalUtility.h"
+
+@interface BoardUIView ()
+@property (readonly) GlobalUtility *globalUtilityObject;
+@end
+
+
 @implementation BoardUIView
+- (GlobalUtility *) globalUtilityObject{
+    if(!globalUtilityObject){
+        globalUtilityObject = [[GlobalUtility alloc] init];
+    }
+    return globalUtilityObject;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+       NSDictionary *board_dimensions = [self.globalUtilityObject getBoardDimensions];
+        NSLog(@"board %@",board_dimensions);
         // Initialization code
         CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:40 yValue:160 width:550 height:550];
         [self setFrame:cgrect_temp];

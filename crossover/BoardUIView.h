@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BoardUIView : UIView
+#import "GlobalUtility.h"
+@interface BoardUIView : UIView{
+    GlobalUtility *globalUtilityObject;
+}
 @end

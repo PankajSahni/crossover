@@ -40,14 +40,9 @@
 }
 
 -(NSDictionary *)getBoardDimensions{
-    UIButton *myButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    //position button
-    myButton.frame = CGRectMake(50, 50, 50, 50);
-    [myButton setTitle:@"Click" forState:UIControlStateNormal];
-    // add targets and actions
-    [myButton addTarget:self action:@selector(myButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    // add to a view
-    //[self.view addSubview:myButton];
+    NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:@"pankaj",@"Sahni", nil];
+    
+    return dict;
 }
 
 /*-(NSDictionary *)modelHitWebservice:(NSString *)hit_page with_json:(NSString *)json_data;
