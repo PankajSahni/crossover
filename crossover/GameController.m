@@ -12,9 +12,11 @@
 #import "GlobalUtility.h"
 #import "GameModel.h"
 #import "GlobalSingleton.h"
+#import "BoardUIView.h"
 @interface ViewController ()
 @property (readonly) GlobalUtility *globalUtilityObject;
 @property (readonly) GameModel *gameModelObject;
+@property (readonly) BoardUIView *boardModelObject;
 @end
 
 @implementation ViewController
@@ -24,6 +26,14 @@
     }
     return globalUtilityObject;
 }
+
+- (BoardUIView *) boardModelObject{
+    if(!boardModelObject){
+        boardModelObject = [[BoardUIView alloc] init];
+    }
+    return boardModelObject;
+}
+
 - (GameModel *) gameModelObject{
     if(!gameModelObject){
         gameModelObject = [[GameModel alloc] init];
@@ -54,25 +64,17 @@
                                   [[device_dimensions valueForKey:@"height"] intValue]);
 
     imageview_background.frame = rect_temp;
-    
-    /* temp 
-   UIImage *image_background1 = [UIImage imageNamed:@"images/hard.png"];
-    UIImageView *imageview_background1 = [[UIImageView alloc] initWithImage:image_background1];
-    rect_temp = CGRectMake(100 , 100,200,200);
-    imageview_background1.frame = rect_temp;
-    
-    temp */
+ 
     [self.view addSubview:imageview_background];
-    
-    //[self.view addSubview:imageview_background1];
-    //[self.view addSubview:imageview_main_background];
-    
-    /**/
-    
-    
-    [self getPopOverToStartGame];
-}
+   [self.boardModelObject setFrame:CGRectMake(100, 100, 100, 100)];
+      [self.view addSubview:self.boardModelObject];
 
+    //[self getPopOverToStartGame];
+}
+-(void)myButtonClicked:(UIButton*)sender{
+    NSLog(@"move2");
+    
+}
 -(void)authenticateWithGameCenter{
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
         if(error == nil){

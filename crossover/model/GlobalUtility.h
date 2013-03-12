@@ -14,4 +14,6 @@
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type;
 /*-(NSDictionary *)modelHitWebservice:(NSString *)web_url with_json:(NSString *)json_data;
 -(void)facebookPost:(NSDictionary *)dictionary_to_post ToFBFriend:(NSString *)string_fb_id;*/
+
+-(NSDictionary *)getBoardDimensions;
 @end

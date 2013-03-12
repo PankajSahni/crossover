@@ -10,9 +10,11 @@
 #import "GlobalSingleton.h"
 #import "GlobalUtility.h"
 #import "GameModel.h"
+#import "BoardUIView.h"
 @interface ViewController : UIViewController{
     GlobalUtility *globalUtilityObject;
     GameModel *gameModelObject;
+    BoardUIView *boardModelObject;
     UIButton *button_new_game;
     UIButton *button_help;
     UIButton *button_share;
