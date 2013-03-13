@@ -40,19 +40,32 @@
 }
 
 -(NSDictionary *)getBoardDimensions{
-    NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:@"pankaj",@"Sahni", nil];
     NSMutableDictionary *dict_temp = [[NSMutableDictionary alloc ] init ];
-    for (int $i = 0; $i <= 6; $i ++) {
-        for (int $j = 0; $j <= 6; $j++) {
-          NSString *string_dict_keys = [[NSString stringWithFormat:@"%i", $i] stringByAppendingFormat:[NSString stringWithFormat:@"%i", $j]];
-            CGPoint point = CGPointMake(20, 20);
+    int int_x = 0;
+    int int_y = 0;
+    for (int i = 0; i <= 6; i ++) {
+        
+        for (int j = 0; j <= 6; j++) {
+           NSString *string_dict_keys =  [[NSString stringWithFormat:@"%d", i]stringByAppendingString:[NSString stringWithFormat:@"%d", j]];
+           
             
-            [dict_temp setObject:point forKey:string_dict_keys];
-            NSLog(@" %@", string_dict_keys);
+
+           NSString *x = [NSString stringWithFormat:@"%d", int_x] ;
+            NSString *y = [NSString stringWithFormat:@"%d", int_y] ;
+           NSDictionary *dimension = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                       x,@"x",
+                                       y,@"y", nil];
+            
+            [dict_temp setObject:dimension forKey:string_dict_keys];
+            int_x = int_x + 87 ;
+            
+            //
         }
+        int_y = int_y + 87 ;
+        int_x = 0;
     }
-    
-    return dict;
+    //NSLog(@" %@", dict_temp);
+    return dict_temp;
 }
 
 /*-(NSDictionary *)modelHitWebservice:(NSString *)hit_page with_json:(NSString *)json_data;

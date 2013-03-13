@@ -28,34 +28,49 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-       NSDictionary *board_dimensions = [self.globalUtilityObject getBoardDimensions];
-        NSLog(@"board %@",board_dimensions);
+       
         // Initialization code
-        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:40 yValue:160 width:550 height:550];
+        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:50 yValue:170 width:560 height:560];
         [self setFrame:cgrect_temp];
         self.backgroundColor = [UIColor greenColor];
         UIImage *image_board = [UIImage imageNamed:@"images/board.png"];
         UIImageView *imageview_board =
         [[UIImageView alloc] initWithImage:image_board];
-        cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:20 yValue:20 width:600 height:500];
-        imageview_board.frame = self.bounds;
+        cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:15 yValue:15 width:530 height:530];
+        imageview_board.frame = cgrect_temp;
         
-        UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        
         //position button
-        myButton.frame = CGRectMake(75, 75, 50, 50);
-        [myButton setTitle:@"Click" forState:UIControlStateNormal];
-        [myButton setBackgroundColor:[UIColor redColor]];
-        // add targets and actions
-        [myButton addTarget:self action:@selector(myButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        // add to a view
-        //[imageview_board addSubview:myButton];
+        NSDictionary *board_dimensions = [self.globalUtilityObject getBoardDimensions];
+        //NSLog(@"board_dimensions %@",board_dimensions);
+        
+        NSEnumerator *enu_board_dimensions = [board_dimensions objectEnumerator];
+
         [self addSubview:imageview_board];
-        [self addSubview:myButton];
+        for(NSDictionary *dict_x_y in enu_board_dimensions) {
+            //NSLog(@"%@", dict_x_y);
+            //NSLog(@"%@", [dict_x_y valueForKey:@"x"]);
+            //NSLog(@"%@", [dict_x_y valueForKey:@"y"]);
+            CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:[[dict_x_y valueForKey:@"x"] intValue]
+                                                    yValue:[[dict_x_y valueForKey:@"y"] intValue]
+                                                       width:40 height:40];
+            NSLog(@"cgrect%@",NSStringFromCGRect(cgrect_temp));
+            UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            myButton.frame = cgrect_temp;
+            NSString *image_player = @"images/i13.png";
+            [myButton setBackgroundImage:[UIImage imageNamed:image_player]
+                                forState:UIControlStateNormal];
+            [myButton addTarget:self action:@selector(playerVsPlayer:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:myButton];
+        }
+        
+        
     }
     return self;
 }
 
--(void)myButtonClicked:(id)sender{
+-(void)playerVsPlayer:(id)sender{
     NSLog(@"board view");
 
 }
