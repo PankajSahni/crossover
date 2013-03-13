@@ -18,4 +18,5 @@
                                          width:(float )widthVal
                                         height:(float )heightVal;
 - (int )getXAccordingToDevice:(int )int_x;
+-(NSArray *) initialPlayerPositions;
 @end

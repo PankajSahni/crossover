@@ -28,11 +28,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-       
-        // Initialization code
+    
         CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:50 yValue:170 width:560 height:560];
         [self setFrame:cgrect_temp];
-        self.backgroundColor = [UIColor greenColor];
+        //self.backgroundColor = [UIColor greenColor];
         UIImage *image_board = [UIImage imageNamed:@"images/board.png"];
         UIImageView *imageview_board =
         [[UIImageView alloc] initWithImage:image_board];
@@ -40,31 +39,25 @@
         imageview_board.frame = cgrect_temp;
         
         
-        
-        //position button
-        NSDictionary *board_dimensions = [self.globalUtilityObject getBoardDimensions];
-        //NSLog(@"board_dimensions %@",board_dimensions);
-        
-        NSEnumerator *enu_board_dimensions = [board_dimensions objectEnumerator];
+        NSMutableArray *board_dimensions = [self.globalUtilityObject getBoardDimensions];
 
         [self addSubview:imageview_board];
-        for(NSDictionary *dict_x_y in enu_board_dimensions) {
-            //NSLog(@"%@", dict_x_y);
-            //NSLog(@"%@", [dict_x_y valueForKey:@"x"]);
-            //NSLog(@"%@", [dict_x_y valueForKey:@"y"]);
+        int array_position = 0;
+        NSArray *array_initial_positions =
+        [[GlobalSingleton sharedManager] initialPlayerPositions];
+        for (NSDictionary *dict_x_y in board_dimensions) {
+           
             CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:[[dict_x_y valueForKey:@"x"] intValue]
                                                     yValue:[[dict_x_y valueForKey:@"y"] intValue]
                                                        width:40 height:40];
-            NSLog(@"cgrect%@",NSStringFromCGRect(cgrect_temp));
             UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
             myButton.frame = cgrect_temp;
-            NSString *image_player = @"images/i13.png";
-            [myButton setBackgroundImage:[UIImage imageNamed:image_player]
-                                forState:UIControlStateNormal];
-            [myButton addTarget:self action:@selector(playerVsPlayer:) forControlEvents:UIControlEventTouchUpInside];
+            myButton = [self getCoinWithPlayer:(UIButton *)myButton
+            ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
+            array_position ++;
+            
             [self addSubview:myButton];
         }
-        
         
     }
     return self;
@@ -75,7 +68,29 @@
 
 }
 
-
+-(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
+    NSString *image_player = @"";
+    if([player isEqualToString:@"1"]){
+        image_player = @"images/i13.png";
+        [button addTarget:self action:@selector(playerVsPlayer:) forControlEvents:UIControlEventTouchUpInside];
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+    forState:UIControlStateNormal];
+    }else if([player isEqualToString:@"2"]){
+       image_player = @"images/i14.png";
+        [button addTarget:self action:@selector(playerVsPlayer:) forControlEvents:UIControlEventTouchUpInside];
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+    forState:UIControlStateNormal];
+    }else if([player isEqualToString:@"0"]){
+        image_player = @"images/blanckbtn_big.png";
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+    }else{
+        
+    }
+    
+    return button;
+    
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.

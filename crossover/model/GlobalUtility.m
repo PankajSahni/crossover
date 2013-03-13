@@ -39,14 +39,14 @@
     
 }
 
--(NSDictionary *)getBoardDimensions{
-    NSMutableDictionary *dict_temp = [[NSMutableDictionary alloc ] init ];
+-(NSMutableArray *)getBoardDimensions{
+    NSMutableArray *array_temp = [[NSMutableArray alloc ] init ];
     int int_x = 0;
     int int_y = 0;
     for (int i = 0; i <= 6; i ++) {
         
         for (int j = 0; j <= 6; j++) {
-           NSString *string_dict_keys =  [[NSString stringWithFormat:@"%d", i]stringByAppendingString:[NSString stringWithFormat:@"%d", j]];
+         //  NSString *string_dict_keys =  [[NSString stringWithFormat:@"%d", i]stringByAppendingString:[NSString stringWithFormat:@"%d", j]];
            
             
 
@@ -56,7 +56,7 @@
                                        x,@"x",
                                        y,@"y", nil];
             
-            [dict_temp setObject:dimension forKey:string_dict_keys];
+            [array_temp addObject: dimension];
             int_x = int_x + 87 ;
             
             //
@@ -65,7 +65,7 @@
         int_x = 0;
     }
     //NSLog(@" %@", dict_temp);
-    return dict_temp;
+    return array_temp;
 }
 
 /*-(NSDictionary *)modelHitWebservice:(NSString *)hit_page with_json:(NSString *)json_data;

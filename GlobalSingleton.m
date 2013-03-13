@@ -106,6 +106,18 @@ static GlobalSingleton *sharedManager; // self
     return (int)x;
     
 }
+
+-(NSArray *) initialPlayerPositions{
+    NSArray *temp = [[NSArray alloc] init];
+    temp = @[@"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
+              @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
+              @"1",@"1",@"2",@"2",@"2",@"2",@"2",
+              @"1",@"1",@"1",@"0",@"2",@"2",@"2",
+              @"1",@"1",@"1",@"1",@"1",@"2",@"2",
+              @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1",
+              @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1"];
+    return temp;
+}
 - (id)copyWithZone:(NSZone *)zone
 {
     return self;
