@@ -41,6 +41,16 @@
 
 -(NSDictionary *)getBoardDimensions{
     NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:@"pankaj",@"Sahni", nil];
+    NSMutableDictionary *dict_temp = [[NSMutableDictionary alloc ] init ];
+    for (int $i = 0; $i <= 6; $i ++) {
+        for (int $j = 0; $j <= 6; $j++) {
+          NSString *string_dict_keys = [[NSString stringWithFormat:@"%i", $i] stringByAppendingFormat:[NSString stringWithFormat:@"%i", $j]];
+            CGPoint point = CGPointMake(20, 20);
+            
+            [dict_temp setObject:point forKey:string_dict_keys];
+            NSLog(@" %@", string_dict_keys);
+        }
+    }
     
     return dict;
 }
