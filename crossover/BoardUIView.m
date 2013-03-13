@@ -71,15 +71,25 @@
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";
     if([player isEqualToString:@"1"]){
-        image_player = @"images/i13.png";
-        [button addTarget:self action:@selector(playerVsPlayer:) forControlEvents:UIControlEventTouchUpInside];
+        image_player = @"images/i5.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
-    forState:UIControlStateNormal];
+                                        forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+        [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
+
+
+        
+        
+        
+        
+        
     }else if([player isEqualToString:@"2"]){
-       image_player = @"images/i14.png";
-        [button addTarget:self action:@selector(playerVsPlayer:) forControlEvents:UIControlEventTouchUpInside];
+       image_player = @"images/i19.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
     forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+        [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
+         
     }else if([player isEqualToString:@"0"]){
         image_player = @"images/blanckbtn_big.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
@@ -91,14 +101,18 @@
     return button;
     
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (IBAction) imageMoved:(id) sender withEvent:(UIEvent *) event
 {
-    // Drawing code
+    UIControl *control = sender;
+    
+    UITouch *t = [[event allTouches] anyObject];
+    CGPoint pPrev = [t previousLocationInView:control];
+    CGPoint p = [t locationInView:control];
+    
+    CGPoint center = control.center;
+    center.x += p.x - pPrev.x;
+    center.y += p.y - pPrev.y;
+    control.center = center;
 }
-*/
 
 @end
