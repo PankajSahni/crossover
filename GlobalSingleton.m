@@ -108,14 +108,14 @@ static GlobalSingleton *sharedManager; // self
 }
 
 -(NSArray *) initialPlayerPositions{
-    NSArray *temp = [[NSArray alloc] init];
-    temp = @[@"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
+    NSArray *temp = [ [NSArray alloc] initWithObjects:
+    @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
               @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
               @"1",@"1",@"2",@"2",@"2",@"2",@"2",
               @"1",@"1",@"1",@"0",@"2",@"2",@"2",
               @"1",@"1",@"1",@"1",@"1",@"2",@"2",
               @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1",
-              @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1"];
+              @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1", nil];
     return temp;
 }
 - (id)copyWithZone:(NSZone *)zone

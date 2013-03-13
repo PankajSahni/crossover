@@ -76,25 +76,20 @@
                                         forState:UIControlStateNormal];
         [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
         [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
-
-
-        
-        
-        
-        
-        
-    }else if([player isEqualToString:@"2"]){
+    }
+    else if([player isEqualToString:@"2"]){
        image_player = @"images/i19.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
     forState:UIControlStateNormal];
         [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
         [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
-         
-    }else if([player isEqualToString:@"0"]){
+    }
+    else if([player isEqualToString:@"0"]){
         image_player = @"images/blanckbtn_big.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
-    }else{
+    }
+    else{
         
     }
     
