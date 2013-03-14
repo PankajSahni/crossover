@@ -23,6 +23,9 @@
     UIButton *button_vs_gamecenter;
     UIView *view_popover;
     UIActivityIndicatorView *spinner;
+    CGRect cgrect_dragged_button;
+    
+    NSMutableArray *array_all_cgrect;
 }
 -(void) getPopOver;
 

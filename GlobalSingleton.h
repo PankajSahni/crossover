@@ -17,6 +17,7 @@
                                         yValue:(float )yVal
                                          width:(float )widthVal
                                         height:(float )heightVal;
+- (CGPoint)convertPositionWithXOffset:(CGFloat)x withYOffset:(CGFloat)y;
 - (int )getXAccordingToDevice:(int )int_x;
 -(NSArray *) initialPlayerPositions;
 @end

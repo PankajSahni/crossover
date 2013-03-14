@@ -107,7 +107,18 @@ static GlobalSingleton *sharedManager; // self
     return (int)x;
     
 }
-
+- (CGPoint)convertPositionWithXOffset:(CGFloat)x withYOffset:(CGFloat)y
+{
+    CGPoint pos = CGPointMake(x, y);
+    
+    if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
+       [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]){
+        
+        pos = CGPointMake(480*(x/1024),
+                          320*(y/768));  
+    }
+    return pos;
+}
 -(NSArray *) initialPlayerPositions{
     NSArray *temp = [ [NSArray alloc] initWithObjects:
     @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
