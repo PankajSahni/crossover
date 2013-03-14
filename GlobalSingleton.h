@@ -11,7 +11,7 @@
 @interface GlobalSingleton : NSObject
 + (GlobalSingleton *)sharedManager;
 @property (nonatomic, retain) NSString *string_my_device_type;
-
+@property (nonatomic, retain) NSMutableDictionary *dictionary_xy_player;
 
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal

@@ -10,6 +10,7 @@
 
 @implementation GlobalSingleton
 @synthesize string_my_device_type;
+@synthesize dictionary_xy_player;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc

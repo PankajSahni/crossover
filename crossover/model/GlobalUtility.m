@@ -10,6 +10,7 @@
 
 @implementation GlobalUtility
 @synthesize dictionary_my_device_dimensions;
+@synthesize array_two_dimensional_board;
 //@synthesize delegate_refresh_my_data;
 
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
@@ -41,13 +42,14 @@
 
 -(NSMutableArray *)getBoardDimensions{
     NSMutableArray *array_temp = [[NSMutableArray alloc ] init ];
-    int int_x = 0;
-    int int_y = 0;
+    int int_x = 52;
+    int int_y = 170;
+    array_two_dimensional_board = [[NSMutableArray alloc ] init ];
     for (int i = 0; i <= 6; i ++) {
         
         for (int j = 0; j <= 6; j++) {
-         //  NSString *string_dict_keys =  [[NSString stringWithFormat:@"%d", i]stringByAppendingString:[NSString stringWithFormat:@"%d", j]];
-           
+    NSString *string_dict_keys =  [[NSString stringWithFormat:@"%d", j]stringByAppendingString:[NSString stringWithFormat:@"%d", i]];
+            [array_two_dimensional_board addObject:string_dict_keys];
             
 
            NSString *x = [NSString stringWithFormat:@"%d", int_x] ;
@@ -62,9 +64,9 @@
             //
         }
         int_y = int_y + 87 ;
-        int_x = 0;
+        int_x = 52;
     }
-    //NSLog(@" %@", dict_temp);
+    //NSLog(@"array_two_dimensional_board %@", array_two_dimensional_board);
     return array_temp;
 }
 

@@ -67,10 +67,85 @@
  
     [self.view addSubview:imageview_background];
       [self.view addSubview:self.boardModelObject];
+    
+    
+    
+    NSMutableArray *board_dimensions = [self.globalUtilityObject getBoardDimensions];
+    
+    
+    int array_position = 0;
+    NSArray *array_initial_positions =
+    [[GlobalSingleton sharedManager] initialPlayerPositions];
+    
+    NSMutableArray *array_two_dimensional_board = [self.globalUtilityObject array_two_dimensional_board];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    //NSLog(@"dicy %@",array_two_dimensional_board);
+    for (NSDictionary *dict_x_y in board_dimensions) {
+        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:[[dict_x_y valueForKey:@"x"] intValue]
+                                                                                           yValue:[[dict_x_y valueForKey:@"y"] intValue]
+                                                                                            width:40 height:40];
+    
+        [dict setObject:[NSValue valueWithCGRect:cgrect_temp]
+                 forKey:[array_two_dimensional_board objectAtIndex:array_position]];
+        //NSLog(@"cgrect_temp %@",NSStringFromCGRect(cgrect_temp));
+        UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        myButton.frame = cgrect_temp;
+        myButton = [self getCoinWithPlayer:(UIButton *)myButton
+                                 ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
+        array_position ++;
+        
+        [self.view addSubview:myButton];
+    }
+    NSLog(@"dicy %@",dict);
+    
+    
+    
 
     //[self getPopOverToStartGame];
 }
+-(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
+    NSString *image_player = @"";
+    if([player isEqualToString:@"1"]){
+        image_player = @"images/i5.png";
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+    }
+    else if([player isEqualToString:@"2"]){
+        image_player = @"images/i19.png";
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+    }
+    else if([player isEqualToString:@"0"]){
+        image_player = @"images/blanckbtn_big.png";
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+    }
+    else{
+        
+    }
+    
+    return button;
+    
+}
 
+
+- (IBAction) imageMoved:(id) sender withEvent:(UIEvent *) event
+{
+    UIControl *control = sender;
+    
+    UITouch *t = [[event allTouches] anyObject];
+    CGPoint pPrev = [t previousLocationInView:control];
+    CGPoint p = [t locationInView:control];
+    NSLog(@"previous inside %@", NSStringFromCGPoint(pPrev));
+    NSLog(@"now inside %@", NSStringFromCGPoint(p));
+    
+    CGPoint center = control.center;
+    center.x += p.x - pPrev.x;
+    center.y += p.y - pPrev.y;
+    control.center = center;
+}
 -(void)authenticateWithGameCenter{
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
         if(error == nil){
