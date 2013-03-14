@@ -100,18 +100,16 @@
         [dict setObject:[NSValue valueWithCGRect:cgrect_temp]
                  forKey:[array_two_dimensional_board objectAtIndex:array_position]];
         //NSLog(@"cgrect_temp %@",NSStringFromCGRect(cgrect_temp));
-        UIButton *myButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        myButton.frame = cgrect_temp;
-        myButton = [self getCoinWithPlayer:(UIButton *)myButton
+        coin = [UIButton buttonWithType:UIButtonTypeCustom];
+        coin.frame = cgrect_temp;
+        coin = [self getCoinWithPlayer:(UIButton *)coin
                                  ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
-        myButton.tag = array_position;
+        coin.tag = array_position;
         array_position ++;
         
-        if (array_position == 7) {
-            break;
-        }
+ 
         
-        [self.view addSubview:myButton];
+        [self.view addSubview:coin];
     }
     NSLog(@"dicy %@",dict);
 }
@@ -163,15 +161,15 @@
 }
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event
 {
-    NSLog(@"ctrl %@",ctrl);
-    NSLog(@"dragStarted..............");
+    //NSLog(@"ctrl %@",ctrl);
+    //NSLog(@"dragStarted..............");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint initial_point = [touch locationInView:self.view];
     int tag_button = ctrl.tag;
-    //CGPoint initial_point = [touch previousLocationInView:ctrl];
-    //[touch ]
-    NSLog(@"x %f", initial_point.x);
-    NSLog(@"y %f", initial_point.y);
+    cgrect_drag_started = [[array_all_cgrect objectAtIndex:tag_button] CGRectValue];
+
+    //NSLog(@"x %f", initial_point.x);
+    //NSLog(@"y %f", initial_point.y);
     
     
 }
@@ -189,10 +187,10 @@
 
 - (IBAction) dragEnded:(UIControl *) ctrl withEvent:(UIEvent *) event
 {
-    NSLog(@"dragEnded..............");
+    //NSLog(@"dragEnded..............");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint end_point = [touch locationInView:self.view];
-    NSLog(@"end_point %@", NSStringFromCGPoint(end_point));
+    //NSLog(@"end_point %@", NSStringFromCGPoint(end_point));
     
     
     CGPoint pPrev = [touch previousLocationInView:ctrl];
@@ -201,10 +199,30 @@
     center.x += p.x - pPrev.x;
     center.y += p.y - pPrev.y;
     ctrl.center = center;
-   /* if (CGRectContainsPoint(rect, end_point))
-    {
-        NSLog(@"Sprite touched\n");
-    }*/
+    //int tag_button = ctrl.tag;
+    //CGRect cgrect_active = [[array_all_cgrect objectAtIndex:tag_button] CGRectValue];
+    bool found_in_cgrect = false;
+    for (NSValue *cgrect_loop in array_all_cgrect) {
+
+        if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
+            //NSLog(@"touched");
+            found_in_cgrect = true;
+            //coin.frame = [cgrect_loop CGRectValue];
+            CGPoint temp = CGPointMake([cgrect_loop CGRectValue].origin.x +
+                                       [cgrect_loop CGRectValue].size.width/2,
+                                        [cgrect_loop CGRectValue].origin.y +
+                                       [cgrect_loop CGRectValue].size.height/2);
+            ctrl.center = temp; 
+        }
+    }
+    if(found_in_cgrect == false){
+        coin.frame = cgrect_drag_started;
+        ctrl.center = CGPointMake(cgrect_drag_started.origin.x +
+                                  cgrect_drag_started.size.width/2,
+                                  cgrect_drag_started.origin.y +
+                                                cgrect_drag_started.size.height/2);
+    }
+    [self.view addSubview:coin];
 }
 
 

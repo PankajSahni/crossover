@@ -24,6 +24,8 @@
     UIView *view_popover;
     UIActivityIndicatorView *spinner;
     CGRect cgrect_dragged_button;
+    CGRect cgrect_drag_started;
+    UIButton *coin;
     
     NSMutableArray *array_all_cgrect;
 }
