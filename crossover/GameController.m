@@ -75,7 +75,7 @@
     
     
 
-    //[self getPopOverToStartGame];
+    [self getPopOverToStartGame];
 }
 
 -(void) getBoard{
@@ -163,8 +163,8 @@
 {
     //NSLog(@"ctrl %@",ctrl);
     //NSLog(@"dragStarted..............");
-    UITouch *touch = [[event allTouches] anyObject];
-    CGPoint initial_point = [touch locationInView:self.view];
+    //UITouch *touch = [[event allTouches] anyObject];
+    //CGPoint initial_point = [touch locationInView:self.view];
     int tag_button = ctrl.tag;
     cgrect_drag_started = [[array_all_cgrect objectAtIndex:tag_button] CGRectValue];
 
@@ -296,7 +296,7 @@
     button_vs_computer.frame = rect_temp;
     [button_vs_computer setBackgroundImage:[UIImage imageNamed:@"images/playervscomputer.png"]
                                forState:UIControlStateNormal];
-    [button_vs_computer addTarget:self action:@selector(playerVsPlayer) forControlEvents:UIControlEventTouchUpInside];
+    [button_vs_computer addTarget:self action:@selector(playerVsComputer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_vs_computer];
     
     int new_button_y = button_y + button_height;
@@ -317,7 +317,7 @@
     button_vs_player.frame = rect_temp;
     [button_vs_player setBackgroundImage:[UIImage imageNamed:@"images/playervsplayer.png"]
                             forState:UIControlStateNormal];
-    [button_vs_player addTarget:self action:@selector(playerVsComputer) forControlEvents:UIControlEventTouchUpInside];
+    [button_vs_player addTarget:self action:@selector(playerVsPlayer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_vs_player];
     //pankaj
     
@@ -357,7 +357,29 @@
     
 }
 -(void)playerVsPlayer{
-    NSLog(@"share");
+    //NSLog(@"share");
+    button_vs_player.alpha = 0.5;
+    button_vs_computer.alpha = 0.5;
+    button_vs_gamecenter.alpha = 0.5;
+    //view_popover.alpha = 0.5;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         //theView.center = newCenter;
+                         button_vs_player.alpha = 0;
+                         button_vs_computer.alpha = 0;
+                         button_vs_gamecenter.alpha = 0;
+                         //view_popover.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         [button_vs_player removeFromSuperview];
+                         [button_vs_computer removeFromSuperview];
+                         [button_vs_gamecenter removeFromSuperview];
+                         [view_popover removeFromSuperview];
+                         //[self.view addSubview:spinner];
+                         //[self authenticateWithGameCenter];
+                     }];
+	[UIView commitAnimations];
     
 }
 -(void)playerVsComputer{
