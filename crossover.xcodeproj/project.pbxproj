@@ -20,7 +20,6 @@
 		472D17D016F783D90002BAC8 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17CD16F783D90002BAC8 /* GameController.m */; };
 		472D17D916F783FA0002BAC8 /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17D416F783FA0002BAC8 /* GameModel.m */; };
 		472D17DA16F783FA0002BAC8 /* GlobalSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17D616F783FA0002BAC8 /* GlobalSingleton.m */; };
-		472D17DB16F783FA0002BAC8 /* GlobalUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17D816F783FA0002BAC8 /* GlobalUtility.m */; };
 		472D187016F791E90002BAC8 /* app_icon_100.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17DD16F791E90002BAC8 /* app_icon_100.png */; };
 		472D187116F791E90002BAC8 /* app_icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17DE16F791E90002BAC8 /* app_icon_72.png */; };
 		472D187216F791E90002BAC8 /* bar1.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17DF16F791E90002BAC8 /* bar1.png */; };
@@ -195,8 +194,6 @@
 		472D17D416F783FA0002BAC8 /* GameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameModel.m; sourceTree = "<group>"; };
 		472D17D516F783FA0002BAC8 /* GlobalSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalSingleton.h; sourceTree = "<group>"; };
 		472D17D616F783FA0002BAC8 /* GlobalSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalSingleton.m; sourceTree = "<group>"; };
-		472D17D716F783FA0002BAC8 /* GlobalUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalUtility.h; sourceTree = "<group>"; };
-		472D17D816F783FA0002BAC8 /* GlobalUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalUtility.m; sourceTree = "<group>"; };
 		472D17DD16F791E90002BAC8 /* app_icon_100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon_100.png; sourceTree = "<group>"; };
 		472D17DE16F791E90002BAC8 /* app_icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon_72.png; sourceTree = "<group>"; };
 		472D17DF16F791E90002BAC8 /* bar1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bar1.png; sourceTree = "<group>"; };
@@ -442,8 +439,6 @@
 				472D17D416F783FA0002BAC8 /* GameModel.m */,
 				472D17D516F783FA0002BAC8 /* GlobalSingleton.h */,
 				472D17D616F783FA0002BAC8 /* GlobalSingleton.m */,
-				472D17D716F783FA0002BAC8 /* GlobalUtility.h */,
-				472D17D816F783FA0002BAC8 /* GlobalUtility.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -832,7 +827,6 @@
 				472D17D016F783D90002BAC8 /* GameController.m in Sources */,
 				472D17D916F783FA0002BAC8 /* GameModel.m in Sources */,
 				472D17DA16F783FA0002BAC8 /* GlobalSingleton.m in Sources */,
-				472D17DB16F783FA0002BAC8 /* GlobalUtility.m in Sources */,
 				472D191116F792D50002BAC8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

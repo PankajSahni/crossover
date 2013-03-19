@@ -8,19 +8,19 @@
 
 #import "BoardUIView.h"
 #import "GlobalSingleton.h"
-#import "GlobalUtility.h"
+#import "GameModel.h"
 
 @interface BoardUIView ()
-@property (readonly) GlobalUtility *globalUtilityObject;
+@property (readonly) GameModel *gameModelObject;
 @end
 
 
 @implementation BoardUIView
-- (GlobalUtility *) globalUtilityObject{
-    if(!globalUtilityObject){
-        globalUtilityObject = [[GlobalUtility alloc] init];
+- (GameModel *) gameModelObject{
+    if(!gameModelObject){
+        gameModelObject = [[GameModel alloc] init];
     }
-    return globalUtilityObject;
+    return gameModelObject;
 }
 
 - (id)initWithFrame:(CGRect)frame

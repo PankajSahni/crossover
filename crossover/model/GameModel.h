@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface GameModel : NSObject
-//-(CGRect)getButtonNewGame;
+@property (nonatomic, retain) NSMutableDictionary *dictionary_my_device_dimensions;
+@property (nonatomic, retain) NSMutableArray *array_two_dimensional_board;
+-(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type;
+-(NSMutableArray *)getBoardDimensions;
 @end

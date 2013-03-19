@@ -12,7 +12,8 @@
 + (GlobalSingleton *)sharedManager;
 @property (nonatomic, retain) NSString *string_my_device_type;
 @property (nonatomic, retain) NSMutableDictionary *dictionary_xy_player;
-
+@property (nonatomic, retain) NSMutableArray *array_initial_player_positions;
+@property (nonatomic, retain) NSString *string_my_turn;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal
                                          width:(float )widthVal

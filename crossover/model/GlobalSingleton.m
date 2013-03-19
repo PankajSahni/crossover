@@ -11,6 +11,8 @@
 @implementation GlobalSingleton
 @synthesize string_my_device_type;
 @synthesize dictionary_xy_player;
+@synthesize array_initial_player_positions;
+@synthesize string_my_turn;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc
@@ -120,15 +122,17 @@ static GlobalSingleton *sharedManager; // self
     return pos;
 }
 -(NSArray *) initialPlayerPositions{
-    NSArray *temp = [ [NSArray alloc] initWithObjects:
-    @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
-              @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
-              @"1",@"1",@"2",@"2",@"2",@"2",@"2",
-              @"1",@"1",@"1",@"0",@"2",@"2",@"2",
-              @"1",@"1",@"1",@"1",@"1",@"2",@"2",
-              @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1",
-              @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1", nil];
-    return temp;
+    array_initial_player_positions = [[NSMutableArray alloc] initWithObjects:
+                                      @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
+                                      @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
+                                      @"1",@"1",@"2",@"2",@"2",@"2",@"2",
+                                      @"1",@"1",@"1",@"0",@"2",@"2",@"2",
+                                      @"1",@"1",@"1",@"1",@"1",@"2",@"2",
+                                      @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1",
+                                      @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1", nil];
+    string_my_turn = @"1";
+    
+    return array_initial_player_positions;
 }
 - (id)copyWithZone:(NSZone *)zone
 {

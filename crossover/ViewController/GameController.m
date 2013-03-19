@@ -9,24 +9,15 @@
 #import "GameController.h"
 #import <GameKit/GKPlayer.h>
 #import <GameKit/GKDefines.h>
-#import "GlobalUtility.h"
 #import "GameModel.h"
 #import "GlobalSingleton.h"
 #import "BoardUIView.h"
 @interface ViewController ()
-@property (readonly) GlobalUtility *globalUtilityObject;
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
 @end
 
 @implementation ViewController
-
-- (GlobalUtility *) globalUtilityObject{
-    if(!globalUtilityObject){
-        globalUtilityObject = [[GlobalUtility alloc] init];
-    }
-    return globalUtilityObject;
-}
 
 - (BoardUIView *) boardModelObject{
     if(!boardModelObject){
@@ -46,7 +37,7 @@
     [super viewDidLoad];
     
     NSDictionary *device_dimensions =
-    [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     CGRect rect_temp = CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
                                   [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
                                   21,21);
@@ -76,43 +67,45 @@
     
     
 
-    [self getPopOverToStartGame];
+    //[self getPopOverToStartGame];
 }
 
 -(void) getBoard{
-    NSMutableArray *board_dimensions = [self.globalUtilityObject getBoardDimensions];
     
-    
-    int array_position = 0;
-    NSArray *array_initial_positions =
-    [[GlobalSingleton sharedManager] initialPlayerPositions];
-    
-    NSMutableArray *array_two_dimensional_board = [self.globalUtilityObject array_two_dimensional_board];
+
+    NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
+    NSArray *array_initial_positions;
+    if ([[GlobalSingleton sharedManager].array_initial_player_positions count] == 0) {
+       array_initial_positions  = [[GlobalSingleton sharedManager] initialPlayerPositions];
+    }else{
+        array_initial_positions = [GlobalSingleton sharedManager].array_initial_player_positions;
+        for (int i = 0; i <= 48 ; i++) {
+          UIButton  *_coin = (UIButton *)[self.view viewWithTag:i+2000];
+            [_coin removeFromSuperview];
+        }
+    }
+    NSMutableArray *array_two_dimensional_board = [self.gameModelObject array_two_dimensional_board];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    //NSLog(@"dicy %@",array_two_dimensional_board);
     array_all_cgrect = [[NSMutableArray alloc] init];
+    int array_position = 0;
     for (NSDictionary *dict_x_y in board_dimensions) {
         CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:[[dict_x_y valueForKey:@"x"] intValue]
                                                                                            yValue:[[dict_x_y valueForKey:@"y"] intValue]
                                                                                             width:40 height:40];
         
         [array_all_cgrect addObject:[NSValue valueWithCGRect:cgrect_temp]];
-        
         [dict setObject:[NSValue valueWithCGRect:cgrect_temp]
                  forKey:[array_two_dimensional_board objectAtIndex:array_position]];
-        //NSLog(@"cgrect_temp %@",NSStringFromCGRect(cgrect_temp));
         coin = [UIButton buttonWithType:UIButtonTypeCustom];
         coin.frame = cgrect_temp;
         coin = [self getCoinWithPlayer:(UIButton *)coin
-                                 ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
-        coin.tag = array_position;
+                             ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
+        coin.tag = array_position + 2000;
         array_position ++;
-        
- 
-        
         [self.view addSubview:coin];
     }
-    NSLog(@"dicy %@",dict);
+
+
 }
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";
@@ -120,59 +113,43 @@
         image_player = @"images/i5.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(dragBegan:withEvent: )
-           forControlEvents: UIControlEventTouchDown];
-        [button addTarget:self action:@selector(dragMoving:withEvent: )
-           forControlEvents: UIControlEventTouchDragInside];
-        [button addTarget:self action:@selector(dragEnded:withEvent: )
-           forControlEvents: UIControlEventTouchUpInside |
-         UIControlEventTouchUpOutside];
-
     }
     else if([player isEqualToString:@"2"]){
         image_player = @"images/i19.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(dragBegan:withEvent: )
-         forControlEvents: UIControlEventTouchDown];
-        [button addTarget:self action:@selector(dragMoving:withEvent: )
-         forControlEvents: UIControlEventTouchDragInside];
-        [button addTarget:self action:@selector(dragEnded:withEvent: )
-         forControlEvents: UIControlEventTouchUpInside |
-         UIControlEventTouchUpOutside];
     }
     else if([player isEqualToString:@"0"]){
         image_player = @"images/blanckbtn_big.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(dragBegan:withEvent: )
-         forControlEvents: UIControlEventTouchDown];
-        [button addTarget:self action:@selector(dragMoving:withEvent: )
-         forControlEvents: UIControlEventTouchDragInside];
-        [button addTarget:self action:@selector(dragEnded:withEvent: )
-         forControlEvents: UIControlEventTouchUpInside |
-         UIControlEventTouchUpOutside];
+        
     }
     else{
         
     }
-    
+    if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
+        [self iAmDraggable:button];
+    }
     return button;
     
 }
+
+- (void) iAmDraggable:(UIButton *) button
+{
+    
+    [button addTarget:self action:@selector(dragBegan:withEvent: )
+     forControlEvents: UIControlEventTouchDown];
+    [button addTarget:self action:@selector(dragMoving:withEvent: )
+     forControlEvents: UIControlEventTouchDragInside];
+    [button addTarget:self action:@selector(dragEnded:withEvent: )
+     forControlEvents: UIControlEventTouchUpInside |
+     UIControlEventTouchUpOutside];
+}
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event
 {
-    //NSLog(@"ctrl %@",ctrl);
-    //NSLog(@"dragStarted..............");
-    //UITouch *touch = [[event allTouches] anyObject];
-    //CGPoint initial_point = [touch locationInView:self.view];
-    int tag_button = ctrl.tag;
+    tag_button = ctrl.tag - 2000;
     cgrect_drag_started = [[array_all_cgrect objectAtIndex:tag_button] CGRectValue];
-
-    //NSLog(@"x %f", initial_point.x);
-    //NSLog(@"y %f", initial_point.y);
-    
-    
 }
 
 - (void) dragMoving:(UIControl *) ctrl withEvent:(UIEvent *) event
@@ -188,10 +165,8 @@
 
 - (IBAction) dragEnded:(UIControl *) ctrl withEvent:(UIEvent *) event
 {
-    //NSLog(@"dragEnded..............");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint end_point = [touch locationInView:self.view];
-    //NSLog(@"end_point %@", NSStringFromCGPoint(end_point));
     
     
     CGPoint pPrev = [touch previousLocationInView:ctrl];
@@ -200,32 +175,33 @@
     center.x += p.x - pPrev.x;
     center.y += p.y - pPrev.y;
     ctrl.center = center;
-    //int tag_button = ctrl.tag;
-    //CGRect cgrect_active = [[array_all_cgrect objectAtIndex:tag_button] CGRectValue];
     bool found_in_cgrect = false;
+    int int_array_index = 0;
     for (NSValue *cgrect_loop in array_all_cgrect) {
-
+        
         if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
-            //NSLog(@"touched");
             found_in_cgrect = true;
-            //coin.frame = [cgrect_loop CGRectValue];
-            CGPoint temp = CGPointMake([cgrect_loop CGRectValue].origin.x +
-                                       [cgrect_loop CGRectValue].size.width/2,
-                                        [cgrect_loop CGRectValue].origin.y +
-                                       [cgrect_loop CGRectValue].size.height/2);
-            ctrl.center = temp; 
+            [[GlobalSingleton sharedManager].array_initial_player_positions
+             replaceObjectAtIndex:tag_button withObject:@"0"];
+            [[GlobalSingleton sharedManager].array_initial_player_positions
+        replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
+            [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
+            coin = (UIButton *)[self.view viewWithTag:tag_button];
         }
+        int_array_index ++ ;
     }
+    
     if(found_in_cgrect == false){
-        coin.frame = cgrect_drag_started;
-        ctrl.center = CGPointMake(cgrect_drag_started.origin.x +
-                                  cgrect_drag_started.size.width/2,
-                                  cgrect_drag_started.origin.y +
-                                                cgrect_drag_started.size.height/2);
     }
-    [self.view addSubview:coin];
+    [self getBoard];
 }
-
+-(void) togglePlayer:(NSString *)my_turn{
+    if([my_turn isEqualToString:@"1"]){
+        [GlobalSingleton sharedManager].string_my_turn = @"2";
+    }else{
+        [GlobalSingleton sharedManager].string_my_turn = @"1";
+    }
+}
 
 -(void)authenticateWithGameCenter{
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
@@ -268,7 +244,6 @@
     [button_help setBackgroundImage:[UIImage imageNamed:@"images/help.png"]
                            forState:UIControlStateNormal];
     [button_help addTarget:self action:@selector(help) forControlEvents:UIControlEventTouchUpInside];
-    //NSLog(@"buttons %@", button_help);
     [self.view addSubview:button_help];
     
     new_button_y = new_button_y + button_height;
@@ -414,7 +389,7 @@
 }
 -(void) getPopOver{
     NSDictionary *device_dimensions =
-    [self.globalUtilityObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     
     CGRect cgrect_get_popover =
     [self getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GlobalUtility.h"
+#import "GameModel.h"
 @interface BoardUIView : UIView{
-    GlobalUtility *globalUtilityObject;
+    GameModel *gameModelObject;
 }
 @end

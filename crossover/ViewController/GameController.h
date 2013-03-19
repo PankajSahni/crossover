@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GlobalSingleton.h"
-#import "GlobalUtility.h"
 #import "GameModel.h"
 #import "BoardUIView.h"
 @interface ViewController : UIViewController{
-    GlobalUtility *globalUtilityObject;
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;
     UIButton *button_new_game;
@@ -26,6 +24,8 @@
     CGRect cgrect_dragged_button;
     CGRect cgrect_drag_started;
     UIButton *coin;
+    int tag_button;
+    
     
     NSMutableArray *array_all_cgrect;
 }
