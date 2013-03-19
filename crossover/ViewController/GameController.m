@@ -35,40 +35,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSDictionary *device_dimensions =
-    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
-    CGRect rect_temp = CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
-                                  [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
-                                  21,21);
-    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
-    spinner.frame = rect_temp;
-    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    
-    [spinner startAnimating];
-    //NSLog(@"hello");
-    UIImage *image_background = [UIImage imageNamed:@"images/blank.png"];
-    UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
-    
-    
-    rect_temp = CGRectMake(0 , 0,
-                                  [[device_dimensions valueForKey:@"width"] intValue],
-                                  [[device_dimensions valueForKey:@"height"] intValue]);
-
-    imageview_background.frame = rect_temp;
- 
-    [self.view addSubview:imageview_background];
-    [self.view addSubview:self.boardModelObject];
+    [self getBackground];
     [self getBoard];
     
-    
-
-    
-    
-    
-
-    //[self getPopOverToStartGame];
 }
+
 
 -(void) getBoard{
     
@@ -110,17 +81,17 @@
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";
     if([player isEqualToString:@"1"]){
-        image_player = @"images/i5.png";
+        image_player = @"i5.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
     }
     else if([player isEqualToString:@"2"]){
-        image_player = @"images/i19.png";
+        image_player = @"i19.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
     }
     else if([player isEqualToString:@"0"]){
-        image_player = @"images/blanckbtn_big.png";
+        image_player = @"blanckbtn_big.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
         
@@ -231,7 +202,7 @@
     
     button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
     button_new_game.frame = rect_temp;
-    [button_new_game setBackgroundImage:[UIImage imageNamed:@"images/new_game.png"]
+    [button_new_game setBackgroundImage:[UIImage imageNamed:@"new_game.png"]
                    forState:UIControlStateNormal];
     [button_new_game addTarget:self action:@selector(startGame) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_new_game];
@@ -241,7 +212,7 @@
     [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
     button_help = [UIButton buttonWithType:UIButtonTypeCustom];
     button_help.frame = rect_temp;
-    [button_help setBackgroundImage:[UIImage imageNamed:@"images/help.png"]
+    [button_help setBackgroundImage:[UIImage imageNamed:@"help.png"]
                            forState:UIControlStateNormal];
     [button_help addTarget:self action:@selector(help) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_help];
@@ -252,7 +223,7 @@
     
     button_share = [UIButton buttonWithType:UIButtonTypeCustom];
     button_share.frame = rect_temp;
-    [button_share setBackgroundImage:[UIImage imageNamed:@"images/share_btn.png"]
+    [button_share setBackgroundImage:[UIImage imageNamed:@"share_btn.png"]
                             forState:UIControlStateNormal];
     [button_share addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_share];
@@ -270,7 +241,7 @@
     
     button_vs_computer = [UIButton buttonWithType:UIButtonTypeCustom];
     button_vs_computer.frame = rect_temp;
-    [button_vs_computer setBackgroundImage:[UIImage imageNamed:@"images/playervscomputer.png"]
+    [button_vs_computer setBackgroundImage:[UIImage imageNamed:@"playervscomputer.png"]
                                forState:UIControlStateNormal];
     [button_vs_computer addTarget:self action:@selector(playerVsComputer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_vs_computer];
@@ -291,7 +262,7 @@
     
     button_vs_player = [UIButton buttonWithType:UIButtonTypeCustom];
     button_vs_player.frame = rect_temp;
-    [button_vs_player setBackgroundImage:[UIImage imageNamed:@"images/playervsplayer.png"]
+    [button_vs_player setBackgroundImage:[UIImage imageNamed:@"playervsplayer.png"]
                             forState:UIControlStateNormal];
     [button_vs_player addTarget:self action:@selector(playerVsPlayer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_vs_player];
@@ -401,7 +372,7 @@
     int logo_x = 1024/2 - logo_width/2;
     CGRect cgrect_crossover_logo =
     [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:logo_x yValue:70 width:logo_width height:120];
-    UIImage *image_crossover_logo = [UIImage imageNamed:@"images/crossover.png"];
+    UIImage *image_crossover_logo = [UIImage imageNamed:@"crossover.png"];
     UIImageView *imageview_crossover_logo =
     [[UIImageView alloc] initWithImage:image_crossover_logo];
     imageview_crossover_logo.frame = cgrect_crossover_logo;
@@ -433,6 +404,32 @@
         return YES;
     
     return NO;
+}
+
+-(void)getBackground{
+    NSDictionary *device_dimensions =
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    CGRect rect_temp = CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
+                                  [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
+                                  21,21);
+    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
+    spinner.frame = rect_temp;
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    
+    [spinner startAnimating];
+    //NSLog(@"hello");
+    UIImage *image_background = [UIImage imageNamed:@"blank.png"];
+    UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
+    
+    
+    rect_temp = CGRectMake(0 , 0,
+                           [[device_dimensions valueForKey:@"width"] intValue],
+                           [[device_dimensions valueForKey:@"height"] intValue]);
+    
+    imageview_background.frame = rect_temp;
+    
+    [self.view addSubview:imageview_background];
+    [self.view addSubview:self.boardModelObject];
 }
 
 /*- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
