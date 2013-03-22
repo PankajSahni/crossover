@@ -14,6 +14,7 @@
 @property (nonatomic, retain) NSMutableDictionary *dictionary_xy_player;
 @property (nonatomic, retain) NSMutableArray *array_initial_player_positions;
 @property (nonatomic, retain) NSString *string_my_turn;
+@property (nonatomic, retain) NSMutableArray *array_two_dimensional_board;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal
                                          width:(float )widthVal

@@ -7,10 +7,9 @@
 //
 
 #import "GameModel.h"
-
+#import "GlobalSingleton.h"
 @implementation GameModel
 @synthesize dictionary_my_device_dimensions;
-@synthesize array_two_dimensional_board;
 //@synthesize delegate_refresh_my_data;
 
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
@@ -44,12 +43,14 @@
     NSMutableArray *array_temp = [[NSMutableArray alloc ] init ];
     int int_x = 52;
     int int_y = 170;
-    array_two_dimensional_board = [[NSMutableArray alloc ] init ];
+    [GlobalSingleton sharedManager].array_two_dimensional_board = 
+    [[NSMutableArray alloc ] init ];
+    
     for (int i = 0; i <= 6; i ++) {
         
         for (int j = 0; j <= 6; j++) {
             NSString *string_dict_keys =  [[NSString stringWithFormat:@"%d", j]stringByAppendingString:[NSString stringWithFormat:@"%d", i]];
-            [array_two_dimensional_board addObject:string_dict_keys];
+            [[GlobalSingleton sharedManager].array_two_dimensional_board addObject:string_dict_keys];
             
             
             NSString *x = [NSString stringWithFormat:@"%d", int_x] ;

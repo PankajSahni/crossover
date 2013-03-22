@@ -13,6 +13,7 @@
 @synthesize dictionary_xy_player;
 @synthesize array_initial_player_positions;
 @synthesize string_my_turn;
+@synthesize array_two_dimensional_board;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc

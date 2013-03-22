@@ -55,7 +55,8 @@
             [_coin removeFromSuperview];
         }
     }
-    NSMutableArray *array_two_dimensional_board = [self.gameModelObject array_two_dimensional_board];
+    NSMutableArray *array_two_dimensional_board = 
+    [GlobalSingleton sharedManager].array_two_dimensional_board;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     array_all_cgrect = [[NSMutableArray alloc] init];
     int array_position = 0;
@@ -119,8 +120,8 @@
 }
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event
 {
-    tag_button = ctrl.tag - 2000;
-    cgrect_drag_started = [[array_all_cgrect objectAtIndex:tag_button] CGRectValue];
+    tag_coin_picked = ctrl.tag - 2000;
+    cgrect_drag_started = [[array_all_cgrect objectAtIndex:tag_coin_picked] CGRectValue];
 }
 
 - (void) dragMoving:(UIControl *) ctrl withEvent:(UIEvent *) event
@@ -153,11 +154,21 @@
         if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
             found_in_cgrect = true;
             [[GlobalSingleton sharedManager].array_initial_player_positions
-             replaceObjectAtIndex:tag_button withObject:@"0"];
+             replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
             [[GlobalSingleton sharedManager].array_initial_player_positions
         replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
             [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
-            coin = (UIButton *)[self.view viewWithTag:tag_button];
+            coin = (UIButton *)[self.view viewWithTag:tag_coin_picked];
+            
+            NSString *string_coin_picked =
+            [[GlobalSingleton sharedManager].array_two_dimensional_board objectAtIndex:tag_coin_picked];
+          NSString *start_x =  [string_coin_picked substringWithRange:NSMakeRange(0, 1)];
+            NSString *start_y =  [string_coin_picked substringWithRange:NSMakeRange(1, 1)];
+            NSLog(@"s %@", start_x);
+            NSString *string_coin_dropped =
+            [[GlobalSingleton sharedManager].array_two_dimensional_board objectAtIndex:int_array_index];
+            
+            
         }
         int_array_index ++ ;
     }

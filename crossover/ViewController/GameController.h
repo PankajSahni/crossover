@@ -24,7 +24,7 @@
     CGRect cgrect_dragged_button;
     CGRect cgrect_drag_started;
     UIButton *coin;
-    int tag_button;
+    int tag_coin_picked;
     
     
     NSMutableArray *array_all_cgrect;
