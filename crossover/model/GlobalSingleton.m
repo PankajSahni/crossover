@@ -135,6 +135,14 @@ static GlobalSingleton *sharedManager; // self
     
     return array_initial_player_positions;
 }
+
+-(int)getCellStatusWithRow:(int)row AndCoumn:(int)column{
+    NSString *string_two_dimensional_board_value =
+    [[NSString stringWithFormat:@"%d", row]stringByAppendingString:[NSString stringWithFormat:@"%d", column]];
+    int index_of_row_and_column =
+    [array_two_dimensional_board indexOfObject:string_two_dimensional_board_value];
+    return [[array_initial_player_positions objectAtIndex:index_of_row_and_column]intValue] ;
+}
 - (id)copyWithZone:(NSZone *)zone
 {
     return self;

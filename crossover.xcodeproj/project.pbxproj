@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0404D0E816DE1324000BC07A /* Default-568h@2x.png */; };
+		047F6F7816FC203A00D8F212 /* RulesForSingleJumpVsPalyer.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F6F7716FC203A00D8F212 /* RulesForSingleJumpVsPalyer.m */; };
+		047F6F7B16FC58AC00D8F212 /* ValidMoveDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F6F7A16FC58AC00D8F212 /* ValidMoveDirections.m */; };
+		047F6F7E16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F6F7D16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.m */; };
 		04A2D87A16E0E0F5001ECD83 /* framework in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87916E0E0F5001ECD83 /* framework */; };
 		04A2D87E16E0E135001ECD83 /* Supporting in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87D16E0E135001ECD83 /* Supporting */; };
 		04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD982F16DE2568003E8AA8 /* GameKit.framework */; };
@@ -175,6 +178,12 @@
 
 /* Begin PBXFileReference section */
 		0404D0E816DE1324000BC07A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		047F6F7616FC203A00D8F212 /* RulesForSingleJumpVsPalyer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulesForSingleJumpVsPalyer.h; sourceTree = "<group>"; };
+		047F6F7716FC203A00D8F212 /* RulesForSingleJumpVsPalyer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RulesForSingleJumpVsPalyer.m; sourceTree = "<group>"; };
+		047F6F7916FC58AC00D8F212 /* ValidMoveDirections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidMoveDirections.h; sourceTree = "<group>"; };
+		047F6F7A16FC58AC00D8F212 /* ValidMoveDirections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidMoveDirections.m; sourceTree = "<group>"; };
+		047F6F7C16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulesForDoubleJumpvsPlayer.h; sourceTree = "<group>"; };
+		047F6F7D16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RulesForDoubleJumpvsPlayer.m; sourceTree = "<group>"; };
 		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
 		04A2D87D16E0E135001ECD83 /* Supporting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Supporting; sourceTree = "<group>"; };
 		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -439,6 +448,12 @@
 				472D17D416F783FA0002BAC8 /* GameModel.m */,
 				472D17D516F783FA0002BAC8 /* GlobalSingleton.h */,
 				472D17D616F783FA0002BAC8 /* GlobalSingleton.m */,
+				047F6F7616FC203A00D8F212 /* RulesForSingleJumpVsPalyer.h */,
+				047F6F7716FC203A00D8F212 /* RulesForSingleJumpVsPalyer.m */,
+				047F6F7916FC58AC00D8F212 /* ValidMoveDirections.h */,
+				047F6F7A16FC58AC00D8F212 /* ValidMoveDirections.m */,
+				047F6F7C16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.h */,
+				047F6F7D16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -828,6 +843,9 @@
 				472D17D916F783FA0002BAC8 /* GameModel.m in Sources */,
 				472D17DA16F783FA0002BAC8 /* GlobalSingleton.m in Sources */,
 				472D191116F792D50002BAC8 /* main.m in Sources */,
+				047F6F7816FC203A00D8F212 /* RulesForSingleJumpVsPalyer.m in Sources */,
+				047F6F7B16FC58AC00D8F212 /* ValidMoveDirections.m in Sources */,
+				047F6F7E16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

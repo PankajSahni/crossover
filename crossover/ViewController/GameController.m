@@ -12,6 +12,7 @@
 #import "GameModel.h"
 #import "GlobalSingleton.h"
 #import "BoardUIView.h"
+#import "RulesForSingleJumpVsPalyer.h"
 @interface ViewController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
@@ -152,21 +153,42 @@
     for (NSValue *cgrect_loop in array_all_cgrect) {
         
         if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
-            found_in_cgrect = true;
-            [[GlobalSingleton sharedManager].array_initial_player_positions
-             replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
-            [[GlobalSingleton sharedManager].array_initial_player_positions
-        replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
-            [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
-            coin = (UIButton *)[self.view viewWithTag:tag_coin_picked];
+            
+            
+            //coin = (UIButton *)[self.view viewWithTag:tag_coin_picked];
             
             NSString *string_coin_picked =
             [[GlobalSingleton sharedManager].array_two_dimensional_board objectAtIndex:tag_coin_picked];
-          NSString *start_x =  [string_coin_picked substringWithRange:NSMakeRange(0, 1)];
-            NSString *start_y =  [string_coin_picked substringWithRange:NSMakeRange(1, 1)];
-            NSLog(@"s %@", start_x);
+             int start_x =  [[string_coin_picked substringWithRange:NSMakeRange(0, 1)] intValue];
+             int start_y =  [[string_coin_picked substringWithRange:NSMakeRange(1, 1)] intValue];
             NSString *string_coin_dropped =
             [[GlobalSingleton sharedManager].array_two_dimensional_board objectAtIndex:int_array_index];
+            int end_x =  [[string_coin_dropped substringWithRange:NSMakeRange(0, 1)] intValue];
+            int end_y =  [[string_coin_dropped substringWithRange:NSMakeRange(1, 1)] intValue];
+            
+            int diff_row = start_x - end_x;
+            int diff_col = start_y - end_y;
+            //NSLog(@"diff_row %d",diff_row);
+            //NSLog(@"diff_col %d",diff_col);
+            if(diff_row <= 1 && diff_col <=1
+               && [RulesForSingleJumpVsPalyer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y]){
+                [[GlobalSingleton sharedManager].array_initial_player_positions
+                 replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
+                [[GlobalSingleton sharedManager].array_initial_player_positions
+                 replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
+                [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
+                found_in_cgrect = true;
+            }else if((diff_row==0 && diff_col ==2)||(diff_row==2 && diff_col ==0)||diff_row==2 && diff_col ==2) )
+                && (new RulesForDoubleJumpvsPlayer().CaptureRulevsPalyer(curentrow, curentcol,futurerow,futurecol)){
+				/*PlayerPlacementsvsPlayer.POSITIONSvsPalyer[7*futurerow +futurecol] = PlayerPlacementsvsPlayer.POSITIONSvsPalyer[7*curentrow+curentcol] ;
+				PlayerPlacementsvsPlayer.POSITIONSvsPalyer[7*(futurerow +(diffrow/2))+futurecol +(diffcol/2)] = 0 ;
+				PlayerPlacementsvsPlayer.POSITIONSvsPalyer[7*curentrow+curentcol] = 0 ;
+				PlayerPlacementsvsPlayer.player1vsPalyer = !PlayerPlacementsvsPlayer.player1vsPalyer ;
+				PlayerPlacementsvsPlayer.player2vsPalyer = !PlayerPlacementsvsPlayer.player2vsPalyer ;
+                //				this.capturedintf = (CapturedAnimation)getContext();
+				capturedintf.capturedAnimation(7*(futurerow +(diffrow/2))+futurecol +(diffcol/2));
+				return true ;*/
+			}
             
             
         }
