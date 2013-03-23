@@ -14,6 +14,7 @@
 @synthesize array_initial_player_positions;
 @synthesize string_my_turn;
 @synthesize array_two_dimensional_board;
+@synthesize array_all_cgrect;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc

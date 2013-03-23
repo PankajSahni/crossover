@@ -60,14 +60,15 @@
     NSMutableArray *array_two_dimensional_board = 
     [GlobalSingleton sharedManager].array_two_dimensional_board;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    array_all_cgrect = [[NSMutableArray alloc] init];
+    [GlobalSingleton sharedManager].array_all_cgrect = [[NSMutableArray alloc] init];
     int array_position = 0;
     for (NSDictionary *dict_x_y in board_dimensions) {
         CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:[[dict_x_y valueForKey:@"x"] intValue]
                                                                                            yValue:[[dict_x_y valueForKey:@"y"] intValue]
                                                                                             width:40 height:40];
         
-        [array_all_cgrect addObject:[NSValue valueWithCGRect:cgrect_temp]];
+        [[GlobalSingleton sharedManager].array_all_cgrect 
+         addObject:[NSValue valueWithCGRect:cgrect_temp]];
         [dict setObject:[NSValue valueWithCGRect:cgrect_temp]
                  forKey:[array_two_dimensional_board objectAtIndex:array_position]];
         coin = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -125,7 +126,8 @@
 {
     tag_coin_picked = ctrl.tag - 2000;
     NSLog(@"tag_coin_picked %d",tag_coin_picked);
-    cgrect_drag_started = [[array_all_cgrect objectAtIndex:tag_coin_picked] CGRectValue];
+    cgrect_drag_started = [[[GlobalSingleton sharedManager].array_all_cgrect
+                            objectAtIndex:tag_coin_picked] CGRectValue];
 }
 
 - (void) dragMoving:(UIControl *) ctrl withEvent:(UIEvent *) event
@@ -153,7 +155,7 @@
     ctrl.center = center;
     bool found_in_cgrect = false;
     int int_array_index = 0;
-    for (NSValue *cgrect_loop in array_all_cgrect) {
+    for (NSValue *cgrect_loop in [GlobalSingleton sharedManager].array_all_cgrect) {
         
         if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
             

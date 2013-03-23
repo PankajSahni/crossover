@@ -15,7 +15,7 @@
 @property (nonatomic, retain) NSMutableArray *array_initial_player_positions;
 @property (nonatomic, retain) NSString *string_my_turn;
 @property (nonatomic, retain) NSMutableArray *array_two_dimensional_board;
-
+@property (nonatomic, retain) NSMutableArray *array_all_cgrect;
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal

@@ -27,7 +27,7 @@
     int tag_coin_picked;
     
     
-    NSMutableArray *array_all_cgrect;
+    
 }
 -(void) getPopOver;
 
