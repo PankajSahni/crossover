@@ -125,7 +125,6 @@
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event
 {
     tag_coin_picked = ctrl.tag - 2000;
-    NSLog(@"tag_coin_picked %d",tag_coin_picked);
     cgrect_drag_started = [[[GlobalSingleton sharedManager].array_all_cgrect
                             objectAtIndex:tag_coin_picked] CGRectValue];
 }
@@ -145,74 +144,11 @@
 {
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint end_point = [touch locationInView:self.view];
-    
-    
-    CGPoint pPrev = [touch previousLocationInView:ctrl];
-    CGPoint p = [touch locationInView:ctrl];
-    CGPoint center = ctrl.center;
-    center.x += p.x - pPrev.x;
-    center.y += p.y - pPrev.y;
-    ctrl.center = center;
-    bool found_in_cgrect = false;
-    int int_array_index = 0;
-    for (NSValue *cgrect_loop in [GlobalSingleton sharedManager].array_all_cgrect) {
-        
-        if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
-            
-            NSString *string_coin_picked =
-            [[GlobalSingleton sharedManager].array_two_dimensional_board objectAtIndex:tag_coin_picked];
-             int start_x =  [[string_coin_picked substringWithRange:NSMakeRange(0, 1)] intValue];
-             int start_y =  [[string_coin_picked substringWithRange:NSMakeRange(1, 1)] intValue];
-            NSString *string_coin_dropped =
-            [[GlobalSingleton sharedManager].array_two_dimensional_board objectAtIndex:int_array_index];
-            int end_x =  [[string_coin_dropped substringWithRange:NSMakeRange(0, 1)] intValue];
-            int end_y =  [[string_coin_dropped substringWithRange:NSMakeRange(1, 1)] intValue];
-            
-            int diff_row = start_x - end_x;
-            int diff_col = start_y - end_y;
-            if(abs(diff_row) <= 1 && abs(diff_col) <=1
-               && [RulesForSingleJumpVsPalyer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y]){
-                [[GlobalSingleton sharedManager].array_initial_player_positions
-                 replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
-                [[GlobalSingleton sharedManager].array_initial_player_positions
-                 replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
-                [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
-                found_in_cgrect = true;
-            }else if(
-                     ( ( abs(diff_row)==0 && abs(diff_col) == 2) ||
-                     ( abs(diff_row)==2 && abs(diff_col) ==0) ||
-                     ( abs(diff_row)==2 && abs(diff_col) ==2) )
-                && ([RulesForDoubleJumpvsPlayer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y])){
-                [[GlobalSingleton sharedManager].array_initial_player_positions
-                 replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
-                
-                int coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
-                [[GlobalSingleton sharedManager].array_initial_player_positions
-                 replaceObjectAtIndex:coin_eliminated withObject:@"0"];
-                [[GlobalSingleton sharedManager].array_initial_player_positions
-                 replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
-                //				this.capturedintf = (CapturedAnimation)getContext();
-				//capturedintf.capturedAnimation(7*(futurerow +(diffrow/2))+futurecol +(diffcol/2));
-                [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
-                found_in_cgrect = true;
-			}
-            
-            
-        }
-        int_array_index ++ ;
-    }
-    
-    if(found_in_cgrect == false){
-    }
+    [self.gameModelObject 
+     validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked] ;
     [self getBoard];
 }
--(void) togglePlayer:(NSString *)my_turn{
-    if([my_turn isEqualToString:@"1"]){
-        [GlobalSingleton sharedManager].string_my_turn = @"2";
-    }else{
-        [GlobalSingleton sharedManager].string_my_turn = @"1";
-    }
-}
+
 
 -(void)authenticateWithGameCenter{
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
@@ -317,7 +253,6 @@
     view_popover.alpha = 0.5;
     [UIView animateWithDuration:1.0
                      animations:^{
-                         //theView.center = newCenter;
                          button_new_game.alpha = 0;
                          button_help.alpha = 0;
                          button_share.alpha = 0;
@@ -343,18 +278,14 @@
     
 }
 -(void)playerVsPlayer{
-    //NSLog(@"share");
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
     button_vs_gamecenter.alpha = 0.5;
-    //view_popover.alpha = 0.5;
     [UIView animateWithDuration:1.0
                      animations:^{
-                         //theView.center = newCenter;
                          button_vs_player.alpha = 0;
                          button_vs_computer.alpha = 0;
                          button_vs_gamecenter.alpha = 0;
-                         //view_popover.alpha = 0;
                          
                      }
                      completion:^(BOOL finished){
@@ -362,8 +293,6 @@
                          [button_vs_computer removeFromSuperview];
                          [button_vs_gamecenter removeFromSuperview];
                          [view_popover removeFromSuperview];
-                         //[self.view addSubview:spinner];
-                         //[self authenticateWithGameCenter];
                      }];
 	[UIView commitAnimations];
     
@@ -376,14 +305,11 @@
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
     button_vs_gamecenter.alpha = 0.5;
-    //view_popover.alpha = 0.5;
     [UIView animateWithDuration:1.0
                      animations:^{
-                         //theView.center = newCenter;
                          button_vs_player.alpha = 0;
                          button_vs_computer.alpha = 0;
                          button_vs_gamecenter.alpha = 0;
-                         //view_popover.alpha = 0;
                          
                      }
                      completion:^(BOOL finished){
@@ -434,7 +360,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -456,7 +381,6 @@
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     
     [spinner startAnimating];
-    //NSLog(@"hello");
     UIImage *image_background = [UIImage imageNamed:@"blank.png"];
     UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
     

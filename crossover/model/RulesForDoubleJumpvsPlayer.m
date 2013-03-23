@@ -11,7 +11,6 @@
 #import "ValidMoveDirections.h"
 @implementation RulesForDoubleJumpvsPlayer
 + (BOOL)captureRuleStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy{
-    NSLog(@"JUMP 3 %d", [self invalidPointsListForCaptureStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy]);
     return [self checkAllDirectionCaptureStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy]
     && [self invalidPointsListForCaptureStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy];
 }
@@ -63,7 +62,6 @@
     }
     
     if((starty+2)<=6 && (startx-endx) == 0 && (starty-endy) == -2){
-        NSLog(@"ineer %d", [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty+1]);
         if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty+2]==0 && [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty+1]==oppplayer){
             return true ;
         }
