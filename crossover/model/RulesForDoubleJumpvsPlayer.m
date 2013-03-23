@@ -7,65 +7,71 @@
 //
 
 #import "RulesForDoubleJumpvsPlayer.h"
-
+#import "GlobalSingleton.h"
+#import "ValidMoveDirections.h"
 @implementation RulesForDoubleJumpvsPlayer
 + (BOOL)captureRuleStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy{
-    
+    NSLog(@"JUMP 3 %d", [self invalidPointsListForCaptureStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy]);
     return [self checkAllDirectionCaptureStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy]
     && [self invalidPointsListForCaptureStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy];
 }
 
 + (BOOL)checkAllDirectionCaptureStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy{
     int oppplayer = -1 ;
-    if(PlayerPlacements.player2){
+    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
         oppplayer = 1 ;
     }else{
         oppplayer = 2 ;
     }
     
-    boolean objectcanCapture = false ;
     
     if((startx-2)>=0 && (starty-2)>=0&&(startx-endx)==2&&(starty-endy)==2){
-        if(list[startx-2][starty-2] == 0 && list[startx-1][starty-1] == oppplayer && ValidmoveDirections.moveDirection(startx, starty)){
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx-2 AndCoumn:(int)starty-2] == 0 &&
+           [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx-1 AndCoumn:(int)starty-1] == oppplayer &&
+           [ValidMoveDirections moveDirectionRow:startx column:starty]){
             return true ;
         }
     }
     
     if((starty-2)>=0 &&(startx-endx)==0  && (starty-endy)==2 ){
-        if(list[startx][starty-2]==0&& list[startx][starty-1]==oppplayer){
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty-2]==0&& [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty-1]==oppplayer){
             return true ;
         }
     }
     if( (startx+2)<=6 && (starty-2)>=0 && (startx-endx)==-2 && (starty-endy)==2){
-        if(list[startx+2][starty-2]==0 && list[startx+1][starty-1]==oppplayer && ValidmoveDirections.moveDirection(startx, starty)){
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx+2 AndCoumn:(int)starty-2]==0 && [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx+1 AndCoumn:(int)starty-1]==oppplayer &&
+           [ValidMoveDirections moveDirectionRow:startx column:starty]){
             return true ;
         }
     }
     if((startx-2)>=0  && (startx-endx) == 2 && (starty-endy) == 0){
-        if(list[startx-2][starty]==0&&list[startx-1][starty]==oppplayer){
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx-2 AndCoumn:(int)starty]==0&&[[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx-1 AndCoumn:(int)starty]==oppplayer){
             return true ;
         }
     }
     if((startx+2)<=6 && (startx-endx) == -2 && (starty-endy) == 0){
-        if(list[startx+2][starty] == 0 && list[startx+1][starty]==oppplayer){
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx+2 AndCoumn:(int)starty] == 0 && [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx+1 AndCoumn:(int)starty]==oppplayer){
             return true ;
         }
     }
     
     if((startx-2)>=0 &&(starty+2)<=6 && (startx-endx) == 2 && (starty-endy) == -2){
-        if(list[startx-2][starty+2]==0 && list[startx-1][starty+1]==oppplayer && ValidmoveDirections.moveDirection(startx, starty)){
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx-2 AndCoumn:(int)starty+2]==0 && [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx-1 AndCoumn:(int)starty+1]==oppplayer &&
+           [ValidMoveDirections moveDirectionRow:startx column:starty]){
             return true ;
         }
     }
     
     if((starty+2)<=6 && (startx-endx) == 0 && (starty-endy) == -2){
-        if(list[startx][starty+2]==0 &&list[startx][starty+1]==oppplayer){
+        NSLog(@"ineer %d", [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty+1]);
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty+2]==0 && [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty+1]==oppplayer){
             return true ;
         }
     }
     
     if((startx+2)<=6 &&(starty+2)<=6 && (startx-endx) == -2 && (starty-endy) == -2){
-        if(list[startx+2][starty+2]==0 && list[startx+1][starty+1]==oppplayer && ValidmoveDirections.moveDirection(startx, starty)){
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx+2 AndCoumn:(int)starty+2]==0 && [[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx+1 AndCoumn:(int)starty+1]==oppplayer &&
+           [ValidMoveDirections moveDirectionRow:startx column:starty]){
             return true ;
         }
     }

@@ -13,6 +13,7 @@
 #import "GlobalSingleton.h"
 #import "BoardUIView.h"
 #import "RulesForSingleJumpVsPalyer.h"
+#import "RulesForDoubleJumpvsPlayer.h"
 @interface ViewController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
@@ -74,6 +75,7 @@
         coin = [self getCoinWithPlayer:(UIButton *)coin
                              ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
         coin.tag = array_position + 2000;
+        //NSLog(@"coin.tag %d", coin.tag);
         array_position ++;
         [self.view addSubview:coin];
     }
@@ -122,6 +124,7 @@
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event
 {
     tag_coin_picked = ctrl.tag - 2000;
+    NSLog(@"tag_coin_picked %d",tag_coin_picked);
     cgrect_drag_started = [[array_all_cgrect objectAtIndex:tag_coin_picked] CGRectValue];
 }
 
@@ -154,9 +157,6 @@
         
         if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
             
-            
-            //coin = (UIButton *)[self.view viewWithTag:tag_coin_picked];
-            
             NSString *string_coin_picked =
             [[GlobalSingleton sharedManager].array_two_dimensional_board objectAtIndex:tag_coin_picked];
              int start_x =  [[string_coin_picked substringWithRange:NSMakeRange(0, 1)] intValue];
@@ -168,9 +168,7 @@
             
             int diff_row = start_x - end_x;
             int diff_col = start_y - end_y;
-            //NSLog(@"diff_row %d",diff_row);
-            //NSLog(@"diff_col %d",diff_col);
-            if(diff_row <= 1 && diff_col <=1
+            if(abs(diff_row) <= 1 && abs(diff_col) <=1
                && [RulesForSingleJumpVsPalyer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y]){
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
@@ -178,16 +176,23 @@
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
                 [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
                 found_in_cgrect = true;
-            }else if((diff_row==0 && diff_col ==2)||(diff_row==2 && diff_col ==0)||diff_row==2 && diff_col ==2) )
-                && (new RulesForDoubleJumpvsPlayer().CaptureRulevsPalyer(curentrow, curentcol,futurerow,futurecol)){
-				/*PlayerPlacementsvsPlayer.POSITIONSvsPalyer[7*futurerow +futurecol] = PlayerPlacementsvsPlayer.POSITIONSvsPalyer[7*curentrow+curentcol] ;
-				PlayerPlacementsvsPlayer.POSITIONSvsPalyer[7*(futurerow +(diffrow/2))+futurecol +(diffcol/2)] = 0 ;
-				PlayerPlacementsvsPlayer.POSITIONSvsPalyer[7*curentrow+curentcol] = 0 ;
-				PlayerPlacementsvsPlayer.player1vsPalyer = !PlayerPlacementsvsPlayer.player1vsPalyer ;
-				PlayerPlacementsvsPlayer.player2vsPalyer = !PlayerPlacementsvsPlayer.player2vsPalyer ;
+            }else if(
+                     ( ( abs(diff_row)==0 && abs(diff_col) == 2) ||
+                     ( abs(diff_row)==2 && abs(diff_col) ==0) ||
+                     ( abs(diff_row)==2 && abs(diff_col) ==2) )
+                && ([RulesForDoubleJumpvsPlayer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y])){
+                [[GlobalSingleton sharedManager].array_initial_player_positions
+                 replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
+                
+                int coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
+                [[GlobalSingleton sharedManager].array_initial_player_positions
+                 replaceObjectAtIndex:coin_eliminated withObject:@"0"];
+                [[GlobalSingleton sharedManager].array_initial_player_positions
+                 replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 //				this.capturedintf = (CapturedAnimation)getContext();
-				capturedintf.capturedAnimation(7*(futurerow +(diffrow/2))+futurecol +(diffcol/2));
-				return true ;*/
+				//capturedintf.capturedAnimation(7*(futurerow +(diffrow/2))+futurecol +(diffcol/2));
+                [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
+                found_in_cgrect = true;
 			}
             
             
@@ -299,7 +304,6 @@
                             forState:UIControlStateNormal];
     [button_vs_player addTarget:self action:@selector(playerVsPlayer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_vs_player];
-    //pankaj
     
 }
 
