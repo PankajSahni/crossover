@@ -37,7 +37,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self getBackground];
+    //[self getBackground];
+    NSDictionary *device_dimensions =
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    CGRect rect_temp = 
+    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
+                                  [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
+                                  21,21);
+    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
+    spinner.frame = rect_temp;
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [spinner startAnimating];
+    [self.view addSubview:self.boardModelObject];
     [self getBoard];
     
 }
@@ -125,8 +136,6 @@
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event
 {
     tag_coin_picked = ctrl.tag - 2000;
-    cgrect_drag_started = [[[GlobalSingleton sharedManager].array_all_cgrect
-                            objectAtIndex:tag_coin_picked] CGRectValue];
 }
 
 - (void) dragMoving:(UIControl *) ctrl withEvent:(UIEvent *) event
@@ -370,38 +379,7 @@
     return NO;
 }
 
--(void)getBackground{
-    NSDictionary *device_dimensions =
-    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
-    CGRect rect_temp = CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
-                                  [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
-                                  21,21);
-    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
-    spinner.frame = rect_temp;
-    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    
-    [spinner startAnimating];
-    UIImage *image_background = [UIImage imageNamed:@"blank.png"];
-    UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
-    
-    
-    rect_temp = CGRectMake(0 , 0,
-                           [[device_dimensions valueForKey:@"width"] intValue],
-                           [[device_dimensions valueForKey:@"height"] intValue]);
-    
-    imageview_background.frame = rect_temp;
-    
-    [self.view addSubview:imageview_background];
-    [self.view addSubview:self.boardModelObject];
-}
 
-/*- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
-}*/
+
 
 @end

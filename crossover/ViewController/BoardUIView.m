@@ -27,70 +27,39 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
-    
-        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:50 yValue:170 width:560 height:560];
+        NSDictionary *device_dimensions =
+        [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+        CGRect cgrect_temp = CGRectMake(0 , 0,
+                                        [[device_dimensions valueForKey:@"width"] intValue],
+                                        [[device_dimensions valueForKey:@"height"] intValue]);
         [self setFrame:cgrect_temp];
-        //self.backgroundColor = [UIColor greenColor];
-        UIImage *image_board = [UIImage imageNamed:@"images/board.png"];
-        UIImageView *imageview_board =
-        [[UIImageView alloc] initWithImage:image_board];
-        cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:15 yValue:15 width:530 height:530];
-        imageview_board.frame = cgrect_temp;
-        [self addSubview:imageview_board];
-        
- 
-        
+        [self getBackground];
+        [self getCross];
     }
     return self;
 }
-
--(void)playerVsPlayer:(id)sender{
-    NSLog(@"board view");
-
+-(void)getCross{
+    UIImage *image_board = [UIImage imageNamed:@"board.png"];
+    UIImageView *imageview_board =
+    [[UIImageView alloc] initWithImage:image_board];
+   CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:62 yValue:180 width:540 height:540];
+    imageview_board.frame = cgrect_temp;
+    [self addSubview:imageview_board];
 }
-
--(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
-    NSString *image_player = @"";
-    if([player isEqualToString:@"1"]){
-        image_player = @"images/i5.png";
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-                                        forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
-    }
-    else if([player isEqualToString:@"2"]){
-       image_player = @"images/i19.png";
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-    forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
-    }
-    else if([player isEqualToString:@"0"]){
-        image_player = @"images/blanckbtn_big.png";
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-                          forState:UIControlStateNormal];
-    }
-    else{
-        
-    }
+-(void)getBackground{
     
-    return button;
-    
-}
-
-
-- (IBAction) imageMoved:(id) sender withEvent:(UIEvent *) event
-{
-    UIControl *control = sender;
-    
-    UITouch *t = [[event allTouches] anyObject];
-    CGPoint pPrev = [t previousLocationInView:control];
-    CGPoint p = [t locationInView:control];
-    NSLog(@"previous inside %@", NSStringFromCGPoint(pPrev));
-    NSLog(@"now inside %@", NSStringFromCGPoint(p));
-    
-    CGPoint center = control.center;
-    center.x += p.x - pPrev.x;
-    center.y += p.y - pPrev.y;
-    control.center = center;
+    NSDictionary *device_dimensions =
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    CGRect rect_temp = 
+    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
+                                  [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
+                                  21,21);
+    UIImage *image_background = [UIImage imageNamed:@"blank.png"];
+    UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
+    rect_temp = CGRectMake(0 , 0,
+                           [[device_dimensions valueForKey:@"width"] intValue],
+                           [[device_dimensions valueForKey:@"height"] intValue]);
+    imageview_background.frame = rect_temp;
+    [self addSubview:imageview_background];
 }
 @end
