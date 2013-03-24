@@ -47,19 +47,34 @@
     [self addSubview:imageview_board];
 }
 -(void)getBackground{
-    
     NSDictionary *device_dimensions =
     [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
-    CGRect rect_temp = 
-    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
-                                  [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
-                                  21,21);
     UIImage *image_background = [UIImage imageNamed:@"blank.png"];
     UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
-    rect_temp = CGRectMake(0 , 0,
+    CGRect rect_temp = CGRectMake(0 , 0,
                            [[device_dimensions valueForKey:@"width"] intValue],
                            [[device_dimensions valueForKey:@"height"] intValue]);
     imageview_background.frame = rect_temp;
     [self addSubview:imageview_background];
+    
+    /*player 1 background */
+    UIImage *image_captured_bg = [UIImage imageNamed:@"captured_bg.png"];
+    UIImageView *imageview_captured_bg_one = 
+    [[UIImageView alloc] initWithImage:image_captured_bg];
+    rect_temp = [[GlobalSingleton sharedManager] 
+                 getFrameAccordingToDeviceWithXvalue:650 yValue:200 width:320 height:200];
+    imageview_captured_bg_one.frame = rect_temp;
+    [self addSubview:imageview_captured_bg_one];
+    /*player 1 background */
+    
+    /*player 1 background */
+    UIImage *image_captured_bg_two = [UIImage imageNamed:@"captured_bg.png"];
+    UIImageView *imageview_captured_bg_two = 
+    [[UIImageView alloc] initWithImage:image_captured_bg_two];
+    rect_temp = [[GlobalSingleton sharedManager] 
+                 getFrameAccordingToDeviceWithXvalue:650 yValue:450 width:320 height:200];
+    imageview_captured_bg_two.frame = rect_temp;
+    [self addSubview:imageview_captured_bg_two];
+    /*player 1 background */
 }
 @end
