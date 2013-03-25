@@ -88,7 +88,6 @@
         coin = [self getCoinWithPlayer:(UIButton *)coin
                              ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
         coin.tag = array_position + 2000;
-        //NSLog(@"coin.tag %d", coin.tag);
         array_position ++;
         [self.view addSubview:coin];
     }
@@ -167,7 +166,9 @@
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
     CGRect move_to;
     NSString *player_at_position = [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:captured];
-    CGRect move_from = [[[GlobalSingleton sharedManager].array_all_cgrect objectAtIndex:captured] CGRectValue];
+    NSLog(@"player %@",player_at_position);
+    [[GlobalSingleton sharedManager].array_initial_player_positions
+     replaceObjectAtIndex:captured withObject:@"0"];
     if ([player_at_position isEqualToString:@"1"]) {
         for (int i = 0; i <= 15; i ++) {
             if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]){
@@ -175,10 +176,10 @@
                 break;
             }
         }
-    }else{
+    }if ([player_at_position isEqualToString:@"2"]) {
         for (int i = 0; i <= 15; i ++) {
-            if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]){
-                move_to = [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+            if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"0"]){
+                move_to = [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
                 break;
             }
         }
@@ -208,7 +209,7 @@
             [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
             [self.view addSubview:imageview_temp];
         }
-        if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"2"]){
+        if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"1"]){
             UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_two];
             imageview_temp.frame =
             [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];

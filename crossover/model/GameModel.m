@@ -101,7 +101,10 @@
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
+                NSLog(@"pahbdjhs %@",[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:int_array_index]);
+                NSLog(@"1 %@",[GlobalSingleton sharedManager].string_my_turn);
                 [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
+                NSLog(@"2 %@",[GlobalSingleton sharedManager].string_my_turn);
             }
             if(
                      ( ( abs(diff_row)==0 && abs(diff_col) == 2) ||
@@ -109,13 +112,12 @@
                       ( abs(diff_row)==2 && abs(diff_col) ==2) )
                      && ([RulesForDoubleJumpvsPlayer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y])){
                 [[GlobalSingleton sharedManager].array_initial_player_positions
+                 replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
+                [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
                 
                 coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
-                [[GlobalSingleton sharedManager].array_initial_player_positions
-                 replaceObjectAtIndex:coin_eliminated withObject:@"0"];
-                [[GlobalSingleton sharedManager].array_initial_player_positions
-                 replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
+                
                 [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
                 
 			}
