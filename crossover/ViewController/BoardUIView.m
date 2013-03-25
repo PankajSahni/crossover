@@ -62,7 +62,7 @@
     UIImageView *imageview_captured_bg_one = 
     [[UIImageView alloc] initWithImage:image_captured_bg];
     rect_temp = [[GlobalSingleton sharedManager] 
-                 getFrameAccordingToDeviceWithXvalue:650 yValue:200 width:320 height:200];
+                 getFrameAccordingToDeviceWithXvalue:700 yValue:250 width:288 height:160];
     imageview_captured_bg_one.frame = rect_temp;
     [self addSubview:imageview_captured_bg_one];
     /*player 1 background */
@@ -72,7 +72,7 @@
     UIImageView *imageview_captured_bg_two = 
     [[UIImageView alloc] initWithImage:image_captured_bg_two];
     rect_temp = [[GlobalSingleton sharedManager] 
-                 getFrameAccordingToDeviceWithXvalue:650 yValue:450 width:320 height:200];
+                 getFrameAccordingToDeviceWithXvalue:700 yValue:450 width:288 height:160];
     imageview_captured_bg_two.frame = rect_temp;
     [self addSubview:imageview_captured_bg_two];
     /*player 1 background */

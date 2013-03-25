@@ -50,10 +50,24 @@
     [spinner startAnimating];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
+    [self getCapturedPlayers];
     
 }
 
-
+-(void)getCapturedPlayers{
+    for (int i = 0; i <= 15; i ++) {
+        UIImage *image_captured_player_at_position = [UIImage imageNamed:@"blanckbtn_big.png.png"];
+        UIImageView *imageview_temp_1 = [[UIImageView alloc] initWithImage:image_captured_player_at_position];
+        imageview_temp_1.frame =
+        [[[self gameModelObject].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+        [self.view addSubview:imageview_temp_1];
+    
+        UIImageView *imageview_temp_2 = [[UIImageView alloc] initWithImage:image_captured_player_at_position];
+        imageview_temp_2.frame =
+        [[[self gameModelObject].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
+        [self.view addSubview:imageview_temp_2];
+    }
+}
 -(void) getBoard{
     
 
