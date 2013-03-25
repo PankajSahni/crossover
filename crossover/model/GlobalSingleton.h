@@ -16,6 +16,13 @@
 @property (nonatomic, retain) NSString *string_my_turn;
 @property (nonatomic, retain) NSMutableArray *array_two_dimensional_board;
 @property (nonatomic, retain) NSMutableArray *array_all_cgrect;
+
+@property (nonatomic, retain) NSMutableArray *array_captured_p1_cgrect;
+@property (nonatomic, retain) NSMutableArray *array_captured_p1_coins;
+@property (nonatomic, retain) NSMutableArray *array_captured_p2_cgrect;
+@property (nonatomic, retain) NSMutableArray *array_captured_p2_coins;
+
+
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal
@@ -24,4 +31,5 @@
 - (CGPoint)convertPositionWithXOffset:(CGFloat)x withYOffset:(CGFloat)y;
 - (int )getXAccordingToDevice:(int )int_x;
 -(NSArray *) initialPlayerPositions;
+-(void)setPlayersCapturedCGRect;
 @end

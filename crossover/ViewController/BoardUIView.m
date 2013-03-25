@@ -35,6 +35,7 @@
         [self setFrame:cgrect_temp];
         [self getBackground];
         [self getCross];
+        [self getCapturedPlayers];
     }
     return self;
 }
@@ -76,5 +77,22 @@
     imageview_captured_bg_two.frame = rect_temp;
     [self addSubview:imageview_captured_bg_two];
     /*player 1 background */
+}
+
+
+-(void)getCapturedPlayers{
+    [[GlobalSingleton sharedManager] setPlayersCapturedCGRect];
+    for (int i = 0; i <= 15; i ++) {
+        UIImage *image_captured_player_at_position = [UIImage imageNamed:@"blanckbtn_big.png.png"];
+        UIImageView *imageview_temp_1 = [[UIImageView alloc] initWithImage:image_captured_player_at_position];
+        imageview_temp_1.frame =
+        [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+        [self addSubview:imageview_temp_1];
+        
+        UIImageView *imageview_temp_2 = [[UIImageView alloc] initWithImage:image_captured_player_at_position];
+        imageview_temp_2.frame =
+        [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
+        [self addSubview:imageview_temp_2];
+    }
 }
 @end

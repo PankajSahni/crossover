@@ -15,6 +15,13 @@
 @synthesize string_my_turn;
 @synthesize array_two_dimensional_board;
 @synthesize array_all_cgrect;
+
+@synthesize array_captured_p1_cgrect;
+@synthesize array_captured_p1_coins;
+@synthesize array_captured_p2_cgrect;
+@synthesize array_captured_p2_coins;
+
+
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc
@@ -144,6 +151,39 @@ static GlobalSingleton *sharedManager; // self
     [array_two_dimensional_board indexOfObject:string_two_dimensional_board_value];
     return [[array_initial_player_positions objectAtIndex:index_of_row_and_column]intValue] ;
 }
+
+-(void)setPlayersCapturedCGRect{
+    array_captured_p1_cgrect = [[NSMutableArray alloc] init];
+    array_captured_p2_cgrect = [[NSMutableArray alloc] init];
+    array_captured_p2_coins = [[NSMutableArray alloc] init];
+    array_captured_p1_coins = [[NSMutableArray alloc] init];
+    int int_x = 705;
+    int int_y_p1 = 300;
+    int int_y_p2 = 480;
+    for (int i = 0; i <= 1; i ++) {
+        
+        for (int j = 0; j <= 7; j++) {
+            [array_captured_p1_coins addObject:@"0"];
+            [array_captured_p2_coins addObject:@"0"];
+            CGRect rect_p1 =
+            [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:int_x
+                                                                          yValue:int_y_p1 width:30 height:30];
+            CGRect rect_p2 =
+            [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:int_x
+                                                                          yValue:int_y_p2 width:30 height:30];
+            
+            [array_captured_p1_cgrect addObject: [NSValue valueWithCGRect:rect_p1]];
+            [array_captured_p2_cgrect addObject: [NSValue valueWithCGRect:rect_p2]];
+            int_x = int_x + 35 ;
+            
+            //
+        }
+        int_y_p1 = int_y_p1 + 40 ;
+        int_y_p2 = int_y_p2 + 40 ;
+        int_x = 705;
+    }
+}
+
 - (id)copyWithZone:(NSZone *)zone
 {
     return self;
