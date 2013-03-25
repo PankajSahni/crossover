@@ -12,7 +12,8 @@
 #import "RulesForDoubleJumpvsPlayer.h"
 @implementation GameModel
 @synthesize dictionary_my_device_dimensions;
-
+@synthesize string_player_one_coin;
+@synthesize string_player_two_coin;
 //@synthesize delegate_refresh_my_data;
 
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
@@ -43,7 +44,8 @@
 }
 
 -(NSMutableArray *)getBoardDimensions{
-    
+    string_player_one_coin = @"i5.png";
+    string_player_two_coin =  @"i19.png";
     NSMutableArray *array_temp = [[NSMutableArray alloc ] init ];
     int int_x = 52;
     int int_y = 170;
@@ -75,9 +77,9 @@
 }
 
 
--(BOOL)validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked{
+-(int)validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked{
     int int_array_index = 0;
-    BOOL return_value;
+    int coin_eliminated = 0;
     for (NSValue *cgrect_loop in [GlobalSingleton sharedManager].array_all_cgrect) {
         
         if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
@@ -100,8 +102,8 @@
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
                 [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
-                return_value = true;
-            }else if(
+            }
+            if(
                      ( ( abs(diff_row)==0 && abs(diff_col) == 2) ||
                       ( abs(diff_row)==2 && abs(diff_col) ==0) ||
                       ( abs(diff_row)==2 && abs(diff_col) ==2) )
@@ -109,24 +111,20 @@
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
                 
-                int coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
+                coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:coin_eliminated withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
-                //				this.capturedintf = (CapturedAnimation)getContext();
-				//capturedintf.capturedAnimation(7*(futurerow +(diffrow/2))+futurecol +(diffcol/2));
                 [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
-                return_value = true;
-			}else {
-                return_value = false;
-            }
+                
+			}
             
             
         }
         int_array_index ++ ;
     }
-    return return_value;
+    return coin_eliminated;
 }
 
 -(void) togglePlayer:(NSString *)my_turn{
@@ -136,6 +134,24 @@
         [GlobalSingleton sharedManager].string_my_turn = @"1";
     }
 }
-
+-(void)addCoinToCaptureBlockWithIndex:(int)index{
+    //NSLog(@"turn %@",[GlobalSingleton sharedManager].string_my_turn);
+    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]){
+        for (int i = 0; i <= 15; i++) {
+            if ([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]) {
+                [[GlobalSingleton sharedManager].array_captured_p1_coins replaceObjectAtIndex:i withObject:@"1"];
+                break;
+            }
+        }
+    }
+    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
+        for (int i = 0; i <= 15; i++) {
+            if ([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"0"]) {
+                [[GlobalSingleton sharedManager].array_captured_p2_coins replaceObjectAtIndex:i withObject:@"1"];
+                break;
+            }
+        }
+    }
+}
 
 @end

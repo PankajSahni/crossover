@@ -98,12 +98,12 @@
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";
     if([player isEqualToString:@"1"]){
-        image_player = @"i5.png";
+        image_player = [self.gameModelObject string_player_one_coin];
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
     }
     else if([player isEqualToString:@"2"]){
-        image_player = @"i19.png";
+        image_player = [self.gameModelObject string_player_two_coin];
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
     }
@@ -154,11 +154,69 @@
 {
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint end_point = [touch locationInView:self.view];
-    [self.gameModelObject 
-     validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked] ;
-    [self getBoard];
+    int captured = [self.gameModelObject
+     validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked];
+    
+    if(captured){
+        [self animateEliminatedCapturedCoinWithIndex:captured];
+    }else{
+        [self getBoard];
+    }
+    //
 }
+-(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
+    CGRect move_to;
+    NSString *player_at_position = [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:captured];
+    CGRect move_from = [[[GlobalSingleton sharedManager].array_all_cgrect objectAtIndex:captured] CGRectValue];
+    if ([player_at_position isEqualToString:@"1"]) {
+        for (int i = 0; i <= 15; i ++) {
+            if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]){
+               move_to = [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+                break;
+            }
+        }
+    }else{
+        for (int i = 0; i <= 15; i ++) {
+            if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]){
+                move_to = [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+                break;
+            }
+        }
+    }
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
+                         button.frame = move_to;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         [self.gameModelObject addCoinToCaptureBlockWithIndex:captured];
+                         [self refreshCapturedBlocks];
+                         [self getBoard];
+                     }];
+	[UIView commitAnimations];
 
+    
+}
+-(void)refreshCapturedBlocks{
+    UIImage *image_player_one = [UIImage imageNamed:[self.gameModelObject string_player_one_coin]];
+    UIImage *image_player_two = [UIImage imageNamed:[self.gameModelObject string_player_two_coin]];
+    for (int i = 0; i <= 15; i ++) {
+        if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"1"]){
+            UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_one];
+            imageview_temp.frame =
+            [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+            [self.view addSubview:imageview_temp];
+        }
+        if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"2"]){
+            UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_two];
+            imageview_temp.frame =
+            [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
+            [self.view addSubview:imageview_temp];
+        }
+    }
+    
+}
 
 -(void)authenticateWithGameCenter{
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {

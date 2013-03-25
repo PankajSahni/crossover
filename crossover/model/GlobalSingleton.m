@@ -172,8 +172,8 @@ static GlobalSingleton *sharedManager; // self
             [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:int_x
                                                                           yValue:int_y_p2 width:30 height:30];
             
-            [array_captured_p1_cgrect addObject: [NSValue valueWithCGRect:rect_p1]];
-            [array_captured_p2_cgrect addObject: [NSValue valueWithCGRect:rect_p2]];
+            [array_captured_p1_cgrect addObject: [NSValue valueWithCGRect:rect_p2]];
+            [array_captured_p2_cgrect addObject: [NSValue valueWithCGRect:rect_p1]];
             int_x = int_x + 35 ;
             
             //
