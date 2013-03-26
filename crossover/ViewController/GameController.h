@@ -25,6 +25,11 @@
     CGRect cgrect_drag_started;
     UIButton *coin;
     int tag_coin_picked;
+    NSTimer *timer;
+    int timeSec;
+    int timeMin;
+    UILabel *timeLabel;
+    
     
     
     

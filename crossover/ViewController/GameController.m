@@ -41,15 +41,20 @@
     NSDictionary *device_dimensions =
     [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     CGRect rect_temp = 
-    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 - 21 ,
-                                  [[device_dimensions valueForKey:@"height"] intValue]/2 - 21,
-                                  21,21);
+    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 + 21 ,
+                                  [[device_dimensions valueForKey:@"height"] intValue]/2 + 21,
+                                  100,100);
     spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
     spinner.frame = rect_temp;
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [spinner startAnimating];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
+    timeLabel = [[UILabel alloc] initWithFrame: rect_temp];
+    timeLabel.frame = rect_temp;
+    [self.view addSubview:timeLabel];
+    
+    [self StartTimer];
     
     
 }
@@ -439,7 +444,51 @@
     return NO;
 }
 
+//Call This to Start timer, will tick every second
+-(void) StartTimer
+{
+    timeSec = 15;
+    timeMin = 02;
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerTick:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+}
 
+//Event called every time the NSTimer ticks.
+- (void)timerTick:(NSTimer *)timer
+{
+    
+    if (timeSec == 00)
+    {
+        timeSec = 60;
+        timeMin --;
+    }
+    
+        timeSec --;
+        if (timeMin==0 && timeSec==0) {
+            [self StopTimer];
+        }
+    
+    //Format the string 00:00
+    NSString* timeNow = [NSString stringWithFormat:@"%02d:%02d", timeMin, timeSec];
+    //Display on your label
+    //[timeLabel setStringValue:timeNow];
+    NSLog(@"time now %@",timeNow);
+    timeLabel.text= timeNow;
+}
+
+//Call this to stop the timer event(could use as a 'Pause' or 'Reset')
+- (void) StopTimer
+{
+    [timer invalidate];
+    timeSec = 0;
+    timeMin = 0;
+    //Since we reset here, and timerTick won't update your label again, we need to refresh it again.
+    //Format the string in 00:00
+    NSString* timeNow = [NSString stringWithFormat:@"%02d:%02d", timeMin, timeSec];
+    //Display on your label
+    // [timeLabel setStringValue:timeNow];
+    timeLabel.text= timeNow;
+}
 
 
 @end

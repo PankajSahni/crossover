@@ -22,6 +22,8 @@
 @property (nonatomic, retain) NSMutableArray *array_captured_p2_cgrect;
 @property (nonatomic, retain) NSMutableArray *array_captured_p2_coins;
 
+@property (nonatomic, retain) NSString *string_timer_p1;
+@property (nonatomic, retain) NSString *string_timer_p2;
 
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal

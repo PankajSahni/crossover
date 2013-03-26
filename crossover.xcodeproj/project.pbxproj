@@ -12,7 +12,10 @@
 		047F6F7B16FC58AC00D8F212 /* ValidMoveDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F6F7A16FC58AC00D8F212 /* ValidMoveDirections.m */; };
 		047F6F7E16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 047F6F7D16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.m */; };
 		04A2D87A16E0E0F5001ECD83 /* framework in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87916E0E0F5001ECD83 /* framework */; };
-		04A2D87E16E0E135001ECD83 /* Supporting in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87D16E0E135001ECD83 /* Supporting */; };
+		04D1899A17016B7A00CCE3D5 /* DigitalRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899217016B7A00CCE3D5 /* DigitalRegular.ttf */; };
+		04D1899B17016B7A00CCE3D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899317016B7A00CCE3D5 /* InfoPlist.strings */; };
+		04D1899C17016B7A00CCE3D5 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899517016B7A00CCE3D5 /* ViewController_iPad.xib */; };
+		04D1899D17016B7A00CCE3D5 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899717016B7A00CCE3D5 /* ViewController_iPhone.xib */; };
 		04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD982F16DE2568003E8AA8 /* GameKit.framework */; };
 		04E4687D16DE0A88008479F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687C16DE0A88008479F0 /* UIKit.framework */; };
 		04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687E16DE0A88008479F0 /* Foundation.framework */; };
@@ -185,7 +188,11 @@
 		047F6F7C16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulesForDoubleJumpvsPlayer.h; sourceTree = "<group>"; };
 		047F6F7D16FC830000D8F212 /* RulesForDoubleJumpvsPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RulesForDoubleJumpvsPlayer.m; sourceTree = "<group>"; };
 		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
-		04A2D87D16E0E135001ECD83 /* Supporting */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Supporting; sourceTree = "<group>"; };
+		04D1899217016B7A00CCE3D5 /* DigitalRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DigitalRegular.ttf; sourceTree = "<group>"; };
+		04D1899417016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		04D1899617016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		04D1899817016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		04D1899917016B7A00CCE3D5 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		04E4687816DE0A88008479F0 /* crossover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crossover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E4687C16DE0A88008479F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -373,6 +380,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04D1899117016B7A00CCE3D5 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				04D1899217016B7A00CCE3D5 /* DigitalRegular.ttf */,
+				04D1899317016B7A00CCE3D5 /* InfoPlist.strings */,
+				04D1899517016B7A00CCE3D5 /* ViewController_iPad.xib */,
+				04D1899717016B7A00CCE3D5 /* ViewController_iPhone.xib */,
+				04D1899917016B7A00CCE3D5 /* main.m */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
 		04E4686D16DE0A88008479F0 = {
 			isa = PBXGroup;
 			children = (
@@ -405,13 +424,13 @@
 		04E4688216DE0A88008479F0 /* crossover */ = {
 			isa = PBXGroup;
 			children = (
+				04D1899117016B7A00CCE3D5 /* Supporting */,
 				472D191416F793CB0002BAC8 /* crossover-Prefix.pch */,
 				472D191216F7938C0002BAC8 /* crossover-Info.plist */,
 				472D17D216F783FA0002BAC8 /* model */,
 				472D17C716F783D90002BAC8 /* ViewController */,
 				04E4688B16DE0A88008479F0 /* AppDelegate.h */,
 				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
-				04A2D87D16E0E135001ECD83 /* Supporting */,
 				04A2D87916E0E0F5001ECD83 /* framework */,
 				04E4688316DE0A88008479F0 /* Supporting Files */,
 			);
@@ -675,7 +694,6 @@
 			files = (
 				0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */,
 				04A2D87A16E0E0F5001ECD83 /* framework in Resources */,
-				04A2D87E16E0E135001ECD83 /* Supporting in Resources */,
 				472D187016F791E90002BAC8 /* app_icon_100.png in Resources */,
 				472D187116F791E90002BAC8 /* app_icon_72.png in Resources */,
 				472D187216F791E90002BAC8 /* bar1.png in Resources */,
@@ -826,6 +844,10 @@
 				472D190E16F7929B0002BAC8 /* ViewController_iPad.xib in Resources */,
 				472D190F16F7929B0002BAC8 /* ViewController_iPhone.xib in Resources */,
 				4774063E16FF50A200A0C0D5 /* captured_bg.png in Resources */,
+				04D1899A17016B7A00CCE3D5 /* DigitalRegular.ttf in Resources */,
+				04D1899B17016B7A00CCE3D5 /* InfoPlist.strings in Resources */,
+				04D1899C17016B7A00CCE3D5 /* ViewController_iPad.xib in Resources */,
+				04D1899D17016B7A00CCE3D5 /* ViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,6 +874,30 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		04D1899317016B7A00CCE3D5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04D1899417016B7A00CCE3D5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		04D1899517016B7A00CCE3D5 /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04D1899617016B7A00CCE3D5 /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		04D1899717016B7A00CCE3D5 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04D1899817016B7A00CCE3D5 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
 		472D190616F7929B0002BAC8 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
