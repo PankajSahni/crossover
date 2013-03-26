@@ -128,7 +128,6 @@
     }else{
         [GlobalSingleton sharedManager].string_my_turn = @"1";
     }
-    NSLog(@"string turn %@",[GlobalSingleton sharedManager].string_my_turn);
 }
 -(void)addCoinToCaptureBlockWithIndex:(int)index{
     //NSLog(@"turn %@",[GlobalSingleton sharedManager].string_my_turn);

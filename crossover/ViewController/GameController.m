@@ -187,7 +187,7 @@
      validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked];
     
     if(captured){
-        [self getBoard];
+        
         [self animateEliminatedCapturedCoinWithIndex:captured];
     }else{
         [self getBoard];
@@ -198,9 +198,7 @@
     
     CGRect move_to;
     NSString *player_at_position = [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:captured];
-    NSLog(@"player %@",player_at_position);
-    [[GlobalSingleton sharedManager].array_initial_player_positions
-     replaceObjectAtIndex:captured withObject:@"0"];
+    
     if ([player_at_position isEqualToString:@"1"]) {
         for (int i = 0; i <= 15; i ++) {
             if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]){
@@ -216,6 +214,10 @@
             }
         }
     }
+    [self.gameModelObject addCoinToCaptureBlockWithIndex:captured];
+    [self.gameModelObject togglePlayer];
+    [self getBoard];
+    
     [UIView animateWithDuration:1.0
                      animations:^{
                          
@@ -224,10 +226,12 @@
                          
                      }
                      completion:^(BOOL finished){
-                         [self.gameModelObject addCoinToCaptureBlockWithIndex:captured];
+                         [[GlobalSingleton sharedManager].array_initial_player_positions
+                          replaceObjectAtIndex:captured withObject:@"0"];
+                         [self getBoard];
                          [self refreshCapturedBlocks];
                         
-                         [self.gameModelObject togglePlayer];
+                         
                           
                      }];
 	[UIView commitAnimations];
