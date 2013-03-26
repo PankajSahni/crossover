@@ -50,13 +50,7 @@
     [spinner startAnimating];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
-    [self getTimer];
-    
-    
-    
-    
-    
-    
+    [self getTimer];  
 }
 -(void)getTimer{
     [GlobalSingleton sharedManager].int_minutes_p1 = 5;
@@ -193,6 +187,7 @@
      validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked];
     
     if(captured){
+        [self getBoard];
         [self animateEliminatedCapturedCoinWithIndex:captured];
     }else{
         [self getBoard];
@@ -200,6 +195,7 @@
     //
 }
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
+    
     CGRect move_to;
     NSString *player_at_position = [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:captured];
     NSLog(@"player %@",player_at_position);
@@ -222,6 +218,7 @@
     }
     [UIView animateWithDuration:1.0
                      animations:^{
+                         
                          UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
                          button.frame = move_to;
                          
@@ -231,7 +228,7 @@
                          [self refreshCapturedBlocks];
                         
                          [self.gameModelObject togglePlayer];
-                          [self getBoard];
+                          
                      }];
 	[UIView commitAnimations];
 
@@ -477,18 +474,12 @@
     return NO;
 }
 
-//Call This to Start timer, will tick every second
 -(void) StartTimer
 {
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerTick) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
-/*-(void) StartTimerForP2
-{
-    timer_P2 = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerTick:) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:timer_P2 forMode:NSDefaultRunLoopMode];
-}*/
-//Event called every time the NSTimer ticks.
+
 - (void)timerTick
 {
     
@@ -501,39 +492,6 @@
     }else{
         time_label_P2.text= string_time_now;
     }
-    
-    
-}
-/*- (void)timerTickP2:(NSTimer *)timer
-{
-    
-    
-    if ([GlobalSingleton sharedManager].int_seconds_p1 == 00)
-    {
-        [GlobalSingleton sharedManager].int_seconds_p1 = 60;
-        [GlobalSingleton sharedManager].int_minutes_p1 --;
-    }
-    
-    [GlobalSingleton sharedManager].int_seconds_p1 --;
-    if ([GlobalSingleton sharedManager].int_minutes_p1==0 &&
-        [GlobalSingleton sharedManager].int_seconds_p1==0) {
-        [self StopTimer];
-    }
-    
-    //Format the string 00:00
-    NSString* timeNow = [NSString stringWithFormat:@"%02d:%02d",
-                         [GlobalSingleton sharedManager].int_minutes_p1,
-                         [GlobalSingleton sharedManager].int_seconds_p1];
-    time_label_P2.text= timeNow;
-    UIFont *font_digital = [UIFont
-                            fontWithName:@"Let's go Digital"
-                            size:time_label_P2.font.pointSize];
-    [time_label_P2 setFont:font_digital];
-}*/
-//Call this to stop the timer event(could use as a 'Pause' or 'Reset')
-- (void)StopTimer
-{
-    
     
     
 }
