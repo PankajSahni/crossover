@@ -50,16 +50,47 @@
     [spinner startAnimating];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
-    timeLabel = [[UILabel alloc] initWithFrame: rect_temp];
-    timeLabel.frame = rect_temp;
-    [self.view addSubview:timeLabel];
+    [self getTimer];
     
-    [self StartTimer];
+    
+    
+    
     
     
 }
-
-
+-(void)getTimer{
+    [GlobalSingleton sharedManager].int_minutes_p1 = 5;
+    [GlobalSingleton sharedManager].int_seconds_p1 = 0;
+    [GlobalSingleton sharedManager].int_minutes_p2 = 5;
+    [GlobalSingleton sharedManager].int_seconds_p2 = 0;
+    
+    CGRect rect_temp =
+    [[GlobalSingleton sharedManager]
+     getFrameAccordingToDeviceWithXvalue:705 yValue:565 width:70 height:35];
+    time_label_P1 = [[UILabel alloc] initWithFrame: rect_temp];
+    time_label_P1.frame = rect_temp;
+    [self.view addSubview:time_label_P1];
+    UIFont *font_digital = [UIFont
+                            fontWithName:@"Let's go Digital"
+                            size:12];
+    [time_label_P1 setFont:font_digital];
+    time_label_P1.textColor = [UIColor whiteColor];
+    time_label_P1.backgroundColor = [UIColor clearColor];
+    time_label_P1.text = @"05:00";
+    
+    rect_temp =
+    [[GlobalSingleton sharedManager]
+     getFrameAccordingToDeviceWithXvalue:910 yValue:255 width:70 height:35];
+    time_label_P2 = [[UILabel alloc] initWithFrame: rect_temp];
+    time_label_P2.frame = rect_temp;
+    time_label_P2.textColor = [UIColor whiteColor];
+    time_label_P2.backgroundColor = [UIColor clearColor];
+    
+    [self.view addSubview:time_label_P2];
+    [time_label_P2 setFont:font_digital];
+    time_label_P2.text = @"05:00";
+    [self StartTimer];
+}
 -(void) getBoard{
     
 
@@ -198,7 +229,9 @@
                      completion:^(BOOL finished){
                          [self.gameModelObject addCoinToCaptureBlockWithIndex:captured];
                          [self refreshCapturedBlocks];
-                         [self getBoard];
+                        
+                         [self.gameModelObject togglePlayer];
+                          [self getBoard];
                      }];
 	[UIView commitAnimations];
 
@@ -447,47 +480,62 @@
 //Call This to Start timer, will tick every second
 -(void) StartTimer
 {
-    timeSec = 15;
-    timeMin = 02;
-    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerTick:) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerTick) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
-
+/*-(void) StartTimerForP2
+{
+    timer_P2 = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerTick:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer_P2 forMode:NSDefaultRunLoopMode];
+}*/
 //Event called every time the NSTimer ticks.
-- (void)timerTick:(NSTimer *)timer
+- (void)timerTick
 {
     
-    if (timeSec == 00)
-    {
-        timeSec = 60;
-        timeMin --;
+    NSString *string_time_now = [[self gameModelObject] updateTimerForPlayer];
+    if ([string_time_now isEqualToString:@"00:00"]) {
+        [timer invalidate];
+    }
+    if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]) {
+       time_label_P1.text= string_time_now;
+    }else{
+        time_label_P2.text= string_time_now;
     }
     
-        timeSec --;
-        if (timeMin==0 && timeSec==0) {
-            [self StopTimer];
-        }
+    
+}
+/*- (void)timerTickP2:(NSTimer *)timer
+{
+    
+    
+    if ([GlobalSingleton sharedManager].int_seconds_p1 == 00)
+    {
+        [GlobalSingleton sharedManager].int_seconds_p1 = 60;
+        [GlobalSingleton sharedManager].int_minutes_p1 --;
+    }
+    
+    [GlobalSingleton sharedManager].int_seconds_p1 --;
+    if ([GlobalSingleton sharedManager].int_minutes_p1==0 &&
+        [GlobalSingleton sharedManager].int_seconds_p1==0) {
+        [self StopTimer];
+    }
     
     //Format the string 00:00
-    NSString* timeNow = [NSString stringWithFormat:@"%02d:%02d", timeMin, timeSec];
-    //Display on your label
-    //[timeLabel setStringValue:timeNow];
-    NSLog(@"time now %@",timeNow);
-    timeLabel.text= timeNow;
-}
-
+    NSString* timeNow = [NSString stringWithFormat:@"%02d:%02d",
+                         [GlobalSingleton sharedManager].int_minutes_p1,
+                         [GlobalSingleton sharedManager].int_seconds_p1];
+    time_label_P2.text= timeNow;
+    UIFont *font_digital = [UIFont
+                            fontWithName:@"Let's go Digital"
+                            size:time_label_P2.font.pointSize];
+    [time_label_P2 setFont:font_digital];
+}*/
 //Call this to stop the timer event(could use as a 'Pause' or 'Reset')
-- (void) StopTimer
+- (void)StopTimer
 {
-    [timer invalidate];
-    timeSec = 0;
-    timeMin = 0;
-    //Since we reset here, and timerTick won't update your label again, we need to refresh it again.
-    //Format the string in 00:00
-    NSString* timeNow = [NSString stringWithFormat:@"%02d:%02d", timeMin, timeSec];
-    //Display on your label
-    // [timeLabel setStringValue:timeNow];
-    timeLabel.text= timeNow;
+    
+    
+    
 }
 
 

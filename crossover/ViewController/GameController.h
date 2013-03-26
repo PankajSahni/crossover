@@ -26,9 +26,8 @@
     UIButton *coin;
     int tag_coin_picked;
     NSTimer *timer;
-    int timeSec;
-    int timeMin;
-    UILabel *timeLabel;
+    UILabel *time_label_P1;
+    UILabel *time_label_P2;
     
     
     

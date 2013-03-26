@@ -16,5 +16,6 @@
 -(NSMutableArray *)getBoardDimensions;
 -(int)validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked;
 -(void)addCoinToCaptureBlockWithIndex:(int)index;
-
+-(NSString *)updateTimerForPlayer;
+-(void) togglePlayer;
 @end

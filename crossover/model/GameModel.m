@@ -101,10 +101,7 @@
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
-                NSLog(@"pahbdjhs %@",[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:int_array_index]);
-                NSLog(@"1 %@",[GlobalSingleton sharedManager].string_my_turn);
-                [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
-                NSLog(@"2 %@",[GlobalSingleton sharedManager].string_my_turn);
+                [self togglePlayer];
             }
             if(
                      ( ( abs(diff_row)==0 && abs(diff_col) == 2) ||
@@ -115,11 +112,7 @@
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
-                
                 coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
-                
-                [self togglePlayer:[GlobalSingleton sharedManager].string_my_turn];
-                
 			}
             
             
@@ -129,8 +122,8 @@
     return coin_eliminated;
 }
 
--(void) togglePlayer:(NSString *)my_turn{
-    if([my_turn isEqualToString:@"1"]){
+-(void) togglePlayer{
+    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]){
         [GlobalSingleton sharedManager].string_my_turn = @"2";
     }else{
         [GlobalSingleton sharedManager].string_my_turn = @"1";
@@ -140,20 +133,58 @@
     //NSLog(@"turn %@",[GlobalSingleton sharedManager].string_my_turn);
     if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]){
         for (int i = 0; i <= 15; i++) {
-            if ([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]) {
-                [[GlobalSingleton sharedManager].array_captured_p1_coins replaceObjectAtIndex:i withObject:@"1"];
-                break;
-            }
-        }
-    }
-    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
-        for (int i = 0; i <= 15; i++) {
             if ([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"0"]) {
                 [[GlobalSingleton sharedManager].array_captured_p2_coins replaceObjectAtIndex:i withObject:@"1"];
                 break;
             }
         }
     }
+    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
+        for (int i = 0; i <= 15; i++) {
+            if ([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]) {
+                [[GlobalSingleton sharedManager].array_captured_p1_coins replaceObjectAtIndex:i withObject:@"1"];
+                break;
+            }
+        }
+    }
 }
+
+
+-(NSString *)updateTimerForPlayer{
+    NSString* timeNow;
+    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]){
+        if ([GlobalSingleton sharedManager].int_seconds_p1 == 00)
+        {
+            [GlobalSingleton sharedManager].int_seconds_p1 = 60;
+            [GlobalSingleton sharedManager].int_minutes_p1 --;
+        }
+        
+        [GlobalSingleton sharedManager].int_seconds_p1 --;
+        if ([GlobalSingleton sharedManager].int_minutes_p1==0 &&
+            [GlobalSingleton sharedManager].int_seconds_p1==0) {
+        }
+        timeNow = [NSString stringWithFormat:@"%02d:%02d",
+                             [GlobalSingleton sharedManager].int_minutes_p1,
+                             [GlobalSingleton sharedManager].int_seconds_p1];
+    }
+    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
+        if ([GlobalSingleton sharedManager].int_seconds_p1 == 00)
+        {
+            [GlobalSingleton sharedManager].int_seconds_p1 = 60;
+            [GlobalSingleton sharedManager].int_minutes_p1 --;
+        }
+        
+        [GlobalSingleton sharedManager].int_seconds_p1 --;
+        if ([GlobalSingleton sharedManager].int_minutes_p1==0 &&
+            [GlobalSingleton sharedManager].int_seconds_p1==0) {
+        }
+         timeNow  = [NSString stringWithFormat:@"%02d:%02d",
+                             [GlobalSingleton sharedManager].int_minutes_p1,
+                             [GlobalSingleton sharedManager].int_seconds_p1];
+    }
+    return timeNow;
+}
+
+
 
 @end

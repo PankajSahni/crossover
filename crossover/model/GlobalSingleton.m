@@ -21,9 +21,10 @@
 @synthesize array_captured_p2_cgrect;
 @synthesize array_captured_p2_coins;
 
-@synthesize string_timer_p1;
-@synthesize string_timer_p2;
-
+@synthesize int_minutes_p1;
+@synthesize int_minutes_p2;
+@synthesize int_seconds_p1;
+@synthesize int_seconds_p2;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc
