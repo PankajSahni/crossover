@@ -11,7 +11,6 @@
 #import "GlobalSingleton.h"
 @implementation RulesForSingleJumpVsPalyer
 + (BOOL)captureRuleStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy{
-    
     return [self checkAllDirectionMoveStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy]
     && [self singleJumpStartX:(int)startx StartY:(int)starty endX:(int)endx endY:(int)endy];
 }
@@ -62,7 +61,6 @@
     }
     
     if((starty-1)>=0 &&(startx-endx)==0  && (starty-endy)==1 ){
-        //NSLog(@"hello %d", [self getCellStatusWithRow:(int)startx AndCoumn:(int)starty-1]);
         
         if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx AndCoumn:(int)starty-1]==0){
             
@@ -87,7 +85,7 @@
     }
     
     if((startx-1)>=0 &&(starty+1)<=6 && (startx-endx) == 1 && (starty-endy) == -1){
-        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx+1 AndCoumn:(int)starty-1]==0
+        if([[GlobalSingleton sharedManager] getCellStatusWithRow:(int)startx-1 AndCoumn:(int)starty+1]==0
            && [ValidMoveDirections moveDirectionRow:startx column:starty]){
             return true ;
         }
