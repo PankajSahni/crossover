@@ -50,80 +50,10 @@
     [spinner startAnimating];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
+    [GlobalSingleton sharedManager].string_opponent = @"computer";
     [self getTimer];  
 }
--(void)getTimer{
-    [GlobalSingleton sharedManager].int_minutes_p1 = 5;
-    [GlobalSingleton sharedManager].int_seconds_p1 = 0;
-    [GlobalSingleton sharedManager].int_minutes_p2 = 5;
-    [GlobalSingleton sharedManager].int_seconds_p2 = 0;
-    
-    CGRect rect_temp =
-    [[GlobalSingleton sharedManager]
-     getFrameAccordingToDeviceWithXvalue:705 yValue:565 width:70 height:35];
-    time_label_P1 = [[UILabel alloc] initWithFrame: rect_temp];
-    time_label_P1.frame = rect_temp;
-    [self.view addSubview:time_label_P1];
-    UIFont *font_digital = [UIFont
-                            fontWithName:@"Let's go Digital"
-                            size:12];
-    [time_label_P1 setFont:font_digital];
-    time_label_P1.textColor = [UIColor whiteColor];
-    time_label_P1.backgroundColor = [UIColor clearColor];
-    time_label_P1.text = @"05:00";
-    
-    rect_temp =
-    [[GlobalSingleton sharedManager]
-     getFrameAccordingToDeviceWithXvalue:910 yValue:255 width:70 height:35];
-    time_label_P2 = [[UILabel alloc] initWithFrame: rect_temp];
-    time_label_P2.frame = rect_temp;
-    time_label_P2.textColor = [UIColor whiteColor];
-    time_label_P2.backgroundColor = [UIColor clearColor];
-    
-    [self.view addSubview:time_label_P2];
-    [time_label_P2 setFont:font_digital];
-    time_label_P2.text = @"05:00";
-    [self StartTimer];
-}
--(void) getBoard{
-    
 
-    NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
-    NSArray *array_initial_positions;
-    if ([[GlobalSingleton sharedManager].array_initial_player_positions count] == 0) {
-       array_initial_positions  = [[GlobalSingleton sharedManager] initialPlayerPositions];
-    }else{
-        array_initial_positions = [GlobalSingleton sharedManager].array_initial_player_positions;
-        for (int i = 0; i <= 48 ; i++) {
-          UIButton  *_coin = (UIButton *)[self.view viewWithTag:i+2000];
-            [_coin removeFromSuperview];
-        }
-    }
-    NSMutableArray *array_two_dimensional_board = 
-    [GlobalSingleton sharedManager].array_two_dimensional_board;
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [GlobalSingleton sharedManager].array_all_cgrect = [[NSMutableArray alloc] init];
-    int array_position = 0;
-    for (NSDictionary *dict_x_y in board_dimensions) {
-        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:[[dict_x_y valueForKey:@"x"] intValue]
-                                                                                           yValue:[[dict_x_y valueForKey:@"y"] intValue]
-                                                                                            width:40 height:40];
-        
-        [[GlobalSingleton sharedManager].array_all_cgrect 
-         addObject:[NSValue valueWithCGRect:cgrect_temp]];
-        [dict setObject:[NSValue valueWithCGRect:cgrect_temp]
-                 forKey:[array_two_dimensional_board objectAtIndex:array_position]];
-        coin = [UIButton buttonWithType:UIButtonTypeCustom];
-        coin.frame = cgrect_temp;
-        coin = [self getCoinWithPlayer:(UIButton *)coin
-                             ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
-        coin.tag = array_position + 2000;
-        array_position ++;
-        [self.view addSubview:coin];
-    }
-
-
-}
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";
     if([player isEqualToString:@"1"]){
@@ -230,9 +160,9 @@
                           replaceObjectAtIndex:captured withObject:@"0"];
                          [self getBoard];
                          [self refreshCapturedBlocks];
-                        
-                         
-                          
+                         if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
+                             [self.gameModelObject computerTurn];
+                         }
                      }];
 	[UIView commitAnimations];
 
@@ -500,5 +430,76 @@
     
 }
 
-
+-(void)getTimer{
+    [GlobalSingleton sharedManager].int_minutes_p1 = 5;
+    [GlobalSingleton sharedManager].int_seconds_p1 = 0;
+    [GlobalSingleton sharedManager].int_minutes_p2 = 5;
+    [GlobalSingleton sharedManager].int_seconds_p2 = 0;
+    
+    CGRect rect_temp =
+    [[GlobalSingleton sharedManager]
+     getFrameAccordingToDeviceWithXvalue:705 yValue:565 width:70 height:35];
+    time_label_P1 = [[UILabel alloc] initWithFrame: rect_temp];
+    time_label_P1.frame = rect_temp;
+    [self.view addSubview:time_label_P1];
+    UIFont *font_digital = [UIFont
+                            fontWithName:@"Let's go Digital"
+                            size:12];
+    [time_label_P1 setFont:font_digital];
+    time_label_P1.textColor = [UIColor whiteColor];
+    time_label_P1.backgroundColor = [UIColor clearColor];
+    time_label_P1.text = @"05:00";
+    
+    rect_temp =
+    [[GlobalSingleton sharedManager]
+     getFrameAccordingToDeviceWithXvalue:910 yValue:255 width:70 height:35];
+    time_label_P2 = [[UILabel alloc] initWithFrame: rect_temp];
+    time_label_P2.frame = rect_temp;
+    time_label_P2.textColor = [UIColor whiteColor];
+    time_label_P2.backgroundColor = [UIColor clearColor];
+    
+    [self.view addSubview:time_label_P2];
+    [time_label_P2 setFont:font_digital];
+    time_label_P2.text = @"05:00";
+    [self StartTimer];
+}
+-(void) getBoard{
+    
+    
+    NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
+    NSArray *array_initial_positions;
+    if ([[GlobalSingleton sharedManager].array_initial_player_positions count] == 0) {
+        array_initial_positions  = [[GlobalSingleton sharedManager] initialPlayerPositions];
+    }else{
+        array_initial_positions = [GlobalSingleton sharedManager].array_initial_player_positions;
+        for (int i = 0; i <= 48 ; i++) {
+            UIButton  *_coin = (UIButton *)[self.view viewWithTag:i+2000];
+            [_coin removeFromSuperview];
+        }
+    }
+    NSMutableArray *array_two_dimensional_board =
+    [GlobalSingleton sharedManager].array_two_dimensional_board;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [GlobalSingleton sharedManager].array_all_cgrect = [[NSMutableArray alloc] init];
+    int array_position = 0;
+    for (NSDictionary *dict_x_y in board_dimensions) {
+        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:[[dict_x_y valueForKey:@"x"] intValue]
+                                                                                           yValue:[[dict_x_y valueForKey:@"y"] intValue]
+                                                                                            width:40 height:40];
+        
+        [[GlobalSingleton sharedManager].array_all_cgrect
+         addObject:[NSValue valueWithCGRect:cgrect_temp]];
+        [dict setObject:[NSValue valueWithCGRect:cgrect_temp]
+                 forKey:[array_two_dimensional_board objectAtIndex:array_position]];
+        coin = [UIButton buttonWithType:UIButtonTypeCustom];
+        coin.frame = cgrect_temp;
+        coin = [self getCoinWithPlayer:(UIButton *)coin
+                             ForPlayer:(NSString *) [array_initial_positions objectAtIndex:array_position]];
+        coin.tag = array_position + 2000;
+        array_position ++;
+        [self.view addSubview:coin];
+    }
+    
+    
+}
 @end
