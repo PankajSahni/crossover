@@ -26,7 +26,7 @@
         for(int j=0;j<7;j++){
 //            /MovePojo pojo =new MovePojo() ;
             if([[GlobalSingleton sharedManager] getCellStatusWithRow:i AndCoumn:j]==playerno){
-                checkAllDirectionForMove(i, j, list, pojo);
+               // checkAllDirectionForMove(i, j, list, pojo);
             }
         }
     }

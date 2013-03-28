@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface GameModel : NSObject
+#import "AiEngine.h"
+@interface GameModel : NSObject{
+    AiEngine *aiEngineObject;
+}
 @property (nonatomic, retain) NSMutableDictionary *dictionary_my_device_dimensions;
 @property (nonatomic, retain) NSString *string_player_one_coin;
 @property (nonatomic, retain) NSString *string_player_two_coin;

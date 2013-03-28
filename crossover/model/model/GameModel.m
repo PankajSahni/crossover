@@ -10,12 +10,22 @@
 #import "GlobalSingleton.h"
 #import "RulesForSingleJumpVsPalyer.h"
 #import "RulesForDoubleJumpvsPlayer.h"
+#import "AiEngine.h"
+@interface AiEngine ()
+@property (readonly) AiEngine *aiEngineObject;
+@end
 @implementation GameModel
+
 @synthesize dictionary_my_device_dimensions;
 @synthesize string_player_one_coin;
 @synthesize string_player_two_coin;
 //@synthesize delegate_refresh_my_data;
-
+- (AiEngine *) aiEngineObject{
+    if(!aiEngineObject){
+        aiEngineObject = [[AiEngine alloc] init];
+    }
+    return aiEngineObject;
+}
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
     if([device_type isEqualToString:@"iphone"]){
         NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -186,7 +196,7 @@
 }
 
 -(void)computerTurn{
-    
+    [self.aiEngineObject playerOne];
 }
 
 @end
