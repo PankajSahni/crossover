@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0404D0E816DE1324000BC07A /* Default-568h@2x.png */; };
-		0455BA28170478AB00EEFEEE /* AiEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455BA1D170478AB00EEFEEE /* AiEngine.m */; };
-		0455BA29170478AB00EEFEEE /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455BA1F170478AB00EEFEEE /* GameModel.m */; };
-		0455BA2A170478AB00EEFEEE /* GlobalSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455BA21170478AB00EEFEEE /* GlobalSingleton.m */; };
-		0455BA2B170478AB00EEFEEE /* RulesForDoubleJumpvsPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455BA23170478AB00EEFEEE /* RulesForDoubleJumpvsPlayer.m */; };
-		0455BA2C170478AB00EEFEEE /* RulesForSingleJumpVsPalyer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455BA25170478AB00EEFEEE /* RulesForSingleJumpVsPalyer.m */; };
-		0455BA2D170478AB00EEFEEE /* ValidMoveDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = 0455BA27170478AB00EEFEEE /* ValidMoveDirections.m */; };
 		04A2D87A16E0E0F5001ECD83 /* framework in Resources */ = {isa = PBXBuildFile; fileRef = 04A2D87916E0E0F5001ECD83 /* framework */; };
 		04D1899A17016B7A00CCE3D5 /* DigitalRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899217016B7A00CCE3D5 /* DigitalRegular.ttf */; };
 		04D1899B17016B7A00CCE3D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899317016B7A00CCE3D5 /* InfoPlist.strings */; };
@@ -178,22 +172,17 @@
 		472D190F16F7929B0002BAC8 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472D190A16F7929B0002BAC8 /* ViewController_iPhone.xib */; };
 		472D191116F792D50002BAC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D191016F792D50002BAC8 /* main.m */; };
 		4774063E16FF50A200A0C0D5 /* captured_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4774063D16FF50A200A0C0D5 /* captured_bg.png */; };
+		47C5FE131704C21B002870B2 /* AiEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C5FE061704C21B002870B2 /* AiEngine.m */; };
+		47C5FE141704C21B002870B2 /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C5FE081704C21B002870B2 /* GameModel.m */; };
+		47C5FE151704C21B002870B2 /* GlobalSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C5FE0A1704C21B002870B2 /* GlobalSingleton.m */; };
+		47C5FE161704C21B002870B2 /* PlayerPlacements.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C5FE0C1704C21B002870B2 /* PlayerPlacements.m */; };
+		47C5FE171704C21B002870B2 /* RulesForDoubleJumpvsPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C5FE0E1704C21B002870B2 /* RulesForDoubleJumpvsPlayer.m */; };
+		47C5FE181704C21B002870B2 /* RulesForSingleJumpVsPalyer.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C5FE101704C21B002870B2 /* RulesForSingleJumpVsPalyer.m */; };
+		47C5FE191704C21B002870B2 /* ValidMoveDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = 47C5FE121704C21B002870B2 /* ValidMoveDirections.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0404D0E816DE1324000BC07A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		0455BA1C170478AB00EEFEEE /* AiEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AiEngine.h; path = model/AiEngine.h; sourceTree = "<group>"; };
-		0455BA1D170478AB00EEFEEE /* AiEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AiEngine.m; path = model/AiEngine.m; sourceTree = "<group>"; };
-		0455BA1E170478AB00EEFEEE /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameModel.h; path = model/GameModel.h; sourceTree = "<group>"; };
-		0455BA1F170478AB00EEFEEE /* GameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameModel.m; path = model/GameModel.m; sourceTree = "<group>"; };
-		0455BA20170478AB00EEFEEE /* GlobalSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalSingleton.h; path = model/GlobalSingleton.h; sourceTree = "<group>"; };
-		0455BA21170478AB00EEFEEE /* GlobalSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalSingleton.m; path = model/GlobalSingleton.m; sourceTree = "<group>"; };
-		0455BA22170478AB00EEFEEE /* RulesForDoubleJumpvsPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RulesForDoubleJumpvsPlayer.h; path = model/RulesForDoubleJumpvsPlayer.h; sourceTree = "<group>"; };
-		0455BA23170478AB00EEFEEE /* RulesForDoubleJumpvsPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RulesForDoubleJumpvsPlayer.m; path = model/RulesForDoubleJumpvsPlayer.m; sourceTree = "<group>"; };
-		0455BA24170478AB00EEFEEE /* RulesForSingleJumpVsPalyer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RulesForSingleJumpVsPalyer.h; path = model/RulesForSingleJumpVsPalyer.h; sourceTree = "<group>"; };
-		0455BA25170478AB00EEFEEE /* RulesForSingleJumpVsPalyer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RulesForSingleJumpVsPalyer.m; path = model/RulesForSingleJumpVsPalyer.m; sourceTree = "<group>"; };
-		0455BA26170478AB00EEFEEE /* ValidMoveDirections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValidMoveDirections.h; path = model/ValidMoveDirections.h; sourceTree = "<group>"; };
-		0455BA27170478AB00EEFEEE /* ValidMoveDirections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValidMoveDirections.m; path = model/ValidMoveDirections.m; sourceTree = "<group>"; };
 		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
 		04D1899217016B7A00CCE3D5 /* DigitalRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DigitalRegular.ttf; sourceTree = "<group>"; };
 		04D1899417016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -366,6 +355,20 @@
 		472D191216F7938C0002BAC8 /* crossover-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "crossover-Info.plist"; sourceTree = "<group>"; };
 		472D191416F793CB0002BAC8 /* crossover-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "crossover-Prefix.pch"; sourceTree = "<group>"; };
 		4774063D16FF50A200A0C0D5 /* captured_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = captured_bg.png; sourceTree = "<group>"; };
+		47C5FE051704C21B002870B2 /* AiEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiEngine.h; sourceTree = "<group>"; };
+		47C5FE061704C21B002870B2 /* AiEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiEngine.m; sourceTree = "<group>"; };
+		47C5FE071704C21B002870B2 /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameModel.h; sourceTree = "<group>"; };
+		47C5FE081704C21B002870B2 /* GameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameModel.m; sourceTree = "<group>"; };
+		47C5FE091704C21B002870B2 /* GlobalSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalSingleton.h; sourceTree = "<group>"; };
+		47C5FE0A1704C21B002870B2 /* GlobalSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalSingleton.m; sourceTree = "<group>"; };
+		47C5FE0B1704C21B002870B2 /* PlayerPlacements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerPlacements.h; sourceTree = "<group>"; };
+		47C5FE0C1704C21B002870B2 /* PlayerPlacements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerPlacements.m; sourceTree = "<group>"; };
+		47C5FE0D1704C21B002870B2 /* RulesForDoubleJumpvsPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulesForDoubleJumpvsPlayer.h; sourceTree = "<group>"; };
+		47C5FE0E1704C21B002870B2 /* RulesForDoubleJumpvsPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RulesForDoubleJumpvsPlayer.m; sourceTree = "<group>"; };
+		47C5FE0F1704C21B002870B2 /* RulesForSingleJumpVsPalyer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulesForSingleJumpVsPalyer.h; sourceTree = "<group>"; };
+		47C5FE101704C21B002870B2 /* RulesForSingleJumpVsPalyer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RulesForSingleJumpVsPalyer.m; sourceTree = "<group>"; };
+		47C5FE111704C21B002870B2 /* ValidMoveDirections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidMoveDirections.h; sourceTree = "<group>"; };
+		47C5FE121704C21B002870B2 /* ValidMoveDirections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidMoveDirections.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -466,18 +469,20 @@
 		472D17D216F783FA0002BAC8 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				0455BA1C170478AB00EEFEEE /* AiEngine.h */,
-				0455BA1D170478AB00EEFEEE /* AiEngine.m */,
-				0455BA1E170478AB00EEFEEE /* GameModel.h */,
-				0455BA1F170478AB00EEFEEE /* GameModel.m */,
-				0455BA20170478AB00EEFEEE /* GlobalSingleton.h */,
-				0455BA21170478AB00EEFEEE /* GlobalSingleton.m */,
-				0455BA22170478AB00EEFEEE /* RulesForDoubleJumpvsPlayer.h */,
-				0455BA23170478AB00EEFEEE /* RulesForDoubleJumpvsPlayer.m */,
-				0455BA24170478AB00EEFEEE /* RulesForSingleJumpVsPalyer.h */,
-				0455BA25170478AB00EEFEEE /* RulesForSingleJumpVsPalyer.m */,
-				0455BA26170478AB00EEFEEE /* ValidMoveDirections.h */,
-				0455BA27170478AB00EEFEEE /* ValidMoveDirections.m */,
+				47C5FE051704C21B002870B2 /* AiEngine.h */,
+				47C5FE061704C21B002870B2 /* AiEngine.m */,
+				47C5FE071704C21B002870B2 /* GameModel.h */,
+				47C5FE081704C21B002870B2 /* GameModel.m */,
+				47C5FE091704C21B002870B2 /* GlobalSingleton.h */,
+				47C5FE0A1704C21B002870B2 /* GlobalSingleton.m */,
+				47C5FE0B1704C21B002870B2 /* PlayerPlacements.h */,
+				47C5FE0C1704C21B002870B2 /* PlayerPlacements.m */,
+				47C5FE0D1704C21B002870B2 /* RulesForDoubleJumpvsPlayer.h */,
+				47C5FE0E1704C21B002870B2 /* RulesForDoubleJumpvsPlayer.m */,
+				47C5FE0F1704C21B002870B2 /* RulesForSingleJumpVsPalyer.h */,
+				47C5FE101704C21B002870B2 /* RulesForSingleJumpVsPalyer.m */,
+				47C5FE111704C21B002870B2 /* ValidMoveDirections.h */,
+				47C5FE121704C21B002870B2 /* ValidMoveDirections.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -868,12 +873,13 @@
 				472D17CF16F783D90002BAC8 /* BoardViewController.m in Sources */,
 				472D17D016F783D90002BAC8 /* GameController.m in Sources */,
 				472D191116F792D50002BAC8 /* main.m in Sources */,
-				0455BA28170478AB00EEFEEE /* AiEngine.m in Sources */,
-				0455BA29170478AB00EEFEEE /* GameModel.m in Sources */,
-				0455BA2A170478AB00EEFEEE /* GlobalSingleton.m in Sources */,
-				0455BA2B170478AB00EEFEEE /* RulesForDoubleJumpvsPlayer.m in Sources */,
-				0455BA2C170478AB00EEFEEE /* RulesForSingleJumpVsPalyer.m in Sources */,
-				0455BA2D170478AB00EEFEEE /* ValidMoveDirections.m in Sources */,
+				47C5FE131704C21B002870B2 /* AiEngine.m in Sources */,
+				47C5FE141704C21B002870B2 /* GameModel.m in Sources */,
+				47C5FE151704C21B002870B2 /* GlobalSingleton.m in Sources */,
+				47C5FE161704C21B002870B2 /* PlayerPlacements.m in Sources */,
+				47C5FE171704C21B002870B2 /* RulesForDoubleJumpvsPlayer.m in Sources */,
+				47C5FE181704C21B002870B2 /* RulesForSingleJumpVsPalyer.m in Sources */,
+				47C5FE191704C21B002870B2 /* ValidMoveDirections.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
