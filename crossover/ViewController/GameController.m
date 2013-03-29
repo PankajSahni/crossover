@@ -121,6 +121,11 @@
         [self animateEliminatedCapturedCoinWithIndex:captured];
     }else{
         [self getBoard];
+        if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
+            [self.gameModelObject computerTurn];
+            [self.gameModelObject togglePlayer];
+            [self getBoard];
+        }
     }
     //
 }
@@ -162,6 +167,8 @@
                          [self refreshCapturedBlocks];
                          if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
                              [self.gameModelObject computerTurn];
+                             [self.gameModelObject togglePlayer];
+                             [self getBoard];
                          }
                      }];
 	[UIView commitAnimations];
