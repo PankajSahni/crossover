@@ -17,15 +17,35 @@
 @synthesize safemoves;
 @synthesize savelist;
 @synthesize capturelist;
--(void)playerOne{
+-(NSMutableDictionary *)playerOne{
     if([self redcount] == 0){
         NSLog(@"computer lost");
     }else{
+        array_players_positions = [[NSMutableArray alloc] initWithArray:[GlobalSingleton sharedManager].array_initial_player_positions];
         if([self possiblemoves:2] && [self possiblecaptures:2]
            && [self possiblecapturesOpposition:2] && [self redcount] >0){
             [self checkconditionsforHard:2];
         }
     }
+    NSMutableDictionary *dict_computer_turn = [[NSMutableDictionary alloc] init ]; 
+    for (int i = 0; i <= 48 ; i++) {
+        if (![ [array_players_positions objectAtIndex:i] isEqualToString:
+             [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i] ]) {
+            if ([[array_players_positions objectAtIndex:i] isEqualToString:@"0"] &&
+                [[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i ] isEqualToString:@"1"]) {
+                [dict_computer_turn setObject:[NSString stringWithFormat:@"%d",i] forKey:@"captured"];
+            }
+            if ([[array_players_positions objectAtIndex:i] isEqualToString:@"0"] &&
+                [[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i ] isEqualToString:@"2"]) {
+                [dict_computer_turn setObject:[NSString stringWithFormat:@"%d",i] forKey:@"move"];
+            }
+            if ([[array_players_positions objectAtIndex:i] isEqualToString:@"2"] &&
+                [[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i ] isEqualToString:@"0"]) {
+                [dict_computer_turn setObject:[NSString stringWithFormat:@"%d",i] forKey:@"newposition"];
+            }
+        }
+    }
+    return dict_computer_turn;
 }
 -(void)checkconditionsforHard:(int)playerno{
     safecapturelist = nil;
@@ -66,12 +86,12 @@
     int currentPojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                             [[currentpojo objectForKey:@"x"]
                              stringByAppendingString:[currentpojo objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
+    [array_players_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
     
     int futurePojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                            [[futurePojo objectForKey:@"x"]
                             stringByAppendingString:[futurePojo objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:futurePojoIndex withObject:[NSString stringWithFormat:@"%d", playerno ]];
+    [array_players_positions replaceObjectAtIndex:futurePojoIndex withObject:[NSString stringWithFormat:@"%d", playerno ]];
     
     
 }
@@ -85,21 +105,20 @@
     int currentPojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                             [[currentPojo objectForKey:@"x"]
                              stringByAppendingString:[currentPojo objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
-    NSLog(@"currentPojoIndex %d",currentPojoIndex);
+    [array_players_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
     
     NSDictionary *futurePojo = [self getvaluesforcapture:currentPojo];
     int futurePojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                            [[futurePojo objectForKey:@"x"]
                             stringByAppendingString:[futurePojo objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:futurePojoIndex withObject:[NSString stringWithFormat:@"%d", playerno ]];
+    [array_players_positions replaceObjectAtIndex:futurePojoIndex withObject:[NSString stringWithFormat:@"%d", playerno ]];
     
     
     NSDictionary *capturedposition = [self getCapturedValues:currentPojo];
     int capturedpositionIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                                  [[capturedposition objectForKey:@"x"]
                                   stringByAppendingString:[capturedposition objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:capturedpositionIndex withObject:@"0"];
+    [array_players_positions replaceObjectAtIndex:capturedpositionIndex withObject:@"0"];
 }
 
 -(void)SingleMove:(int)playerno{
@@ -113,12 +132,12 @@
     int currentPojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                             [[currentPojo objectForKey:@"x"]
                              stringByAppendingString:[currentPojo objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
+    [array_players_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
     
     int futurePojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                            [[futurePojo objectForKey:@"x"]
                             stringByAppendingString:[futurePojo objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:futurePojoIndex withObject:[NSString stringWithFormat:@"%d", playerno ]];
+    [array_players_positions replaceObjectAtIndex:futurePojoIndex withObject:[NSString stringWithFormat:@"%d", playerno ]];
 }
 -(NSDictionary *)Movesingle:(NSDictionary *)coin_to_move{
     int index = 0 ;
@@ -171,21 +190,21 @@ return temp;
     int currentPojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
     [[currentPojo objectForKey:@"x"]
      stringByAppendingString:[currentPojo objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
+    [array_players_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
     
     
     NSDictionary *futurePojo = [self getvaluesforcapture:currentPojo];
     int futurePojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                             [[futurePojo objectForKey:@"x"]
                              stringByAppendingString:[futurePojo objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:futurePojoIndex withObject:[NSString stringWithFormat:@"%d", player ]];
+    [array_players_positions replaceObjectAtIndex:futurePojoIndex withObject:[NSString stringWithFormat:@"%d", player ]];
     
     
     NSDictionary *capturedposition = [self getCapturedValues:currentPojo];
     int capturedpositionIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
                            [[capturedposition objectForKey:@"x"]
                             stringByAppendingString:[capturedposition objectForKey:@"y"]]];
-    [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:capturedpositionIndex withObject:@"0"];
+    [array_players_positions replaceObjectAtIndex:capturedpositionIndex withObject:@"0"];
 }
 -(NSDictionary *)getCapturedValues:(NSDictionary *)coin_to_move{
     NSDictionary *temp;
@@ -231,10 +250,6 @@ return temp;
 -(NSDictionary *)getvaluesforcapture:(NSDictionary *)coin_to_move{
     NSDictionary *temp;
     int index = 0;
-    
-    
-    NSString *arr = [[coin_to_move objectForKey:@"newpos"] objectAtIndex:index];
-    
     if([[[coin_to_move objectForKey:@"newpos"] objectAtIndex:index] isEqualToString:CNWU]){
          temp = [[NSDictionary alloc] initWithObjectsAndKeys:
    [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"x"] intValue]-2 ],@"x",
@@ -295,6 +310,7 @@ return temp;
                 array_temp = [[NSMutableArray alloc] initWithObjects:[[[moves objectAtIndex:i] objectForKey:@"newpos"] objectAtIndex:j], nil ];
                 NSDictionary *temp = [[NSDictionary alloc] initWithObjectsAndKeys:string_i,@"x",string_j,@"y",array_temp, @"newpos", nil];
                 [safemoves addObject:temp];
+                
             }
         }
     }
@@ -819,7 +835,7 @@ for(int i=0;i<[capturelist count];i++){
 -(int)redcount{
     int count = 0;
     for (int i = 0; i <= 48 ; i++) {
-        if([[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i] isEqualToString:@"2"]){
+        if([[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i ] isEqualToString:@"2"]){
             count ++;
         }
     }

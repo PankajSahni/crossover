@@ -195,8 +195,10 @@
     return timeNow;
 }
 
--(void)computerTurn{
-    [self.aiEngineObject playerOne];
+-(NSDictionary *)computerTurn{
+    
+   NSDictionary *dict_computer_turn = [self.aiEngineObject playerOne];
+    return dict_computer_turn;
 }
 
 @end

@@ -37,7 +37,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self getBackground];
     NSDictionary *device_dimensions =
     [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     CGRect rect_temp = 
@@ -115,24 +114,23 @@
     CGPoint end_point = [touch locationInView:self.view];
     int captured = [self.gameModelObject
      validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked];
-    
     if(captured){
-        
         [self animateEliminatedCapturedCoinWithIndex:captured];
     }else{
         [self getBoard];
         if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
-            [self.gameModelObject computerTurn];
-            [self.gameModelObject togglePlayer];
-            [self getBoard];
+            NSDictionary *computer_turn = [self.gameModelObject computerTurn];
+            [self animateComputerMove:computer_turn];
         }
     }
+    
     //
 }
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
     
     CGRect move_to;
     NSString *player_at_position = [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:captured];
+    //NSLog(@"player_at_position %@",player_at_position);
     
     if ([player_at_position isEqualToString:@"1"]) {
         for (int i = 0; i <= 15; i ++) {
@@ -152,6 +150,10 @@
     [self.gameModelObject addCoinToCaptureBlockWithIndex:captured];
     [self.gameModelObject togglePlayer];
     [self getBoard];
+    for (int i=0; i<=48; i++) {
+        //NSLog(@"key %d",i);
+        //NSLog(@"value %@",[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i]);
+    }
     
     [UIView animateWithDuration:1.0
                      animations:^{
@@ -164,17 +166,47 @@
                          [[GlobalSingleton sharedManager].array_initial_player_positions
                           replaceObjectAtIndex:captured withObject:@"0"];
                          [self getBoard];
-                         [self refreshCapturedBlocks];
                          if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
-                             [self.gameModelObject computerTurn];
-                             [self.gameModelObject togglePlayer];
-                             [self getBoard];
+                             NSDictionary *computer_turn = [self.gameModelObject computerTurn];
+                             [self animateComputerMove:computer_turn];
                          }
+                         [self refreshCapturedBlocks];
+                         
                      }];
 	[UIView commitAnimations];
 
     
 }
+-(void)animateComputerMove:(NSDictionary *)computer_turn{
+    
+    int move = [[computer_turn objectForKey:@"move"] intValue];
+    int newposition = [[computer_turn objectForKey:@"newposition"] intValue];
+    int captured = 0;
+    if ([computer_turn objectForKey:@"captured"]) {
+        captured = [[computer_turn objectForKey:@"captured"] intValue];
+    }
+    CGRect move_to = [[[GlobalSingleton sharedManager].array_all_cgrect objectAtIndex:newposition] CGRectValue];
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                    UIButton *move_coin = (UIButton *)[self.view viewWithTag:move+2000];
+                    move_coin.frame = move_to;
+                     }
+                     completion:^(BOOL finished){
+                         [[GlobalSingleton sharedManager].array_initial_player_positions
+                          replaceObjectAtIndex:move withObject:@"0"];
+                         [[GlobalSingleton sharedManager].array_initial_player_positions
+                          replaceObjectAtIndex:newposition withObject:@"2"];
+                         if (captured) {
+                             [self animateEliminatedCapturedCoinWithIndex:captured];
+                         }else {
+                             [self.gameModelObject togglePlayer];
+                             [self getBoard];
+                         }
+                     }];
+	[UIView commitAnimations];
+   
+}
+
 -(void)refreshCapturedBlocks{
     UIImage *image_player_one = [UIImage imageNamed:[self.gameModelObject string_player_one_coin]];
     UIImage *image_player_two = [UIImage imageNamed:[self.gameModelObject string_player_two_coin]];
@@ -471,8 +503,11 @@
     [self StartTimer];
 }
 -(void) getBoard{
-    
-    
+    /*for (int i=0; i<=48; i++) {
+        NSLog(@"key %d",i);
+        NSLog(@"value %@",[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i]);
+    }*/
+    tag_coin_picked = 0;
     NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
     NSArray *array_initial_positions;
     if ([[GlobalSingleton sharedManager].array_initial_player_positions count] == 0) {
@@ -505,6 +540,7 @@
         coin.tag = array_position + 2000;
         array_position ++;
         [self.view addSubview:coin];
+        
     }
     
     

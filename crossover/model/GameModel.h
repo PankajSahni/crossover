@@ -20,5 +20,5 @@
 -(void)addCoinToCaptureBlockWithIndex:(int)index;
 -(NSString *)updateTimerForPlayer;
 -(void) togglePlayer;
--(void)computerTurn;
+-(NSDictionary *)computerTurn;
 @end
