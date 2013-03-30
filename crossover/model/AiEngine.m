@@ -32,20 +32,25 @@
     safemoves = nil;
     [self safecapturelistHard];
     [self safemoveListlistHard];
+    
     if([safecapturelist count]>0){
+        
         [self CaptureOppsitionSafe:playerno];
     }/*else if([savelist count]>0 && [self SinglesaveCheckanyChipcanMoveTosave:playerno]){
         //			Log.v("singlemove", "move");
     }*/
     else if([capturelist count]>0){
+        
         [self CaptureOppsition:playerno];
     }
     
     else if([safemoves count]>0){
+        
         [self SingleMoveSafe:playerno];
     }
     
     else{
+        
         [self SingleMove:playerno];
     }
 }
@@ -55,6 +60,7 @@
         index = arc4random() % [safemoves count];
     }
     NSDictionary *currentpojo = [safemoves objectAtIndex:index];
+    
     NSDictionary *futurePojo = [self Movesingle:currentpojo];
     
     int currentPojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
@@ -80,7 +86,7 @@
                             [[currentPojo objectForKey:@"x"]
                              stringByAppendingString:[currentPojo objectForKey:@"y"]]];
     [[GlobalSingleton sharedManager].array_initial_player_positions replaceObjectAtIndex:currentPojoIndex withObject:@"0"];
-    
+    NSLog(@"currentPojoIndex %d",currentPojoIndex);
     
     NSDictionary *futurePojo = [self getvaluesforcapture:currentPojo];
     int futurePojoIndex = [[GlobalSingleton sharedManager].array_two_dimensional_board indexOfObject:
@@ -202,9 +208,11 @@ return temp;
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"x"] intValue]-1 ],@"x",
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"y"] intValue] ],@"y",nil];
     } else     if([[[coin_to_move objectForKey:@"newpos"] objectAtIndex:index] isEqualToString:CDN]){
+        
         temp = [[NSDictionary alloc] initWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"x"] intValue]+1 ],@"x",
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"y"] intValue] ],@"y",nil];
+        
     }else     if([[[coin_to_move objectForKey:@"newpos"] objectAtIndex:index] isEqualToString:CNEU]){
         temp = [[NSDictionary alloc] initWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"x"] intValue]-1 ],@"x",
@@ -223,6 +231,10 @@ return temp;
 -(NSDictionary *)getvaluesforcapture:(NSDictionary *)coin_to_move{
     NSDictionary *temp;
     int index = 0;
+    
+    
+    NSString *arr = [[coin_to_move objectForKey:@"newpos"] objectAtIndex:index];
+    
     if([[[coin_to_move objectForKey:@"newpos"] objectAtIndex:index] isEqualToString:CNWU]){
          temp = [[NSDictionary alloc] initWithObjectsAndKeys:
    [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"x"] intValue]-2 ],@"x",
@@ -241,6 +253,7 @@ return temp;
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"x"] intValue]-2 ],@"x",
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"y"] intValue] ],@"y",nil];
     }else if([[[coin_to_move objectForKey:@"newpos"] objectAtIndex:index] isEqualToString:CDN]){
+        
         temp = [[NSDictionary alloc] initWithObjectsAndKeys:
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"x"] intValue]+2 ],@"x",
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"y"] intValue] ],@"y",nil];
@@ -258,9 +271,11 @@ return temp;
                 [NSString stringWithFormat:@"%d",[[coin_to_move objectForKey:@"y"] intValue]+2 ],@"y",nil];
     } 
     return temp ;
+    
 }
 -(void)safemoveListlistHard{
     safemoves = [[NSMutableArray alloc] init];
+    NSMutableArray *array_temp;
     for(int i=0;i<[moves count];i++){
         for(int j =0;j<[[[moves objectAtIndex:i] objectForKey:@"newpos"] count];j++){
             
@@ -274,14 +289,16 @@ return temp;
             if([self objectCanbeMovedHardWithI:[[position objectAtIndex:0] intValue]
                                              andJ:[[position objectAtIndex:1] intValue]
                                            Player:2
-                                    FromDirection:[[[capturelist objectAtIndex:i] objectForKey:@"newpos"] objectAtIndex:j] ]){
+                                    FromDirection:[[[moves objectAtIndex:i] objectForKey:@"newpos"] objectAtIndex:j] ]){
                 NSString *string_i = [[moves objectAtIndex:i] objectForKey:@"x"];
                 NSString *string_j = [[moves objectAtIndex:i] objectForKey:@"y"];
-                NSDictionary *temp = [[NSDictionary alloc] initWithObjectsAndKeys:string_i,@"x",string_j,@"y",true,@"capture",[[[moves objectAtIndex:i] objectForKey:@"newpos"] objectAtIndex:j], @"newpos", nil];
+                array_temp = [[NSMutableArray alloc] initWithObjects:[[[moves objectAtIndex:i] objectForKey:@"newpos"] objectAtIndex:j], nil ];
+                NSDictionary *temp = [[NSDictionary alloc] initWithObjectsAndKeys:string_i,@"x",string_j,@"y",array_temp, @"newpos", nil];
                 [safemoves addObject:temp];
             }
         }
     }
+    
 }
 -(BOOL)objectCanbeMovedHardWithI:(int)i andJ:(int)j Player:(int)player FromDirection:(NSString *)fromdirection{
     int oppplayer = -1 ;
@@ -392,6 +409,7 @@ return temp;
     
 }
 -(void)safecapturelistHard{
+    NSMutableArray *array_temp;
     safecapturelist = [[NSMutableArray alloc] init];
 for(int i=0;i<[capturelist count];i++){
     
@@ -408,7 +426,8 @@ for(int i=0;i<[capturelist count];i++){
       FromDirection:[[[capturelist objectAtIndex:i] objectForKey:@"newpos"] objectAtIndex:j] ]){
             NSString *string_i = [[capturelist objectAtIndex:i] objectForKey:@"x"];
             NSString *string_j = [[capturelist objectAtIndex:i] objectForKey:@"y"];
-            NSDictionary *temp = [[NSDictionary alloc] initWithObjectsAndKeys:string_i,@"x",string_j,@"y",true,@"capture",[[[capturelist objectAtIndex:i] objectForKey:@"newpos"] objectAtIndex:j], @"newpos", nil];
+            array_temp = [[NSMutableArray alloc]initWithObjects:[[[capturelist objectAtIndex:i] objectForKey:@"newpos"] objectAtIndex:j], nil];
+            NSDictionary *temp = [[NSDictionary alloc] initWithObjectsAndKeys:string_i,@"x",string_j,@"y",array_temp, @"newpos", nil];
             [safecapturelist addObject:temp];
         }
     }
@@ -598,7 +617,7 @@ for(int i=0;i<[capturelist count];i++){
     if(objectadded){
         NSString *string_i = [NSString stringWithFormat:@"%d",i];
         NSString *string_j = [NSString stringWithFormat:@"%d",j];
-        NSDictionary *temp = [[NSDictionary alloc] initWithObjectsAndKeys:string_i,@"x",string_j,@"y",true,@"move",array_temp, @"newpos", nil];
+        NSDictionary *temp = [[NSDictionary alloc] initWithObjectsAndKeys:string_i,@"x",string_j,@"y",array_temp, @"newpos", nil];
         [moves addObject:temp];
     }
     
