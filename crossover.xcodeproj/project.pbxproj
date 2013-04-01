@@ -178,6 +178,7 @@
 		472D190E16F7929B0002BAC8 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472D190816F7929B0002BAC8 /* ViewController_iPad.xib */; };
 		472D190F16F7929B0002BAC8 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472D190A16F7929B0002BAC8 /* ViewController_iPhone.xib */; };
 		472D191116F792D50002BAC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D191016F792D50002BAC8 /* main.m */; };
+		47426A141708B07F00BEBF77 /* ShowWinnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47426A131708B07F00BEBF77 /* ShowWinnerViewController.m */; };
 		4774063E16FF50A200A0C0D5 /* captured_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4774063D16FF50A200A0C0D5 /* captured_bg.png */; };
 /* End PBXBuildFile section */
 
@@ -368,6 +369,8 @@
 		472D191016F792D50002BAC8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Supporting/main.m; sourceTree = "<group>"; };
 		472D191216F7938C0002BAC8 /* crossover-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "crossover-Info.plist"; sourceTree = "<group>"; };
 		472D191416F793CB0002BAC8 /* crossover-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "crossover-Prefix.pch"; sourceTree = "<group>"; };
+		47426A121708B07F00BEBF77 /* ShowWinnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowWinnerViewController.h; sourceTree = "<group>"; };
+		47426A131708B07F00BEBF77 /* ShowWinnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowWinnerViewController.m; sourceTree = "<group>"; };
 		4774063D16FF50A200A0C0D5 /* captured_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = captured_bg.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -462,6 +465,8 @@
 				472D17CB16F783D90002BAC8 /* BoardViewController.m */,
 				472D17CC16F783D90002BAC8 /* GameController.h */,
 				472D17CD16F783D90002BAC8 /* GameController.m */,
+				47426A121708B07F00BEBF77 /* ShowWinnerViewController.h */,
+				47426A131708B07F00BEBF77 /* ShowWinnerViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -880,6 +885,7 @@
 				048736D217054D4F00ECBA8F /* RulesForSingleJumpVsPalyer.m in Sources */,
 				048736D317054D4F00ECBA8F /* ValidMoveDirections.m in Sources */,
 				048736D617054FED00ECBA8F /* PlayerPlacements.m in Sources */,
+				47426A141708B07F00BEBF77 /* ShowWinnerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

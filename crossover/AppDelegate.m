@@ -17,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     //[application setStatusBarHidden:withAnimation:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     

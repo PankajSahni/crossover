@@ -14,6 +14,7 @@
 #import "BoardUIView.h"
 #import "RulesForSingleJumpVsPalyer.h"
 #import "RulesForDoubleJumpvsPlayer.h"
+#import "ShowWinnerViewController.h"
 @interface ViewController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
@@ -51,6 +52,7 @@
     [self getBoard];
     [GlobalSingleton sharedManager].string_opponent = @"computer";
     [self getTimer];  
+    [self getPopOverToStartGame];
 }
 
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
@@ -348,6 +350,16 @@
 }
 -(void)help{
     NSLog(@"help");
+    int winner = [self anybodyWon];
+    if (winner) {
+        ShowWinnerViewController *showWinner = [[ShowWinnerViewController alloc] init];
+        showWinner.winner = winner;
+       // [self.view addSubview:showWinner.view];
+        [self presentModalViewController:showWinner     animated:YES];
+        //[self.navigationController pushViewController:showWinner animated:YES];
+        //[self pushViewController:showWinner animated:YES];
+    }
+    
     
 }
 -(void)share{
@@ -468,7 +480,9 @@
     
     
 }
-
+-(int)anybodyWon{
+    return 1;
+}
 -(void)getTimer{
     [GlobalSingleton sharedManager].int_minutes_p1 = 5;
     [GlobalSingleton sharedManager].int_seconds_p1 = 0;
@@ -503,10 +517,6 @@
     [self StartTimer];
 }
 -(void) getBoard{
-    /*for (int i=0; i<=48; i++) {
-        NSLog(@"key %d",i);
-        NSLog(@"value %@",[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i]);
-    }*/
     tag_coin_picked = 0;
     NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
     NSArray *array_initial_positions;
@@ -540,7 +550,7 @@
         coin.tag = array_position + 2000;
         array_position ++;
         [self.view addSubview:coin];
-        
+
     }
     
     
