@@ -21,4 +21,6 @@
 -(NSString *)updateTimerForPlayer;
 -(void) togglePlayer;
 -(NSDictionary *)computerTurn;
+-(int)anybodyWon;
+-(int)timeOverShowWinner;
 @end

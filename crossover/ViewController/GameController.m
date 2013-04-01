@@ -50,8 +50,7 @@
     [spinner startAnimating];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
-    [GlobalSingleton sharedManager].string_opponent = @"computer";
-    [self getTimer];  
+    
     [self getPopOverToStartGame];
 }
 
@@ -329,13 +328,11 @@
     button_new_game.alpha = 0.5;
     button_help.alpha = 0.5;
     button_share.alpha = 0.5;
-    view_popover.alpha = 0.5;
     [UIView animateWithDuration:1.0
                      animations:^{
                          button_new_game.alpha = 0;
                          button_help.alpha = 0;
                          button_share.alpha = 0;
-                         view_popover.alpha = 0;
                         
                      }
                      completion:^(BOOL finished){
@@ -349,18 +346,11 @@
 	[UIView commitAnimations];
 }
 -(void)help{
-    NSLog(@"help");
-    int winner = [self anybodyWon];
-    if (winner) {
-        ShowWinnerViewController *showWinner = [[ShowWinnerViewController alloc] init];
-        showWinner.winner = winner;
-       // [self.view addSubview:showWinner.view];
-        [self presentModalViewController:showWinner     animated:YES];
-        //[self.navigationController pushViewController:showWinner animated:YES];
-        //[self pushViewController:showWinner animated:YES];
-    }
-    
-    
+}
+-(void)showWinner:(int)winner{
+    ShowWinnerViewController *showWinner = [[ShowWinnerViewController alloc] init];
+    showWinner.winner = winner;
+    [self presentModalViewController:showWinner animated:YES];
 }
 -(void)share{
     NSLog(@"share");
@@ -382,13 +372,32 @@
                          [button_vs_computer removeFromSuperview];
                          [button_vs_gamecenter removeFromSuperview];
                          [view_popover removeFromSuperview];
+                         [self getTimer];
                      }];
 	[UIView commitAnimations];
     
 }
 -(void)playerVsComputer{
-    NSLog(@"share");
     
+    button_vs_player.alpha = 0.5;
+    button_vs_computer.alpha = 0.5;
+    button_vs_gamecenter.alpha = 0.5;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         button_vs_player.alpha = 0;
+                         button_vs_computer.alpha = 0;
+                         button_vs_gamecenter.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         [button_vs_player removeFromSuperview];
+                         [button_vs_computer removeFromSuperview];
+                         [button_vs_gamecenter removeFromSuperview];
+                         [view_popover removeFromSuperview];
+                         [self getTimer];
+                     }];
+	[UIView commitAnimations];
+    [GlobalSingleton sharedManager].string_opponent = @"computer";
 }
 -(void)playerVsGameCenter{
     button_vs_player.alpha = 0.5;
@@ -471,6 +480,12 @@
     NSString *string_time_now = [[self gameModelObject] updateTimerForPlayer];
     if ([string_time_now isEqualToString:@"00:00"]) {
         [timer invalidate];
+        int winner = [self.gameModelObject timeOverShowWinner];
+        if (winner) {
+            [self showWinner:(int)winner];
+        }else{
+            [self showWinner:(int)0];
+        }
     }
     if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]) {
        time_label_P1.text= string_time_now;
@@ -480,13 +495,11 @@
     
     
 }
--(int)anybodyWon{
-    return 1;
-}
+
 -(void)getTimer{
-    [GlobalSingleton sharedManager].int_minutes_p1 = 5;
+    [GlobalSingleton sharedManager].int_minutes_p1 = 2;
     [GlobalSingleton sharedManager].int_seconds_p1 = 0;
-    [GlobalSingleton sharedManager].int_minutes_p2 = 5;
+    [GlobalSingleton sharedManager].int_minutes_p2 = 2;
     [GlobalSingleton sharedManager].int_seconds_p2 = 0;
     
     CGRect rect_temp =
@@ -501,7 +514,7 @@
     [time_label_P1 setFont:font_digital];
     time_label_P1.textColor = [UIColor whiteColor];
     time_label_P1.backgroundColor = [UIColor clearColor];
-    time_label_P1.text = @"05:00";
+    time_label_P1.text = @"02:00";
     
     rect_temp =
     [[GlobalSingleton sharedManager]
@@ -513,7 +526,7 @@
     
     [self.view addSubview:time_label_P2];
     [time_label_P2 setFont:font_digital];
-    time_label_P2.text = @"05:00";
+    time_label_P2.text = @"02:00";
     [self StartTimer];
 }
 -(void) getBoard{
@@ -550,9 +563,10 @@
         coin.tag = array_position + 2000;
         array_position ++;
         [self.view addSubview:coin];
-
     }
-    
-    
+    int winner = [self.gameModelObject anybodyWon];
+    if (winner) {
+        [self showWinner:(int)winner];
+    }
 }
 @end

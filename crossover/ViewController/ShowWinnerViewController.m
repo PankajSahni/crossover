@@ -8,6 +8,7 @@
 
 #import "ShowWinnerViewController.h"
 #import "GameModel.h"
+#import "GlobalSingleton.h"
 @interface ShowWinnerViewController ()
 @property (readonly) GameModel *gameModelObject1;
 @end
@@ -33,7 +34,34 @@
 {
     [super viewDidLoad];
     [self getPopOver];
-	// Do any additional setup after loading the view.
+    [self animateWinner];
+    
+}
+-(void)animateWinner{
+    CGRect cgrect =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:250 yValue:0 width:500 height:400];
+   UIImage *image_winner_container = [UIImage imageNamed:@"winner_player1"];
+    UIImageView *imageview_winner_container = [[UIImageView alloc] initWithImage:image_winner_container];
+    imageview_winner_container.frame = cgrect;
+    
+   
+    UIImage *image_winner;
+    if (winner) {
+        if (winner == 1) {
+            image_winner = [UIImage imageNamed:@"player_1_texta.png"];
+        }else{
+            image_winner = [UIImage imageNamed:@"player_2_texta.png"];
+        }
+    }else{
+        image_winner = [UIImage imageNamed:@"player_1_texta.png"];
+    }
+    UIImageView *imageview_winner =
+    [[UIImageView alloc] initWithImage:image_winner];
+    cgrect =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:100 yValue:300 width:300 height:80];
+    imageview_winner.frame = cgrect;
+    [imageview_winner_container addSubview:imageview_winner];
+    [self.view addSubview:imageview_winner_container];
 }
 -(void) getPopOver{
     NSDictionary *device_dimensions =
@@ -49,7 +77,7 @@
     int logo_x = 1024/2 - logo_width/2;
     CGRect cgrect_crossover_logo =
     [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:logo_x yValue:70 width:logo_width height:120];
-    UIImage *image_crossover_logo = [UIImage imageNamed:@"winner_player1.png"];
+    UIImage *image_crossover_logo = [UIImage imageNamed:@"crossover.png"];
     UIImageView *imageview_crossover_logo =
     [[UIImageView alloc] initWithImage:image_crossover_logo];
     imageview_crossover_logo.frame = cgrect_crossover_logo;
@@ -66,7 +94,6 @@
 {
     if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft || interfaceOrientation==UIInterfaceOrientationLandscapeRight)
         return YES;
-    
     return NO;
 }
 

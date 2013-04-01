@@ -201,4 +201,54 @@
     return dict_computer_turn;
 }
 
+-(int)anybodyWon{
+    BOOL p1_coin_exist = FALSE;
+    BOOL p2_coin_exist = FALSE;
+    for (int i = 0; i <= 48; i++) {
+        NSString *player =
+        [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i];
+        if ([player isEqualToString:@"1"]) {
+            p1_coin_exist = TRUE;
+        }
+        if ([player isEqualToString:@"2"]) {
+            p2_coin_exist = TRUE;
+        }
+    }
+    if (p1_coin_exist == FALSE) {
+        return 2;
+    }
+    else if (p2_coin_exist == FALSE) {
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+-(int)timeOverShowWinner{
+    int p1 = 0;
+    int p2 = 0;
+    int return_winner = 0;
+    for (int i = 0; i <= 48; i++) {
+        NSString *player =
+        [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i];
+        if ([player isEqualToString:@"1"]) {
+            p1 ++;
+        }
+        if ([player isEqualToString:@"2"]) {
+            p2 ++;
+        }
+    }
+    if (p1==0 && p2==0) {
+        return_winner = 0;
+    }
+    else if (p1 > p2) {
+        return_winner = 1;
+    }
+    else if(p1 < p2){
+        return_winner = 2;
+    }else{
+        return_winner = 0;
+    }
+    return return_winner;
+}
 @end
