@@ -50,7 +50,12 @@
         if (winner == 1) {
             image_winner = [UIImage imageNamed:@"player_1_texta.png"];
         }else{
-            image_winner = [UIImage imageNamed:@"player_2_texta.png"];
+            if ([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"]) {
+                image_winner = [UIImage imageNamed:@"computer_texta.png"];
+            }else{
+                image_winner = [UIImage imageNamed:@"player_2_texta.png"];
+            }
+            
         }
     }else{
         image_winner = [UIImage imageNamed:@"player_1_texta.png"];
