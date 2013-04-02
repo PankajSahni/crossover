@@ -10,7 +10,8 @@
 #import "GlobalSingleton.h"
 #import "GameModel.h"
 #import "BoardUIView.h"
-@interface ViewController : UIViewController{
+#import "GCHelper.h"
+@interface ViewController : UIViewController<GCHelperDelegate>{
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;
     UIButton *button_new_game;

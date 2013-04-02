@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0404D0E816DE1324000BC07A /* Default-568h@2x.png */; };
+		044E4BB5170B0403006905DE /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E4BB2170B0403006905DE /* GCHelper.m */; };
+		044E4BB6170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E4BB4170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m */; };
 		048736CE17054D4F00ECBA8F /* AiEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736C317054D4F00ECBA8F /* AiEngine.m */; };
 		048736CF17054D4F00ECBA8F /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736C517054D4F00ECBA8F /* GameModel.m */; };
 		048736D017054D4F00ECBA8F /* GlobalSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736C717054D4F00ECBA8F /* GlobalSingleton.m */; };
@@ -26,7 +28,6 @@
 		04E4688116DE0A88008479F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4688016DE0A88008479F0 /* CoreGraphics.framework */; };
 		04E4688D16DE0A88008479F0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688C16DE0A88008479F0 /* AppDelegate.m */; };
 		472D17CE16F783D90002BAC8 /* BoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17C916F783D90002BAC8 /* BoardUIView.m */; };
-		472D17CF16F783D90002BAC8 /* BoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17CB16F783D90002BAC8 /* BoardViewController.m */; };
 		472D17D016F783D90002BAC8 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17CD16F783D90002BAC8 /* GameController.m */; };
 		472D187016F791E90002BAC8 /* app_icon_100.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17DD16F791E90002BAC8 /* app_icon_100.png */; };
 		472D187116F791E90002BAC8 /* app_icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17DE16F791E90002BAC8 /* app_icon_72.png */; };
@@ -184,6 +185,10 @@
 
 /* Begin PBXFileReference section */
 		0404D0E816DE1324000BC07A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		044E4BB1170B0403006905DE /* GCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCHelper.h; sourceTree = "<group>"; };
+		044E4BB2170B0403006905DE /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHelper.m; sourceTree = "<group>"; };
+		044E4BB3170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GKMatchmakerViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
+		044E4BB4170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GKMatchmakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		048736C217054D4F00ECBA8F /* AiEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiEngine.h; sourceTree = "<group>"; };
 		048736C317054D4F00ECBA8F /* AiEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiEngine.m; sourceTree = "<group>"; };
 		048736C417054D4F00ECBA8F /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameModel.h; sourceTree = "<group>"; };
@@ -213,8 +218,6 @@
 		04E4688C16DE0A88008479F0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		472D17C816F783D90002BAC8 /* BoardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardUIView.h; sourceTree = "<group>"; };
 		472D17C916F783D90002BAC8 /* BoardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardUIView.m; sourceTree = "<group>"; };
-		472D17CA16F783D90002BAC8 /* BoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardViewController.h; sourceTree = "<group>"; };
-		472D17CB16F783D90002BAC8 /* BoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardViewController.m; sourceTree = "<group>"; };
 		472D17CC16F783D90002BAC8 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameController.h; sourceTree = "<group>"; };
 		472D17CD16F783D90002BAC8 /* GameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameController.m; sourceTree = "<group>"; };
 		472D17DD16F791E90002BAC8 /* app_icon_100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon_100.png; sourceTree = "<group>"; };
@@ -461,8 +464,6 @@
 			children = (
 				472D17C816F783D90002BAC8 /* BoardUIView.h */,
 				472D17C916F783D90002BAC8 /* BoardUIView.m */,
-				472D17CA16F783D90002BAC8 /* BoardViewController.h */,
-				472D17CB16F783D90002BAC8 /* BoardViewController.m */,
 				472D17CC16F783D90002BAC8 /* GameController.h */,
 				472D17CD16F783D90002BAC8 /* GameController.m */,
 				47426A121708B07F00BEBF77 /* ShowWinnerViewController.h */,
@@ -474,6 +475,10 @@
 		472D17D216F783FA0002BAC8 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				044E4BB1170B0403006905DE /* GCHelper.h */,
+				044E4BB2170B0403006905DE /* GCHelper.m */,
+				044E4BB3170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.h */,
+				044E4BB4170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m */,
 				048736C217054D4F00ECBA8F /* AiEngine.h */,
 				048736C317054D4F00ECBA8F /* AiEngine.m */,
 				048736C417054D4F00ECBA8F /* GameModel.h */,
@@ -875,7 +880,6 @@
 			files = (
 				04E4688D16DE0A88008479F0 /* AppDelegate.m in Sources */,
 				472D17CE16F783D90002BAC8 /* BoardUIView.m in Sources */,
-				472D17CF16F783D90002BAC8 /* BoardViewController.m in Sources */,
 				472D17D016F783D90002BAC8 /* GameController.m in Sources */,
 				472D191116F792D50002BAC8 /* main.m in Sources */,
 				048736CE17054D4F00ECBA8F /* AiEngine.m in Sources */,
@@ -886,6 +890,8 @@
 				048736D317054D4F00ECBA8F /* ValidMoveDirections.m in Sources */,
 				048736D617054FED00ECBA8F /* PlayerPlacements.m in Sources */,
 				47426A141708B07F00BEBF77 /* ShowWinnerViewController.m in Sources */,
+				044E4BB5170B0403006905DE /* GCHelper.m in Sources */,
+				044E4BB6170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

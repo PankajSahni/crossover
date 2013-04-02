@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 
 #import "GameController.h"
-
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -45,6 +44,7 @@
     }
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    [[GCHelper sharedInstance] authenticateLocalUser];
     return YES;
 }
 

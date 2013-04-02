@@ -15,6 +15,8 @@
 #import "RulesForSingleJumpVsPalyer.h"
 #import "RulesForDoubleJumpvsPlayer.h"
 #import "ShowWinnerViewController.h"
+#import "GCHelper.h"
+#import "AppDelegate.h"
 @interface ViewController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
@@ -52,8 +54,24 @@
     [self getBoard];
     
     [self getPopOverToStartGame];
+    
+    AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:delegate.viewController delegate:self];
+    
+}
+#pragma mark GCHelperDelegate
+
+- (void)matchStarted {
+    NSLog(@"Match started");
 }
 
+- (void)matchEnded {
+    NSLog(@"Match ended");
+}
+
+- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
+    NSLog(@"Received data");
+}
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";
     if([player isEqualToString:@"1"]){
