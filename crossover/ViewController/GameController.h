@@ -11,7 +11,7 @@
 #import "GameModel.h"
 #import "BoardUIView.h"
 #import "GCHelper.h"
-@interface ViewController : UIViewController<GCHelperDelegate>{
+@interface GameController : UIViewController<GCHelperDelegate>{
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;
     UIButton *button_new_game;

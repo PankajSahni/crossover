@@ -29,7 +29,7 @@
 @property (retain) UIViewController *presentingViewController;
 @property (retain) GKMatch *match;
 @property (retain) id <GCHelperDelegate> delegate;
-
+- (BOOL)isGameCenterAvailable;
 + (GCHelper *)sharedInstance;
 - (void)authenticateLocalUser;
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController delegate:(id<GCHelperDelegate>)theDelegate;

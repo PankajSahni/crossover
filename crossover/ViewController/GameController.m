@@ -17,12 +17,12 @@
 #import "ShowWinnerViewController.h"
 #import "GCHelper.h"
 #import "AppDelegate.h"
-@interface ViewController ()
+@interface GameController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
 @end
 
-@implementation ViewController
+@implementation GameController
 
 - (BoardUIView *) boardModelObject{
     if(!boardModelObject){
@@ -54,9 +54,8 @@
     [self getBoard];
     
     [self getPopOverToStartGame];
-    
-    //AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:self delegate:self];
+    [self performSelector:@selector(ccallView) withObject:nil afterDelay:0];
+   
     
 }
 #pragma mark GCHelperDelegate
@@ -169,11 +168,6 @@
     [self.gameModelObject addCoinToCaptureBlockWithIndex:captured];
     [self.gameModelObject togglePlayer];
     [self getBoard];
-    for (int i=0; i<=48; i++) {
-        //NSLog(@"key %d",i);
-        //NSLog(@"value %@",[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i]);
-    }
-    
     [UIView animateWithDuration:1.0
                      animations:^{
                          
@@ -246,23 +240,23 @@
     
 }
 
--(void)authenticateWithGameCenter{
-    [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
-        if(error == nil){
-            NSLog(@"successfully logged in !!!");
-            [spinner stopAnimating];
-            [spinner removeFromSuperview];
-            [view_popover removeFromSuperview];
-            
-        }else{
-            NSLog(@"not logged in");
-            [spinner stopAnimating];
-            [spinner removeFromSuperview];
-            [view_popover removeFromSuperview];
-        }
-    }];
+- (void)authenticateLocalUser {
+    
+    if (![[GCHelper sharedInstance] isGameCenterAvailable]){
+        NSLog(@"game center not available");
+    }else{
+    
+    NSLog(@"Authenticating local user...");
+    if ([GKLocalPlayer localPlayer].authenticated == NO) {
+        [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
+    } else {
+        NSLog(@"Already authenticated!");
+    }
+        [spinner stopAnimating];
+        [spinner removeFromSuperview];
+        [view_popover removeFromSuperview];
+    }
 }
-
 
 -(void) getPopOverToStartGame{
     [self getPopOver];
@@ -434,7 +428,7 @@
                          [button_vs_gamecenter removeFromSuperview];
                          
                          [self.view addSubview:spinner];
-                         [self authenticateWithGameCenter];
+                         [self authenticateLocalUser];
                      }];
 	[UIView commitAnimations];
     

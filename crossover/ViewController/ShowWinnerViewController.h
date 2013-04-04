@@ -8,7 +8,7 @@
 
 #import "GameController.h"
 #import "GameModel.h"
-@interface ShowWinnerViewController : ViewController{
+@interface ShowWinnerViewController : GameController{
     GameModel *gameModelObject1;
 }
 @property (nonatomic, assign) int winner;

@@ -38,13 +38,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil];
+        self.viewController = [[GameController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil];
     } else {
-        self.viewController = [[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil];
+        self.viewController = [[GameController alloc] initWithNibName:@"ViewController_iPad" bundle:nil];
     }
+    NSLog(@"%@",self.viewController);
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-    [[GCHelper sharedInstance] authenticateLocalUser];
+    
     return YES;
 }
 

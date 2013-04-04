@@ -7,7 +7,8 @@
 //
 
 #import "GCHelper.h"
-
+#import "ShowWinnerViewController.h"
+#import "AppDelegate.h"
 @implementation GCHelper
 @synthesize gameCenterAvailable;
 @synthesize presentingViewController;
@@ -89,7 +90,6 @@ static GCHelper *sharedHelper = nil;
     self.match = nil;
     self.presentingViewController = viewController;
     delegate = theDelegate;               
-    [presentingViewController dismissModalViewControllerAnimated:NO];
     
     GKMatchRequest *request = [[GKMatchRequest alloc] init]; 
     request.minPlayers = minPlayers;     
@@ -97,8 +97,7 @@ static GCHelper *sharedHelper = nil;
     
     GKMatchmakerViewController *mmvc = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
     mmvc.matchmakerDelegate = self;
-    
-    [presentingViewController presentModalViewController:mmvc animated:YES];
+    [viewController presentModalViewController:mmvc animated:YES];
         
 }
 
