@@ -37,9 +37,11 @@
     }
     return gameModelObject;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     NSDictionary *device_dimensions =
     [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     CGRect rect_temp = 
@@ -54,9 +56,16 @@
     [self getBoard];
     
     [self getPopOverToStartGame];
-    [self performSelector:@selector(ccallView) withObject:nil afterDelay:0];
+    //[self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:0];
    
     
+}
+- (void)inviteReceived {
+    //[self restartTapped:nil];
+}
+-(void)GCFindMatch{
+    AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:delegate.viewController delegate:self];
 }
 #pragma mark GCHelperDelegate
 
@@ -240,23 +249,6 @@
     
 }
 
-- (void)authenticateLocalUser {
-    
-    if (![[GCHelper sharedInstance] isGameCenterAvailable]){
-        NSLog(@"game center not available");
-    }else{
-    
-    NSLog(@"Authenticating local user...");
-    if ([GKLocalPlayer localPlayer].authenticated == NO) {
-        [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
-    } else {
-        NSLog(@"Already authenticated!");
-    }
-        [spinner stopAnimating];
-        [spinner removeFromSuperview];
-        [view_popover removeFromSuperview];
-    }
-}
 
 -(void) getPopOverToStartGame{
     [self getPopOver];
@@ -428,7 +420,10 @@
                          [button_vs_gamecenter removeFromSuperview];
                          
                          [self.view addSubview:spinner];
-                         [self authenticateLocalUser];
+                         [GCHelper sharedInstance].delegate = self;
+                         [[GCHelper sharedInstance] authenticateLocalUser];
+                         [self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:1.0];
+                         //[self GCFindMatch];
                      }];
 	[UIView commitAnimations];
     
