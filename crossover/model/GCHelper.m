@@ -62,10 +62,7 @@ static GCHelper *sharedHelper = nil;
     if ([GKLocalPlayer localPlayer].isAuthenticated && !userAuthenticated) {
        NSLog(@"Authentication changed: player authenticated.");
        userAuthenticated = TRUE;
-        
-        if([(id)delegate respondsToSelector:@selector(findOpponent)]){
-            [delegate findOpponent];
-        }
+
         [GKMatchmaker sharedMatchmaker].inviteHandler = ^(GKInvite *acceptedInvite, NSArray *playersToInvite) {
             
             NSLog(@"Received invite");
@@ -122,30 +119,6 @@ static GCHelper *sharedHelper = nil;
     } else {
         NSLog(@"Already authenticated!");
     }
-    /*GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
-    [[GKLocalPlayer localPlayer] setAuthenticateHandler:(^(UIViewController* viewcontroller, NSError *error) {
-        
-        //[localPlayer authenticateWithCompletionHandler:^(NSError *error) { OLD CODE!
-        if ([GKLocalPlayer localPlayer].isAuthenticated)
-        {
-            //do some stuff
-            if([(id)delegate respondsToSelector:@selector(findOpponent)]){
-                [delegate findOpponent];
-            }
-        }
-        else {
-            
-            UIAlertView *alertView = [[UIAlertView alloc]
-                                      initWithTitle:@"NOT AUTHORISED"
-                                      message:@"YOUR'RE NOT LOGGED INTO GC."
-                                      delegate:self
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-            [alertView show];
-            [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
-            
-        }
-    })];*/
 }
 
 

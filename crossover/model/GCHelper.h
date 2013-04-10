@@ -14,7 +14,6 @@
 - (void)matchEnded;
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 - (void)inviteReceived;
--(void)findOpponent;
 @end
 
 @interface GCHelper : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate> {
