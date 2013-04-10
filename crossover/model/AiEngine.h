@@ -18,4 +18,5 @@
 @property (nonatomic, retain) NSMutableArray *safecapturelist;
 @property (nonatomic, retain) NSMutableArray *savelist;
 -(NSMutableDictionary *)playerOne;
+-(NSMutableDictionary *)findMoveByComparingArrays:(NSArray *)array_containing_move;
 @end

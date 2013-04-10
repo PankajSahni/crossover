@@ -25,7 +25,8 @@
 @synthesize int_minutes_p2;
 @synthesize int_seconds_p1;
 @synthesize int_seconds_p2;
-
+@synthesize GC;
+@synthesize GC_my_turn;
 @synthesize string_opponent;
 static GlobalSingleton *sharedManager; // self
 

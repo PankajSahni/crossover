@@ -127,6 +127,9 @@
     message.message.messageType = kMessageTypeMove;
     message.player_positions =
     [GlobalSingleton sharedManager].array_initial_player_positions;
+    //NSLog(@"move messgae %@",message.player_positions);
+    
+    
     NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageMove)];
     [self sendData:data];
     
@@ -149,9 +152,9 @@
     [self.gameModelObject
      getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     CGRect rect_temp =
-    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 + 21 ,
+    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 + 121 ,
                [[device_dimensions valueForKey:@"height"] intValue]/2 + 21,
-               20,30);
+               300,20);
     debugLabel = [[UILabel alloc] initWithFrame:rect_temp];
     [self.view addSubview:debugLabel];
     if (receivedRandom) {
@@ -185,6 +188,7 @@
                          [GCHelper sharedInstance].delegate = self;
                          [[GCHelper sharedInstance] authenticateLocalUser];
                          [self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:1.0];
+                         [GlobalSingleton sharedManager].GC = TRUE;
                          
                      }];
 	[UIView commitAnimations];
@@ -212,9 +216,13 @@
         } else if (ourRandom > messageInit->randomNumber) {
             NSLog(@"We are player 1");
             isPlayer1 = YES;
+            [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+            [GlobalSingleton sharedManager].string_my_turn = @"1";
         } else {
             NSLog(@"We are player 2");
             isPlayer1 = NO;
+            [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+            [GlobalSingleton sharedManager].string_my_turn = @"2";
         }
         
         if (!tie) {
@@ -232,7 +240,22 @@
         
     } else if (message->messageType == kMessageTypeMove) {
         
-        NSLog(@"Received move");
+        
+        MessageMove *messageTypeMove = (MessageMove *) [data bytes];
+        
+        
+        NSLog(@"received_array %@",messageTypeMove->player_positions);
+        
+        NSArray *received_array = [[NSArray alloc] initWithArray: messageTypeMove->player_positions];
+        
+        
+        [self animateComputerOrGameCenterMove:
+         [self.gameModelObject updatePlayerPostions:received_array]];
+        
+        [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+        [self getBoard];
+        
+        NSLog(@"Received move %@",received_array);
         /*
         if (isPlayer1) {
             [player2 moveForward];
@@ -275,7 +298,12 @@
     else{
         
     }
-    if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
+    if([GlobalSingleton sharedManager].GC){
+        if ([GlobalSingleton sharedManager].GC_my_turn) {
+            [self iAmDraggable:button];
+        }
+    }
+    else if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
         [self iAmDraggable:button];
     }
     return button;
@@ -321,8 +349,13 @@
         [self getBoard];
         if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
             NSDictionary *computer_turn = [self.gameModelObject computerTurn];
-            [self animateComputerMove:computer_turn];
+            [self animateComputerOrGameCenterMove:computer_turn];
         }
+    }
+    if ([GlobalSingleton sharedManager].GC) {
+        [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+        [self getBoard];
+        [self sendMove];
     }
     
     //
@@ -349,7 +382,9 @@
         }
     }
     [self.gameModelObject addCoinToCaptureBlockWithIndex:captured];
-    [self.gameModelObject togglePlayer];
+    if (![GlobalSingleton sharedManager].GC) {
+        [self.gameModelObject togglePlayer];
+    }
     [self getBoard];
     [UIView animateWithDuration:1.0
                      animations:^{
@@ -364,7 +399,7 @@
                          [self getBoard];
                          if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
                              NSDictionary *computer_turn = [self.gameModelObject computerTurn];
-                             [self animateComputerMove:computer_turn];
+                             [self animateComputerOrGameCenterMove:computer_turn];
                          }
                          [self refreshCapturedBlocks];
                          
@@ -373,14 +408,25 @@
 
     
 }
--(void)animateComputerMove:(NSDictionary *)computer_turn{
+-(void)animateComputerOrGameCenterMove:(NSDictionary *)opposition_turn{
     
-    int move = [[computer_turn objectForKey:@"move"] intValue];
-    int newposition = [[computer_turn objectForKey:@"newposition"] intValue];
+    int move = [[opposition_turn objectForKey:@"move"] intValue];
+    int newposition = [[opposition_turn objectForKey:@"newposition"] intValue];
     int captured = 0;
-    if ([computer_turn objectForKey:@"captured"]) {
-        captured = [[computer_turn objectForKey:@"captured"] intValue];
+    if ([opposition_turn objectForKey:@"captured"]) {
+        captured = [[opposition_turn objectForKey:@"captured"] intValue];
     }
+    NSString *opposite_player;
+    if ([GlobalSingleton sharedManager].GC) {
+        if (isPlayer1) {
+            opposite_player = @"2";
+        }else{
+            opposite_player = @"1";
+        }
+    }else{
+         opposite_player = @"2";
+    }
+    
     CGRect move_to = [[[GlobalSingleton sharedManager].array_all_cgrect objectAtIndex:newposition] CGRectValue];
     [UIView animateWithDuration:1.0
                      animations:^{
@@ -391,11 +437,14 @@
                          [[GlobalSingleton sharedManager].array_initial_player_positions
                           replaceObjectAtIndex:move withObject:@"0"];
                          [[GlobalSingleton sharedManager].array_initial_player_positions
-                          replaceObjectAtIndex:newposition withObject:@"2"];
+                          replaceObjectAtIndex:newposition withObject:opposite_player];
                          if (captured) {
                              [self animateEliminatedCapturedCoinWithIndex:captured];
                          }else {
-                             [self.gameModelObject togglePlayer];
+                             if (![GlobalSingleton sharedManager].GC) {
+                                 [self.gameModelObject togglePlayer];
+                             }
+                             
                              [self getBoard];
                          }
                      }];

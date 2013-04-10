@@ -27,19 +27,24 @@
             [self checkconditionsforHard:2];
         }
     }
-    NSMutableDictionary *dict_computer_turn = [[NSMutableDictionary alloc] init ]; 
+   return [self findMoveByComparingArrays:array_players_positions];
+    
+    
+}
+-(NSMutableDictionary *)findMoveByComparingArrays:(NSArray *)array_containing_move{
+    NSMutableDictionary *dict_computer_turn = [[NSMutableDictionary alloc] init ];
     for (int i = 0; i <= 48 ; i++) {
-        if (![ [array_players_positions objectAtIndex:i] isEqualToString:
-             [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i] ]) {
-            if ([[array_players_positions objectAtIndex:i] isEqualToString:@"0"] &&
+        if (![ [array_containing_move objectAtIndex:i] isEqualToString:
+              [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i] ]) {
+            if ([[array_containing_move objectAtIndex:i] isEqualToString:@"0"] &&
                 [[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i ] isEqualToString:@"1"]) {
                 [dict_computer_turn setObject:[NSString stringWithFormat:@"%d",i] forKey:@"captured"];
             }
-            if ([[array_players_positions objectAtIndex:i] isEqualToString:@"0"] &&
+            if ([[array_containing_move objectAtIndex:i] isEqualToString:@"0"] &&
                 [[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i ] isEqualToString:@"2"]) {
                 [dict_computer_turn setObject:[NSString stringWithFormat:@"%d",i] forKey:@"move"];
             }
-            if ([[array_players_positions objectAtIndex:i] isEqualToString:@"2"] &&
+            if ([[array_containing_move objectAtIndex:i] isEqualToString:@"2"] &&
                 [[[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:i ] isEqualToString:@"0"]) {
                 [dict_computer_turn setObject:[NSString stringWithFormat:@"%d",i] forKey:@"newposition"];
             }

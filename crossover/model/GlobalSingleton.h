@@ -23,6 +23,8 @@
 @property (nonatomic, retain) NSMutableArray *array_captured_p2_coins;
 
 @property (nonatomic, retain) NSString *string_opponent;
+@property (nonatomic, assign) BOOL GC;
+@property (nonatomic, assign) BOOL GC_my_turn;
 @property (nonatomic, assign) int int_minutes_p1;
 @property (nonatomic, assign) int int_seconds_p1;
 @property (nonatomic, assign) int int_minutes_p2;

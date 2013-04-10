@@ -23,4 +23,5 @@
 -(NSDictionary *)computerTurn;
 -(int)anybodyWon;
 -(int)timeOverShowWinner;
+-(NSMutableDictionary *)updatePlayerPostions:(NSArray *)player_positions;
 @end

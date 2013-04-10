@@ -111,7 +111,10 @@
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
-                [self togglePlayer];
+                if (![GlobalSingleton sharedManager].GC) {
+                    [self togglePlayer];
+                }
+            
             }
             if(
                      ( ( abs(diff_row)==0 && abs(diff_col) == 2) ||
@@ -250,5 +253,8 @@
         return_winner = 0;
     }
     return return_winner;
+}
+-(NSMutableDictionary *)updatePlayerPostions:(NSArray *)player_positions{
+   return [self.aiEngineObject findMoveByComparingArrays:(NSArray *)player_positions];
 }
 @end
