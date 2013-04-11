@@ -28,6 +28,10 @@
 @synthesize GC;
 @synthesize GC_my_turn;
 @synthesize string_opponent;
+
+@synthesize int_GC_captured;
+@synthesize int_GC_move;
+@synthesize int_GC_newposition;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc

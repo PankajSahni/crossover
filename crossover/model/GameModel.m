@@ -19,6 +19,7 @@
 @synthesize dictionary_my_device_dimensions;
 @synthesize string_player_one_coin;
 @synthesize string_player_two_coin;
+@synthesize delegate_game_model;
 //@synthesize delegate_refresh_my_data;
 - (AiEngine *) aiEngineObject{
     if(!aiEngineObject){
@@ -90,6 +91,12 @@
 -(int)validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked{
     int int_array_index = 0;
     int coin_eliminated = 0;
+    if ([GlobalSingleton sharedManager].GC) {
+        [GlobalSingleton sharedManager].int_GC_captured = 0;
+        [GlobalSingleton sharedManager].int_GC_move = 0;
+        [GlobalSingleton sharedManager].int_GC_newposition = 0;
+    }
+    
     for (NSValue *cgrect_loop in [GlobalSingleton sharedManager].array_all_cgrect) {
         
         if (CGRectContainsPoint( [cgrect_loop CGRectValue], end_point)) {
@@ -111,6 +118,12 @@
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
+                if ([GlobalSingleton sharedManager].GC) {
+                    [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+                    [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
+                    [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
+                    [delegate_game_model sendMove];
+                }
                 if (![GlobalSingleton sharedManager].GC) {
                     [self togglePlayer];
                 }
@@ -126,6 +139,13 @@
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
                 coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
+                if ([GlobalSingleton sharedManager].GC) {
+                    [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+                    [GlobalSingleton sharedManager].int_GC_captured = coin_eliminated;
+                    [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
+                    [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
+                    [delegate_game_model sendMove];
+                }
 			}
             
             
@@ -142,9 +162,9 @@
         [GlobalSingleton sharedManager].string_my_turn = @"1";
     }
 }
--(void)addCoinToCaptureBlockWithIndex:(int)index{
+-(void)addCoinToCaptureBlockWithIndex:(int)index ForPlayer:(NSString *)player_at_position{
     //NSLog(@"turn %@",[GlobalSingleton sharedManager].string_my_turn);
-    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]){
+    if([player_at_position isEqualToString:@"2"]){
         for (int i = 0; i <= 15; i++) {
             if ([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"0"]) {
                 [[GlobalSingleton sharedManager].array_captured_p2_coins replaceObjectAtIndex:i withObject:@"1"];
@@ -152,7 +172,7 @@
             }
         }
     }
-    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
+    else{
         for (int i = 0; i <= 15; i++) {
             if ([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]) {
                 [[GlobalSingleton sharedManager].array_captured_p1_coins replaceObjectAtIndex:i withObject:@"1"];
@@ -254,7 +274,5 @@
     }
     return return_winner;
 }
--(NSMutableDictionary *)updatePlayerPostions:(NSArray *)player_positions{
-   return [self.aiEngineObject findMoveByComparingArrays:(NSArray *)player_positions];
-}
+
 @end

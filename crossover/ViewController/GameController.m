@@ -34,6 +34,7 @@
 - (GameModel *) gameModelObject{
     if(!gameModelObject){
         gameModelObject = [[GameModel alloc] init];
+        gameModelObject.delegate_game_model = self;
     }
     return gameModelObject;
 }
@@ -125,11 +126,10 @@
     
     MessageMove message;
     message.message.messageType = kMessageTypeMove;
-    message.player_positions =
-    [GlobalSingleton sharedManager].array_initial_player_positions;
-    //NSLog(@"move messgae %@",message.player_positions);
-    
-    
+    message.move = [GlobalSingleton sharedManager].int_GC_move;
+    message.captured = [GlobalSingleton sharedManager].int_GC_captured;
+    message.newposition = [GlobalSingleton sharedManager].int_GC_newposition;
+
     NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageMove)];
     [self sendData:data];
     
@@ -186,6 +186,7 @@
                          
                          [self.view addSubview:spinner];
                          [GCHelper sharedInstance].delegate = self;
+                         
                          [[GCHelper sharedInstance] authenticateLocalUser];
                          [self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:1.0];
                          [GlobalSingleton sharedManager].GC = TRUE;
@@ -236,6 +237,7 @@
     } else if (message->messageType == kMessageTypeGameBegin) {
         
         [self setGameState:kGameStateActive];
+        [self getBoard];
         //[self setupStringsWithOtherPlayerId:playerID];
         
     } else if (message->messageType == kMessageTypeMove) {
@@ -244,24 +246,19 @@
         MessageMove *messageTypeMove = (MessageMove *) [data bytes];
         
         
-        NSLog(@"received_array %@",messageTypeMove->player_positions);
+        NSLog(@"newposition %d",messageTypeMove->newposition);
+        NSLog(@"move %d",messageTypeMove->move);
+        NSLog(@"captured %d",messageTypeMove->captured);
         
-        NSArray *received_array = [[NSArray alloc] initWithArray: messageTypeMove->player_positions];
+        NSDictionary *received_dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
+        [NSString stringWithFormat:@"%d", messageTypeMove->newposition ],@"newposition",
+        [NSString stringWithFormat:@"%d", messageTypeMove->move ],@"move",
+        [NSString stringWithFormat:@"%d", messageTypeMove->captured ],@"captured",nil];
         
-        
-        [self animateComputerOrGameCenterMove:
-         [self.gameModelObject updatePlayerPostions:received_array]];
+        [self animateComputerOrGameCenterMove:received_dictionary];
         
         [GlobalSingleton sharedManager].GC_my_turn = TRUE;
         [self getBoard];
-        
-        NSLog(@"Received move %@",received_array);
-        /*
-        if (isPlayer1) {
-            [player2 moveForward];
-        } else {
-            [player1 moveForward];
-        }*/
     } else if (message->messageType == kMessageTypeGameOver) {
         
         MessageGameOver * messageGameOver = (MessageGameOver *) [data bytes];
@@ -299,7 +296,8 @@
         
     }
     if([GlobalSingleton sharedManager].GC){
-        if ([GlobalSingleton sharedManager].GC_my_turn) {
+        if ([GlobalSingleton sharedManager].GC_my_turn &&
+            [[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
             [self iAmDraggable:button];
         }
     }
@@ -343,7 +341,11 @@
     CGPoint end_point = [touch locationInView:self.view];
     int captured = [self.gameModelObject
      validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked];
+    
+    
     if(captured){
+        
+        
         [self animateEliminatedCapturedCoinWithIndex:captured];
     }else{
         [self getBoard];
@@ -353,9 +355,9 @@
         }
     }
     if ([GlobalSingleton sharedManager].GC) {
-        [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+        
         [self getBoard];
-        [self sendMove];
+        //[self sendMove];
     }
     
     //
@@ -364,7 +366,7 @@
     
     CGRect move_to;
     NSString *player_at_position = [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:captured];
-    //NSLog(@"player_at_position %@",player_at_position);
+    NSLog(@"player_at_position %@",player_at_position);
     
     if ([player_at_position isEqualToString:@"1"]) {
         for (int i = 0; i <= 15; i ++) {
@@ -381,12 +383,13 @@
             }
         }
     }
-    [self.gameModelObject addCoinToCaptureBlockWithIndex:captured];
-    if (![GlobalSingleton sharedManager].GC) {
+    [self.gameModelObject addCoinToCaptureBlockWithIndex:captured ForPlayer:player_at_position];
+    if (![GlobalSingleton sharedManager].GC || 1) {
         [self.gameModelObject togglePlayer];
     }
+    
     [self getBoard];
-    [UIView animateWithDuration:1.0
+    [UIView animateWithDuration:3.0
                      animations:^{
                          
                          UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
@@ -438,13 +441,17 @@
                           replaceObjectAtIndex:move withObject:@"0"];
                          [[GlobalSingleton sharedManager].array_initial_player_positions
                           replaceObjectAtIndex:newposition withObject:opposite_player];
+                         
+                         
                          if (captured) {
+                             
+                             
+                             
                              [self animateEliminatedCapturedCoinWithIndex:captured];
                          }else {
                              if (![GlobalSingleton sharedManager].GC) {
                                  [self.gameModelObject togglePlayer];
                              }
-                             
                              [self getBoard];
                          }
                      }];

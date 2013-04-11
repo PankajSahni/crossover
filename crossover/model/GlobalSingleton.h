@@ -29,6 +29,10 @@
 @property (nonatomic, assign) int int_seconds_p1;
 @property (nonatomic, assign) int int_minutes_p2;
 @property (nonatomic, assign) int int_seconds_p2;
+
+@property (nonatomic, assign) int int_GC_move;
+@property (nonatomic, assign) int int_GC_captured;
+@property (nonatomic, assign) int int_GC_newposition;
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal

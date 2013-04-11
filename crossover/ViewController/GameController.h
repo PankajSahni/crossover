@@ -34,7 +34,9 @@ typedef struct {
 
 typedef struct {
     Message message;
-    __unsafe_unretained NSArray *player_positions;
+    int newposition;
+    int captured;
+    int move;
 } MessageMove;
 
 typedef struct {
@@ -56,7 +58,7 @@ typedef enum {
     kGameStateDone
 } GameState;
 
-@interface GameController : UIViewController<GCHelperDelegate>{
+@interface GameController : UIViewController<GCHelperDelegate, GameModelDelegate>{
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;
     UIButton *button_new_game;
