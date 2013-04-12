@@ -341,11 +341,7 @@
     CGPoint end_point = [touch locationInView:self.view];
     int captured = [self.gameModelObject
      validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked];
-    
-    
     if(captured){
-        
-        
         [self animateEliminatedCapturedCoinWithIndex:captured];
     }else{
         [self getBoard];
@@ -354,13 +350,6 @@
             [self animateComputerOrGameCenterMove:computer_turn];
         }
     }
-    if ([GlobalSingleton sharedManager].GC) {
-        
-        [self getBoard];
-        //[self sendMove];
-    }
-    
-    //
 }
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
     
@@ -384,16 +373,21 @@
         }
     }
     [self.gameModelObject addCoinToCaptureBlockWithIndex:captured ForPlayer:player_at_position];
-    if (![GlobalSingleton sharedManager].GC || 1) {
+    if (![GlobalSingleton sharedManager].GC) {
         [self.gameModelObject togglePlayer];
     }
     
     [self getBoard];
-    [UIView animateWithDuration:3.0
+    [UIView animateWithDuration:1.0
                      animations:^{
                          
                          UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
+                        NSLog(@"button %@", button); 
+                        NSLog(@"from %@", NSStringFromCGRect(button.frame));
+                        NSLog(@"to %@", NSStringFromCGRect(move_to));
                          button.frame = move_to;
+                         
+                         
                          
                      }
                      completion:^(BOOL finished){
@@ -407,6 +401,7 @@
                          [self refreshCapturedBlocks];
                          
                      }];
+    
 	[UIView commitAnimations];
 
     
@@ -441,12 +436,7 @@
                           replaceObjectAtIndex:move withObject:@"0"];
                          [[GlobalSingleton sharedManager].array_initial_player_positions
                           replaceObjectAtIndex:newposition withObject:opposite_player];
-                         
-                         
                          if (captured) {
-                             
-                             
-                             
                              [self animateEliminatedCapturedCoinWithIndex:captured];
                          }else {
                              if (![GlobalSingleton sharedManager].GC) {

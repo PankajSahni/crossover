@@ -145,7 +145,7 @@
                     [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
                     [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
                     [delegate_game_model sendMove];
-                }
+                } 
 			}
             
             
