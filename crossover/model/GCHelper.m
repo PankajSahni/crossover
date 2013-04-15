@@ -179,10 +179,14 @@ static GCHelper *sharedHelper = nil;
     [presentingViewController dismissModalViewControllerAnimated:YES];
     self.match = theMatch;
     match.delegate = self;
+    NSLog(@"match.expectedPlayerCount %d", match.expectedPlayerCount);
     if (!matchStarted && match.expectedPlayerCount == 0) {
         NSLog(@"Ready to start match!");
         [self lookupPlayers];
+    }else{
+        NSLog(@"not ready");
     }
+    
 }
 
 #pragma mark GKMatchDelegate

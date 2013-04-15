@@ -120,6 +120,7 @@
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
                 if ([GlobalSingleton sharedManager].GC) {
                     [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+                    [delegate_game_model changeMyTurnLabelMessage:FALSE];
                     [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
                     [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
                     [delegate_game_model sendMove];
@@ -141,6 +142,7 @@
                 coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
                 if ([GlobalSingleton sharedManager].GC) {
                     [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+                    [delegate_game_model changeMyTurnLabelMessage:FALSE];
                     [GlobalSingleton sharedManager].int_GC_captured = coin_eliminated;
                     [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
                     [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;

@@ -90,6 +90,13 @@
     
     if (isPlayer1 && gameState == kGameStateWaitingForStart) {
         [self setGameState:kGameStateActive];
+        if ([GlobalSingleton sharedManager].GC) {
+            if ([GlobalSingleton sharedManager].GC_my_turn) {
+                [self changeMyTurnLabelMessage:TRUE];
+            }else{
+                [self changeMyTurnLabelMessage:FALSE];
+            }
+        }
         [self sendGameBegin];
         //[self setupStringsWithOtherPlayerId:otherPlayerID];
     }
@@ -195,6 +202,13 @@
 	[UIView commitAnimations];
     
 }
+- (void)changeMyTurnLabelMessage:(BOOL)status{
+    if (status) {
+        [debugLabel setText:@"Active: Your Turn"];
+    }else{
+        [debugLabel setText:@"Inactive: opposite player's turn"];
+    }
+}
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
     
     // Store away other player ID for later
@@ -218,11 +232,14 @@
             NSLog(@"We are player 1");
             isPlayer1 = YES;
             [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+            [self changeMyTurnLabelMessage:TRUE];
             [GlobalSingleton sharedManager].string_my_turn = @"1";
         } else {
             NSLog(@"We are player 2");
             isPlayer1 = NO;
             [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+            [self changeMyTurnLabelMessage:FALSE];
+            
             [GlobalSingleton sharedManager].string_my_turn = @"2";
         }
         
@@ -258,7 +275,8 @@
         [self animateComputerOrGameCenterMove:received_dictionary];
         
         [GlobalSingleton sharedManager].GC_my_turn = TRUE;
-        [self getBoard];
+        [self changeMyTurnLabelMessage:TRUE];
+        //[self getBoard];
     } else if (message->messageType == kMessageTypeGameOver) {
         
         MessageGameOver * messageGameOver = (MessageGameOver *) [data bytes];

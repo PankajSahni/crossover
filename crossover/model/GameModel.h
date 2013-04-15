@@ -10,6 +10,7 @@
 #import "AiEngine.h"
 @protocol GameModelDelegate
 - (void)sendMove;
+- (void)changeMyTurnLabelMessage:(BOOL)status;
 @end
 @interface GameModel : NSObject{
     AiEngine *aiEngineObject;
