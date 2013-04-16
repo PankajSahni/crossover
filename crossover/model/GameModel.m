@@ -11,7 +11,10 @@
 #import "RulesForSingleJumpVsPalyer.h"
 #import "RulesForDoubleJumpvsPlayer.h"
 #import "AiEngine.h"
-@interface AiEngine ()
+#import "AppDelegate.h"
+#import "GCHelper.h"
+#import "GameController.h"
+@interface GameModel ()
 @property (readonly) AiEngine *aiEngineObject;
 @end
 @implementation GameModel
@@ -20,6 +23,7 @@
 @synthesize string_player_one_coin;
 @synthesize string_player_two_coin;
 @synthesize delegate_game_model;
+@synthesize isPlayer1;
 //@synthesize delegate_refresh_my_data;
 - (AiEngine *) aiEngineObject{
     if(!aiEngineObject){
@@ -27,6 +31,7 @@
     }
     return aiEngineObject;
 }
+
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
     if([device_type isEqualToString:@"iphone"]){
         NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -123,7 +128,7 @@
                     [delegate_game_model changeMyTurnLabelMessage:FALSE];
                     [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
                     [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
-                    [delegate_game_model sendMove];
+                    [self sendMove];
                 }
                 if (![GlobalSingleton sharedManager].GC) {
                     [self togglePlayer];
@@ -146,7 +151,7 @@
                     [GlobalSingleton sharedManager].int_GC_captured = coin_eliminated;
                     [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
                     [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
-                    [delegate_game_model sendMove];
+                    [self sendMove];
                 } 
 			}
             
@@ -163,6 +168,19 @@
     }else{
         [GlobalSingleton sharedManager].string_my_turn = @"1";
     }
+}
+
+- (void)matchStarted {
+    NSLog(@"Match started");
+    [delegate_game_model addLabelToShowMultiplayerGameStatus];
+    if (receivedRandom) {
+        [self setGameState:kGameStateWaitingForStart];
+    } else {
+        [self setGameState:kGameStateWaitingForRandomNumber];
+    }
+    [self sendRandomNumber];
+    [self tryStartGame];
+    
 }
 -(void)addCoinToCaptureBlockWithIndex:(int)index ForPlayer:(NSString *)player_at_position{
     //NSLog(@"turn %@",[GlobalSingleton sharedManager].string_my_turn);
@@ -184,7 +202,12 @@
     }
 }
 
-
+-(void)findMatchWithViewController:(UIViewController *)viewController{
+    [GCHelper sharedInstance].delegate = self;
+    [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:viewController delegate:self];
+    ourRandom = arc4random();
+    [self setGameState:kGameStateWaitingForMatch];
+}
 -(NSString *)updateTimerForPlayer{
     NSString* timeNow;
     if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]){
@@ -276,5 +299,185 @@
     }
     return return_winner;
 }
+- (void)inviteReceived {
+    //[self restartTapped:nil];
+}
 
+#pragma mark GCHelperDelegate
+- (void)tryStartGame {
+    
+    if (isPlayer1 && gameState == kGameStateWaitingForStart) {
+        [self setGameState:kGameStateActive];
+        if ([GlobalSingleton sharedManager].GC) {
+            if ([GlobalSingleton sharedManager].GC_my_turn) {
+                [delegate_game_model changeMyTurnLabelMessage:TRUE];
+            }else{
+                [delegate_game_model changeMyTurnLabelMessage:FALSE];
+            }
+        }
+        [self sendGameBegin];
+    }
+    
+}
+- (void)sendData:(NSData *)data {
+    NSError *error;
+    BOOL success = [[GCHelper sharedInstance].match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
+    if (!success) {
+        NSLog(@"Error sending init packet");
+        [self matchEnded];
+    }
+}
+- (void)matchEnded {
+    NSLog(@"Match ended");
+}
+
+
+- (void)sendGameBegin {
+    
+    MessageGameBegin message;
+    message.message.messageType = kMessageTypeGameBegin;
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageGameBegin)];
+    [self sendData:data];
+    
+}
+
+- (void)sendMove {
+    
+    MessageMove message;
+    message.message.messageType = kMessageTypeMove;
+    message.move = [GlobalSingleton sharedManager].int_GC_move;
+    message.captured = [GlobalSingleton sharedManager].int_GC_captured;
+    message.newposition = [GlobalSingleton sharedManager].int_GC_newposition;
+    
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageMove)];
+    [self sendData:data];
+    
+}
+
+- (void)sendGameOver:(BOOL)player1Won {
+    
+    MessageGameOver message;
+    message.message.messageType = kMessageTypeGameOver;
+    message.player1Won = player1Won;
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageGameOver)];
+    [self sendData:data];
+    
+}
+- (void)setGameState:(GameState)state {
+    
+    gameState = state;
+    if (gameState == kGameStateWaitingForMatch) {
+        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+    } else if (gameState == kGameStateWaitingForRandomNumber) {
+        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+    } else if (gameState == kGameStateWaitingForStart) {
+        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+    } else if (gameState == kGameStateActive) {
+        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+    } else if (gameState == kGameStateDone) {
+        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+    }
+    
+}
+- (void)sendRandomNumber {
+    
+    MessageRandomNumber message;
+    message.message.messageType = kMessageTypeRandomNumber;
+    message.randomNumber = ourRandom;
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageRandomNumber)];
+    [self sendData:data];
+}
+
+-(void)foundPlayer{
+    if (receivedRandom) {
+        [self setGameState:kGameStateWaitingForStart];
+    } else {
+        [self setGameState:kGameStateWaitingForRandomNumber];
+    }
+    [self sendRandomNumber];
+    [self tryStartGame];
+}
+- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
+    
+    // Store away other player ID for later
+    if (otherPlayerID == nil) {
+        otherPlayerID = playerID;
+    }
+    
+    Message *message = (Message *) [data bytes];
+    if (message->messageType == kMessageTypeRandomNumber) {
+        
+        MessageRandomNumber * messageInit = (MessageRandomNumber *) [data bytes];
+        NSLog(@"Received random number: %ud, ours %ud", messageInit->randomNumber,ourRandom);
+        bool tie = false;
+        
+        if (messageInit->randomNumber == ourRandom) {
+            NSLog(@"TIE!");
+            tie = true;
+            ourRandom = arc4random();
+            [self sendRandomNumber];
+        } else if (ourRandom > messageInit->randomNumber) {
+            NSLog(@"We are player 1");
+            isPlayer1 = YES;
+            [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+            [delegate_game_model changeMyTurnLabelMessage:TRUE];
+            [GlobalSingleton sharedManager].string_my_turn = @"1";
+        } else {
+            NSLog(@"We are player 2");
+            isPlayer1 = NO;
+            [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+            [delegate_game_model changeMyTurnLabelMessage:FALSE];
+            
+            [GlobalSingleton sharedManager].string_my_turn = @"2";
+        }
+        
+        if (!tie) {
+            receivedRandom = YES;
+            if (gameState == kGameStateWaitingForRandomNumber) {
+                [self setGameState:kGameStateWaitingForStart];
+            }
+            [self tryStartGame];
+        }
+        
+    } else if (message->messageType == kMessageTypeGameBegin) {
+        
+        [self setGameState:kGameStateActive];
+        [delegate_game_model getBoard];
+        //[self setupStringsWithOtherPlayerId:playerID];
+        
+    } else if (message->messageType == kMessageTypeMove) {
+        
+        
+        MessageMove *messageTypeMove = (MessageMove *) [data bytes];
+        
+        
+        NSLog(@"newposition %d",messageTypeMove->newposition);
+        NSLog(@"move %d",messageTypeMove->move);
+        NSLog(@"captured %d",messageTypeMove->captured);
+        
+        NSDictionary *received_dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                             [NSString stringWithFormat:@"%d", messageTypeMove->newposition ],@"newposition",
+                                             [NSString stringWithFormat:@"%d", messageTypeMove->move ],@"move",
+                                             [NSString stringWithFormat:@"%d", messageTypeMove->captured ],@"captured",nil];
+        
+        [delegate_game_model animateComputerOrGameCenterMove:received_dictionary];
+        
+        [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+        [delegate_game_model changeMyTurnLabelMessage:TRUE];
+        //[self getBoard];
+    } else if (message->messageType == kMessageTypeGameOver) {
+        
+        MessageGameOver * messageGameOver = (MessageGameOver *) [data bytes];
+        NSLog(@"Received game over with player 1 won: %d", messageGameOver->player1Won);
+        
+        if (messageGameOver->player1Won) {
+            NSLog(@"pankaj kEndReasonLose");
+            //[self endScene:kEndReasonLose];
+        } else {
+            //[self endScene:kEndReasonWin];
+            NSLog(@"pankaj kEndReasonWin");
+        }
+        
+    }
+}
 @end

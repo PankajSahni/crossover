@@ -12,53 +12,9 @@
 #import "BoardUIView.h"
 #import "GCHelper.h"
 
-typedef enum {
-    kMessageTypeRandomNumber = 0,
-    kMessageTypeGameBegin,
-    kMessageTypeMove,
-    kMessageTypeGameOver
-} MessageType;
 
-typedef struct {
-    MessageType messageType;
-} Message;
 
-typedef struct {
-    Message message;
-    uint32_t randomNumber;
-} MessageRandomNumber;
-
-typedef struct {
-    Message message;
-} MessageGameBegin;
-
-typedef struct {
-    Message message;
-    int newposition;
-    int captured;
-    int move;
-} MessageMove;
-
-typedef struct {
-    Message message;
-    BOOL player1Won;
-} MessageGameOver;
-
-typedef enum {
-    kEndReasonWin,
-    kEndReasonLose,
-    kEndReasonDisconnect
-} EndReason;
-
-typedef enum {
-    kGameStateWaitingForMatch = 0,
-    kGameStateWaitingForRandomNumber,
-    kGameStateWaitingForStart,
-    kGameStateActive,
-    kGameStateDone
-} GameState;
-
-@interface GameController : UIViewController<GCHelperDelegate, GameModelDelegate>{
+@interface GameController : UIViewController<GameModelDelegate>{
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;
     UIButton *button_new_game;
@@ -78,16 +34,11 @@ typedef enum {
     UILabel *time_label_P2;
     
     UILabel *debugLabel;
-    GameState gameState;
-    BOOL isPlayer1;
-    uint32_t ourRandom;
-    BOOL receivedRandom;
-    NSString *otherPlayerID;
     
-    
-    
+
     
 }
+
 -(void) getPopOver;
 
 -(CGRect)getNewDimensionsByReducingHeight:(int)height

@@ -15,7 +15,6 @@
 #import "RulesForSingleJumpVsPalyer.h"
 #import "RulesForDoubleJumpvsPlayer.h"
 #import "ShowWinnerViewController.h"
-#import "GCHelper.h"
 #import "AppDelegate.h"
 @interface GameController ()
 @property (readonly) GameModel *gameModelObject;
@@ -23,14 +22,12 @@
 @end
 
 @implementation GameController
-
 - (BoardUIView *) boardModelObject{
     if(!boardModelObject){
         boardModelObject = [[BoardUIView alloc] init];
     }
     return boardModelObject;
 }
-
 - (GameModel *) gameModelObject{
     if(!gameModelObject){
         gameModelObject = [[GameModel alloc] init];
@@ -38,121 +35,34 @@
     }
     return gameModelObject;
 }
-- (void)setGameState:(GameState)state {
-    
-    gameState = state;
-    if (gameState == kGameStateWaitingForMatch) {
-        [debugLabel setText:@"Waiting for match"];
-    } else if (gameState == kGameStateWaitingForRandomNumber) {
-        [debugLabel setText:@"Waiting for rand #"];
-    } else if (gameState == kGameStateWaitingForStart) {
-        [debugLabel setText:@"Waiting for start"];
-    } else if (gameState == kGameStateActive) {
-        [debugLabel setText:@"Active"];
-    } else if (gameState == kGameStateDone) {
-        [debugLabel setText:@"Done"];
-    }
-    
-}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self startSpinnerOnDidLoad];
+    [self.view addSubview:self.boardModelObject];
+    [self getBoard];
+    [self getPopOverToStartGame];
+}
+-(void)startSpinnerOnDidLoad{
     NSDictionary *device_dimensions =
     [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
-    CGRect rect_temp = 
+    CGRect rect_temp =
     CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 + 21 ,
-                                  [[device_dimensions valueForKey:@"height"] intValue]/2 + 21,
-                                  100,100);
+               [[device_dimensions valueForKey:@"height"] intValue]/2 + 21,
+               100,100);
     spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
     spinner.frame = rect_temp;
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [spinner startAnimating];
-    [self.view addSubview:self.boardModelObject];
-    [self getBoard];
-    
-    [self getPopOverToStartGame];
-    //[self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:0];
-   
-    
-}
-- (void)inviteReceived {
-    //[self restartTapped:nil];
 }
 -(void)GCFindMatch{
     AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:delegate.viewController delegate:self];
-    ourRandom = arc4random();
-    [self setGameState:kGameStateWaitingForMatch];
-}
-#pragma mark GCHelperDelegate
-- (void)tryStartGame {
-    
-    if (isPlayer1 && gameState == kGameStateWaitingForStart) {
-        [self setGameState:kGameStateActive];
-        if ([GlobalSingleton sharedManager].GC) {
-            if ([GlobalSingleton sharedManager].GC_my_turn) {
-                [self changeMyTurnLabelMessage:TRUE];
-            }else{
-                [self changeMyTurnLabelMessage:FALSE];
-            }
-        }
-        [self sendGameBegin];
-        //[self setupStringsWithOtherPlayerId:otherPlayerID];
-    }
-    
-}
-- (void)sendData:(NSData *)data {
-    NSError *error;
-    BOOL success = [[GCHelper sharedInstance].match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
-    if (!success) {
-        NSLog(@"Error sending init packet");
-        [self matchEnded];
-    }
-}
-
-- (void)sendRandomNumber {
-    
-    MessageRandomNumber message;
-    message.message.messageType = kMessageTypeRandomNumber;
-    message.randomNumber = ourRandom;
-    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageRandomNumber)];
-    [self sendData:data];
-}
-
-- (void)sendGameBegin {
-    
-    MessageGameBegin message;
-    message.message.messageType = kMessageTypeGameBegin;
-    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageGameBegin)];
-    [self sendData:data];
+    [self.gameModelObject findMatchWithViewController:delegate.viewController];
     
 }
 
-- (void)sendMove {
-    
-    MessageMove message;
-    message.message.messageType = kMessageTypeMove;
-    message.move = [GlobalSingleton sharedManager].int_GC_move;
-    message.captured = [GlobalSingleton sharedManager].int_GC_captured;
-    message.newposition = [GlobalSingleton sharedManager].int_GC_newposition;
-
-    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageMove)];
-    [self sendData:data];
-    
-}
-
-- (void)sendGameOver:(BOOL)player1Won {
-    
-    MessageGameOver message;
-    message.message.messageType = kMessageTypeGameOver;
-    message.player1Won = player1Won;
-    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageGameOver)];
-    [self sendData:data];
-    
-}
-- (void)matchStarted {
-    NSLog(@"Match started");
+-(void)addLabelToShowMultiplayerGameStatus{
     [spinner removeFromSuperview];
     [view_popover removeFromSuperview];
     NSDictionary *device_dimensions =
@@ -164,17 +74,8 @@
                300,20);
     debugLabel = [[UILabel alloc] initWithFrame:rect_temp];
     [self.view addSubview:debugLabel];
-    if (receivedRandom) {
-        [self setGameState:kGameStateWaitingForStart];
-    } else {
-        [self setGameState:kGameStateWaitingForRandomNumber];
-    }
-    [self sendRandomNumber];
-    [self tryStartGame];
 }
-- (void)matchEnded {
-    NSLog(@"Match ended");
-}
+
 -(void)playerVsGameCenter{
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
@@ -192,7 +93,7 @@
                          [button_vs_gamecenter removeFromSuperview];
                          
                          [self.view addSubview:spinner];
-                         [GCHelper sharedInstance].delegate = self;
+                         
                          
                          [[GCHelper sharedInstance] authenticateLocalUser];
                          [self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:1.0];
@@ -209,89 +110,10 @@
         [debugLabel setText:@"Inactive: opposite player's turn"];
     }
 }
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
-    
-    // Store away other player ID for later
-    if (otherPlayerID == nil) {
-        otherPlayerID = playerID;
-    }
-    
-    Message *message = (Message *) [data bytes];
-    if (message->messageType == kMessageTypeRandomNumber) {
-        
-        MessageRandomNumber * messageInit = (MessageRandomNumber *) [data bytes];
-        NSLog(@"Received random number: %ud, ours %ud", messageInit->randomNumber, ourRandom);
-        bool tie = false;
-        
-        if (messageInit->randomNumber == ourRandom) {
-            NSLog(@"TIE!");
-            tie = true;
-            ourRandom = arc4random();
-            [self sendRandomNumber];
-        } else if (ourRandom > messageInit->randomNumber) {
-            NSLog(@"We are player 1");
-            isPlayer1 = YES;
-            [GlobalSingleton sharedManager].GC_my_turn = TRUE;
-            [self changeMyTurnLabelMessage:TRUE];
-            [GlobalSingleton sharedManager].string_my_turn = @"1";
-        } else {
-            NSLog(@"We are player 2");
-            isPlayer1 = NO;
-            [GlobalSingleton sharedManager].GC_my_turn = FALSE;
-            [self changeMyTurnLabelMessage:FALSE];
-            
-            [GlobalSingleton sharedManager].string_my_turn = @"2";
-        }
-        
-        if (!tie) {
-            receivedRandom = YES;
-            if (gameState == kGameStateWaitingForRandomNumber) {
-                [self setGameState:kGameStateWaitingForStart];
-            }
-            [self tryStartGame];
-        }
-        
-    } else if (message->messageType == kMessageTypeGameBegin) {
-        
-        [self setGameState:kGameStateActive];
-        [self getBoard];
-        //[self setupStringsWithOtherPlayerId:playerID];
-        
-    } else if (message->messageType == kMessageTypeMove) {
-        
-        
-        MessageMove *messageTypeMove = (MessageMove *) [data bytes];
-        
-        
-        NSLog(@"newposition %d",messageTypeMove->newposition);
-        NSLog(@"move %d",messageTypeMove->move);
-        NSLog(@"captured %d",messageTypeMove->captured);
-        
-        NSDictionary *received_dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
-        [NSString stringWithFormat:@"%d", messageTypeMove->newposition ],@"newposition",
-        [NSString stringWithFormat:@"%d", messageTypeMove->move ],@"move",
-        [NSString stringWithFormat:@"%d", messageTypeMove->captured ],@"captured",nil];
-        
-        [self animateComputerOrGameCenterMove:received_dictionary];
-        
-        [GlobalSingleton sharedManager].GC_my_turn = TRUE;
-        [self changeMyTurnLabelMessage:TRUE];
-        //[self getBoard];
-    } else if (message->messageType == kMessageTypeGameOver) {
-        
-        MessageGameOver * messageGameOver = (MessageGameOver *) [data bytes];
-        NSLog(@"Received game over with player 1 won: %d", messageGameOver->player1Won);
-        
-        if (messageGameOver->player1Won) {
-             NSLog(@"pankaj kEndReasonLose");
-            //[self endScene:kEndReasonLose];
-        } else {
-            //[self endScene:kEndReasonWin];
-            NSLog(@"pankaj kEndReasonWin");
-        }
-        
-    }
+- (void)initialSetUpMessagesForLabel:(NSString *)string{
+        [debugLabel setText:string];
 }
+
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";
     if([player isEqualToString:@"1"]){
@@ -434,7 +256,7 @@
     }
     NSString *opposite_player;
     if ([GlobalSingleton sharedManager].GC) {
-        if (isPlayer1) {
+        if (self.gameModelObject.isPlayer1) {
             opposite_player = @"2";
         }else{
             opposite_player = @"1";

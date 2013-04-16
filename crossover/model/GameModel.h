@@ -8,15 +8,71 @@
 
 #import <Foundation/Foundation.h>
 #import "AiEngine.h"
+#import "GCHelper.h"
+typedef enum {
+    kMessageTypeRandomNumber = 0,
+    kMessageTypeGameBegin,
+    kMessageTypeMove,
+    kMessageTypeGameOver
+} MessageType;
+
+typedef struct {
+    MessageType messageType;
+} Message;
+
+typedef struct {
+    Message message;
+    uint32_t randomNumber;
+} MessageRandomNumber;
+
+typedef struct {
+    Message message;
+} MessageGameBegin;
+
+typedef struct {
+    Message message;
+    int newposition;
+    int captured;
+    int move;
+} MessageMove;
+
+typedef struct {
+    Message message;
+    BOOL player1Won;
+} MessageGameOver;
+
+typedef enum {
+    kEndReasonWin,
+    kEndReasonLose,
+    kEndReasonDisconnect
+} EndReason;
+
+typedef enum {
+    kGameStateWaitingForMatch = 0,
+    kGameStateWaitingForRandomNumber,
+    kGameStateWaitingForStart,
+    kGameStateActive,
+    kGameStateDone
+} GameState;
+
 @protocol GameModelDelegate
-- (void)sendMove;
 - (void)changeMyTurnLabelMessage:(BOOL)status;
+- (void)initialSetUpMessagesForLabel:(NSString *)string;
+-(void)addLabelToShowMultiplayerGameStatus;
+-(void)animateComputerOrGameCenterMove:(NSDictionary *)opposition_turn;
+-(void)getBoard;
+
 @end
-@interface GameModel : NSObject{
+@interface GameModel : NSObject<GCHelperDelegate>{
     AiEngine *aiEngineObject;
     id <GameModelDelegate> delegate_game_model;
+    GameState gameState;
+    NSString *otherPlayerID;
+    BOOL receivedRandom;
+    uint32_t ourRandom;
 }
 @property (nonatomic, retain) NSMutableDictionary *dictionary_my_device_dimensions;
+@property (nonatomic, assign) BOOL isPlayer1;
 @property (nonatomic, retain) NSString *string_player_one_coin;
 @property (nonatomic, retain) NSString *string_player_two_coin;
 @property (retain) id <GameModelDelegate> delegate_game_model;
@@ -29,4 +85,9 @@
 -(NSDictionary *)computerTurn;
 -(int)anybodyWon;
 -(int)timeOverShowWinner;
+- (void)sendData:(NSData *)data;
+- (void)tryStartGame;
+- (void)sendRandomNumber;
+-(void)foundPlayer;
+-(void)findMatchWithViewController:(UIViewController *)viewController;
 @end
