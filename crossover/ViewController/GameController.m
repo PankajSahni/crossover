@@ -307,6 +307,7 @@
     CGPoint center = ctrl.center;
     center.x += p.x - pPrev.x;
     center.y += p.y - pPrev.y;
+    [self.view bringSubviewToFront:ctrl];
     ctrl.center = center;
 }
 - (IBAction) dragEnded:(UIControl *) ctrl withEvent:(UIEvent *) event{
