@@ -10,7 +10,7 @@
 #import "GlobalSingleton.h"
 #import "GameModel.h"
 #import "BoardUIView.h"
-#import "GCHelper.h"
+
 
 
 
@@ -32,15 +32,6 @@
     NSTimer *timer;
     UILabel *time_label_P1;
     UILabel *time_label_P2;
-    
-    UILabel *debugLabel;
-    
-
-    
+    UILabel *debugLabel;  
 }
-
--(void) getPopOver;
-
--(CGRect)getNewDimensionsByReducingHeight:(int)height
-                                    width:(int)width toPixel:(int)pixel;
 @end

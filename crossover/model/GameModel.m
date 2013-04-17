@@ -208,8 +208,10 @@
     ourRandom = arc4random();
     [self setGameState:kGameStateWaitingForMatch];
 }
--(NSString *)updateTimerForPlayer{
-    NSString* timeNow;
+-(NSMutableDictionary *)updateTimerForPlayer{
+    NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+    NSString *string_player_one_time = @"";
+    NSString *string_player_two_time = @"";
     if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]){
         if ([GlobalSingleton sharedManager].int_seconds_p1 == 00)
         {
@@ -221,28 +223,45 @@
         if ([GlobalSingleton sharedManager].int_minutes_p1==0 &&
             [GlobalSingleton sharedManager].int_seconds_p1==0) {
         }
-        timeNow = [NSString stringWithFormat:@"%02d:%02d",
-                             [GlobalSingleton sharedManager].int_minutes_p1,
-                             [GlobalSingleton sharedManager].int_seconds_p1];
+      
     }
-    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
-        if ([GlobalSingleton sharedManager].int_seconds_p1 == 00)
+    string_player_one_time = [NSString stringWithFormat:@"%02d:%02d",
+                              [GlobalSingleton sharedManager].int_minutes_p1,
+                              [GlobalSingleton sharedManager].int_seconds_p1];
+    [self checkIfTimeIsOver:string_player_one_time];
+    [temp setObject:string_player_one_time forKey:@"player_one"];
+    
+    if([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"] ||
+       [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"computer"]){
+        if ([GlobalSingleton sharedManager].int_seconds_p2 == 00)
         {
-            [GlobalSingleton sharedManager].int_seconds_p1 = 60;
-            [GlobalSingleton sharedManager].int_minutes_p1 --;
+            [GlobalSingleton sharedManager].int_seconds_p2 = 60;
+            [GlobalSingleton sharedManager].int_minutes_p2 --;
         }
         
-        [GlobalSingleton sharedManager].int_seconds_p1 --;
-        if ([GlobalSingleton sharedManager].int_minutes_p1==0 &&
-            [GlobalSingleton sharedManager].int_seconds_p1==0) {
+        [GlobalSingleton sharedManager].int_seconds_p2 --;
+        if ([GlobalSingleton sharedManager].int_minutes_p2==0 &&
+            [GlobalSingleton sharedManager].int_seconds_p2==0) {
         }
-         timeNow  = [NSString stringWithFormat:@"%02d:%02d",
-                             [GlobalSingleton sharedManager].int_minutes_p1,
-                             [GlobalSingleton sharedManager].int_seconds_p1];
+         
     }
-    return timeNow;
+    string_player_two_time = [NSString stringWithFormat:@"%02d:%02d",
+                              [GlobalSingleton sharedManager].int_minutes_p2,
+                              [GlobalSingleton sharedManager].int_seconds_p2];
+    [self checkIfTimeIsOver:string_player_two_time];
+    [temp setObject:string_player_two_time forKey:@"player_two"];
+    return temp;
 }
-
+-(void)checkIfTimeIsOver:(NSString *)time_now{
+    if ([time_now isEqualToString:@"00:00"]) {
+        int winner = [self timeOverShowWinner];
+        if (winner) {
+            [delegate_game_model showWinner:(int)winner];
+        }else{
+            [delegate_game_model showWinner:(int)0];
+        }
+    }
+}
 -(NSDictionary *)computerTurn{
     
    NSDictionary *dict_computer_turn = [self.aiEngineObject playerOne];
@@ -480,4 +499,15 @@
         
     }
 }
+-(CGRect)getNewDimensionsByReducingHeight:(int)height
+                                    width:(int)width toPixel:(int)pixel{
+    int x = pixel;
+    int y = pixel;
+    int local_width = width - 2*pixel;
+    int local_height = height - 2*pixel;
+    CGRect rect_local = CGRectMake(x, y, local_width, local_height);
+    return rect_local;
+    
+}
+
 @end

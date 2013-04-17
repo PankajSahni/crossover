@@ -23,6 +23,7 @@
 		04D1899C17016B7A00CCE3D5 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899517016B7A00CCE3D5 /* ViewController_iPad.xib */; };
 		04D1899D17016B7A00CCE3D5 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899717016B7A00CCE3D5 /* ViewController_iPhone.xib */; };
 		04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD982F16DE2568003E8AA8 /* GameKit.framework */; };
+		04DDD493171EB53500C7ABBA /* blank_coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DDD492171EB53500C7ABBA /* blank_coin.png */; };
 		04E4687D16DE0A88008479F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687C16DE0A88008479F0 /* UIKit.framework */; };
 		04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687E16DE0A88008479F0 /* Foundation.framework */; };
 		04E4688116DE0A88008479F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4688016DE0A88008479F0 /* CoreGraphics.framework */; };
@@ -32,8 +33,6 @@
 		472D187016F791E90002BAC8 /* app_icon_100.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17DD16F791E90002BAC8 /* app_icon_100.png */; };
 		472D187116F791E90002BAC8 /* app_icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17DE16F791E90002BAC8 /* app_icon_72.png */; };
 		472D187216F791E90002BAC8 /* bar1.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17DF16F791E90002BAC8 /* bar1.png */; };
-		472D187316F791E90002BAC8 /* blanckbtn_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17E016F791E90002BAC8 /* blanckbtn_big.png */; };
-		472D187416F791E90002BAC8 /* blanckbtn_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17E116F791E90002BAC8 /* blanckbtn_small.png */; };
 		472D187516F791E90002BAC8 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17E216F791E90002BAC8 /* blank.png */; };
 		472D187616F791E90002BAC8 /* board.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17E316F791E90002BAC8 /* board.png */; };
 		472D187716F791E90002BAC8 /* brown_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 472D17E416F791E90002BAC8 /* brown_bg.png */; };
@@ -210,6 +209,7 @@
 		04D1899817016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		04D1899917016B7A00CCE3D5 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		04DDD492171EB53500C7ABBA /* blank_coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank_coin.png; sourceTree = "<group>"; };
 		04E4687816DE0A88008479F0 /* crossover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crossover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E4687C16DE0A88008479F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04E4687E16DE0A88008479F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -223,8 +223,6 @@
 		472D17DD16F791E90002BAC8 /* app_icon_100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon_100.png; sourceTree = "<group>"; };
 		472D17DE16F791E90002BAC8 /* app_icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon_72.png; sourceTree = "<group>"; };
 		472D17DF16F791E90002BAC8 /* bar1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bar1.png; sourceTree = "<group>"; };
-		472D17E016F791E90002BAC8 /* blanckbtn_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blanckbtn_big.png; sourceTree = "<group>"; };
-		472D17E116F791E90002BAC8 /* blanckbtn_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blanckbtn_small.png; sourceTree = "<group>"; };
 		472D17E216F791E90002BAC8 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
 		472D17E316F791E90002BAC8 /* board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board.png; sourceTree = "<group>"; };
 		472D17E416F791E90002BAC8 /* brown_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brown_bg.png; sourceTree = "<group>"; };
@@ -500,12 +498,11 @@
 		472D17DC16F791E90002BAC8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				04DDD492171EB53500C7ABBA /* blank_coin.png */,
 				4774063D16FF50A200A0C0D5 /* captured_bg.png */,
 				472D17DD16F791E90002BAC8 /* app_icon_100.png */,
 				472D17DE16F791E90002BAC8 /* app_icon_72.png */,
 				472D17DF16F791E90002BAC8 /* bar1.png */,
-				472D17E016F791E90002BAC8 /* blanckbtn_big.png */,
-				472D17E116F791E90002BAC8 /* blanckbtn_small.png */,
 				472D17E216F791E90002BAC8 /* blank.png */,
 				472D17E316F791E90002BAC8 /* board.png */,
 				472D17E416F791E90002BAC8 /* brown_bg.png */,
@@ -717,8 +714,6 @@
 				472D187016F791E90002BAC8 /* app_icon_100.png in Resources */,
 				472D187116F791E90002BAC8 /* app_icon_72.png in Resources */,
 				472D187216F791E90002BAC8 /* bar1.png in Resources */,
-				472D187316F791E90002BAC8 /* blanckbtn_big.png in Resources */,
-				472D187416F791E90002BAC8 /* blanckbtn_small.png in Resources */,
 				472D187516F791E90002BAC8 /* blank.png in Resources */,
 				472D187616F791E90002BAC8 /* board.png in Resources */,
 				472D187716F791E90002BAC8 /* brown_bg.png in Resources */,
@@ -868,6 +863,7 @@
 				04D1899B17016B7A00CCE3D5 /* InfoPlist.strings in Resources */,
 				04D1899C17016B7A00CCE3D5 /* ViewController_iPad.xib in Resources */,
 				04D1899D17016B7A00CCE3D5 /* ViewController_iPhone.xib in Resources */,
+				04DDD493171EB53500C7ABBA /* blank_coin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -61,6 +61,7 @@ typedef enum {
 -(void)addLabelToShowMultiplayerGameStatus;
 -(void)animateComputerOrGameCenterMove:(NSDictionary *)opposition_turn;
 -(void)getBoard;
+-(void)showWinner:(int)winner;
 
 @end
 @interface GameModel : NSObject<GCHelperDelegate>{
@@ -80,7 +81,7 @@ typedef enum {
 -(NSMutableArray *)getBoardDimensions;
 -(int)validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked;
 -(void)addCoinToCaptureBlockWithIndex:(int)index ForPlayer:(NSString *)player_at_position;
--(NSString *)updateTimerForPlayer;
+-(NSMutableDictionary *)updateTimerForPlayer;
 -(void) togglePlayer;
 -(NSDictionary *)computerTurn;
 -(int)anybodyWon;
@@ -90,4 +91,6 @@ typedef enum {
 - (void)sendRandomNumber;
 -(void)foundPlayer;
 -(void)findMatchWithViewController:(UIViewController *)viewController;
+-(CGRect)getNewDimensionsByReducingHeight:(int)height
+                                    width:(int)width toPixel:(int)pixel;
 @end

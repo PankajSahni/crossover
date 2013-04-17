@@ -83,7 +83,7 @@
 -(void)getCapturedPlayers{
     [[GlobalSingleton sharedManager] setPlayersCapturedCGRect];
     for (int i = 0; i <= 15; i ++) {
-        UIImage *image_captured_player_at_position = [UIImage imageNamed:@"blanckbtn_big.png.png"];
+        UIImage *image_captured_player_at_position = [UIImage imageNamed:@"blank_coin.png"];
         UIImageView *imageview_temp_1 = [[UIImageView alloc] initWithImage:image_captured_player_at_position];
         imageview_temp_1.frame =
         [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];

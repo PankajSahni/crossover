@@ -16,6 +16,7 @@
 #import "RulesForDoubleJumpvsPlayer.h"
 #import "ShowWinnerViewController.h"
 #import "AppDelegate.h"
+
 @interface GameController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
@@ -36,32 +37,28 @@
     return gameModelObject;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     [self startSpinnerOnDidLoad];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
     [self getPopOverToStartGame];
 }
--(void)startSpinnerOnDidLoad{
-    NSDictionary *device_dimensions =
-    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
-    CGRect rect_temp =
-    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 + 21 ,
-               [[device_dimensions valueForKey:@"height"] intValue]/2 + 21,
-               100,100);
-    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
-    spinner.frame = rect_temp;
-    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [spinner startAnimating];
-}
--(void)GCFindMatch{
-    AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    [self.gameModelObject findMatchWithViewController:delegate.viewController];
-    
-}
 
+
+
+
+#pragma mark DelegateGameModelCalls
+- (void)changeMyTurnLabelMessage:(BOOL)status{
+    if (status) {
+        [debugLabel setText:@"Active: Your Turn"];
+    }else{
+        [debugLabel setText:@"Inactive: opposite player's turn"];
+    }
+}
+- (void)initialSetUpMessagesForLabel:(NSString *)string{
+    [debugLabel setText:string];
+}
 -(void)addLabelToShowMultiplayerGameStatus{
     [spinner removeFromSuperview];
     [view_popover removeFromSuperview];
@@ -75,122 +72,7 @@
     debugLabel = [[UILabel alloc] initWithFrame:rect_temp];
     [self.view addSubview:debugLabel];
 }
-
--(void)playerVsGameCenter{
-    button_vs_player.alpha = 0.5;
-    button_vs_computer.alpha = 0.5;
-    button_vs_gamecenter.alpha = 0.5;
-    [UIView animateWithDuration:1.0
-                     animations:^{
-                         button_vs_player.alpha = 0;
-                         button_vs_computer.alpha = 0;
-                         button_vs_gamecenter.alpha = 0;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         [button_vs_player removeFromSuperview];
-                         [button_vs_computer removeFromSuperview];
-                         [button_vs_gamecenter removeFromSuperview];
-                         
-                         [self.view addSubview:spinner];
-                         
-                         
-                         [[GCHelper sharedInstance] authenticateLocalUser];
-                         [self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:1.0];
-                         [GlobalSingleton sharedManager].GC = TRUE;
-                         
-                     }];
-	[UIView commitAnimations];
-    
-}
-- (void)changeMyTurnLabelMessage:(BOOL)status{
-    if (status) {
-        [debugLabel setText:@"Active: Your Turn"];
-    }else{
-        [debugLabel setText:@"Inactive: opposite player's turn"];
-    }
-}
-- (void)initialSetUpMessagesForLabel:(NSString *)string{
-        [debugLabel setText:string];
-}
-
--(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
-    NSString *image_player = @"";
-    if([player isEqualToString:@"1"]){
-        image_player = [self.gameModelObject string_player_one_coin];
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-                          forState:UIControlStateNormal];
-    }
-    else if([player isEqualToString:@"2"]){
-        image_player = [self.gameModelObject string_player_two_coin];
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-                          forState:UIControlStateNormal];
-    }
-    else if([player isEqualToString:@"0"]){
-        image_player = @"blanckbtn_big.png";
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-                          forState:UIControlStateNormal];
-        
-    }
-    else{
-        
-    }
-    if([GlobalSingleton sharedManager].GC){
-        if ([GlobalSingleton sharedManager].GC_my_turn &&
-            [[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
-            [self iAmDraggable:button];
-        }
-    }
-    else if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
-        [self iAmDraggable:button];
-    }
-    return button;
-    
-}
-
-- (void) iAmDraggable:(UIButton *) button
-{
-    
-    [button addTarget:self action:@selector(dragBegan:withEvent: )
-     forControlEvents: UIControlEventTouchDown];
-    [button addTarget:self action:@selector(dragMoving:withEvent: )
-     forControlEvents: UIControlEventTouchDragInside];
-    [button addTarget:self action:@selector(dragEnded:withEvent: )
-     forControlEvents: UIControlEventTouchUpInside |
-     UIControlEventTouchUpOutside];
-}
-- (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event
-{
-    tag_coin_picked = ctrl.tag - 2000;
-}
-
-- (void) dragMoving:(UIControl *) ctrl withEvent:(UIEvent *) event
-{
-    UITouch *t = [[event allTouches] anyObject];
-    CGPoint pPrev = [t previousLocationInView:ctrl];
-    CGPoint p = [t locationInView:ctrl];
-    CGPoint center = ctrl.center;
-    center.x += p.x - pPrev.x;
-    center.y += p.y - pPrev.y;
-    ctrl.center = center;
-}
-
-- (IBAction) dragEnded:(UIControl *) ctrl withEvent:(UIEvent *) event
-{
-    UITouch *touch = [[event allTouches] anyObject];
-    CGPoint end_point = [touch locationInView:self.view];
-    int captured = [self.gameModelObject
-     validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked];
-    if(captured){
-        [self animateEliminatedCapturedCoinWithIndex:captured];
-    }else{
-        [self getBoard];
-        if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
-            NSDictionary *computer_turn = [self.gameModelObject computerTurn];
-            [self animateComputerOrGameCenterMove:computer_turn];
-        }
-    }
-}
+#pragma mark Animations
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
     
     CGRect move_to;
@@ -200,7 +82,7 @@
     if ([player_at_position isEqualToString:@"1"]) {
         for (int i = 0; i <= 15; i ++) {
             if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]){
-               move_to = [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+                move_to = [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
                 break;
             }
         }
@@ -218,13 +100,18 @@
     }
     
     [self getBoard];
+    UIImage *image_blank_coin = [UIImage imageNamed:@"blank_coin.png"];
+    UIImageView *imageview_blank_coin = [[UIImageView alloc] initWithImage:image_blank_coin];
+    UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
+    imageview_blank_coin.frame = button.frame;
+    [self.view insertSubview:imageview_blank_coin belowSubview:button];
     [UIView animateWithDuration:1.0
                      animations:^{
                          
                          UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
-                        NSLog(@"button %@", button); 
-                        NSLog(@"from %@", NSStringFromCGRect(button.frame));
-                        NSLog(@"to %@", NSStringFromCGRect(move_to));
+                         NSLog(@"button %@", button);
+                         NSLog(@"from %@", NSStringFromCGRect(button.frame));
+                         NSLog(@"to %@", NSStringFromCGRect(move_to));
                          button.frame = move_to;
                          
                          
@@ -243,7 +130,7 @@
                      }];
     
 	[UIView commitAnimations];
-
+    
     
 }
 -(void)animateComputerOrGameCenterMove:(NSDictionary *)opposition_turn{
@@ -262,14 +149,19 @@
             opposite_player = @"1";
         }
     }else{
-         opposite_player = @"2";
+        opposite_player = @"2";
     }
     
     CGRect move_to = [[[GlobalSingleton sharedManager].array_all_cgrect objectAtIndex:newposition] CGRectValue];
+    UIImage *image_blank_coin = [UIImage imageNamed:@"blank_coin.png"];
+    UIImageView *imageview_blank_coin = [[UIImageView alloc] initWithImage:image_blank_coin];
+    UIButton *button = (UIButton *)[self.view viewWithTag:move+2000];
+    imageview_blank_coin.frame = button.frame;
+    [self.view insertSubview:imageview_blank_coin belowSubview:button];
     [UIView animateWithDuration:1.0
                      animations:^{
-                    UIButton *move_coin = (UIButton *)[self.view viewWithTag:move+2000];
-                    move_coin.frame = move_to;
+                         UIButton *move_coin = (UIButton *)[self.view viewWithTag:move+2000];
+                         move_coin.frame = move_to;
                      }
                      completion:^(BOOL finished){
                          [[GlobalSingleton sharedManager].array_initial_player_positions
@@ -286,109 +178,44 @@
                          }
                      }];
 	[UIView commitAnimations];
-   
-}
-
--(void)refreshCapturedBlocks{
-    UIImage *image_player_one = [UIImage imageNamed:[self.gameModelObject string_player_one_coin]];
-    UIImage *image_player_two = [UIImage imageNamed:[self.gameModelObject string_player_two_coin]];
-    for (int i = 0; i <= 15; i ++) {
-        if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"1"]){
-            UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_one];
-            imageview_temp.frame =
-            [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
-            [self.view addSubview:imageview_temp];
-        }
-        if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"1"]){
-            UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_two];
-            imageview_temp.frame =
-            [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
-            [self.view addSubview:imageview_temp];
-        }
-    }
     
 }
 
-
--(void) getPopOverToStartGame{
-    [self getPopOver];
-    int button_width = 240;
-    int button_height = 100;
-    int button_x = 1024/2 - button_width/2;
-    int button_y = 250;
-    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
+-(void)getTimer{
+    [GlobalSingleton sharedManager].int_minutes_p1 = 2;
+    [GlobalSingleton sharedManager].int_seconds_p1 = 0;
+    [GlobalSingleton sharedManager].int_minutes_p2 = 2;
+    [GlobalSingleton sharedManager].int_seconds_p2 = 0;
     
-    button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_new_game.frame = rect_temp;
-    [button_new_game setBackgroundImage:[UIImage imageNamed:@"new_game.png"]
-                   forState:UIControlStateNormal];
-    [button_new_game addTarget:self action:@selector(startGame) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_new_game];
+    CGRect rect_temp =
+    [[GlobalSingleton sharedManager]
+     getFrameAccordingToDeviceWithXvalue:705 yValue:565 width:70 height:35];
+    time_label_P1 = [[UILabel alloc] initWithFrame: rect_temp];
+    time_label_P1.frame = rect_temp;
+    [self.view addSubview:time_label_P1];
+    UIFont *font_digital = [UIFont
+                            fontWithName:@"Let's go Digital"
+                            size:12];
+    [time_label_P1 setFont:font_digital];
+    time_label_P1.textColor = [UIColor whiteColor];
+    time_label_P1.backgroundColor = [UIColor clearColor];
+    time_label_P1.text = @"02:00";
     
-    int new_button_y = button_y + button_height;
-    rect_temp = 
-    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
-    button_help = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_help.frame = rect_temp;
-    [button_help setBackgroundImage:[UIImage imageNamed:@"help.png"]
-                           forState:UIControlStateNormal];
-    [button_help addTarget:self action:@selector(help) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_help];
-    
-    new_button_y = new_button_y + button_height;
-    rect_temp = 
-    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
-    
-    button_share = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_share.frame = rect_temp;
-    [button_share setBackgroundImage:[UIImage imageNamed:@"share_btn.png"]
-                            forState:UIControlStateNormal];
-    [button_share addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_share];
-    //pankaj
-    
-    }
-
--(void) getPopOverToSelectPlayer{
-    [self getPopOver];
-    int button_width = 240;
-    int button_height = 100;
-    int button_x = 1024/2 - button_width/2;
-    int button_y = 250;
-    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
-    
-    button_vs_computer = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_vs_computer.frame = rect_temp;
-    [button_vs_computer setBackgroundImage:[UIImage imageNamed:@"playervscomputer.png"]
-                               forState:UIControlStateNormal];
-    [button_vs_computer addTarget:self action:@selector(playerVsComputer) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_vs_computer];
-    
-    int new_button_y = button_y + button_height;
     rect_temp =
-    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
-    button_vs_gamecenter = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_vs_gamecenter.frame = rect_temp;
-    [button_vs_gamecenter setBackgroundImage:[UIImage imageNamed:@"GameCenter.png"]
-                           forState:UIControlStateNormal];
-    [button_vs_gamecenter addTarget:self action:@selector(playerVsGameCenter) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_vs_gamecenter];
+    [[GlobalSingleton sharedManager]
+     getFrameAccordingToDeviceWithXvalue:910 yValue:255 width:70 height:35];
+    time_label_P2 = [[UILabel alloc] initWithFrame: rect_temp];
+    time_label_P2.frame = rect_temp;
+    time_label_P2.textColor = [UIColor whiteColor];
+    time_label_P2.backgroundColor = [UIColor clearColor];
     
-    new_button_y = new_button_y + button_height;
-    rect_temp =
-    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
-    
-    button_vs_player = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_vs_player.frame = rect_temp;
-    [button_vs_player setBackgroundImage:[UIImage imageNamed:@"playervsplayer.png"]
-                            forState:UIControlStateNormal];
-    [button_vs_player addTarget:self action:@selector(playerVsPlayer) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_vs_player];
-    
+    [self.view addSubview:time_label_P2];
+    [time_label_P2 setFont:font_digital];
+    time_label_P2.text = @"02:00";
+    [self StartTimer];
 }
-
-
--(void)startGame{  
+#pragma mark Events
+-(void)startGame{
     button_new_game.alpha = 0.5;
     button_help.alpha = 0.5;
     button_share.alpha = 0.5;
@@ -397,7 +224,7 @@
                          button_new_game.alpha = 0;
                          button_help.alpha = 0;
                          button_share.alpha = 0;
-                        
+                         
                      }
                      completion:^(BOOL finished){
                          // Do other things
@@ -412,6 +239,7 @@
 -(void)help{
 }
 -(void)showWinner:(int)winner{
+    [timer invalidate];
     ShowWinnerViewController *showWinner = [[ShowWinnerViewController alloc] init];
     showWinner.winner = winner;
     [self presentModalViewController:showWinner animated:YES];
@@ -463,115 +291,81 @@
 	[UIView commitAnimations];
     [GlobalSingleton sharedManager].string_opponent = @"computer";
 }
-
--(void) getPopOver{
-    NSDictionary *device_dimensions =
-    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+- (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event{
+    tag_coin_picked = ctrl.tag - 2000;
     
-    CGRect cgrect_get_popover =
-    [self getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]
-                                                                 width:[[device_dimensions valueForKey:@"width"] intValue]
-                                                               toPixel:[[device_dimensions valueForKey:@"popover_size"] intValue]];
-    view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];
-    view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.8];
-    int logo_width = 400;
-    int logo_x = 1024/2 - logo_width/2;
-    CGRect cgrect_crossover_logo =
-    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:logo_x yValue:70 width:logo_width height:120];
-    UIImage *image_crossover_logo = [UIImage imageNamed:@"crossover.png"];
-    UIImageView *imageview_crossover_logo =
-    [[UIImageView alloc] initWithImage:image_crossover_logo];
-    imageview_crossover_logo.frame = cgrect_crossover_logo;
-    [view_popover addSubview:imageview_crossover_logo];
-    [self.view addSubview:view_popover];
+    UIImage *image_blank_coin = [UIImage imageNamed:@"blank_coin.png"];
+    UIImageView *imageview_blank_coin = [[UIImageView alloc] initWithImage:image_blank_coin];
+    UIButton *button = (UIButton *)[self.view viewWithTag:ctrl.tag];
+    imageview_blank_coin.frame = button.frame;
+    [self.view insertSubview:imageview_blank_coin belowSubview:button];
 }
-
--(CGRect)getNewDimensionsByReducingHeight:(int)height
-                                    width:(int)width toPixel:(int)pixel{
-    int x = pixel;
-    int y = pixel;
-    int local_width = width - 2*pixel;
-    int local_height = height - 2*pixel;
-    CGRect rect_local = CGRectMake(x, y, local_width, local_height);
-    return rect_local;
+- (void) dragMoving:(UIControl *) ctrl withEvent:(UIEvent *) event{
+    UITouch *t = [[event allTouches] anyObject];
+    CGPoint pPrev = [t previousLocationInView:ctrl];
+    CGPoint p = [t locationInView:ctrl];
+    CGPoint center = ctrl.center;
+    center.x += p.x - pPrev.x;
+    center.y += p.y - pPrev.y;
+    ctrl.center = center;
+}
+- (IBAction) dragEnded:(UIControl *) ctrl withEvent:(UIEvent *) event{
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint end_point = [touch locationInView:self.view];
+    int captured = [self.gameModelObject
+                    validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked];
+    if(captured){
+        [self animateEliminatedCapturedCoinWithIndex:captured];
+    }else{
+        [self getBoard];
+        if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
+            NSDictionary *computer_turn = [self.gameModelObject computerTurn];
+            [self animateComputerOrGameCenterMove:computer_turn];
+        }
+    }
+}
+-(void)GCFindMatch{
+    AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [self.gameModelObject findMatchWithViewController:delegate.viewController];
     
 }
-
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft || interfaceOrientation==UIInterfaceOrientationLandscapeRight)
-        return YES;
+-(void)playerVsGameCenter{
+    button_vs_player.alpha = 0.5;
+    button_vs_computer.alpha = 0.5;
+    button_vs_gamecenter.alpha = 0.5;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         button_vs_player.alpha = 0;
+                         button_vs_computer.alpha = 0;
+                         button_vs_gamecenter.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         [button_vs_player removeFromSuperview];
+                         [button_vs_computer removeFromSuperview];
+                         [button_vs_gamecenter removeFromSuperview];
+                         
+                         [self.view addSubview:spinner];
+                         
+                         
+                         [[GCHelper sharedInstance] authenticateLocalUser];
+                         [self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:5.0];
+                         [GlobalSingleton sharedManager].GC = TRUE;
+                         
+                     }];
+	[UIView commitAnimations];
     
-    return NO;
 }
-
--(void) StartTimer
-{
+-(void) StartTimer{
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerTick) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
-
-- (void)timerTick
-{
-    
-    NSString *string_time_now = [[self gameModelObject] updateTimerForPlayer];
-    if ([string_time_now isEqualToString:@"00:00"]) {
-        [timer invalidate];
-        int winner = [self.gameModelObject timeOverShowWinner];
-        if (winner) {
-            [self showWinner:(int)winner];
-        }else{
-            [self showWinner:(int)0];
-        }
-    }
-    if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"1"]) {
-       time_label_P1.text= string_time_now;
-    }else{
-        time_label_P2.text= string_time_now;
-    }
-    
-    
+- (void)timerTick{
+    NSDictionary *dictionary_time_now = [[self gameModelObject] updateTimerForPlayer];
+    time_label_P1.text = [dictionary_time_now objectForKey:@"player_one"];
+    time_label_P2.text = [dictionary_time_now objectForKey:@"player_two"];
 }
-
--(void)getTimer{
-    [GlobalSingleton sharedManager].int_minutes_p1 = 2;
-    [GlobalSingleton sharedManager].int_seconds_p1 = 0;
-    [GlobalSingleton sharedManager].int_minutes_p2 = 2;
-    [GlobalSingleton sharedManager].int_seconds_p2 = 0;
-    
-    CGRect rect_temp =
-    [[GlobalSingleton sharedManager]
-     getFrameAccordingToDeviceWithXvalue:705 yValue:565 width:70 height:35];
-    time_label_P1 = [[UILabel alloc] initWithFrame: rect_temp];
-    time_label_P1.frame = rect_temp;
-    [self.view addSubview:time_label_P1];
-    UIFont *font_digital = [UIFont
-                            fontWithName:@"Let's go Digital"
-                            size:12];
-    [time_label_P1 setFont:font_digital];
-    time_label_P1.textColor = [UIColor whiteColor];
-    time_label_P1.backgroundColor = [UIColor clearColor];
-    time_label_P1.text = @"02:00";
-    
-    rect_temp =
-    [[GlobalSingleton sharedManager]
-     getFrameAccordingToDeviceWithXvalue:910 yValue:255 width:70 height:35];
-    time_label_P2 = [[UILabel alloc] initWithFrame: rect_temp];
-    time_label_P2.frame = rect_temp;
-    time_label_P2.textColor = [UIColor whiteColor];
-    time_label_P2.backgroundColor = [UIColor clearColor];
-    
-    [self.view addSubview:time_label_P2];
-    [time_label_P2 setFont:font_digital];
-    time_label_P2.text = @"02:00";
-    [self StartTimer];
-}
+#pragma mark Backgrounds
 -(void) getBoard{
     tag_coin_picked = 0;
     NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
@@ -611,5 +405,185 @@
     if (winner) {
         [self showWinner:(int)winner];
     }
+}
+-(void) getPopOver{
+    NSDictionary *device_dimensions =
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    
+    CGRect cgrect_get_popover =
+    [self.gameModelObject getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]
+                                                     width:[[device_dimensions valueForKey:@"width"] intValue]
+                                                   toPixel:[[device_dimensions valueForKey:@"popover_size"] intValue]];
+    view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];
+    view_popover.backgroundColor = [UIColor colorWithRed:153.0/255.0f green:93.0/255.0f blue:31.0/255.0f alpha:0.8];
+    int logo_width = 400;
+    int logo_x = 1024/2 - logo_width/2;
+    CGRect cgrect_crossover_logo =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:logo_x yValue:70 width:logo_width height:120];
+    UIImage *image_crossover_logo = [UIImage imageNamed:@"crossover.png"];
+    UIImageView *imageview_crossover_logo =
+    [[UIImageView alloc] initWithImage:image_crossover_logo];
+    imageview_crossover_logo.frame = cgrect_crossover_logo;
+    [view_popover addSubview:imageview_crossover_logo];
+    [self.view addSubview:view_popover];
+}
+-(void) getPopOverToStartGame{
+    [self getPopOver];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x = 1024/2 - button_width/2;
+    int button_y = 250;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
+    
+    button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_new_game.frame = rect_temp;
+    [button_new_game setBackgroundImage:[UIImage imageNamed:@"new_game.png"]
+                               forState:UIControlStateNormal];
+    [button_new_game addTarget:self action:@selector(startGame) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_new_game];
+    
+    int new_button_y = button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
+    button_help = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_help.frame = rect_temp;
+    [button_help setBackgroundImage:[UIImage imageNamed:@"help.png"]
+                           forState:UIControlStateNormal];
+    [button_help addTarget:self action:@selector(help) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_help];
+    
+    new_button_y = new_button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
+    
+    button_share = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_share.frame = rect_temp;
+    [button_share setBackgroundImage:[UIImage imageNamed:@"share_btn.png"]
+                            forState:UIControlStateNormal];
+    [button_share addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_share];
+    //pankaj
+    
+}
+-(void) getPopOverToSelectPlayer{
+    [self getPopOver];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x = 1024/2 - button_width/2;
+    int button_y = 250;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
+    
+    button_vs_computer = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_vs_computer.frame = rect_temp;
+    [button_vs_computer setBackgroundImage:[UIImage imageNamed:@"playervscomputer.png"]
+                                  forState:UIControlStateNormal];
+    [button_vs_computer addTarget:self action:@selector(playerVsComputer) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_vs_computer];
+    
+    int new_button_y = button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
+    button_vs_gamecenter = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_vs_gamecenter.frame = rect_temp;
+    [button_vs_gamecenter setBackgroundImage:[UIImage imageNamed:@"GameCenter.png"]
+                                    forState:UIControlStateNormal];
+    [button_vs_gamecenter addTarget:self action:@selector(playerVsGameCenter) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_vs_gamecenter];
+    
+    new_button_y = new_button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
+    
+    button_vs_player = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_vs_player.frame = rect_temp;
+    [button_vs_player setBackgroundImage:[UIImage imageNamed:@"playervsplayer.png"]
+                                forState:UIControlStateNormal];
+    [button_vs_player addTarget:self action:@selector(playerVsPlayer) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_vs_player];
+    
+}
+-(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
+    NSString *image_player = @"";
+    if([player isEqualToString:@"1"]){
+        image_player = [self.gameModelObject string_player_one_coin];
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+    }
+    else if([player isEqualToString:@"2"]){
+        image_player = [self.gameModelObject string_player_two_coin];
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+    }
+    else if([player isEqualToString:@"0"]){
+        image_player = @"blanckbtn_big.png";
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+        
+    }
+    else{
+        
+    }
+    if([GlobalSingleton sharedManager].GC){
+        if ([GlobalSingleton sharedManager].GC_my_turn &&
+            [[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
+            [self iAmDraggable:button];
+        }
+    }
+    else if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
+        [self iAmDraggable:button];
+    }
+    return button;
+    
+}
+- (void) iAmDraggable:(UIButton *) button{
+    
+    [button addTarget:self action:@selector(dragBegan:withEvent: )
+     forControlEvents: UIControlEventTouchDown];
+    [button addTarget:self action:@selector(dragMoving:withEvent: )
+     forControlEvents: UIControlEventTouchDragInside];
+    [button addTarget:self action:@selector(dragEnded:withEvent: )
+     forControlEvents: UIControlEventTouchUpInside |
+     UIControlEventTouchUpOutside];
+}
+-(void)startSpinnerOnDidLoad{
+    NSDictionary *device_dimensions =
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    CGRect rect_temp =
+    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 + 21 ,
+               [[device_dimensions valueForKey:@"height"] intValue]/2 + 21,
+               100,100);
+    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
+    spinner.frame = rect_temp;
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [spinner startAnimating];
+}
+-(void)refreshCapturedBlocks{
+    UIImage *image_player_one = [UIImage imageNamed:[self.gameModelObject string_player_one_coin]];
+    UIImage *image_player_two = [UIImage imageNamed:[self.gameModelObject string_player_two_coin]];
+    for (int i = 0; i <= 15; i ++) {
+        if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"1"]){
+            UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_one];
+            imageview_temp.frame =
+            [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+            [self.view addSubview:imageview_temp];
+        }
+        if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"1"]){
+            UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_two];
+            imageview_temp.frame =
+            [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
+            [self.view addSubview:imageview_temp];
+        }
+    }
+    
+}
+#pragma mark Unused
+- (void)viewDidUnload{
+    [super viewDidUnload];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+    if (interfaceOrientation==UIInterfaceOrientationLandscapeLeft || interfaceOrientation==UIInterfaceOrientationLandscapeRight)
+        return YES;
+    
+    return NO;
 }
 @end

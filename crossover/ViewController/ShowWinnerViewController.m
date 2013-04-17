@@ -10,16 +10,16 @@
 #import "GameModel.h"
 #import "GlobalSingleton.h"
 @interface ShowWinnerViewController ()
-@property (readonly) GameModel *gameModelObject1;
+@property (readonly) GameModel *gameModelObject;
 @end
 
 @implementation ShowWinnerViewController
 @synthesize winner;
-- (GameModel *) gameModelObject1{
-    if(!gameModelObject1){
-        gameModelObject1 = [[GameModel alloc] init];
+- (GameModel *) gameModelObject{
+    if(!gameModelObject){
+        gameModelObject = [[GameModel alloc] init];
     }
-    return gameModelObject1;
+    return gameModelObject;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,10 +70,10 @@
 }
 -(void) getPopOver{
     NSDictionary *device_dimensions =
-    [self.gameModelObject1 getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     
     CGRect cgrect_get_popover =
-    [self getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]
+    [self.gameModelObject getNewDimensionsByReducingHeight:[[device_dimensions valueForKey:@"height"] intValue]
                                      width:[[device_dimensions valueForKey:@"width"] intValue]
                                    toPixel:[[device_dimensions valueForKey:@"popover_size"] intValue]];
     view_popover =[[UIView alloc] initWithFrame:cgrect_get_popover];
