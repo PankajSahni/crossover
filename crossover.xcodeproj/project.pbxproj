@@ -24,6 +24,8 @@
 		04D1899D17016B7A00CCE3D5 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899717016B7A00CCE3D5 /* ViewController_iPhone.xib */; };
 		04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD982F16DE2568003E8AA8 /* GameKit.framework */; };
 		04DDD493171EB53500C7ABBA /* blank_coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DDD492171EB53500C7ABBA /* blank_coin.png */; };
+		04DDD4A2171ED4A500C7ABBA /* iPhoneCGRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDD4A1171ED4A500C7ABBA /* iPhoneCGRect.m */; };
+		04DDD4A5171ED4B600C7ABBA /* iPadCGRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDD4A4171ED4B600C7ABBA /* iPadCGRect.m */; };
 		04E4687D16DE0A88008479F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687C16DE0A88008479F0 /* UIKit.framework */; };
 		04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687E16DE0A88008479F0 /* Foundation.framework */; };
 		04E4688116DE0A88008479F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4688016DE0A88008479F0 /* CoreGraphics.framework */; };
@@ -210,6 +212,10 @@
 		04D1899917016B7A00CCE3D5 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		04DDD492171EB53500C7ABBA /* blank_coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank_coin.png; sourceTree = "<group>"; };
+		04DDD4A0171ED4A500C7ABBA /* iPhoneCGRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneCGRect.h; sourceTree = "<group>"; };
+		04DDD4A1171ED4A500C7ABBA /* iPhoneCGRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneCGRect.m; sourceTree = "<group>"; };
+		04DDD4A3171ED4B600C7ABBA /* iPadCGRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadCGRect.h; sourceTree = "<group>"; };
+		04DDD4A4171ED4B600C7ABBA /* iPadCGRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadCGRect.m; sourceTree = "<group>"; };
 		04E4687816DE0A88008479F0 /* crossover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = crossover.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E4687C16DE0A88008479F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04E4687E16DE0A88008479F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -491,6 +497,10 @@
 				048736CD17054D4F00ECBA8F /* ValidMoveDirections.m */,
 				048736D417054FED00ECBA8F /* PlayerPlacements.h */,
 				048736D517054FED00ECBA8F /* PlayerPlacements.m */,
+				04DDD4A0171ED4A500C7ABBA /* iPhoneCGRect.h */,
+				04DDD4A1171ED4A500C7ABBA /* iPhoneCGRect.m */,
+				04DDD4A3171ED4B600C7ABBA /* iPadCGRect.h */,
+				04DDD4A4171ED4B600C7ABBA /* iPadCGRect.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -888,6 +898,8 @@
 				47426A141708B07F00BEBF77 /* ShowWinnerViewController.m in Sources */,
 				044E4BB5170B0403006905DE /* GCHelper.m in Sources */,
 				044E4BB6170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m in Sources */,
+				04DDD4A2171ED4A500C7ABBA /* iPhoneCGRect.m in Sources */,
+				04DDD4A5171ED4B600C7ABBA /* iPadCGRect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

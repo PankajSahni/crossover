@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AiEngine.h"
 #import "GCHelper.h"
+
 typedef enum {
     kMessageTypeRandomNumber = 0,
     kMessageTypeGameBegin,

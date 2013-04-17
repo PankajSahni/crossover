@@ -11,9 +11,9 @@
 #import "RulesForSingleJumpVsPalyer.h"
 #import "RulesForDoubleJumpvsPlayer.h"
 #import "AiEngine.h"
-#import "AppDelegate.h"
 #import "GCHelper.h"
-#import "GameController.h"
+#import "iPadCGRect.h"
+#import "iPhoneCGRect.h"
 @interface GameModel ()
 @property (readonly) AiEngine *aiEngineObject;
 @end
@@ -31,7 +31,10 @@
     }
     return aiEngineObject;
 }
-
+if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
+   [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]){
+    
+}
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
     if([device_type isEqualToString:@"iphone"]){
         NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
