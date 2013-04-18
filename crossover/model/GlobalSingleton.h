@@ -22,6 +22,9 @@
 @property (nonatomic, retain) NSMutableArray *array_captured_p2_cgrect;
 @property (nonatomic, retain) NSMutableArray *array_captured_p2_coins;
 
+@property (nonatomic, assign) int int_player_one_coin;
+@property (nonatomic, assign) int int_player_two_coin;
+
 @property (nonatomic, retain) NSString *string_opponent;
 @property (nonatomic, assign) BOOL GC;
 @property (nonatomic, assign) BOOL GC_my_turn;

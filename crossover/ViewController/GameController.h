@@ -10,13 +10,14 @@
 #import "GlobalSingleton.h"
 #import "GameModel.h"
 #import "BoardUIView.h"
-
+#import "SettingsViewController.h"
 
 
 
 @interface GameController : UIViewController<GameModelDelegate>{
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;
+    SettingsViewController *settingsViewControllerObject;
     UIButton *button_new_game;
     UIButton *button_help;
     UIButton *button_share;
@@ -32,6 +33,7 @@
     NSTimer *timer;
     UILabel *time_label_P1;
     UILabel *time_label_P2;
-    UILabel *debugLabel;  
+    UILabel *debugLabel;
+    id cgRectObject;
 }
 @end

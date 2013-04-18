@@ -10,4 +10,9 @@
 
 @implementation iPadCGRect
 
+
+-(CGRect)settingsButtonCGRect{
+    return CGRectMake(850, 170, 50, 50);
+}
+
 @end

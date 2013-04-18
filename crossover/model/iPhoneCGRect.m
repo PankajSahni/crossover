@@ -10,4 +10,8 @@
 
 @implementation iPhoneCGRect
 
+
+-(CGRect)settingsButtonCGRect{
+    return CGRectMake(400, 70, 25, 25);
+}
 @end

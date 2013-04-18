@@ -16,10 +16,13 @@
 #import "RulesForDoubleJumpvsPlayer.h"
 #import "ShowWinnerViewController.h"
 #import "AppDelegate.h"
-
+#import "iPadCGRect.h"
+#import "iPhoneCGRect.h"
+#import "SettingsViewController.h"
 @interface GameController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
+@property (readonly) SettingsViewController *settingsViewControllerObject;
 @end
 
 @implementation GameController
@@ -36,16 +39,29 @@
     }
     return gameModelObject;
 }
-
+- (SettingsViewController *) settingsViewControllerObject{
+    if(!settingsViewControllerObject){
+        settingsViewControllerObject = [[SettingsViewController alloc] init];
+    }
+    return settingsViewControllerObject;
+}
 - (void)viewDidLoad{
     [super viewDidLoad];
+    [self createCGRectObjectForDevice];
     [self startSpinnerOnDidLoad];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
-    [self getPopOverToStartGame];
+    [self getAllOptionButtonsForUser];
+    //[self getPopOverToStartGame];
 }
-
-
+-(void)createCGRectObjectForDevice{
+if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
+    [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]) {
+    cgRectObject = [[iPhoneCGRect alloc] init];
+   }else{
+    cgRectObject = [[iPadCGRect alloc] init];
+   }
+}
 
 
 #pragma mark DelegateGameModelCalls
@@ -366,8 +382,12 @@
     time_label_P1.text = [dictionary_time_now objectForKey:@"player_one"];
     time_label_P2.text = [dictionary_time_now objectForKey:@"player_two"];
 }
+- (void)settings{
+    [self presentModalViewController:self.settingsViewControllerObject animated:NO];
+}
 #pragma mark Backgrounds
 -(void) getBoard{
+    [self.gameModelObject setCoinColors];
     tag_coin_picked = 0;
     NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
     NSArray *array_initial_positions;
@@ -576,6 +596,14 @@
         }
     }
     
+}
+-(void)getAllOptionButtonsForUser{
+    UIButton *settings_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    settings_button.frame = [cgRectObject settingsButtonCGRect];
+    [settings_button setBackgroundImage:[UIImage imageNamed:@"button_settings.png"]
+                            forState:UIControlStateNormal];
+    [settings_button addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:settings_button];
 }
 #pragma mark Unused
 - (void)viewDidUnload{

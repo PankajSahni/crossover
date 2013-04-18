@@ -12,8 +12,7 @@
 #import "RulesForDoubleJumpvsPlayer.h"
 #import "AiEngine.h"
 #import "GCHelper.h"
-#import "iPadCGRect.h"
-#import "iPhoneCGRect.h"
+
 @interface GameModel ()
 @property (readonly) AiEngine *aiEngineObject;
 @end
@@ -31,10 +30,20 @@
     }
     return aiEngineObject;
 }
-if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
-   [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]){
-    
-}
+/*- (id)init {
+    if ((self = [super init])) {
+        if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
+            [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]) {
+           iPhoneCGRect *cgRectObject = [[iPhoneCGRect alloc] init];
+        }else{
+            iPadCGRect *cgRectObject = [[iPadCGRect alloc] init];
+        }
+        
+    }
+    return self;
+}*/
+
+
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
     if([device_type isEqualToString:@"iphone"]){
         NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -63,8 +72,7 @@ if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"ipho
 }
 
 -(NSMutableArray *)getBoardDimensions{
-    string_player_one_coin = @"i5.png";
-    string_player_two_coin =  @"i19.png";
+    
     NSMutableArray *array_temp = [[NSMutableArray alloc ] init ];
     int int_x = 52;
     int int_y = 170;
@@ -95,7 +103,15 @@ if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"ipho
     return array_temp;
 }
 
-
+-(void)setCoinColors{
+    if (![GlobalSingleton sharedManager].int_player_one_coin && ![GlobalSingleton sharedManager].int_player_two_coin) {
+        NSArray *coins_array = [self getArrayOfCoinColors];
+        string_player_one_coin = [coins_array objectAtIndex:0];
+        string_player_two_coin = [coins_array objectAtIndex:1];
+        [GlobalSingleton sharedManager].int_player_one_coin = 0;
+        [GlobalSingleton sharedManager].int_player_two_coin = 1;
+    }
+}
 -(int)validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked{
     int int_array_index = 0;
     int coin_eliminated = 0;
@@ -512,5 +528,10 @@ if([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"ipho
     return rect_local;
     
 }
-
+-(NSArray *)getArrayOfCoinColors{
+    NSArray *temp = [[NSArray alloc] initWithObjects:
+    @"i1.png",@"i2.png", @"i3.png", @"i4.png", @"i5.png", @"i6.png", @"i7.png", @"i8.png", @"i9.png", @"i10.png",
+                     @"i11.png", @"i12.png", @"i13.png", @"i14.png", @"i15.png", @"i16.png", @"i17.png", nil];
+    return temp;
+}
 @end

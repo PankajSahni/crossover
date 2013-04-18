@@ -29,6 +29,9 @@
 @synthesize GC_my_turn;
 @synthesize string_opponent;
 
+@synthesize int_player_one_coin;
+@synthesize int_player_two_coin;
+
 @synthesize int_GC_captured;
 @synthesize int_GC_move;
 @synthesize int_GC_newposition;

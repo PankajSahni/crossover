@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface iPhoneCGRect : NSObject
-
+-(CGRect)settingsButtonCGRect;
 @end

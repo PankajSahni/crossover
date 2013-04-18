@@ -63,8 +63,8 @@ typedef enum {
 -(void)animateComputerOrGameCenterMove:(NSDictionary *)opposition_turn;
 -(void)getBoard;
 -(void)showWinner:(int)winner;
-
 @end
+
 @interface GameModel : NSObject<GCHelperDelegate>{
     AiEngine *aiEngineObject;
     id <GameModelDelegate> delegate_game_model;
@@ -92,6 +92,9 @@ typedef enum {
 - (void)sendRandomNumber;
 -(void)foundPlayer;
 -(void)findMatchWithViewController:(UIViewController *)viewController;
+-(NSArray *)getArrayOfCoinColors;
+-(void)setCoinColors;
 -(CGRect)getNewDimensionsByReducingHeight:(int)height
                                     width:(int)width toPixel:(int)pixel;
+
 @end
