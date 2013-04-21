@@ -10,4 +10,8 @@
 
 @interface iPadCGRect : NSObject
 -(CGRect)settingsButtonCGRect;
+-(CGRect)pauseButtonCGRect;
+-(CGRect)refreshButtonCGRect;
+-(CGRect)shareButtonCGRect;
+-(CGRect)mainmenuButtonCGRect;
 @end

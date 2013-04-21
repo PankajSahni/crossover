@@ -39,6 +39,7 @@
     }
     return gameModelObject;
 }
+
 - (SettingsViewController *) settingsViewControllerObject{
     if(!settingsViewControllerObject){
         settingsViewControllerObject = [[SettingsViewController alloc] init];
@@ -52,7 +53,7 @@
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
     [self getAllOptionButtonsForUser];
-    //[self getPopOverToStartGame];
+    [self getPopOverToStartGame];
 }
 -(void)createCGRectObjectForDevice{
 if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
@@ -75,6 +76,8 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 - (void)initialSetUpMessagesForLabel:(NSString *)string{
     [debugLabel setText:string];
 }
+
+
 -(void)addLabelToShowMultiplayerGameStatus{
     [spinner removeFromSuperview];
     [view_popover removeFromSuperview];
@@ -93,8 +96,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     
     CGRect move_to;
     NSString *player_at_position = [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:captured];
-    NSLog(@"player_at_position %@",player_at_position);
-    
     if ([player_at_position isEqualToString:@"1"]) {
         for (int i = 0; i <= 15; i ++) {
             if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"0"]){
@@ -125,9 +126,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                      animations:^{
                          
                          UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
-                         NSLog(@"button %@", button);
-                         NSLog(@"from %@", NSStringFromCGRect(button.frame));
-                         NSLog(@"to %@", NSStringFromCGRect(move_to));
                          button.frame = move_to;
                          
                          
@@ -207,7 +205,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [[GlobalSingleton sharedManager]
      getFrameAccordingToDeviceWithXvalue:705 yValue:565 width:70 height:35];
     time_label_P1 = [[UILabel alloc] initWithFrame: rect_temp];
-    time_label_P1.frame = rect_temp;
     [self.view addSubview:time_label_P1];
     UIFont *font_digital = [UIFont
                             fontWithName:@"Let's go Digital"
@@ -221,7 +218,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [[GlobalSingleton sharedManager]
      getFrameAccordingToDeviceWithXvalue:910 yValue:255 width:70 height:35];
     time_label_P2 = [[UILabel alloc] initWithFrame: rect_temp];
-    time_label_P2.frame = rect_temp;
     time_label_P2.textColor = [UIColor whiteColor];
     time_label_P2.backgroundColor = [UIColor clearColor];
     
@@ -382,6 +378,15 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     time_label_P1.text = [dictionary_time_now objectForKey:@"player_one"];
     time_label_P2.text = [dictionary_time_now objectForKey:@"player_two"];
 }
+-(void)pause{
+    [timer invalidate];
+    [self getPopoverToPause];
+}
+-(void)refresh{
+    [timer invalidate];
+    [self getPopoverToRefresh];
+}
+
 - (void)settings{
     [self presentModalViewController:self.settingsViewControllerObject animated:NO];
 }
@@ -427,7 +432,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
         [self showWinner:(int)winner];
     }
 }
--(void) getPopOver{
+-(void)getPopOver{
     NSDictionary *device_dimensions =
     [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
     
@@ -486,6 +491,70 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     //pankaj
     
 }
+
+-(void)getPopoverToPause{
+    [self getPopOver];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x = 1024/2 - button_width/2;
+    int button_y = 350;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y 
+                                                                                      width:button_width height:button_height];
+    
+    button_resume = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_resume.frame = rect_temp;
+    [button_resume setBackgroundImage:[UIImage imageNamed:@"button_resume.png"]
+                                  forState:UIControlStateNormal];
+    [button_resume addTarget:self action:@selector(resume) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_resume];
+}
+-(void)resume{
+    [button_resume
+     removeFromSuperview];
+    [view_popover removeFromSuperview];
+}
+-(void)getPopoverToRefresh{
+    [self getPopOver];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x_1 = 200;
+    int button_x_2 = 600;
+    int button_y = 350;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x_1 yValue:button_y 
+                                                                                      width:button_width height:button_height];
+    
+    button_yes = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_yes.frame = rect_temp;
+    [button_yes setBackgroundImage:[UIImage imageNamed:@"button_yes.png"]
+                      forState:UIControlStateNormal];
+    [button_yes addTarget:self action:@selector(yes_refresh) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_yes];
+    rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x_2 yValue:button_y width:button_width height:button_height];
+    
+    button_no = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_no.frame = rect_temp;
+    [button_no setBackgroundImage:[UIImage imageNamed:@"button_no.png"]
+                          forState:UIControlStateNormal];
+    [button_no addTarget:self action:@selector(no_refresh) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_no];
+}
+-(void)yes_refresh{
+    [self.gameModelObject resetGame];
+    
+    [imageview_captured removeFromSuperview];
+    [self removeRefreshSubViews];
+    [view_popover removeFromSuperview];
+    [self getBoard];
+    [self refreshCapturedBlocks];
+}
+-(void)no_refresh{
+    [self removeRefreshSubViews];
+    [view_popover removeFromSuperview];
+}
+-(void)removeRefreshSubViews{
+    [button_yes removeFromSuperview];
+    [button_no removeFromSuperview];
+}
 -(void) getPopOverToSelectPlayer{
     [self getPopOver];
     int button_width = 240;
@@ -525,13 +594,14 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";
+    NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
     if([player isEqualToString:@"1"]){
-        image_player = [self.gameModelObject string_player_one_coin];
+        image_player = [all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_one_coin];
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
     }
     else if([player isEqualToString:@"2"]){
-        image_player = [self.gameModelObject string_player_two_coin];
+        image_player = [all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_two_coin];
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
     }
@@ -539,7 +609,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
         image_player = @"blanckbtn_big.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
-        
     }
     else{
         
@@ -579,20 +648,32 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [spinner startAnimating];
 }
 -(void)refreshCapturedBlocks{
-    UIImage *image_player_one = [UIImage imageNamed:[self.gameModelObject string_player_one_coin]];
-    UIImage *image_player_two = [UIImage imageNamed:[self.gameModelObject string_player_two_coin]];
+    for (int i = 0; i <= 15; i ++) {
+        UIImageView *temp =  (UIImageView *)[self.view viewWithTag:i+4000];
+        [temp removeFromSuperview];
+    }
+    NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
+      UIImage *image_player_one = 
+   [UIImage imageNamed:[all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_one_coin]];
+    UIImage *image_player_two = 
+    [UIImage imageNamed:[all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_two_coin]];
     for (int i = 0; i <= 15; i ++) {
         if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"1"]){
-            UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_one];
-            imageview_temp.frame =
+            imageview_captured = [[UIImageView alloc] initWithImage:image_player_one];
+            imageview_captured.frame =
             [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
-            [self.view addSubview:imageview_temp];
+            imageview_captured.tag = i + 4000;
+            [self.view addSubview:imageview_captured];
+            NSLog(@"imageView tag %d",imageview_captured.tag);
+           
         }
         if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"1"]){
-            UIImageView *imageview_temp = [[UIImageView alloc] initWithImage:image_player_two];
-            imageview_temp.frame =
+            imageview_captured = [[UIImageView alloc] initWithImage:image_player_two];
+            imageview_captured.frame =
             [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
-            [self.view addSubview:imageview_temp];
+            imageview_captured.tag = i + 4000;
+            [self.view addSubview:imageview_captured];
+            NSLog(@"imageView tag %d",imageview_captured.tag);
         }
     }
     
@@ -604,6 +685,30 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                             forState:UIControlStateNormal];
     [settings_button addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:settings_button];
+    UIButton *pause_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    pause_button.frame = [cgRectObject pauseButtonCGRect];
+    [pause_button setBackgroundImage:[UIImage imageNamed:@"button_pause.png"]
+                               forState:UIControlStateNormal];
+    [pause_button addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:pause_button];
+    UIButton *refresh_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    refresh_button.frame = [cgRectObject refreshButtonCGRect];
+    [refresh_button setBackgroundImage:[UIImage imageNamed:@"button_refresh.png"]
+                               forState:UIControlStateNormal];
+    [refresh_button addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:refresh_button];
+    UIButton *share_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    share_button.frame = [cgRectObject shareButtonCGRect];
+    [share_button setBackgroundImage:[UIImage imageNamed:@"button_share.png"]
+                               forState:UIControlStateNormal];
+    [share_button addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:share_button];
+    UIButton *mainmenu_button = [UIButton buttonWithType:UIButtonTypeCustom];
+    mainmenu_button.frame = [cgRectObject mainmenuButtonCGRect];
+    [mainmenu_button setBackgroundImage:[UIImage imageNamed:@"button_mainmenu.png"]
+                            forState:UIControlStateNormal];
+    [mainmenu_button addTarget:self action:@selector(mainmenu) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:mainmenu_button];
 }
 #pragma mark Unused
 - (void)viewDidUnload{

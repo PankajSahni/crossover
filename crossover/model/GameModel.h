@@ -75,8 +75,6 @@ typedef enum {
 }
 @property (nonatomic, retain) NSMutableDictionary *dictionary_my_device_dimensions;
 @property (nonatomic, assign) BOOL isPlayer1;
-@property (nonatomic, retain) NSString *string_player_one_coin;
-@property (nonatomic, retain) NSString *string_player_two_coin;
 @property (retain) id <GameModelDelegate> delegate_game_model;
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type;
 -(NSMutableArray *)getBoardDimensions;
@@ -94,6 +92,7 @@ typedef enum {
 -(void)findMatchWithViewController:(UIViewController *)viewController;
 -(NSArray *)getArrayOfCoinColors;
 -(void)setCoinColors;
+-(void)resetGame;
 -(CGRect)getNewDimensionsByReducingHeight:(int)height
                                     width:(int)width toPixel:(int)pixel;
 

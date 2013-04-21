@@ -15,6 +15,7 @@
 @synthesize string_my_turn;
 @synthesize array_two_dimensional_board;
 @synthesize array_all_cgrect;
+@synthesize bool_sound;
 
 @synthesize array_captured_p1_cgrect;
 @synthesize array_captured_p1_coins;
@@ -143,20 +144,23 @@ static GlobalSingleton *sharedManager; // self
     }
     return pos;
 }
--(NSArray *) initialPlayerPositions{
-    array_initial_player_positions = [[NSMutableArray alloc] initWithObjects:
-                                      @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
-                                      @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
-                                      @"1",@"1",@"2",@"2",@"2",@"2",@"2",
-                                      @"1",@"1",@"1",@"0",@"2",@"2",@"2",
-                                      @"1",@"1",@"1",@"1",@"1",@"2",@"2",
-                                      @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1",
-                                      @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1", nil];
+-(NSMutableArray *)initialPlayerPositions{
+    if (array_initial_player_positions == nil) {
+      array_initial_player_positions =  [self getInitialPlayerPositions];
+    }
     string_my_turn = @"1";
-    
     return array_initial_player_positions;
 }
-
+-(NSMutableArray *)getInitialPlayerPositions{
+   return [[NSMutableArray alloc] initWithObjects:
+     @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
+     @"-1",@"-1",@"2",@"2",@"2",@"-1",@"-1",
+     @"1",@"1",@"2",@"2",@"2",@"2",@"2",
+     @"1",@"1",@"1",@"0",@"2",@"2",@"2",
+     @"1",@"1",@"1",@"1",@"1",@"2",@"2",
+     @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1",
+     @"-1",@"-1",@"1",@"1",@"1",@"-1",@"-1", nil];
+}
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column{
     NSString *string_two_dimensional_board_value =
     [[NSString stringWithFormat:@"%d", row]stringByAppendingString:[NSString stringWithFormat:@"%d", column]];

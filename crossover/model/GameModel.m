@@ -19,8 +19,6 @@
 @implementation GameModel
 
 @synthesize dictionary_my_device_dimensions;
-@synthesize string_player_one_coin;
-@synthesize string_player_two_coin;
 @synthesize delegate_game_model;
 @synthesize isPlayer1;
 //@synthesize delegate_refresh_my_data;
@@ -105,9 +103,6 @@
 
 -(void)setCoinColors{
     if (![GlobalSingleton sharedManager].int_player_one_coin && ![GlobalSingleton sharedManager].int_player_two_coin) {
-        NSArray *coins_array = [self getArrayOfCoinColors];
-        string_player_one_coin = [coins_array objectAtIndex:0];
-        string_player_two_coin = [coins_array objectAtIndex:1];
         [GlobalSingleton sharedManager].int_player_one_coin = 0;
         [GlobalSingleton sharedManager].int_player_two_coin = 1;
     }
@@ -340,7 +335,16 @@
 - (void)inviteReceived {
     //[self restartTapped:nil];
 }
-
+-(void)resetGame{
+   
+     [GlobalSingleton sharedManager].array_initial_player_positions = nil;
+     [GlobalSingleton sharedManager].array_captured_p1_coins = nil;
+     [GlobalSingleton sharedManager].array_captured_p2_coins = nil;
+     [GlobalSingleton sharedManager].int_minutes_p1 = 2;
+     [GlobalSingleton sharedManager].int_minutes_p2 = 2;
+     [GlobalSingleton sharedManager].int_seconds_p1 = 0;
+     [GlobalSingleton sharedManager].int_seconds_p2 = 0;
+}
 #pragma mark GCHelperDelegate
 - (void)tryStartGame {
     

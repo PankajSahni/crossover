@@ -42,7 +42,6 @@
     } else {
         self.viewController = [[GameController alloc] initWithNibName:@"ViewController_iPad" bundle:nil];
     }
-    NSLog(@"%@",self.viewController);
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     

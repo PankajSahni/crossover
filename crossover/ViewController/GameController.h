@@ -29,11 +29,15 @@
     CGRect cgrect_dragged_button;
     CGRect cgrect_drag_started;
     UIButton *coin;
+    UIButton *button_resume;
+    UIButton *button_yes;
+    UIButton *button_no;
     int tag_coin_picked;
     NSTimer *timer;
     UILabel *time_label_P1;
     UILabel *time_label_P2;
     UILabel *debugLabel;
     id cgRectObject;
+    UIImageView *imageview_captured;
 }
 @end
