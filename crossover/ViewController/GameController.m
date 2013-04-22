@@ -43,6 +43,7 @@
 - (SettingsViewController *) settingsViewControllerObject{
     if(!settingsViewControllerObject){
         settingsViewControllerObject = [[SettingsViewController alloc] init];
+        settingsViewControllerObject.delegate_SettingsViewController = self;
     }
     return settingsViewControllerObject;
 }
@@ -53,7 +54,7 @@
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
     [self getAllOptionButtonsForUser];
-    [self getPopOverToStartGame];
+    //[self getPopOverToStartGame];
 }
 -(void)createCGRectObjectForDevice{
 if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
@@ -90,6 +91,10 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                300,20);
     debugLabel = [[UILabel alloc] initWithFrame:rect_temp];
     [self.view addSubview:debugLabel];
+}
+#pragma mark SettingsViewControllerDelegateCalls
+-(void)dismissedModal{
+    [self getBoard];
 }
 #pragma mark Animations
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
@@ -489,7 +494,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_share addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_share];
     //pankaj
-    
 }
 
 -(void)getPopoverToPause{
@@ -509,8 +513,8 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:button_resume];
 }
 -(void)resume{
-    [button_resume
-     removeFromSuperview];
+    [self StartTimer];
+    [button_resume removeFromSuperview];
     [view_popover removeFromSuperview];
 }
 -(void)getPopoverToRefresh{

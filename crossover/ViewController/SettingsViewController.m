@@ -18,6 +18,7 @@
 @end
 
 @implementation SettingsViewController
+@synthesize delegate_SettingsViewController;
 - (SettingsBackgroundUIView *) settingsBackgroundUIViewObject{
     if(!settingsBackgroundUIViewObject){
         settingsBackgroundUIViewObject = [[SettingsBackgroundUIView alloc] init];
@@ -159,6 +160,7 @@
     [self.view addSubview:imageview_next];
 }
 -(void)play{
+    [delegate_SettingsViewController dismissedModal];
     [self dismissModalViewControllerAnimated:NO];
 
 }
@@ -185,7 +187,9 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)setCoinColor:(UIControl *)ctrl withEvent:(UIEvent *) event{
+    
      int tag_coin_clicked = ctrl.tag - 3000;
+    
     if (active_player == 1) {
         [GlobalSingleton sharedManager].int_player_one_coin = tag_coin_clicked;
     }else {
@@ -195,10 +199,19 @@
 }
 
 -(void)loadAllCoins{
+    for (int i = 0; i <= 16; i++) {
+        coin = (UIButton *)[scrollview_coins viewWithTag:i+3000];
+        [coin removeFromSuperview];
+    }
     CGRect cgrect_temp;
-    NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
-    int x = 250; int y = 480;
+    cgrect_temp =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:210
+                                                                                 yValue:480
+                                                                                  width:610 height:56];
+    scrollview_coins = [[UIScrollView alloc] initWithFrame:cgrect_temp];
     
+    [scrollview_coins setContentSize:CGSizeMake(1200, 12)];
+    NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
+    int x = 3; int y = 3;
     for (int i = 0; i <= 16; i++) {
         if ([GlobalSingleton sharedManager].int_player_one_coin != i &&
             [GlobalSingleton sharedManager].int_player_two_coin != i) {
@@ -216,8 +229,11 @@
                                                                                           width:56 height:56];
             UIImageView *coin_background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_white.png"]];
             coin_background.frame = cgrect_temp;
-            [self.view addSubview:coin_background];
-            [self.view addSubview:coin];
+            //[coin_background addSubview:coin];
+            [scrollview_coins addSubview:coin];
+            scrollview_coins.scrollEnabled = YES;
+            scrollview_coins.autoresizesSubviews = YES;
+            
             x = x + 100;
         }else if ([GlobalSingleton sharedManager].int_player_one_coin == i) {
             player_one_coin = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -239,6 +255,7 @@
             [self.view addSubview:player_two_coin];
         }
     }
+    [self.view addSubview:scrollview_coins];
     
     
 }

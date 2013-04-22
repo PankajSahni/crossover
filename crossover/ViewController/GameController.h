@@ -14,7 +14,7 @@
 
 
 
-@interface GameController : UIViewController<GameModelDelegate>{
+@interface GameController : UIViewController<GameModelDelegate, SettingsViewControllerDelegate>{
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;
     SettingsViewController *settingsViewControllerObject;
