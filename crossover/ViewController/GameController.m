@@ -19,6 +19,7 @@
 #import "iPadCGRect.h"
 #import "iPhoneCGRect.h"
 #import "SettingsViewController.h"
+#import "MyEnums.h"
 @interface GameController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
@@ -54,7 +55,9 @@
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
     [self getAllOptionButtonsForUser];
-    //[self getPopOverToStartGame];
+    [GlobalSingleton sharedManager].bool_sound = TRUE;
+    
+    [self getPopOverToStartGame];
 }
 -(void)createCGRectObjectForDevice{
 if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
@@ -127,6 +130,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
     imageview_blank_coin.frame = button.frame;
     [self.view insertSubview:imageview_blank_coin belowSubview:button];
+    [self.gameModelObject playSound:kCapture];
     [UIView animateWithDuration:1.0
                      animations:^{
                          
@@ -177,6 +181,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     UIButton *button = (UIButton *)[self.view viewWithTag:move+2000];
     imageview_blank_coin.frame = button.frame;
     [self.view insertSubview:imageview_blank_coin belowSubview:button];
+    [self.gameModelObject playSound:kMove];
     [UIView animateWithDuration:1.0
                      animations:^{
                          UIButton *move_coin = (UIButton *)[self.view viewWithTag:move+2000];
@@ -233,6 +238,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 #pragma mark Events
 -(void)startGame{
+    [self.gameModelObject playSound:kButtonClick];
     button_new_game.alpha = 0.5;
     button_help.alpha = 0.5;
     button_share.alpha = 0.5;
@@ -266,6 +272,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     
 }
 -(void)playerVsPlayer{
+    [self.gameModelObject playSound:kButtonClick];
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
     button_vs_gamecenter.alpha = 0.5;
@@ -287,7 +294,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     
 }
 -(void)playerVsComputer{
-    
+    [self.gameModelObject playSound:kButtonClick];
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
     button_vs_gamecenter.alpha = 0.5;
@@ -348,6 +355,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     
 }
 -(void)playerVsGameCenter{
+    [self.gameModelObject playSound:kButtonClick];
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
     button_vs_gamecenter.alpha = 0.5;
@@ -384,15 +392,18 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     time_label_P2.text = [dictionary_time_now objectForKey:@"player_two"];
 }
 -(void)pause{
+    [self.gameModelObject playSound:kButtonClick];
     [timer invalidate];
     [self getPopoverToPause];
 }
 -(void)refresh{
+    [self.gameModelObject playSound:kButtonClick];
     [timer invalidate];
     [self getPopoverToRefresh];
 }
 
 - (void)settings{
+    [self.gameModelObject playSound:kButtonClick];
     [self presentModalViewController:self.settingsViewControllerObject animated:NO];
 }
 #pragma mark Backgrounds

@@ -11,19 +11,20 @@
 @implementation iPadCGRect
 
 
--(CGRect)settingsButtonCGRect{
-    return CGRectMake(850, 170, 50, 50);
-}
+
 -(CGRect)pauseButtonCGRect{
-    return CGRectMake(820, 170, 50, 50);
+    return CGRectMake(730, 170, 50, 50);
 }
 -(CGRect)refreshButtonCGRect{
     return CGRectMake(790, 170, 50, 50);
 }
 -(CGRect)shareButtonCGRect{
-    return CGRectMake(740, 170, 50, 50);
+    return CGRectMake(850, 170, 50, 50);
+}
+-(CGRect)settingsButtonCGRect{
+    return CGRectMake(910, 170, 50, 50);
 }
 -(CGRect)mainmenuButtonCGRect{
-    return CGRectMake(710, 170, 50, 50);
+    return CGRectMake(150, 130, 50, 50);
 }
 @end

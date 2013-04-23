@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import "AiEngine.h"
 #import "GCHelper.h"
+#import "MyEnums.h"
 
 typedef enum {
     kMessageTypeRandomNumber = 0,
@@ -76,6 +78,8 @@ typedef enum {
 @property (nonatomic, retain) NSMutableDictionary *dictionary_my_device_dimensions;
 @property (nonatomic, assign) BOOL isPlayer1;
 @property (retain) id <GameModelDelegate> delegate_game_model;
+@property (strong, nonatomic) AVAudioPlayer *audio_player;
+@property (nonatomic, assign) BOOL less_time_left;
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type;
 -(NSMutableArray *)getBoardDimensions;
 -(int)validateMoveWithEndPoint:(CGPoint)end_point WithCoinPicked:(int)tag_coin_picked;
@@ -93,6 +97,7 @@ typedef enum {
 -(NSArray *)getArrayOfCoinColors;
 -(void)setCoinColors;
 -(void)resetGame;
+-(void)playSound:(PlaySound)play_sound;
 -(CGRect)getNewDimensionsByReducingHeight:(int)height
                                     width:(int)width toPixel:(int)pixel;
 

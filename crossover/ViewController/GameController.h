@@ -12,8 +12,6 @@
 #import "BoardUIView.h"
 #import "SettingsViewController.h"
 
-
-
 @interface GameController : UIViewController<GameModelDelegate, SettingsViewControllerDelegate>{
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;

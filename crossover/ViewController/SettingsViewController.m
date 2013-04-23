@@ -12,6 +12,7 @@
 #import "iPhoneCGRect.h"
 #import "iPadCGRect.h"
 #import "GameModel.h"
+#import "MyEnums.h"
 @interface SettingsViewController ()
 @property (readonly) SettingsBackgroundUIView *settingsBackgroundUIViewObject;
 @property (readonly) GameModel *gameModelObject;
@@ -111,8 +112,8 @@
     label_player_two = [[UILabel alloc] initWithFrame: cgrect_temp];
     [self.view addSubview:label_player_two];
     UIFont *font_digital = [UIFont
-                            fontWithName:@"Let's go Digital"
-                            size:12];
+                            fontWithName:@"Pump Demi Bold LET"
+                            size:18];
     [label_player_one setFont:font_digital];
     [label_player_two setFont:font_digital];
     label_player_one.textColor = [UIColor whiteColor];

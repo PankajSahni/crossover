@@ -63,6 +63,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>DigitalRegular.ttf</string>
+		<string>winner.TTF</string>
 	</array>
 	<key>UIInterfaceOrientation</key>
 	<string>UIInterfaceOrientationLandscapeRight</string>

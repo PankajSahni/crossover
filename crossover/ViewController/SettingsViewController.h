@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SettingsBackgroundUIView.h"
 #import "GameModel.h"
+#import "MyEnums.h"
 @protocol SettingsViewControllerDelegate
 - (void)dismissedModal;
 @end

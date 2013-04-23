@@ -12,6 +12,7 @@
 #import "RulesForDoubleJumpvsPlayer.h"
 #import "AiEngine.h"
 #import "GCHelper.h"
+#import "MyEnums.h"
 
 @interface GameModel ()
 @property (readonly) AiEngine *aiEngineObject;
@@ -21,6 +22,8 @@
 @synthesize dictionary_my_device_dimensions;
 @synthesize delegate_game_model;
 @synthesize isPlayer1;
+@synthesize audio_player;
+@synthesize less_time_left;
 //@synthesize delegate_refresh_my_data;
 - (AiEngine *) aiEngineObject{
     if(!aiEngineObject){
@@ -137,6 +140,7 @@
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
+                [self playSound:kMove];
                 if ([GlobalSingleton sharedManager].GC) {
                     [GlobalSingleton sharedManager].GC_my_turn = FALSE;
                     [delegate_game_model changeMyTurnLabelMessage:FALSE];
@@ -223,6 +227,7 @@
     [self setGameState:kGameStateWaitingForMatch];
 }
 -(NSMutableDictionary *)updateTimerForPlayer{
+    [self timerSound];
     NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
     NSString *string_player_one_time = @"";
     NSString *string_player_two_time = @"";
@@ -234,14 +239,13 @@
         }
         
         [GlobalSingleton sharedManager].int_seconds_p1 --;
-        if ([GlobalSingleton sharedManager].int_minutes_p1==0 &&
-            [GlobalSingleton sharedManager].int_seconds_p1==0) {
-        }
-      
     }
     string_player_one_time = [NSString stringWithFormat:@"%02d:%02d",
                               [GlobalSingleton sharedManager].int_minutes_p1,
                               [GlobalSingleton sharedManager].int_seconds_p1];
+    if ([string_player_one_time isEqualToString:@"01:00"]) {
+        less_time_left = TRUE;
+    }
     [self checkIfTimeIsOver:string_player_one_time];
     [temp setObject:string_player_one_time forKey:@"player_one"];
     
@@ -254,17 +258,25 @@
         }
         
         [GlobalSingleton sharedManager].int_seconds_p2 --;
-        if ([GlobalSingleton sharedManager].int_minutes_p2==0 &&
-            [GlobalSingleton sharedManager].int_seconds_p2==0) {
-        }
          
     }
     string_player_two_time = [NSString stringWithFormat:@"%02d:%02d",
                               [GlobalSingleton sharedManager].int_minutes_p2,
                               [GlobalSingleton sharedManager].int_seconds_p2];
+    if ([string_player_two_time isEqualToString:@"01:00"]) {
+        less_time_left = TRUE;
+    }
     [self checkIfTimeIsOver:string_player_two_time];
     [temp setObject:string_player_two_time forKey:@"player_two"];
     return temp;
+}
+-(void)timerSound{
+    if (less_time_left) {
+        [self playTimerSound:kTickTockFast];
+    }else{
+        [self playSound:kTickNormal];
+    }
+    
 }
 -(void)checkIfTimeIsOver:(NSString *)time_now{
     if ([time_now isEqualToString:@"00:00"]) {
@@ -537,5 +549,67 @@
     @"i1.png",@"i2.png", @"i3.png", @"i4.png", @"i5.png", @"i6.png", @"i7.png", @"i8.png", @"i9.png", @"i10.png",
                      @"i11.png", @"i12.png", @"i13.png", @"i14.png", @"i15.png", @"i16.png", @"i17.png", nil];
     return temp;
+}
+
+-(void)playTimerSound:(PlaySound)play_sound{
+    if ([GlobalSingleton sharedManager].bool_sound) {
+        NSString *sound_file_path = @"";
+        switch (play_sound) {
+                break;
+            case kTickNormal:{
+                //sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticknormal" ofType:@"mp3"];
+                sound_file_path  = [[NSBundle mainBundle] pathForResource:@"buttonclick" ofType:@"wav"];
+            }
+                break;
+            case kTickTockFast:{
+                //sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticktockfast" ofType:@"wav"];
+                sound_file_path  = [[NSBundle mainBundle] pathForResource:@"buttonclick" ofType:@"wav"];
+            }
+                break;
+            default:
+                break;
+        }
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:sound_file_path];
+        audio_player =
+        [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL error:nil];
+        [audio_player play];
+    }
+}
+-(void)playSound:(PlaySound)play_sound{
+    if ([GlobalSingleton sharedManager].bool_sound) {
+    NSString *sound_file_path = @"";
+    switch (play_sound) {
+        case kCapture:{
+          sound_file_path  = [[NSBundle mainBundle] pathForResource:@"capture" ofType:@"wav"];
+        }
+            break;
+        case kButtonClick:{
+            sound_file_path  = [[NSBundle mainBundle] pathForResource:@"buttonclick" ofType:@"wav"];
+        }
+            break;
+        case kApplause:{
+            sound_file_path  = [[NSBundle mainBundle] pathForResource:@"applause" ofType:@"mp3"];
+        }
+            break;
+        case kMove:{
+            sound_file_path  = [[NSBundle mainBundle] pathForResource:@"move" ofType:@"mp3"];
+        }
+            break;
+        case kTickNormal:{
+            sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticknormal" ofType:@"mp3"];
+        }
+            break;
+        case kTickTockFast:{
+            sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticktockfast" ofType:@"wav"];
+        }
+            break;
+        default:
+            break;
+    }
+    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:sound_file_path];
+    audio_player =
+    [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL error:nil];
+    [audio_player play];
+    }
 }
 @end
