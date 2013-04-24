@@ -356,6 +356,7 @@
      [GlobalSingleton sharedManager].int_minutes_p2 = 2;
      [GlobalSingleton sharedManager].int_seconds_p1 = 0;
      [GlobalSingleton sharedManager].int_seconds_p2 = 0;
+    less_time_left = 0;
 }
 #pragma mark GCHelperDelegate
 - (void)tryStartGame {
@@ -596,6 +597,7 @@
             break;
     }
     NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:sound_file_path];
+        [audio_player prepareToPlay];
     audio_player =
     [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL error:nil];
     [audio_player play];

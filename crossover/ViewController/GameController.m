@@ -413,13 +413,14 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
     NSArray *array_initial_positions;
     if ([[GlobalSingleton sharedManager].array_initial_player_positions count] == 0) {
+        
         array_initial_positions  = [[GlobalSingleton sharedManager] initialPlayerPositions];
     }else{
         array_initial_positions = [GlobalSingleton sharedManager].array_initial_player_positions;
-        for (int i = 0; i <= 48 ; i++) {
-            UIButton  *_coin = (UIButton *)[self.view viewWithTag:i+2000];
-            [_coin removeFromSuperview];
-        }
+    }
+    for (int i = 0; i <= 48 ; i++) {
+        UIButton  *_coin = (UIButton *)[self.view viewWithTag:i+2000];
+        [_coin removeFromSuperview];
     }
     NSMutableArray *array_two_dimensional_board =
     [GlobalSingleton sharedManager].array_two_dimensional_board;
@@ -524,6 +525,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:button_resume];
 }
 -(void)resume{
+    [self.gameModelObject playSound:kButtonClick];
     [self StartTimer];
     [button_resume removeFromSuperview];
     [view_popover removeFromSuperview];
@@ -554,15 +556,19 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:button_no];
 }
 -(void)yes_refresh{
+    [self.gameModelObject playSound:kButtonClick];
     [self.gameModelObject resetGame];
-    
+    [self StartTimer];
     [imageview_captured removeFromSuperview];
     [self removeRefreshSubViews];
     [view_popover removeFromSuperview];
-    [self getBoard];
     [self refreshCapturedBlocks];
+    [self getBoard];
+    
 }
 -(void)no_refresh{
+    [self.gameModelObject playSound:kButtonClick];
+    [self StartTimer];
     [self removeRefreshSubViews];
     [view_popover removeFromSuperview];
 }
@@ -664,8 +670,10 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 -(void)refreshCapturedBlocks{
     for (int i = 0; i <= 15; i ++) {
-        UIImageView *temp =  (UIImageView *)[self.view viewWithTag:i+4000];
-        [temp removeFromSuperview];
+        UIImageView *coin_for_player_one =  (UIImageView *)[self.view viewWithTag:i+4000];
+        UIImageView *coin_for_player_two =  (UIImageView *)[self.view viewWithTag:i+5000];
+        [coin_for_player_one removeFromSuperview];
+        [coin_for_player_two removeFromSuperview];
     }
     NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
       UIImage *image_player_one = 
@@ -679,16 +687,14 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
             [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
             imageview_captured.tag = i + 4000;
             [self.view addSubview:imageview_captured];
-            NSLog(@"imageView tag %d",imageview_captured.tag);
            
         }
         if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"1"]){
             imageview_captured = [[UIImageView alloc] initWithImage:image_player_two];
             imageview_captured.frame =
             [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
-            imageview_captured.tag = i + 4000;
+            imageview_captured.tag = i + 5000;
             [self.view addSubview:imageview_captured];
-            NSLog(@"imageView tag %d",imageview_captured.tag);
         }
     }
     

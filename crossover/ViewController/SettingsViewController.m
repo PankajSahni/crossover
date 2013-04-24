@@ -97,6 +97,7 @@
     [self setSoundButtons];
 }
 -(void)soundOn{
+    [self.gameModelObject playSound:kButtonClick];
     [GlobalSingleton sharedManager].bool_sound = TRUE;
     [self setSoundButtons];
 }
@@ -161,12 +162,14 @@
     [self.view addSubview:imageview_next];
 }
 -(void)play{
+    [self.gameModelObject playSound:kButtonClick];
     [delegate_SettingsViewController dismissedModal];
     [self dismissModalViewControllerAnimated:NO];
 
 }
 
 -(void)playButton{
+    [self.gameModelObject playSound:kButtonClick];
     UIButton *play_button = [UIButton buttonWithType:UIButtonTypeCustom];
     play_button.frame =
     [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:460 yValue:620 width:100 height:50];
@@ -188,9 +191,8 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)setCoinColor:(UIControl *)ctrl withEvent:(UIEvent *) event{
-    
+    [self.gameModelObject playSound:kButtonClick];
      int tag_coin_clicked = ctrl.tag - 3000;
-    
     if (active_player == 1) {
         [GlobalSingleton sharedManager].int_player_one_coin = tag_coin_clicked;
     }else {

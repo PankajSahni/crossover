@@ -18,10 +18,10 @@
 -(CGRect)refreshButtonCGRect{
     return CGRectMake(790, 170, 50, 50);
 }
--(CGRect)shareButtonCGRect{
+-(CGRect)settingsButtonCGRect{
     return CGRectMake(850, 170, 50, 50);
 }
--(CGRect)settingsButtonCGRect{
+-(CGRect)shareButtonCGRect{
     return CGRectMake(910, 170, 50, 50);
 }
 -(CGRect)mainmenuButtonCGRect{
