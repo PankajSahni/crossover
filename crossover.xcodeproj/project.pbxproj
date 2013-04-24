@@ -36,7 +36,6 @@
 		04DB7AA61720104800687B44 /* bg_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DB7AA51720104800687B44 /* bg_white.png */; };
 		04DB7AA91720138D00687B44 /* button_next.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DB7AA71720138C00687B44 /* button_next.png */; };
 		04DB7AAA1720138D00687B44 /* button_previous.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DB7AA81720138D00687B44 /* button_previous.png */; };
-		04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DD982F16DE2568003E8AA8 /* GameKit.framework */; };
 		04DDD493171EB53500C7ABBA /* blank_coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DDD492171EB53500C7ABBA /* blank_coin.png */; };
 		04DDD4A2171ED4A500C7ABBA /* iPhoneCGRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDD4A1171ED4A500C7ABBA /* iPhoneCGRect.m */; };
 		04DDD4A5171ED4B600C7ABBA /* iPadCGRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DDD4A4171ED4B600C7ABBA /* iPadCGRect.m */; };
@@ -44,6 +43,8 @@
 		04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4687E16DE0A88008479F0 /* Foundation.framework */; };
 		04E4688116DE0A88008479F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4688016DE0A88008479F0 /* CoreGraphics.framework */; };
 		04E4688D16DE0A88008479F0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4688C16DE0A88008479F0 /* AppDelegate.m */; };
+		04E6AE7D17279C9B000157A0 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E6AE7B17279C67000157A0 /* GameKit.framework */; };
+		04E6AE8017279CC7000157A0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E6AE7E17279CB4000157A0 /* AudioToolbox.framework */; };
 		04EA5076172644C900A7CEBC /* winner.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 04EA5075172644C900A7CEBC /* winner.TTF */; };
 		04EA507E172648A700A7CEBC /* applause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04EA5078172648A700A7CEBC /* applause.mp3 */; };
 		04EA507F172648A700A7CEBC /* buttonclick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04EA5079172648A700A7CEBC /* buttonclick.wav */; };
@@ -52,7 +53,6 @@
 		04EA5082172648A700A7CEBC /* ticknormal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04EA507C172648A700A7CEBC /* ticknormal.mp3 */; };
 		04EA5083172648A700A7CEBC /* ticktockfast.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04EA507D172648A700A7CEBC /* ticktockfast.wav */; };
 		04EA508917264AE900A7CEBC /* MyEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA508817264AE900A7CEBC /* MyEnums.m */; };
-		04EA509117266AE600A7CEBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA508C1726629700A7CEBC /* AVFoundation.framework */; };
 		04EA509317266AFD00A7CEBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA509217266AFD00A7CEBC /* AVFoundation.framework */; };
 		472D17CE16F783D90002BAC8 /* BoardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17C916F783D90002BAC8 /* BoardUIView.m */; };
 		472D17D016F783D90002BAC8 /* GameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 472D17CD16F783D90002BAC8 /* GameController.m */; };
@@ -221,7 +221,6 @@
 		048736CD17054D4F00ECBA8F /* ValidMoveDirections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidMoveDirections.m; sourceTree = "<group>"; };
 		048736D417054FED00ECBA8F /* PlayerPlacements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerPlacements.h; sourceTree = "<group>"; };
 		048736D517054FED00ECBA8F /* PlayerPlacements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerPlacements.m; sourceTree = "<group>"; };
-		04A2D87916E0E0F5001ECD83 /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; path = framework; sourceTree = "<group>"; };
 		04D1899217016B7A00CCE3D5 /* DigitalRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DigitalRegular.ttf; sourceTree = "<group>"; };
 		04D1899417016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04D1899617016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
@@ -244,7 +243,6 @@
 		04DB7AA51720104800687B44 /* bg_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_white.png; sourceTree = "<group>"; };
 		04DB7AA71720138C00687B44 /* button_next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_next.png; sourceTree = "<group>"; };
 		04DB7AA81720138D00687B44 /* button_previous.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_previous.png; sourceTree = "<group>"; };
-		04DD982F16DE2568003E8AA8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		04DDD492171EB53500C7ABBA /* blank_coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank_coin.png; sourceTree = "<group>"; };
 		04DDD4A0171ED4A500C7ABBA /* iPhoneCGRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhoneCGRect.h; sourceTree = "<group>"; };
 		04DDD4A1171ED4A500C7ABBA /* iPhoneCGRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhoneCGRect.m; sourceTree = "<group>"; };
@@ -256,6 +254,8 @@
 		04E4688016DE0A88008479F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		04E4688B16DE0A88008479F0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04E4688C16DE0A88008479F0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		04E6AE7B17279C67000157A0 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		04E6AE7E17279CB4000157A0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		04EA5075172644C900A7CEBC /* winner.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = winner.TTF; path = Supporting/winner.TTF; sourceTree = "<group>"; };
 		04EA5078172648A700A7CEBC /* applause.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = applause.mp3; sourceTree = "<group>"; };
 		04EA5079172648A700A7CEBC /* buttonclick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = buttonclick.wav; sourceTree = "<group>"; };
@@ -265,8 +265,6 @@
 		04EA507D172648A700A7CEBC /* ticktockfast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ticktockfast.wav; sourceTree = "<group>"; };
 		04EA508717264AE900A7CEBC /* MyEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEnums.h; sourceTree = "<group>"; };
 		04EA508817264AE900A7CEBC /* MyEnums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEnums.m; sourceTree = "<group>"; };
-		04EA508A1726625800A7CEBC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		04EA508C1726629700A7CEBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		04EA509217266AFD00A7CEBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		472D17C816F783D90002BAC8 /* BoardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardUIView.h; sourceTree = "<group>"; };
 		472D17C916F783D90002BAC8 /* BoardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardUIView.m; sourceTree = "<group>"; };
@@ -425,10 +423,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04EA509117266AE600A7CEBC /* AVFoundation.framework in Frameworks */,
-				04DD983016DE2568003E8AA8 /* GameKit.framework in Frameworks */,
+				04E6AE7D17279C9B000157A0 /* GameKit.framework in Frameworks */,
 				04E4687D16DE0A88008479F0 /* UIKit.framework in Frameworks */,
 				04E4687F16DE0A88008479F0 /* Foundation.framework in Frameworks */,
+				04E6AE8017279CC7000157A0 /* AudioToolbox.framework in Frameworks */,
 				04E4688116DE0A88008479F0 /* CoreGraphics.framework in Frameworks */,
 				04EA509317266AFD00A7CEBC /* AVFoundation.framework in Frameworks */,
 			);
@@ -452,9 +450,6 @@
 		04E4686D16DE0A88008479F0 = {
 			isa = PBXGroup;
 			children = (
-				04EA508C1726629700A7CEBC /* AVFoundation.framework */,
-				04EA508A1726625800A7CEBC /* AudioToolbox.framework */,
-				04DD982F16DE2568003E8AA8 /* GameKit.framework */,
 				0404D0E816DE1324000BC07A /* Default-568h@2x.png */,
 				04E4688216DE0A88008479F0 /* crossover */,
 				04E4687B16DE0A88008479F0 /* Frameworks */,
@@ -473,6 +468,8 @@
 		04E4687B16DE0A88008479F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04E6AE7E17279CB4000157A0 /* AudioToolbox.framework */,
+				04E6AE7B17279C67000157A0 /* GameKit.framework */,
 				04EA509217266AFD00A7CEBC /* AVFoundation.framework */,
 				04E4687C16DE0A88008479F0 /* UIKit.framework */,
 				04E4687E16DE0A88008479F0 /* Foundation.framework */,
@@ -491,7 +488,6 @@
 				472D17C716F783D90002BAC8 /* ViewController */,
 				04E4688B16DE0A88008479F0 /* AppDelegate.h */,
 				04E4688C16DE0A88008479F0 /* AppDelegate.m */,
-				04A2D87916E0E0F5001ECD83 /* framework */,
 				04E4688316DE0A88008479F0 /* Supporting Files */,
 			);
 			path = crossover;

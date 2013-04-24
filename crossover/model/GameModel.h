@@ -11,7 +11,6 @@
 #import "AiEngine.h"
 #import "GCHelper.h"
 #import "MyEnums.h"
-
 typedef enum {
     kMessageTypeRandomNumber = 0,
     kMessageTypeGameBegin,

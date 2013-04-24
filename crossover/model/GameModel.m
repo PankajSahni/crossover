@@ -13,7 +13,7 @@
 #import "AiEngine.h"
 #import "GCHelper.h"
 #import "MyEnums.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 @interface GameModel ()
 @property (readonly) AiEngine *aiEngineObject;
 @end
@@ -274,7 +274,7 @@
     if (less_time_left) {
         [self playTimerSound:kTickTockFast];
     }else{
-        [self playSound:kTickNormal];
+        [self playTimerSound:kTickNormal];
     }
     
 }
@@ -557,22 +557,19 @@
         switch (play_sound) {
                 break;
             case kTickNormal:{
-                //sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticknormal" ofType:@"mp3"];
-                sound_file_path  = [[NSBundle mainBundle] pathForResource:@"buttonclick" ofType:@"wav"];
+                sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticknormal" ofType:@"mp3"];
             }
                 break;
             case kTickTockFast:{
-                //sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticktockfast" ofType:@"wav"];
-                sound_file_path  = [[NSBundle mainBundle] pathForResource:@"buttonclick" ofType:@"wav"];
+                sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticktockfast" ofType:@"wav"];
             }
                 break;
             default:
                 break;
         }
-        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:sound_file_path];
-        audio_player =
-        [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL error:nil];
-        [audio_player play];
+        SystemSoundID soundID;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath: sound_file_path], &soundID);        
+        AudioServicesPlaySystemSound (soundID);
     }
 }
 -(void)playSound:(PlaySound)play_sound{
@@ -595,14 +592,6 @@
             sound_file_path  = [[NSBundle mainBundle] pathForResource:@"move" ofType:@"mp3"];
         }
             break;
-        case kTickNormal:{
-            sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticknormal" ofType:@"mp3"];
-        }
-            break;
-        case kTickTockFast:{
-            sound_file_path  = [[NSBundle mainBundle] pathForResource:@"ticktockfast" ofType:@"wav"];
-        }
-            break;
         default:
             break;
     }
@@ -612,4 +601,6 @@
     [audio_player play];
     }
 }
+
+
 @end
