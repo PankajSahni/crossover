@@ -37,6 +37,7 @@
 @property (nonatomic, assign) int int_GC_move;
 @property (nonatomic, assign) int int_GC_captured;
 @property (nonatomic, assign) int int_GC_newposition;
+@property (nonatomic, retain) NSString *string_difficulty;
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal

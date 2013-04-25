@@ -28,10 +28,10 @@
     return CGRectMake(120, 130, 50, 50);
 }
 -(CGRect)labelPlayerOneCGRect{
-    return CGRectMake(910, 280, 70, 35);
+    return CGRectMake(910, 555, 70, 35);
 }
 -(CGRect)labelPlayerTwoCGRect{
-    return CGRectMake(910, 555, 70, 35);
+    return CGRectMake(910, 280, 70, 35);
 }
 -(NSDictionary *)arrayPlayersCapturedCGRect{
     

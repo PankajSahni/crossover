@@ -22,6 +22,9 @@
     UIButton *button_vs_player;
     UIButton *button_vs_computer;
     UIButton *button_vs_gamecenter;
+    UIButton *button_simple;
+    UIButton *button_medium;
+    UIButton *button_hard;
     UIView *view_popover;
     UIActivityIndicatorView *spinner;
     CGRect cgrect_dragged_button;

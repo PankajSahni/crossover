@@ -19,6 +19,7 @@
 @end
 
 @implementation SettingsViewController
+@synthesize timer;
 @synthesize delegate_SettingsViewController;
 - (SettingsBackgroundUIView *) settingsBackgroundUIViewObject{
     if(!settingsBackgroundUIViewObject){
@@ -50,7 +51,7 @@
     [self loadAllCoins];
     [self setPlayerLabels];
     [self soundOnOffButtonDefaultOn];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(blinkActivePlayer) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(blinkActivePlayer) userInfo:nil repeats:YES];
     
 }
 -(void)blinkActivePlayer{

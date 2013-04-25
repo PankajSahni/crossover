@@ -27,13 +27,13 @@
 @end
 
 @implementation GameController
-- (BoardUIView *) boardModelObject{
+-(BoardUIView *) boardModelObject{
     if(!boardModelObject){
         boardModelObject = [[BoardUIView alloc] init];
     }
     return boardModelObject;
 }
-- (GameModel *) gameModelObject{
+-(GameModel *) gameModelObject{
     if(!gameModelObject){
         gameModelObject = [[GameModel alloc] init];
         gameModelObject.delegate_game_model = self;
@@ -41,14 +41,14 @@
     return gameModelObject;
 }
 
-- (SettingsViewController *) settingsViewControllerObject{
+-(SettingsViewController *) settingsViewControllerObject{
     if(!settingsViewControllerObject){
         settingsViewControllerObject = [[SettingsViewController alloc] init];
         settingsViewControllerObject.delegate_SettingsViewController = self;
     }
     return settingsViewControllerObject;
 }
-- (void)viewDidLoad{
+-(void)viewDidLoad{
     [super viewDidLoad];
     [self createCGRectObjectForDevice];
     [self startSpinnerOnDidLoad];
@@ -306,11 +306,12 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                          [button_vs_computer removeFromSuperview];
                          [button_vs_gamecenter removeFromSuperview];
                          [view_popover removeFromSuperview];
-                         [self getTimer];
+                         [self getPopOverToSelectDifficulty];
                      }];
 	[UIView commitAnimations];
     [GlobalSingleton sharedManager].string_opponent = @"computer";
 }
+
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event{
     tag_coin_picked = ctrl.tag - 2000;
     
@@ -402,6 +403,11 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     //[self.gameModelObject playSound:kButtonClick];
     [self presentModalViewController:self.settingsViewControllerObject animated:NO];
 }
+-(void)mainmenu{
+    [self.gameModelObject playSound:kButtonClick];
+    [timer invalidate];
+    [self getPopoverForMainmenu];
+}
 #pragma mark Backgrounds
 -(void) getBoard{
     [self.gameModelObject setCoinColors];
@@ -469,6 +475,43 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [view_popover addSubview:imageview_crossover_logo];
     [self.view addSubview:view_popover];
 }
+-(void)getPopOverToStar{
+    [self getPopOver];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x = 1024/2 - button_width/2;
+    int button_y = 250;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
+    
+    button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_new_game.frame = rect_temp;
+    [button_new_game setBackgroundImage:[UIImage imageNamed:@"new_game.png"]
+                               forState:UIControlStateNormal];
+    [button_new_game addTarget:self action:@selector(startGame) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_new_game];
+    
+    int new_button_y = button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
+    button_help = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_help.frame = rect_temp;
+    [button_help setBackgroundImage:[UIImage imageNamed:@"help.png"]
+                           forState:UIControlStateNormal];
+    [button_help addTarget:self action:@selector(help) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_help];
+    
+    new_button_y = new_button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
+    
+    button_share = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_share.frame = rect_temp;
+    [button_share setBackgroundImage:[UIImage imageNamed:@"share_btn.png"]
+                            forState:UIControlStateNormal];
+    [button_share addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_share];
+    //pankaj
+}
 -(void) getPopOverToStartGame{
     [self getPopOver];
     int button_width = 240;
@@ -529,6 +572,31 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_resume removeFromSuperview];
     [view_popover removeFromSuperview];
 }
+-(void)getPopoverForMainmenu{
+    [self getPopOver];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x_1 = 200;
+    int button_x_2 = 600;
+    int button_y = 350;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x_1 yValue:button_y 
+                                                                                      width:button_width height:button_height];
+    
+    button_yes = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_yes.frame = rect_temp;
+    [button_yes setBackgroundImage:[UIImage imageNamed:@"button_yes.png"]
+                          forState:UIControlStateNormal];
+    [button_yes addTarget:self action:@selector(yes_mainmenu) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_yes];
+    rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x_2 yValue:button_y width:button_width height:button_height];
+    
+    button_no = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_no.frame = rect_temp;
+    [button_no setBackgroundImage:[UIImage imageNamed:@"button_no.png"]
+                         forState:UIControlStateNormal];
+    [button_no addTarget:self action:@selector(no) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_no];
+}
 -(void)getPopoverToRefresh{
     [self getPopOver];
     int button_width = 240;
@@ -543,7 +611,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     button_yes.frame = rect_temp;
     [button_yes setBackgroundImage:[UIImage imageNamed:@"button_yes.png"]
                       forState:UIControlStateNormal];
-    [button_yes addTarget:self action:@selector(yes_refresh) forControlEvents:UIControlEventTouchUpInside];
+    [button_yes addTarget:self action:@selector(yes_refresh:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_yes];
     rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x_2 yValue:button_y width:button_width height:button_height];
     
@@ -551,7 +619,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     button_no.frame = rect_temp;
     [button_no setBackgroundImage:[UIImage imageNamed:@"button_no.png"]
                           forState:UIControlStateNormal];
-    [button_no addTarget:self action:@selector(no_refresh) forControlEvents:UIControlEventTouchUpInside];
+    [button_no addTarget:self action:@selector(no) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_no];
 }
 -(void)yes_refresh{
@@ -563,9 +631,18 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [view_popover removeFromSuperview];
     [self refreshCapturedBlocks];
     [self getBoard];
-    
 }
--(void)no_refresh{
+-(void)yes_mainmenu{
+    [self.gameModelObject playSound:kButtonClick];
+    [self.gameModelObject resetGame];
+    [imageview_captured removeFromSuperview];
+    [self removeRefreshSubViews];
+    [view_popover removeFromSuperview];
+    [self refreshCapturedBlocks];
+    [self getBoard];
+    [self getPopOverToStartGame];
+}
+-(void)no{
     [self.gameModelObject playSound:kButtonClick];
     [self StartTimer];
     [self removeRefreshSubViews];
@@ -575,7 +652,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_yes removeFromSuperview];
     [button_no removeFromSuperview];
 }
--(void) getPopOverToSelectPlayer{
+-(void)getPopOverToSelectPlayer{
     [self getPopOver];
     int button_width = 240;
     int button_height = 100;
@@ -611,6 +688,63 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_vs_player addTarget:self action:@selector(playerVsPlayer) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_vs_player];
     
+}
+-(void)getPopOverToSelectDifficulty{
+    [self getPopOver];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x = 1024/2 - button_width/2;
+    int button_y = 250;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
+    
+    button_simple = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_simple.frame = rect_temp;
+    [button_simple setBackgroundImage:[UIImage imageNamed:@"button_simple.png"]
+                                  forState:UIControlStateNormal];
+    [button_simple addTarget:self action:@selector(simple) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_simple];
+    
+    int new_button_y = button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
+    button_medium = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_medium.frame = rect_temp;
+    [button_medium setBackgroundImage:[UIImage imageNamed:@"button_medium.png"]
+                                    forState:UIControlStateNormal];
+    [button_medium addTarget:self action:@selector(medium) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_medium];
+    
+    new_button_y = new_button_y + button_height;
+    rect_temp =
+    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
+    
+    button_hard = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_hard.frame = rect_temp;
+    [button_hard setBackgroundImage:[UIImage imageNamed:@"button_hard.png"]
+                                forState:UIControlStateNormal];
+    [button_hard addTarget:self action:@selector(hard) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_hard];
+    
+}
+-(void)removeDifficultyButtons{
+    [self.gameModelObject playSound:kButtonClick];
+    [button_simple removeFromSuperview];
+    [button_medium removeFromSuperview];
+    [button_hard removeFromSuperview];
+    [view_popover removeFromSuperview];
+    [self getTimer];
+}
+-(void)simple{
+    [self removeDifficultyButtons];
+    [GlobalSingleton sharedManager].string_difficulty = @"simple";
+}
+-(void)medium{
+    [self removeDifficultyButtons];
+    [GlobalSingleton sharedManager].string_difficulty = @"medium";
+}
+-(void)hard{
+    [self removeDifficultyButtons];
+    [GlobalSingleton sharedManager].string_difficulty = @"hard";
 }
 -(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
     NSString *image_player = @"";

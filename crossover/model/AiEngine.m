@@ -24,6 +24,11 @@
         array_players_positions = [[NSMutableArray alloc] initWithArray:[GlobalSingleton sharedManager].array_initial_player_positions];
         if([self possiblemoves:2] && [self possiblecaptures:2]
            && [self possiblecapturesOpposition:2] && [self redcount] >0){
+            if ([[GlobalSingleton sharedManager].string_difficulty isEqualToString:@"simple"]) {
+                [self checkconditionsforHard:2];
+            }else if ([[GlobalSingleton sharedManager].string_difficulty isEqualToString:@"medium"]) {
+                [self checkconditionsforHard:2];
+            }
             [self checkconditionsforHard:2];
         }
     }
@@ -61,9 +66,7 @@
     if([safecapturelist count]>0){
         
         [self CaptureOppsitionSafe:playerno];
-    }/*else if([savelist count]>0 && [self SinglesaveCheckanyChipcanMoveTosave:playerno]){
-        //			Log.v("singlemove", "move");
-    }*/
+    }
     else if([capturelist count]>0){
         
         [self CaptureOppsition:playerno];
