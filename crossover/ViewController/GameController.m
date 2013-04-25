@@ -403,7 +403,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 
 - (void)settings{
-    [self.gameModelObject playSound:kButtonClick];
+    //[self.gameModelObject playSound:kButtonClick];
     [self presentModalViewController:self.settingsViewControllerObject animated:NO];
 }
 #pragma mark Backgrounds

@@ -31,6 +31,7 @@
     UIButton *button_offbutton_case_off;
     UIScrollView *scrollview_coins;
 }
+@property (strong, nonatomic) NSTimer *timer;
 @property (retain) id<SettingsViewControllerDelegate> delegate_SettingsViewController;
 
 @end

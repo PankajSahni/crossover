@@ -50,13 +50,30 @@
     [self loadAllCoins];
     [self setPlayerLabels];
     [self soundOnOffButtonDefaultOn];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(blinkActivePlayer) userInfo:nil repeats:YES];
     
 }
+-(void)blinkActivePlayer{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    
+    if (active_player == 2) {
+        label_player_two.alpha = 0.0;
+    }else{
+        label_player_one.alpha = 0.0;
+    }
+    [UIView commitAnimations];
+}
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    label_player_one.alpha = 1.0;
+    label_player_two.alpha = 1.0;
+}
 -(void)soundOnOffButtonDefaultOn{
-    CGRect cgrect_offbutton_case_on =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:440 yValue:295 width:90 height:40];
-        CGRect cgrect_onbutton_case_off =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:540 yValue:295 width:90 height:40];
-        CGRect cgrect_onbutton_case_on =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:640 yValue:295 width:90 height:40];
-        CGRect cgrect_offbutton_case_off =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:740 yValue:295 width:90 height:40];
+    CGRect cgrect_offbutton_case_on =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:640 yValue:290 width:90 height:35];
+        CGRect cgrect_onbutton_case_off =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:710 yValue:290 width:90 height:35];
+        CGRect cgrect_onbutton_case_on =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:710 yValue:290 width:90 height:35];
+        CGRect cgrect_offbutton_case_off =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:640 yValue:290 width:90 height:35];
     button_offbutton_case_on = [UIButton buttonWithType:UIButtonTypeCustom];
     button_onbutton_case_off = [UIButton buttonWithType:UIButtonTypeCustom];
     button_onbutton_case_on = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -68,13 +85,13 @@
     
     // OFF->A ON->B
     [button_offbutton_case_on setBackgroundImage:
-     [UIImage imageNamed:@"player_a_blue.png"] forState:UIControlStateNormal];
+     [UIImage imageNamed:@"offbutton_case_off.png"] forState:UIControlStateNormal];
     [button_onbutton_case_on setBackgroundImage:
-     [UIImage imageNamed:@"player_b_blue.png"] forState:UIControlStateNormal];
+     [UIImage imageNamed:@"onbutton_case_off.png"] forState:UIControlStateNormal];
     [button_onbutton_case_off setBackgroundImage:
-     [UIImage imageNamed:@"player_b_brown.png"] forState:UIControlStateNormal];
+     [UIImage imageNamed:@"onbutton_case_on.png"] forState:UIControlStateNormal];
     [button_offbutton_case_off setBackgroundImage:
-     [UIImage imageNamed:@"player_a_brown.png"] forState:UIControlStateNormal];
+     [UIImage imageNamed:@"offbutton_case_on.png"] forState:UIControlStateNormal];
     [self setSoundButtons];
 }
 -(void)setSoundButtons{
