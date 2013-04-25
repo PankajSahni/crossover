@@ -25,17 +25,17 @@
         if([self possiblemoves:2] && [self possiblecaptures:2]
            && [self possiblecapturesOpposition:2] && [self redcount] >0){
             if ([[GlobalSingleton sharedManager].string_difficulty isEqualToString:@"simple"]) {
-                [self checkconditionsforHard:2];
+                //[self checkconditionsForSimple:2];
+                [self checkconditionsforMedium:2];
             }else if ([[GlobalSingleton sharedManager].string_difficulty isEqualToString:@"medium"]) {
-                [self checkconditionsforHard:2];
+                [self checkconditionsforMedium:2];
             }
             [self checkconditionsforHard:2];
         }
     }
    return [self findMoveByComparingArrays:array_players_positions];
-    
-    
 }
+
 -(NSMutableDictionary *)findMoveByComparingArrays:(NSArray *)array_containing_move{
     NSMutableDictionary *dict_computer_turn = [[NSMutableDictionary alloc] init ];
     for (int i = 0; i <= 48 ; i++) {
@@ -57,28 +57,54 @@
     }
     return dict_computer_turn;
 }
+-(BOOL)getYesOrNo{
+    int tmp = (arc4random() % 30)+1;
+    if(tmp % 5 == 0){
+        return YES;
+    }else {
+        return NO;
+    }
+}
+-(void)checkconditionsForSimple:(int)playerno{
+    BOOL choose = [self getYesOrNo]; 
+    if([capturelist count]>0 && choose){
+        [self CaptureOpposition:playerno];
+    }
+    else if([moves count]>0) {
+       [self SingleMove:playerno];
+    }else{
+       [self CaptureOpposition:playerno];
+    }
+}
+-(void)checkconditionsforMedium:(int)playerno{
+    if([capturelist count]>0){
+        [self CaptureOpposition:playerno];
+    }
+    ///if savelist is greater than 0 and capture not possible go for save 
+   /* else if([savelist count]>0 && [self SinglesaveCheckanyChipcanMoveTosave:playerno]){
+        //			updateList();
+    }*/
+    
+    ///if capture and save both not possible go for best possible move
+    else {
+        [self SingleMove:playerno];
+    }
+}
 -(void)checkconditionsforHard:(int)playerno{
     safecapturelist = nil;
     safemoves = nil;
     [self safecapturelistHard];
     [self safemoveListlistHard];
-    
     if([safecapturelist count]>0){
-        
-        [self CaptureOppsitionSafe:playerno];
+        [self CaptureOppositionSafe:playerno];
     }
     else if([capturelist count]>0){
-        
-        [self CaptureOppsition:playerno];
+        [self CaptureOpposition:playerno];
     }
-    
     else if([safemoves count]>0){
-        
         [self SingleMoveSafe:playerno];
     }
-    
     else{
-        
         [self SingleMove:playerno];
     }
 }
@@ -103,7 +129,7 @@
     
     
 }
--(void)CaptureOppsition:(int)playerno{
+-(void)CaptureOpposition:(int)playerno{
     int index = 0 ;
     if([capturelist count]>1){
         index = arc4random() % [capturelist count];
@@ -188,7 +214,7 @@
     }
 return temp;
 }
--(void)CaptureOppsitionSafe:(int)player{
+-(void)CaptureOppositionSafe:(int)player{
     int index = 0 ;
     if([safecapturelist count]>1){
         index = arc4random() % [safecapturelist count];
