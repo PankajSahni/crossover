@@ -11,6 +11,9 @@
 #import "AiEngine.h"
 #import "GCHelper.h"
 #import "MyEnums.h"
+#import "iPhoneCGRect.h"
+#import "iPadCGRect.h"
+#import "iPhone5CGRect.h"
 typedef enum {
     kMessageTypeRandomNumber = 0,
     kMessageTypeGameBegin,
@@ -73,6 +76,7 @@ typedef enum {
     NSString *otherPlayerID;
     BOOL receivedRandom;
     uint32_t ourRandom;
+    id cgRectObject;
 }
 @property (nonatomic, retain) NSMutableDictionary *dictionary_my_device_dimensions;
 @property (nonatomic, assign) BOOL isPlayer1;
@@ -97,6 +101,7 @@ typedef enum {
 -(void)setCoinColors;
 -(void)resetGame;
 -(void)playSound:(PlaySound)play_sound;
+-(void)setPlayersCapturedCGRect;
 -(CGRect)getNewDimensionsByReducingHeight:(int)height
                                     width:(int)width toPixel:(int)pixel;
 

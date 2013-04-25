@@ -211,9 +211,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [GlobalSingleton sharedManager].int_minutes_p2 = 2;
     [GlobalSingleton sharedManager].int_seconds_p2 = 0;
     
-    CGRect rect_temp =
-    [[GlobalSingleton sharedManager]
-     getFrameAccordingToDeviceWithXvalue:705 yValue:565 width:70 height:35];
+    CGRect rect_temp = [cgRectObject labelPlayerOneCGRect];
     time_label_P1 = [[UILabel alloc] initWithFrame: rect_temp];
     [self.view addSubview:time_label_P1];
     UIFont *font_digital = [UIFont
@@ -224,9 +222,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     time_label_P1.backgroundColor = [UIColor clearColor];
     time_label_P1.text = @"02:00";
     
-    rect_temp =
-    [[GlobalSingleton sharedManager]
-     getFrameAccordingToDeviceWithXvalue:910 yValue:255 width:70 height:35];
+    rect_temp = [cgRectObject labelPlayerTwoCGRect];
     time_label_P2 = [[UILabel alloc] initWithFrame: rect_temp];
     time_label_P2.textColor = [UIColor whiteColor];
     time_label_P2.backgroundColor = [UIColor clearColor];
@@ -427,11 +423,14 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [GlobalSingleton sharedManager].array_all_cgrect = [[NSMutableArray alloc] init];
     int array_position = 0;
+    NSDictionary *cordinates = [cgRectObject arrayCoinsCGRect];
+    int width = [[cordinates objectForKey:@"width"] floatValue];
+    int height = [[cordinates objectForKey:@"height"] floatValue];
     for (NSDictionary *dict_x_y in board_dimensions) {
-        CGRect cgrect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:[[dict_x_y valueForKey:@"x"] intValue]
-                                                                                           yValue:[[dict_x_y valueForKey:@"y"] intValue]
-                                                                                            width:40 height:40];
         
+        CGRect cgrect_temp = CGRectMake([[dict_x_y valueForKey:@"x"] floatValue],
+                                        [[dict_x_y valueForKey:@"y"] floatValue], width, height);
+                                                                                        
         [[GlobalSingleton sharedManager].array_all_cgrect
          addObject:[NSValue valueWithCGRect:cgrect_temp]];
         [dict setObject:[NSValue valueWithCGRect:cgrect_temp]
@@ -627,7 +626,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                           forState:UIControlStateNormal];
     }
     else if([player isEqualToString:@"0"]){
-        image_player = @"blanckbtn_big.png";
+        image_player = @"blank_coin.png";
         [button setBackgroundImage:[UIImage imageNamed:image_player]
                           forState:UIControlStateNormal];
     }

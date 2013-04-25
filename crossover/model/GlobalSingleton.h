@@ -45,6 +45,6 @@
 - (CGPoint)convertPositionWithXOffset:(CGFloat)x withYOffset:(CGFloat)y;
 - (int )getXAccordingToDevice:(int )int_x;
 -(NSArray *) initialPlayerPositions;
--(void)setPlayersCapturedCGRect;
+
 
 @end

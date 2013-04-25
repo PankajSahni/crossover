@@ -10,5 +10,6 @@
 #import "GameModel.h"
 @interface BoardUIView : UIView{
     GameModel *gameModelObject;
+    
 }
 @end

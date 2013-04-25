@@ -34,7 +34,7 @@
                                         [[device_dimensions valueForKey:@"height"] intValue]);
         [self setFrame:cgrect_temp];
         [self getBackground];
-        [self getCross];
+        //[self getCross];
         [self getCapturedPlayers];
     }
     return self;
@@ -50,7 +50,7 @@
 -(void)getBackground{
     NSDictionary *device_dimensions =
     [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
-    UIImage *image_background = [UIImage imageNamed:@"blank.png"];
+    UIImage *image_background = [UIImage imageNamed:@"bg_main.png"];
     UIImageView *imageview_background = [[UIImageView alloc] initWithImage:image_background];
     CGRect rect_temp = CGRectMake(0 , 0,
                            [[device_dimensions valueForKey:@"width"] intValue],
@@ -58,7 +58,7 @@
     imageview_background.frame = rect_temp;
     [self addSubview:imageview_background];
     
-    /*player 1 background */
+    /*player 1 background 
     UIImage *image_captured_bg = [UIImage imageNamed:@"captured_bg.png"];
     UIImageView *imageview_captured_bg_one = 
     [[UIImageView alloc] initWithImage:image_captured_bg];
@@ -66,9 +66,9 @@
                  getFrameAccordingToDeviceWithXvalue:700 yValue:250 width:288 height:160];
     imageview_captured_bg_one.frame = rect_temp;
     [self addSubview:imageview_captured_bg_one];
-    /*player 1 background */
+    player 1 background
     
-    /*player 1 background */
+    player 1 background 
     UIImage *image_captured_bg_two = [UIImage imageNamed:@"captured_bg.png"];
     UIImageView *imageview_captured_bg_two = 
     [[UIImageView alloc] initWithImage:image_captured_bg_two];
@@ -76,12 +76,13 @@
                  getFrameAccordingToDeviceWithXvalue:700 yValue:450 width:288 height:160];
     imageview_captured_bg_two.frame = rect_temp;
     [self addSubview:imageview_captured_bg_two];
-    /*player 1 background */
+    player 1 background */
 }
 
 
 -(void)getCapturedPlayers{
-    [[GlobalSingleton sharedManager] setPlayersCapturedCGRect];
+    [self.gameModelObject setPlayersCapturedCGRect];
+    
     for (int i = 0; i <= 15; i ++) {
         UIImage *image_captured_player_at_position = [UIImage imageNamed:@"blank_coin.png"];
         UIImageView *imageview_temp_1 = [[UIImageView alloc] initWithImage:image_captured_player_at_position];

@@ -31,20 +31,27 @@
     }
     return aiEngineObject;
 }
-/*- (id)init {
+- (id)init {
     if ((self = [super init])) {
         if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
             [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]) {
-           iPhoneCGRect *cgRectObject = [[iPhoneCGRect alloc] init];
+           cgRectObject = [[iPhoneCGRect alloc] init];
         }else{
-            iPadCGRect *cgRectObject = [[iPadCGRect alloc] init];
+           cgRectObject = [[iPadCGRect alloc] init];
         }
         
     }
     return self;
-}*/
+}
 
-
+-(void)createCGRectObjectForDevice{
+    if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
+        [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]) {
+        cgRectObject = [[iPhoneCGRect alloc] init];
+    }else{
+        cgRectObject = [[iPadCGRect alloc] init];
+    }
+}
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type{
     if([device_type isEqualToString:@"iphone"]){
         NSDictionary *device_dimensions = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -74,36 +81,63 @@
 
 -(NSMutableArray *)getBoardDimensions{
     
-    NSMutableArray *array_temp = [[NSMutableArray alloc ] init ];
-    int int_x = 52;
-    int int_y = 170;
+    NSMutableArray *array_temp = [[NSMutableArray alloc ] init];
+    NSDictionary *cordinates = [cgRectObject arrayCoinsCGRect];
+    int int_x = [[cordinates objectForKey:@"int_x"] floatValue];
+    int int_y = [[cordinates objectForKey:@"int_y"] floatValue];
+    int int_increment = [[cordinates objectForKey:@"int_increment"] floatValue];
+    
     [GlobalSingleton sharedManager].array_two_dimensional_board = 
     [[NSMutableArray alloc ] init ];
-    
     for (int i = 0; i <= 6; i ++) {
-        
         for (int j = 0; j <= 6; j++) {
             NSString *string_dict_keys =  [[NSString stringWithFormat:@"%d", j]stringByAppendingString:[NSString stringWithFormat:@"%d", i]];
             [[GlobalSingleton sharedManager].array_two_dimensional_board addObject:string_dict_keys];
-            
-            
             NSString *x = [NSString stringWithFormat:@"%d", int_x] ;
             NSString *y = [NSString stringWithFormat:@"%d", int_y] ;
             NSDictionary *dimension = [[NSDictionary alloc]initWithObjectsAndKeys:
                                        x,@"x",
                                        y,@"y", nil];
-            
             [array_temp addObject: dimension];
-            int_x = int_x + 87 ;
-            
-            //
+            int_x = int_x + int_increment ;
         }
-        int_y = int_y + 87 ;
-        int_x = 52;
+        int_y = int_y + int_increment ;
+        int_x = [[cordinates objectForKey:@"int_x"] floatValue];
     }
     return array_temp;
 }
-
+-(void)setPlayersCapturedCGRect{
+    
+    [GlobalSingleton sharedManager].array_captured_p1_cgrect = [[NSMutableArray alloc] init];
+    [GlobalSingleton sharedManager].array_captured_p2_cgrect = [[NSMutableArray alloc] init];
+    [GlobalSingleton sharedManager].array_captured_p2_coins = [[NSMutableArray alloc] init];
+    [GlobalSingleton sharedManager].array_captured_p1_coins = [[NSMutableArray alloc] init];
+    NSDictionary *cordinates = [cgRectObject arrayPlayersCapturedCGRect];
+    int int_x = [[cordinates objectForKey:@"int_x"] floatValue];
+    int int_y_p1 = [[cordinates objectForKey:@"int_y_p1"] floatValue];
+    int int_y_p2 = [[cordinates objectForKey:@"int_y_p2"] floatValue];
+    int int_x_increment = [[cordinates objectForKey:@"int_x_increment"] floatValue];
+    int int_y_increment = [[cordinates objectForKey:@"int_y_increment"] floatValue];
+    int width = [[cordinates objectForKey:@"width"] floatValue];
+    int height = [[cordinates objectForKey:@"height"] floatValue];
+    for (int i = 0; i <= 1; i ++) {
+        
+        for (int j = 0; j <= 7; j++) {
+            [[GlobalSingleton sharedManager].array_captured_p1_coins addObject:@"0"];
+            [[GlobalSingleton sharedManager].array_captured_p2_coins addObject:@"0"];
+            CGRect rect_p1 = CGRectMake(int_x, int_y_p1, width, height);
+            CGRect rect_p2 = CGRectMake(int_x, int_y_p2, width, height);
+            [[GlobalSingleton sharedManager].array_captured_p1_cgrect addObject: [NSValue valueWithCGRect:rect_p2]];
+            [[GlobalSingleton sharedManager].array_captured_p2_cgrect addObject: [NSValue valueWithCGRect:rect_p1]];
+            int_x = int_x + int_x_increment ;
+            
+            //
+        }
+        int_y_p1 = int_y_p1 + int_y_increment ;
+        int_y_p2 = int_y_p2 + int_y_increment ;
+        int_x = [[cordinates objectForKey:@"int_x"] floatValue];
+    }
+}
 -(void)setCoinColors{
     if (![GlobalSingleton sharedManager].int_player_one_coin && ![GlobalSingleton sharedManager].int_player_two_coin) {
         [GlobalSingleton sharedManager].int_player_one_coin = 0;
