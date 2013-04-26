@@ -42,14 +42,20 @@ static GCHelper *sharedHelper = nil;
 
 - (id)init {
     if ((self = [super init])) {
+        
         gameCenterAvailable = [self isGameCenterAvailable];
+        
         if (gameCenterAvailable) {
             NSNotificationCenter *nc = 
             [NSNotificationCenter defaultCenter];
             [nc addObserver:self 
                    selector:@selector(authenticationChanged) 
-                       name:GKPlayerAuthenticationDidChangeNotificationName 
+                       name:GKPlayerAuthenticationDidChangeNotificationName
                      object:nil];
+            NSLog(@"nc %@",nc);
+            
+        }else{
+            NSLog(@"game center not available");
         }
     }
     return self;
@@ -75,6 +81,8 @@ static GCHelper *sharedHelper = nil;
     } else if (![GKLocalPlayer localPlayer].isAuthenticated && userAuthenticated) {
        NSLog(@"Authentication changed: player not authenticated");
        userAuthenticated = FALSE;
+    }else{
+        NSLog(@"[GKLocalPlayer localPlayer].isAuthenticated returned null");
     }
                    
 }
@@ -110,14 +118,29 @@ static GCHelper *sharedHelper = nil;
 
 - (void)authenticateLocalUser{
     
-    if (!gameCenterAvailable) return;
+    if (!gameCenterAvailable){
+        NSLog(@"game center NOT available");
+        return;
+    }else{
+        NSLog(@"game center available");
+    }
     
     NSLog(@"Authenticating local user...");
     if ([GKLocalPlayer localPlayer].authenticated == NO) {     
-        [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
-        NSLog(@"pankaj, not logged in to GC");
-    } else {
-        NSLog(@"Already authenticated!");
+        [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error)
+         {
+             if(error == nil)
+             {
+                NSLog(@"Already authenticated!");
+                
+             }
+             else
+             {
+                 
+                  NSLog(@"pankaj, not logged in to GC %d",error.code);
+             }
+         }];
+        
     }
 }
 
