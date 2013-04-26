@@ -11,8 +11,8 @@
 #import "GameModel.h"
 #import "BoardUIView.h"
 #import "SettingsViewController.h"
-
-@interface GameController : UIViewController<GameModelDelegate, SettingsViewControllerDelegate>{
+#import "ShowWinnerViewController.h"
+@interface GameController : UIViewController<GameModelDelegate,SettingsViewControllerDelegate,ShowWinnerViewControllerDelegate>{
     GameModel *gameModelObject;
     BoardUIView *boardModelObject;
     SettingsViewController *settingsViewControllerObject;
@@ -25,6 +25,7 @@
     UIButton *button_simple;
     UIButton *button_medium;
     UIButton *button_hard;
+    UIButton *button_cancel;
     UIView *view_popover;
     UIActivityIndicatorView *spinner;
     CGRect cgrect_dragged_button;
@@ -40,5 +41,7 @@
     UILabel *debugLabel;
     id cgRectObject;
     UIImageView *imageview_captured;
+    UILabel *label_player_one;
+    UILabel *label_player_two;
 }
 @end

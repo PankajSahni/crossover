@@ -55,6 +55,7 @@
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
     [self getAllOptionButtonsForUser];
+    [self setPlayerLabels];
     [GlobalSingleton sharedManager].bool_sound = TRUE;
     
     [self getPopOverToStartGame];
@@ -98,6 +99,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 #pragma mark SettingsViewControllerDelegateCalls
 -(void)dismissedModal{
     [self getBoard];
+    [self refreshCapturedBlocks];
 }
 #pragma mark Animations
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
@@ -137,8 +139,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                          UIButton *button = (UIButton *)[self.view viewWithTag:captured+2000];
                          button.frame = move_to;
                          
-                         
-                         
+
                      }
                      completion:^(BOOL finished){
                          [[GlobalSingleton sharedManager].array_initial_player_positions
@@ -231,6 +232,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [time_label_P2 setFont:font_digital];
     time_label_P2.text = @"02:00";
     [self StartTimer];
+    
 }
 #pragma mark Events
 -(void)startGame{
@@ -256,10 +258,12 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 	[UIView commitAnimations];
 }
 -(void)help{
+    [self getPopOverToHelp];
 }
 -(void)showWinner:(int)winner{
     [timer invalidate];
     ShowWinnerViewController *showWinner = [[ShowWinnerViewController alloc] init];
+    showWinner.delegate_ShowWinnerViewController = self;
     showWinner.winner = winner;
     [self presentModalViewController:showWinner animated:YES];
 }
@@ -306,6 +310,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                          [button_vs_computer removeFromSuperview];
                          [button_vs_gamecenter removeFromSuperview];
                          [view_popover removeFromSuperview];
+                         [label_player_two setText:@"computer"];
                          [self getPopOverToSelectDifficulty];
                      }];
 	[UIView commitAnimations];
@@ -385,8 +390,25 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 - (void)timerTick{
     NSDictionary *dictionary_time_now = [[self gameModelObject] updateTimerForPlayer];
+    [self blinkActivePlayer];
     time_label_P1.text = [dictionary_time_now objectForKey:@"player_one"];
     time_label_P2.text = [dictionary_time_now objectForKey:@"player_two"];
+}
+-(void)blinkActivePlayer{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    
+    if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]) {
+        label_player_two.alpha = 0.0;
+    }else{
+        label_player_one.alpha = 0.0;
+    }
+    [UIView commitAnimations];
+}
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    label_player_one.alpha = 1.0;
+    label_player_two.alpha = 1.0;
 }
 -(void)pause{
     [self.gameModelObject playSound:kButtonClick];
@@ -474,6 +496,10 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     imageview_crossover_logo.frame = cgrect_crossover_logo;
     [view_popover addSubview:imageview_crossover_logo];
     [self.view addSubview:view_popover];
+}
+-(void)new_game{
+    [self.gameModelObject resetGame];
+    [self getPopOverToStartGame];
 }
 -(void)getPopOverToStar{
     [self getPopOver];
@@ -689,6 +715,28 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:button_vs_player];
     
 }
+-(void)getPopOverToHelp{
+    [button_new_game removeFromSuperview];
+    [button_help removeFromSuperview];
+    [button_share removeFromSuperview];
+    int button_width = 60;
+    int button_height = 60;
+    int button_x = 920;
+    int button_y = 50;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
+    
+    button_cancel = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_cancel.frame = rect_temp;
+    [button_cancel setBackgroundImage:[UIImage imageNamed:@"button_cancel.png"]
+                                  forState:UIControlStateNormal];
+    [button_cancel addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_cancel];
+}
+-(void)cancel{
+    [button_cancel removeFromSuperview];
+    [view_popover removeFromSuperview];
+    [self getPopOverToStartGame];
+}
 -(void)getPopOverToSelectDifficulty{
     [self getPopOver];
     int button_width = 240;
@@ -863,6 +911,25 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                             forState:UIControlStateNormal];
     [mainmenu_button addTarget:self action:@selector(mainmenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:mainmenu_button];
+}
+-(void)setPlayerLabels{
+    CGRect cgrect_temp = [cgRectObject labelplayerOneTurnCGRect];
+    label_player_one = [[UILabel alloc] initWithFrame: cgrect_temp];
+    [self.view addSubview:label_player_one];
+    cgrect_temp = [cgRectObject labelplayerTwoTurnCGRect];
+    label_player_two = [[UILabel alloc] initWithFrame: cgrect_temp];
+    [self.view addSubview:label_player_two];
+    UIFont *font_digital = [UIFont
+                            fontWithName:@"Pump Demi Bold LET"
+                            size:[cgRectObject settingFontSize]];
+    [label_player_one setFont:font_digital];
+    [label_player_two setFont:font_digital];
+    label_player_one.textColor = [UIColor whiteColor];
+    label_player_two.textColor = [UIColor whiteColor];
+    label_player_one.backgroundColor = [UIColor clearColor];
+    label_player_two.backgroundColor = [UIColor clearColor];
+    label_player_one.text = @"player 1";
+    label_player_two.text = @"player 2";
 }
 #pragma mark Unused
 - (void)viewDidUnload{

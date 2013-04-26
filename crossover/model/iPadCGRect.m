@@ -33,6 +33,15 @@
 -(CGRect)labelPlayerTwoCGRect{
     return CGRectMake(910, 280, 70, 35);
 }
+-(CGRect)labelplayerOneTurnCGRect{
+    return CGRectMake(680, 570, 100, 30);
+}
+-(CGRect)labelplayerTwoTurnCGRect{
+    return CGRectMake(680, 290, 100, 30);
+}
+-(int)settingFontSize{
+    return 18;
+}
 -(NSDictionary *)arrayPlayersCapturedCGRect{
     
    return [[NSDictionary alloc] initWithObjectsAndKeys:@"680", @"int_x",

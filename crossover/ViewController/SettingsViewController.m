@@ -37,11 +37,20 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [self createCGRectObjectForDevice];
         [self.view addSubview:self.settingsBackgroundUIViewObject];
         [self setAllEvents];
         // Custom initialization
     }
     return self;
+}
+-(void)createCGRectObjectForDevice{
+    if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
+        [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]) {
+        cgRectObject = [[iPhoneCGRect alloc] init];
+    }else{
+        cgRectObject = [[iPadCGRect alloc] init];
+    }
 }
 -(void)setAllEvents{
     active_player = 1;
@@ -121,18 +130,18 @@
 }
 -(void)setPlayerLabels{
     CGRect cgrect_temp =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:260
-                                                                                        yValue:400
+                                                                                        yValue:404
                                                                                          width:100 height:30];
     label_player_one = [[UILabel alloc] initWithFrame: cgrect_temp];
     [self.view addSubview:label_player_one];
     cgrect_temp =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:660
-                                                                                 yValue:400
+                                                                                 yValue:404
                                                                                   width:100 height:30];
     label_player_two = [[UILabel alloc] initWithFrame: cgrect_temp];
     [self.view addSubview:label_player_two];
     UIFont *font_digital = [UIFont
                             fontWithName:@"Pump Demi Bold LET"
-                            size:18];
+                            size:[cgRectObject settingFontSize]];
     [label_player_one setFont:font_digital];
     [label_player_two setFont:font_digital];
     label_player_one.textColor = [UIColor whiteColor];

@@ -6,10 +6,16 @@
 //  Copyright (c) 2013 shenu.gupta2009@gmail.com. All rights reserved.
 //
 
-#import "GameController.h"
+
 #import "GameModel.h"
-@interface ShowWinnerViewController : GameController{
-    GameModel *gameModelObject1;
+@protocol ShowWinnerViewControllerDelegate<NSObject>
+- (void)new_game;
+@end
+@interface ShowWinnerViewController : UIViewController{
+    GameModel *gameModelObject;
+    id <ShowWinnerViewControllerDelegate> delegate_ShowWinnerViewController;
+    UIView *view_popover;
 }
 @property (nonatomic, assign) int winner;
+@property (retain) id <ShowWinnerViewControllerDelegate> delegate_ShowWinnerViewController;
 @end

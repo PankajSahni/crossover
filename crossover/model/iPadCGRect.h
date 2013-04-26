@@ -18,4 +18,7 @@
 -(NSDictionary *)arrayCoinsCGRect;
 -(CGRect)labelPlayerOneCGRect;
 -(CGRect)labelPlayerTwoCGRect;
+-(int)settingFontSize;
+-(CGRect)labelplayerOneTurnCGRect;
+-(CGRect)labelplayerTwoTurnCGRect;
 @end

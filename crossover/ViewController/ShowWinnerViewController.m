@@ -15,6 +15,7 @@
 
 @implementation ShowWinnerViewController
 @synthesize winner;
+@synthesize delegate_ShowWinnerViewController;
 - (GameModel *) gameModelObject{
     if(!gameModelObject){
         gameModelObject = [[GameModel alloc] init];
@@ -33,6 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self getPopOver];
     [self animateWinner];
     
@@ -88,7 +90,26 @@
     imageview_crossover_logo.frame = cgrect_crossover_logo;
     [view_popover addSubview:imageview_crossover_logo];
     [self.view addSubview:view_popover];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x = 1024/2 - button_width/2;
+    int button_y = 550;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
+    
+    UIButton *button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_new_game.frame = rect_temp;
+    [button_new_game setBackgroundImage:[UIImage imageNamed:@"new_game.png"]
+                               forState:UIControlStateNormal];
+    [button_new_game addTarget:self action:@selector(startNewGame) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_new_game];
 }
+-(void)startNewGame{
+    [self.gameModelObject playSound:kButtonClick];
+    [delegate_ShowWinnerViewController new_game];
+    [self dismissModalViewControllerAnimated:NO];
+    
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

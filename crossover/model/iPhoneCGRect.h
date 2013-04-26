@@ -14,4 +14,11 @@
 -(CGRect)refreshButtonCGRect;
 -(CGRect)shareButtonCGRect;
 -(CGRect)mainmenuButtonCGRect;
+-(NSDictionary *)arrayPlayersCapturedCGRect;
+-(NSDictionary *)arrayCoinsCGRect;
+-(CGRect)labelPlayerOneCGRect;
+-(CGRect)labelPlayerTwoCGRect;
+-(int)settingFontSize;
+-(CGRect)labelplayerOneTurnCGRect;
+-(CGRect)labelplayerTwoTurnCGRect;
 @end
