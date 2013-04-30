@@ -69,6 +69,7 @@ typedef enum {
 -(void)showWinner:(int)winner;
 -(void)matchMakingCancelledByUser;
 -(void)updateGCPlayerLabels;
+-(void)updateUIOnReset;
 @end
 
 @interface GameModel : NSObject<GCHelperDelegate>{

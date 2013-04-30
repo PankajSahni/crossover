@@ -383,7 +383,6 @@
     //[self restartTapped:nil];
 }
 -(void)resetGame{
-   
      [GlobalSingleton sharedManager].array_initial_player_positions = nil;
      [GlobalSingleton sharedManager].array_captured_p1_coins = nil;
      [GlobalSingleton sharedManager].array_captured_p2_coins = nil;
@@ -391,6 +390,16 @@
      [GlobalSingleton sharedManager].int_minutes_p2 = 2;
      [GlobalSingleton sharedManager].int_seconds_p1 = 0;
      [GlobalSingleton sharedManager].int_seconds_p2 = 0;
+    [GlobalSingleton sharedManager].int_GC_move = 0;
+    [GlobalSingleton sharedManager].int_GC_captured = 0;
+    [GlobalSingleton sharedManager].int_GC_newposition = 0;
+    [GlobalSingleton sharedManager].string_my_turn = nil;
+    [GlobalSingleton sharedManager].string_opponent = nil;
+    [GlobalSingleton sharedManager].string_difficulty = nil;
+    [GlobalSingleton sharedManager].me = nil;
+    [GlobalSingleton sharedManager].gc_opponent = nil;
+    [GlobalSingleton sharedManager].GC = FALSE;
+    [delegate_game_model updateUIOnReset];
     less_time_left = 0;
 }
 #pragma mark GCHelperDelegate

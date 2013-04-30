@@ -132,6 +132,12 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self getBoard];
     [self refreshCapturedBlocks];
 }
+-(void)updateUIOnReset{
+    [self.boardModelObject getCapturedPlayers];
+    label_player_one.text = @"";
+    label_player_two.text = @"";
+    [self setPlayerLabels];
+}
 #pragma mark Animations
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
     

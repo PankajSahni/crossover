@@ -12,4 +12,5 @@
     GameModel *gameModelObject;
     
 }
+-(void)getCapturedPlayers;
 @end
