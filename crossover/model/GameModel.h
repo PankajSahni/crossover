@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AiEngine.h"
 #import "GCHelper.h"
+#import "GCTurnBasedMatchHelper.h"
 #import "MyEnums.h"
 #import "iPhoneCGRect.h"
 #import "iPadCGRect.h"
@@ -72,7 +73,7 @@ typedef enum {
 -(void)updateUIOnReset;
 @end
 
-@interface GameModel : NSObject<GCHelperDelegate>{
+@interface GameModel : NSObject<GCHelperDelegate, GCTurnBasedMatchHelperDelegate>{
     AiEngine *aiEngineObject;
     id <GameModelDelegate> delegate_game_model;
     GameState gameState;

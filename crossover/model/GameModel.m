@@ -402,6 +402,57 @@
     [delegate_game_model updateUIOnReset];
     less_time_left = 0;
 }
+
+#pragma mark - GCTurnBasedMatchHelperDelegate
+
+-(void)enterNewGame:(GKTurnBasedMatch *)match {
+    NSLog(@"Entering new game...");
+    statusLabel.text = @"Player 1's Turn (that's you)";
+    textInputField.enabled = YES;
+    mainTextController.text = @"Once upon a time";
+}
+
+-(void)takeTurn:(GKTurnBasedMatch *)match {
+    NSLog(@"Taking turn for existing game...");
+    int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
+    NSString *statusString = [NSString stringWithFormat:@"Player %d's Turn (that's you)", playerNum];
+    statusLabel.text = statusString;
+    textInputField.enabled = YES;
+    if ([match.matchData bytes]) {
+        NSString *storySoFar = [NSString stringWithUTF8String:[match.matchData bytes]];
+        mainTextController.text = storySoFar;
+        [self checkForEnding:match.matchData];
+    }
+}
+
+-(void)layoutMatch:(GKTurnBasedMatch *)match {
+    NSLog(@"Viewing match where it's not our turn...");
+    NSString *statusString;
+    
+    if (match.status == GKTurnBasedMatchStatusEnded) {
+        statusString = @"Match Ended";
+    } else {
+        int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
+        statusString = [NSString stringWithFormat:@"Player %d's Turn", playerNum];
+    }
+    statusLabel.text = statusString;
+    textInputField.enabled = NO;
+    NSString *storySoFar = [NSString stringWithUTF8String:[match.matchData bytes]];
+    mainTextController.text = storySoFar;
+    [self checkForEnding:match.matchData];
+}
+
+-(void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match {
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Another game needs your attention!" message:notice delegate:self cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
+    [av show];
+    [av release];
+}
+
+-(void)recieveEndGame:(GKTurnBasedMatch *)match {
+    [self layoutMatch:match];
+}
+
+
 #pragma mark GCHelperDelegate
 - (void)tryStartGame {
     
