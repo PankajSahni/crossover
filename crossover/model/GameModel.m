@@ -394,7 +394,7 @@
     [GlobalSingleton sharedManager].int_GC_captured = 0;
     [GlobalSingleton sharedManager].int_GC_newposition = 0;
     [GlobalSingleton sharedManager].string_my_turn = nil;
-    [GlobalSingleton sharedManager].string_opponent = nil;
+    
     [GlobalSingleton sharedManager].string_difficulty = nil;
     [GlobalSingleton sharedManager].me = nil;
     [GlobalSingleton sharedManager].gc_opponent = nil;

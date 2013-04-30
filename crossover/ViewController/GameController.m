@@ -136,6 +136,17 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.boardModelObject getCapturedPlayers];
     label_player_one.text = @"";
     label_player_two.text = @"";
+    time_label_P1.text = @"";
+    time_label_P2.text = @"";
+    time_label_P1 = nil;
+    timer_label = nil;
+    timer = nil;
+    [self.gameModelObject playSound:kButtonClick];
+    [imageview_captured removeFromSuperview];
+    [self removeRefreshSubViews];
+    [view_popover removeFromSuperview];
+    [self refreshCapturedBlocks];
+    [self getBoard];
     [self setPlayerLabels];
 }
 #pragma mark Animations
@@ -268,8 +279,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:time_label_P2];
     [time_label_P2 setFont:font_digital];
     time_label_P2.text = @"02:00";
-    [self StartTimer];
-    
 }
 #pragma mark Events
 -(void)startGame{
@@ -334,6 +343,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                          [button_vs_gamecenter removeFromSuperview];
                          [view_popover removeFromSuperview];
                          [self getTimer];
+                         [self StartTimer];
                      }];
 	[UIView commitAnimations];
     
@@ -543,8 +553,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:view_popover];
 }
 -(void)new_game{
-    [self.gameModelObject resetGame];
-    [self getPopOverToStartGame];
+    [self yes_mainmenu];
 }
 -(void) getPopOverToStartGame{
     [self getPopOver];
@@ -645,7 +654,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     button_yes.frame = rect_temp;
     [button_yes setBackgroundImage:[UIImage imageNamed:@"button_yes.png"]
                       forState:UIControlStateNormal];
-    [button_yes addTarget:self action:@selector(yes_refresh:) forControlEvents:UIControlEventTouchUpInside];
+    [button_yes addTarget:self action:@selector(yes_refresh) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_yes];
     rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x_2 yValue:button_y width:button_width height:button_height];
     
@@ -657,23 +666,16 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:button_no];
 }
 -(void)yes_refresh{
-    [self.gameModelObject playSound:kButtonClick];
     [self.gameModelObject resetGame];
+     [self getTimer];
     [self StartTimer];
-    [imageview_captured removeFromSuperview];
-    [self removeRefreshSubViews];
-    [view_popover removeFromSuperview];
-    [self refreshCapturedBlocks];
-    [self getBoard];
+    //[timer invalidate];
+    //[self StartTimer];
 }
 -(void)yes_mainmenu{
-    [self.gameModelObject playSound:kButtonClick];
+    
+    [GlobalSingleton sharedManager].string_opponent = nil;
     [self.gameModelObject resetGame];
-    [imageview_captured removeFromSuperview];
-    [self removeRefreshSubViews];
-    [view_popover removeFromSuperview];
-    [self refreshCapturedBlocks];
-    [self getBoard];
     [self getPopOverToStartGame];
 }
 -(void)no{
@@ -789,14 +791,17 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_hard removeFromSuperview];
     [view_popover removeFromSuperview];
     [self getTimer];
+    [self StartTimer];
 }
 -(void)simple{
     [self removeDifficultyButtons];
-    [GlobalSingleton sharedManager].string_difficulty = @"simple";
+    //[GlobalSingleton sharedManager].string_difficulty = @"simple";
+    [GlobalSingleton sharedManager].string_difficulty = @"hard";
 }
 -(void)medium{
     [self removeDifficultyButtons];
-    [GlobalSingleton sharedManager].string_difficulty = @"medium";
+    //[GlobalSingleton sharedManager].string_difficulty = @"medium";
+    [GlobalSingleton sharedManager].string_difficulty = @"hard";
 }
 -(void)hard{
     [self removeDifficultyButtons];
@@ -937,7 +942,12 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     label_player_one.backgroundColor = [UIColor clearColor];
     label_player_two.backgroundColor = [UIColor clearColor];
     label_player_one.text = @"player 1";
-    label_player_two.text = @"player 2";
+    if ([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"]) {
+        [label_player_two setText:@"computer"];
+    }else{
+        label_player_two.text = @"player 2";
+    }
+    
 }
 #pragma mark Unused
 - (void)viewDidUnload{

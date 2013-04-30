@@ -65,6 +65,7 @@
 		04EA5083172648A700A7CEBC /* ticktockfast.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04EA507D172648A700A7CEBC /* ticktockfast.wav */; };
 		04EA508917264AE900A7CEBC /* MyEnums.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA508817264AE900A7CEBC /* MyEnums.m */; };
 		04EA509317266AFD00A7CEBC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EA509217266AFD00A7CEBC /* AVFoundation.framework */; };
+		04F8ADEB172F999200787175 /* GCTurnBasedMatchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F8ADEA172F999200787175 /* GCTurnBasedMatchHelper.m */; };
 		04FE37EE172A722000592F01 /* button_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FE37ED172A722000592F01 /* button_cancel.png */; };
 		472257CD1729A97500D79912 /* button_hard.png in Resources */ = {isa = PBXBuildFile; fileRef = 472257CA1729A97500D79912 /* button_hard.png */; };
 		472257CE1729A97500D79912 /* button_medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 472257CB1729A97500D79912 /* button_medium.png */; };
@@ -350,6 +351,8 @@
 		04EA508717264AE900A7CEBC /* MyEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEnums.h; sourceTree = "<group>"; };
 		04EA508817264AE900A7CEBC /* MyEnums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEnums.m; sourceTree = "<group>"; };
 		04EA509217266AFD00A7CEBC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		04F8ADE9172F999200787175 /* GCTurnBasedMatchHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCTurnBasedMatchHelper.h; sourceTree = "<group>"; };
+		04F8ADEA172F999200787175 /* GCTurnBasedMatchHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCTurnBasedMatchHelper.m; sourceTree = "<group>"; };
 		04FE37ED172A722000592F01 /* button_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_cancel.png; sourceTree = "<group>"; };
 		472257CA1729A97500D79912 /* button_hard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_hard.png; sourceTree = "<group>"; };
 		472257CB1729A97500D79912 /* button_medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_medium.png; sourceTree = "<group>"; };
@@ -1120,6 +1123,8 @@
 		472D17D216F783FA0002BAC8 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				04F8ADE9172F999200787175 /* GCTurnBasedMatchHelper.h */,
+				04F8ADEA172F999200787175 /* GCTurnBasedMatchHelper.m */,
 				044E4BB1170B0403006905DE /* GCHelper.h */,
 				044E4BB2170B0403006905DE /* GCHelper.m */,
 				044E4BB3170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.h */,
@@ -1646,6 +1651,7 @@
 				04DB7A96171FCBC400687B44 /* SettingsBackgroundUIView.m in Sources */,
 				04EA508917264AE900A7CEBC /* MyEnums.m in Sources */,
 				04D9F40217293DD7001D192B /* iPhone5CGRect.m in Sources */,
+				04F8ADEB172F999200787175 /* GCTurnBasedMatchHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
