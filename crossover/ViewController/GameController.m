@@ -131,6 +131,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 -(void)dismissedModal{
     [self getBoard];
     [self refreshCapturedBlocks];
+    [self StartTimer];
 }
 -(void)updateUIOnReset{
     [self.boardModelObject getCapturedPlayers];
@@ -478,6 +479,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 
 - (void)settings{
     //[self.gameModelObject playSound:kButtonClick];
+    [timer invalidate];
     [self presentModalViewController:self.settingsViewControllerObject animated:NO];
 }
 -(void)mainmenu{

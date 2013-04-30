@@ -148,8 +148,12 @@
     label_player_two.textColor = [UIColor whiteColor];
     label_player_one.backgroundColor = [UIColor clearColor];
     label_player_two.backgroundColor = [UIColor clearColor];
-    label_player_one.text = @"player 1";
-    label_player_two.text = @"player 2";
+    label_player_one.text = @"player 1";    
+    if ([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"]) {
+        [label_player_two setText:@"computer"];
+    }else{
+        label_player_two.text = @"player 2";
+    }
 }
 -(void)setSelectPlayerBackgrounds{
     UIImage *image_select_player_bg = [UIImage imageNamed:@"bg_select_player.png"];
