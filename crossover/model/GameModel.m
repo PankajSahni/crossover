@@ -255,6 +255,7 @@
 }
 
 -(void)findMatchWithViewController:(UIViewController *)viewController{
+    [GlobalSingleton sharedManager].me = [[GKLocalPlayer localPlayer]alias];
     [GCHelper sharedInstance].delegate = self;
     [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:viewController delegate:self];
     ourRandom = arc4random();
@@ -419,7 +420,9 @@
 - (void)matchEnded {
     NSLog(@"Match ended");
 }
-
+-(void)matchMakingCancelledByUserGCHelper{
+    [delegate_game_model matchMakingCancelledByUser];
+}
 
 - (void)sendGameBegin {
     
@@ -491,6 +494,7 @@
     // Store away other player ID for later
     if (otherPlayerID == nil) {
         otherPlayerID = playerID;
+        NSLog(@"playerID %@",playerID);
     }
     
     Message *message = (Message *) [data bytes];
@@ -505,13 +509,16 @@
             tie = true;
             ourRandom = arc4random();
             [self sendRandomNumber];
-        } else if (ourRandom > messageInit->randomNumber) {
+        }
+        else if (ourRandom > messageInit->randomNumber) {
             NSLog(@"We are player 1");
             isPlayer1 = YES;
             [GlobalSingleton sharedManager].GC_my_turn = TRUE;
             [delegate_game_model changeMyTurnLabelMessage:TRUE];
+           
             [GlobalSingleton sharedManager].string_my_turn = @"1";
-        } else {
+        }
+        else {
             NSLog(@"We are player 2");
             isPlayer1 = NO;
             [GlobalSingleton sharedManager].GC_my_turn = FALSE;
@@ -525,6 +532,7 @@
             if (gameState == kGameStateWaitingForRandomNumber) {
                 [self setGameState:kGameStateWaitingForStart];
             }
+            [delegate_game_model updateGCPlayerLabels];
             [self tryStartGame];
         }
         
@@ -566,6 +574,8 @@
             //[self endScene:kEndReasonWin];
             NSLog(@"pankaj kEndReasonWin");
         }
+        
+    }else{
         
     }
 }

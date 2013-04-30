@@ -43,5 +43,6 @@
     UIImageView *imageview_captured;
     UILabel *label_player_one;
     UILabel *label_player_two;
+    NSTimer *timer_label;
 }
 @end

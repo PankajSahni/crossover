@@ -34,10 +34,10 @@
     return CGRectMake(910, 280, 70, 35);
 }
 -(CGRect)labelplayerOneTurnCGRect{
-    return CGRectMake(680, 570, 100, 30);
+    return CGRectMake(680, 570, 200, 30);
 }
 -(CGRect)labelplayerTwoTurnCGRect{
-    return CGRectMake(680, 290, 100, 30);
+    return CGRectMake(680, 290, 200, 30);
 }
 -(int)settingFontSize{
     return 18;

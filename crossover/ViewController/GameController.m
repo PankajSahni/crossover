@@ -75,7 +75,9 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 
 #pragma mark DelegateGameModelCalls
 - (void)changeMyTurnLabelMessage:(BOOL)status{
+    
     if (status) {
+        
         [debugLabel setText:@"Active: Your Turn"];
     }else{
         [debugLabel setText:@"Inactive: opposite player's turn"];
@@ -84,8 +86,29 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 - (void)initialSetUpMessagesForLabel:(NSString *)string{
     [debugLabel setText:string];
 }
-
-
+-(void)updateGCPlayerLabels{
+    //timer_label = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(blinkActiveGCPlayer) userInfo:nil repeats:YES];
+    //[[NSRunLoop currentRunLoop] addTimer:timer_label forMode:NSDefaultRunLoopMode];
+    if (self.gameModelObject.isPlayer1) {
+        label_player_one.text = [[GlobalSingleton sharedManager].me stringByAppendingString:@": Player One"];
+        label_player_two.text = [[GlobalSingleton sharedManager].gc_opponent stringByAppendingString:@": Player Two"];
+    }else{
+        label_player_one.text = [[GlobalSingleton sharedManager].gc_opponent stringByAppendingString:@": Player One"];
+        label_player_two.text = [[GlobalSingleton sharedManager].me stringByAppendingString:@": Player Two"];
+    }
+}
+-(void)blinkActiveGCPlayer{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    
+    if ([GlobalSingleton sharedManager].GC_my_turn) {
+        label_player_two.alpha = 0.0;
+    }else{
+        label_player_one.alpha = 0.0;
+    }
+    [UIView commitAnimations];
+}
 -(void)addLabelToShowMultiplayerGameStatus{
     [spinner removeFromSuperview];
     [view_popover removeFromSuperview];
@@ -98,6 +121,11 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                300,20);
     debugLabel = [[UILabel alloc] initWithFrame:rect_temp];
     [self.view addSubview:debugLabel];
+}
+-(void)matchMakingCancelledByUser{
+    [spinner removeFromSuperview];
+    [view_popover removeFromSuperview];
+    [self getPopOverToStartGame];
 }
 #pragma mark SettingsViewControllerDelegateCalls
 -(void)dismissedModal{
@@ -512,43 +540,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.gameModelObject resetGame];
     [self getPopOverToStartGame];
 }
--(void)getPopOverToStar{
-    [self getPopOver];
-    int button_width = 240;
-    int button_height = 100;
-    int button_x = 1024/2 - button_width/2;
-    int button_y = 250;
-    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:button_y width:button_width height:button_height];
-    
-    button_new_game = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_new_game.frame = rect_temp;
-    [button_new_game setBackgroundImage:[UIImage imageNamed:@"new_game.png"]
-                               forState:UIControlStateNormal];
-    [button_new_game addTarget:self action:@selector(startGame) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_new_game];
-    
-    int new_button_y = button_y + button_height;
-    rect_temp =
-    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
-    button_help = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_help.frame = rect_temp;
-    [button_help setBackgroundImage:[UIImage imageNamed:@"help.png"]
-                           forState:UIControlStateNormal];
-    [button_help addTarget:self action:@selector(help) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_help];
-    
-    new_button_y = new_button_y + button_height;
-    rect_temp =
-    [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
-    
-    button_share = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_share.frame = rect_temp;
-    [button_share setBackgroundImage:[UIImage imageNamed:@"share_btn.png"]
-                            forState:UIControlStateNormal];
-    [button_share addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_share];
-    //pankaj
-}
 -(void) getPopOverToStartGame{
     [self getPopOver];
     int button_width = 240;
@@ -709,12 +700,12 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:button_height];
     button_vs_gamecenter = [UIButton buttonWithType:UIButtonTypeCustom];
     button_vs_gamecenter.frame = rect_temp;
-    [button_vs_gamecenter setBackgroundImage:[UIImage imageNamed:@"GameCenter.png"]
+    [button_vs_gamecenter setBackgroundImage:[UIImage imageNamed:@"button_game_center.png"]
                                     forState:UIControlStateNormal];
     [button_vs_gamecenter addTarget:self action:@selector(playerVsGameCenter) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_vs_gamecenter];
     
-    new_button_y = new_button_y + button_height;
+    new_button_y = new_button_y + button_height + 50;
     rect_temp =
     [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x yValue:new_button_y width:button_width height:70];
     

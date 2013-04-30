@@ -7,7 +7,7 @@
 //
 
 #import "GCHelper.h"
-
+#import "GlobalSingleton.h"
 @implementation GCHelper
 @synthesize gameCenterAvailable;
 @synthesize presentingViewController;
@@ -101,7 +101,8 @@ static GCHelper *sharedHelper = nil;
             // Populate players dict
             self.playersDict = [NSMutableDictionary dictionaryWithCapacity:players.count];
             for (GKPlayer *player in players) {
-                NSLog(@"Found player: %@", player.alias);
+                //NSLog(@"Found player: %@", player.alias);
+                [GlobalSingleton sharedManager].gc_opponent = player.alias;
                 [playersDict setObject:player forKey:player.playerID];
             }
             
@@ -188,11 +189,13 @@ static GCHelper *sharedHelper = nil;
 
 // The user has cancelled matchmaking
 - (void)matchmakerViewControllerWasCancelled:(GKMatchmakerViewController *)viewController {
+    [delegate matchMakingCancelledByUserGCHelper];
     [presentingViewController dismissModalViewControllerAnimated:YES];
 }
 
 // Matchmaking has failed with an error
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error {
+    [delegate matchMakingCancelledByUserGCHelper];
     [presentingViewController dismissModalViewControllerAnimated:YES];
     NSLog(@"Error finding match: %@", error.localizedDescription);    
 }

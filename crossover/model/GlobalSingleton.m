@@ -37,6 +37,8 @@
 @synthesize int_GC_move;
 @synthesize int_GC_newposition;
 @synthesize string_difficulty;
+@synthesize me;
+@synthesize gc_opponent;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc

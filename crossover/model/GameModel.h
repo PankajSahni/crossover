@@ -67,6 +67,8 @@ typedef enum {
 -(void)animateComputerOrGameCenterMove:(NSDictionary *)opposition_turn;
 -(void)getBoard;
 -(void)showWinner:(int)winner;
+-(void)matchMakingCancelledByUser;
+-(void)updateGCPlayerLabels;
 @end
 
 @interface GameModel : NSObject<GCHelperDelegate>{

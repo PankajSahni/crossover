@@ -10,6 +10,7 @@
 		0404D0E916DE1324000BC07A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0404D0E816DE1324000BC07A /* Default-568h@2x.png */; };
 		044E4BB5170B0403006905DE /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E4BB2170B0403006905DE /* GCHelper.m */; };
 		044E4BB6170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E4BB4170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m */; };
+		045B995C172E684900C82E50 /* button_game_center@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 045B995B172E684900C82E50 /* button_game_center@2x~ipad.png */; };
 		048736CE17054D4F00ECBA8F /* AiEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736C317054D4F00ECBA8F /* AiEngine.m */; };
 		048736CF17054D4F00ECBA8F /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736C517054D4F00ECBA8F /* GameModel.m */; };
 		048736D017054D4F00ECBA8F /* GlobalSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736C717054D4F00ECBA8F /* GlobalSingleton.m */; };
@@ -278,6 +279,7 @@
 		044E4BB2170B0403006905DE /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHelper.m; sourceTree = "<group>"; };
 		044E4BB3170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GKMatchmakerViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
 		044E4BB4170B0403006905DE /* GKMatchmakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GKMatchmakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
+		045B995B172E684900C82E50 /* button_game_center@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_game_center@2x~ipad.png"; sourceTree = "<group>"; };
 		048736C217054D4F00ECBA8F /* AiEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiEngine.h; sourceTree = "<group>"; };
 		048736C317054D4F00ECBA8F /* AiEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiEngine.m; sourceTree = "<group>"; };
 		048736C417054D4F00ECBA8F /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameModel.h; sourceTree = "<group>"; };
@@ -1151,6 +1153,7 @@
 		472D17DC16F791E90002BAC8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				045B995B172E684900C82E50 /* button_game_center@2x~ipad.png */,
 				04FE37ED172A722000592F01 /* button_cancel.png */,
 				472257CA1729A97500D79912 /* button_hard.png */,
 				472257CB1729A97500D79912 /* button_medium.png */,
@@ -1554,6 +1557,7 @@
 				472257CE1729A97500D79912 /* button_medium.png in Resources */,
 				472257CF1729A97500D79912 /* button_simple.png in Resources */,
 				04FE37EE172A722000592F01 /* button_cancel.png in Resources */,
+				045B995C172E684900C82E50 /* button_game_center@2x~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1734,8 +1738,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PROVISIONING_PROFILE = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
+				PROVISIONING_PROFILE = "5CEB9AE6-9E6C-4CD0-B73B-F9C65EEBED33";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CEB9AE6-9E6C-4CD0-B73B-F9C65EEBED33";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1761,8 +1765,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
+				PROVISIONING_PROFILE = "5CEB9AE6-9E6C-4CD0-B73B-F9C65EEBED33";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CEB9AE6-9E6C-4CD0-B73B-F9C65EEBED33";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1793,6 +1797,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1803,6 +1808,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
