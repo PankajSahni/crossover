@@ -432,7 +432,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                          [self.view addSubview:spinner];
                          
                          
-                         [[GCHelper sharedInstance] authenticateLocalUser];
+                         [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
                          [self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:5.0];
                          [GlobalSingleton sharedManager].GC = TRUE;
                          

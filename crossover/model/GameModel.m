@@ -256,10 +256,10 @@
 
 -(void)findMatchWithViewController:(UIViewController *)viewController{
     [GlobalSingleton sharedManager].me = [[GKLocalPlayer localPlayer]alias];
-    [GCHelper sharedInstance].delegate = self;
-    [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:viewController delegate:self];
-    ourRandom = arc4random();
-    [self setGameState:kGameStateWaitingForMatch];
+    //[GCHelper sharedInstance].delegate = self;
+    [[GCTurnBasedMatchHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:viewController];
+    //ourRandom = arc4random();
+    //[self setGameState:kGameStateWaitingForMatch];
 }
 -(NSMutableDictionary *)updateTimerForPlayer{
     [self timerSound];
@@ -407,21 +407,30 @@
 
 -(void)enterNewGame:(GKTurnBasedMatch *)match {
     NSLog(@"Entering new game...");
-    statusLabel.text = @"Player 1's Turn (that's you)";
+    
+    
+   /* statusLabel.text = @"Player 1's Turn (that's you)";
     textInputField.enabled = YES;
-    mainTextController.text = @"Once upon a time";
+    mainTextController.text = @"Once upon a time";*/
+    isPlayer1 = YES;
+    [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+    [delegate_game_model changeMyTurnLabelMessage:TRUE];
+    [GlobalSingleton sharedManager].string_my_turn = @"1";
 }
 
 -(void)takeTurn:(GKTurnBasedMatch *)match {
     NSLog(@"Taking turn for existing game...");
     int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
     NSString *statusString = [NSString stringWithFormat:@"Player %d's Turn (that's you)", playerNum];
-    statusLabel.text = statusString;
-    textInputField.enabled = YES;
+    
+    [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+    [delegate_game_model changeMyTurnLabelMessage:TRUE];
+    
+
     if ([match.matchData bytes]) {
-        NSString *storySoFar = [NSString stringWithUTF8String:[match.matchData bytes]];
+      /*  NSString *storySoFar = [NSString stringWithUTF8String:[match.matchData bytes]];
         mainTextController.text = storySoFar;
-        [self checkForEnding:match.matchData];
+        [self checkForEnding:match.matchData];*/
     }
 }
 
@@ -435,17 +444,16 @@
         int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
         statusString = [NSString stringWithFormat:@"Player %d's Turn", playerNum];
     }
-    statusLabel.text = statusString;
+   /* statusLabel.text = statusString;
     textInputField.enabled = NO;
     NSString *storySoFar = [NSString stringWithUTF8String:[match.matchData bytes]];
     mainTextController.text = storySoFar;
-    [self checkForEnding:match.matchData];
+    [self checkForEnding:match.matchData];*/
 }
 
 -(void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match {
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Another game needs your attention!" message:notice delegate:self cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
     [av show];
-    [av release];
 }
 
 -(void)recieveEndGame:(GKTurnBasedMatch *)match {
@@ -575,7 +583,6 @@
             isPlayer1 = YES;
             [GlobalSingleton sharedManager].GC_my_turn = TRUE;
             [delegate_game_model changeMyTurnLabelMessage:TRUE];
-           
             [GlobalSingleton sharedManager].string_my_turn = @"1";
         }
         else {
