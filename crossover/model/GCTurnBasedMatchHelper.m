@@ -119,7 +119,9 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     if (firstParticipant.lastTurnDate == NULL) {
         // It's a new game!
         NSLog(@"It's a new game!");
+        
         [delegate enterNewGame:match];
+        
     } else {
         if ([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) {
             NSLog(@"It's your turn!");

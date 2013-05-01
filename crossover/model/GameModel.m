@@ -13,6 +13,7 @@
 #import "AiEngine.h"
 #import "GCHelper.h"
 #import "MyEnums.h"
+#import "GCTurnBasedMatchHelper.h"
 #import <AudioToolbox/AudioToolbox.h>
 @interface GameModel ()
 @property (readonly) AiEngine *aiEngineObject;
@@ -20,7 +21,6 @@
 @implementation GameModel
 
 @synthesize dictionary_my_device_dimensions;
-@synthesize delegate_game_model;
 @synthesize isPlayer1;
 @synthesize audio_player;
 @synthesize less_time_left;
@@ -33,6 +33,7 @@
 }
 - (id)init {
     if ((self = [super init])) {
+        [GCTurnBasedMatchHelper sharedInstance].delegate = self;
         if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
             [[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone5"]) {
            cgRectObject = [[iPhoneCGRect alloc] init];
@@ -170,6 +171,8 @@
             int diff_col = start_y - end_y;
             if(abs(diff_row) <= 1 && abs(diff_col) <=1
                && [RulesForSingleJumpVsPalyer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y]){
+                [self sendTurn:[[NSDictionary alloc] initWithObjectsAndKeys:
+                                [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions", nil]];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
@@ -177,10 +180,10 @@
                 [self playSound:kMove];
                 if ([GlobalSingleton sharedManager].GC) {
                     [GlobalSingleton sharedManager].GC_my_turn = FALSE;
-                    [delegate_game_model changeMyTurnLabelMessage:FALSE];
+                    [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:FALSE];
                     [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
                     [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
-                    [self sendMove];
+                    //[self sendMove];
                 }
                 if (![GlobalSingleton sharedManager].GC) {
                     [self togglePlayer];
@@ -199,11 +202,11 @@
                 coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
                 if ([GlobalSingleton sharedManager].GC) {
                     [GlobalSingleton sharedManager].GC_my_turn = FALSE;
-                    [delegate_game_model changeMyTurnLabelMessage:FALSE];
+                    [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:FALSE];
                     [GlobalSingleton sharedManager].int_GC_captured = coin_eliminated;
                     [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
                     [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
-                    [self sendMove];
+                    //[self sendMove];
                 } 
 			}
             
@@ -224,7 +227,7 @@
 
 - (void)matchStarted {
     NSLog(@"Match started");
-    [delegate_game_model addLabelToShowMultiplayerGameStatus];
+    [[GlobalSingleton sharedManager].delegate_game_model addLabelToShowMultiplayerGameStatus];
     if (receivedRandom) {
         [self setGameState:kGameStateWaitingForStart];
     } else {
@@ -256,10 +259,7 @@
 
 -(void)findMatchWithViewController:(UIViewController *)viewController{
     [GlobalSingleton sharedManager].me = [[GKLocalPlayer localPlayer]alias];
-    //[GCHelper sharedInstance].delegate = self;
     [[GCTurnBasedMatchHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:viewController];
-    //ourRandom = arc4random();
-    //[self setGameState:kGameStateWaitingForMatch];
 }
 -(NSMutableDictionary *)updateTimerForPlayer{
     [self timerSound];
@@ -317,9 +317,9 @@
     if ([time_now isEqualToString:@"00:00"]) {
         int winner = [self timeOverShowWinner];
         if (winner) {
-            [delegate_game_model showWinner:(int)winner];
+            [[GlobalSingleton sharedManager].delegate_game_model showWinner:(int)winner];
         }else{
-            [delegate_game_model showWinner:(int)0];
+            [[GlobalSingleton sharedManager].delegate_game_model showWinner:(int)0];
         }
     }
 }
@@ -399,7 +399,7 @@
     [GlobalSingleton sharedManager].me = nil;
     [GlobalSingleton sharedManager].gc_opponent = nil;
     [GlobalSingleton sharedManager].GC = FALSE;
-    [delegate_game_model updateUIOnReset];
+    [[GlobalSingleton sharedManager].delegate_game_model updateUIOnReset];
     less_time_left = 0;
 }
 
@@ -407,15 +407,11 @@
 
 -(void)enterNewGame:(GKTurnBasedMatch *)match {
     NSLog(@"Entering new game...");
-    
-    
-   /* statusLabel.text = @"Player 1's Turn (that's you)";
-    textInputField.enabled = YES;
-    mainTextController.text = @"Once upon a time";*/
     isPlayer1 = YES;
     [GlobalSingleton sharedManager].GC_my_turn = TRUE;
-    [delegate_game_model changeMyTurnLabelMessage:TRUE];
+    [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
     [GlobalSingleton sharedManager].string_my_turn = @"1";
+    [[GlobalSingleton sharedManager].delegate_game_model removePopoverAndSpinner];
 }
 
 -(void)takeTurn:(GKTurnBasedMatch *)match {
@@ -424,7 +420,7 @@
     NSString *statusString = [NSString stringWithFormat:@"Player %d's Turn (that's you)", playerNum];
     
     [GlobalSingleton sharedManager].GC_my_turn = TRUE;
-    [delegate_game_model changeMyTurnLabelMessage:TRUE];
+    [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
     
 
     if ([match.matchData bytes]) {
@@ -459,7 +455,27 @@
 -(void)recieveEndGame:(GKTurnBasedMatch *)match {
     [self layoutMatch:match];
 }
-
+- (void)sendTurn:(NSDictionary *)send_dictionary{
+    GKTurnBasedMatch *currentMatch =
+    [[GCTurnBasedMatchHelper sharedInstance] currentMatch];
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:send_dictionary options:0 error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSData *data =
+    [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSUInteger currentIndex = [currentMatch.participants
+                               indexOfObject:currentMatch.currentParticipant];
+    GKTurnBasedParticipant *nextParticipant;
+    nextParticipant = [currentMatch.participants objectAtIndex:
+                       ((currentIndex + 1) % [currentMatch.participants count ])];
+    [currentMatch endTurnWithNextParticipant:nextParticipant
+                                   matchData:data completionHandler:^(NSError *error) {
+                                       if (error) {
+                                           NSLog(@"%@", error);
+                                       }
+                                   }];
+    
+}
 
 #pragma mark GCHelperDelegate
 - (void)tryStartGame {
@@ -468,9 +484,9 @@
         [self setGameState:kGameStateActive];
         if ([GlobalSingleton sharedManager].GC) {
             if ([GlobalSingleton sharedManager].GC_my_turn) {
-                [delegate_game_model changeMyTurnLabelMessage:TRUE];
+                [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
             }else{
-                [delegate_game_model changeMyTurnLabelMessage:FALSE];
+                [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:FALSE];
             }
         }
         [self sendGameBegin];
@@ -489,7 +505,7 @@
     NSLog(@"Match ended");
 }
 -(void)matchMakingCancelledByUserGCHelper{
-    [delegate_game_model matchMakingCancelledByUser];
+    [[GlobalSingleton sharedManager].delegate_game_model matchMakingCancelledByUser];
 }
 
 - (void)sendGameBegin {
@@ -527,15 +543,15 @@
     
     gameState = state;
     if (gameState == kGameStateWaitingForMatch) {
-        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+        [[GlobalSingleton sharedManager].delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
     } else if (gameState == kGameStateWaitingForRandomNumber) {
-        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+        [[GlobalSingleton sharedManager].delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
     } else if (gameState == kGameStateWaitingForStart) {
-        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+        [[GlobalSingleton sharedManager].delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
     } else if (gameState == kGameStateActive) {
-        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+        [[GlobalSingleton sharedManager].delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
     } else if (gameState == kGameStateDone) {
-        [delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
+        [[GlobalSingleton sharedManager].delegate_game_model initialSetUpMessagesForLabel:@"Waiting for match"];
     }
     
 }
@@ -582,14 +598,14 @@
             NSLog(@"We are player 1");
             isPlayer1 = YES;
             [GlobalSingleton sharedManager].GC_my_turn = TRUE;
-            [delegate_game_model changeMyTurnLabelMessage:TRUE];
+            [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
             [GlobalSingleton sharedManager].string_my_turn = @"1";
         }
         else {
             NSLog(@"We are player 2");
             isPlayer1 = NO;
             [GlobalSingleton sharedManager].GC_my_turn = FALSE;
-            [delegate_game_model changeMyTurnLabelMessage:FALSE];
+            [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:FALSE];
             
             [GlobalSingleton sharedManager].string_my_turn = @"2";
         }
@@ -599,14 +615,14 @@
             if (gameState == kGameStateWaitingForRandomNumber) {
                 [self setGameState:kGameStateWaitingForStart];
             }
-            [delegate_game_model updateGCPlayerLabels];
+            [[GlobalSingleton sharedManager].delegate_game_model updateGCPlayerLabels];
             [self tryStartGame];
         }
         
     } else if (message->messageType == kMessageTypeGameBegin) {
         
         [self setGameState:kGameStateActive];
-        [delegate_game_model getBoard];
+        [[GlobalSingleton sharedManager].delegate_game_model getBoard];
         //[self setupStringsWithOtherPlayerId:playerID];
         
     } else if (message->messageType == kMessageTypeMove) {
@@ -624,10 +640,10 @@
                                              [NSString stringWithFormat:@"%d", messageTypeMove->move ],@"move",
                                              [NSString stringWithFormat:@"%d", messageTypeMove->captured ],@"captured",nil];
         
-        [delegate_game_model animateComputerOrGameCenterMove:received_dictionary];
+        [[GlobalSingleton sharedManager].delegate_game_model animateComputerOrGameCenterMove:received_dictionary];
         
         [GlobalSingleton sharedManager].GC_my_turn = TRUE;
-        [delegate_game_model changeMyTurnLabelMessage:TRUE];
+        [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
         //[self getBoard];
     } else if (message->messageType == kMessageTypeGameOver) {
         

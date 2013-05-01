@@ -39,6 +39,7 @@
 @synthesize string_difficulty;
 @synthesize me;
 @synthesize gc_opponent;
+@synthesize delegate_game_model;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc

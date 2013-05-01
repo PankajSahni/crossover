@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "AiEngine.h"
-#import "GCHelper.h"
 #import "GCTurnBasedMatchHelper.h"
 #import "MyEnums.h"
 #import "iPhoneCGRect.h"
@@ -71,11 +70,11 @@ typedef enum {
 -(void)matchMakingCancelledByUser;
 -(void)updateGCPlayerLabels;
 -(void)updateUIOnReset;
+-(void)removePopoverAndSpinner;
 @end
 
-@interface GameModel : NSObject<GCHelperDelegate, GCTurnBasedMatchHelperDelegate>{
+@interface GameModel : NSObject<GCTurnBasedMatchHelperDelegate>{
     AiEngine *aiEngineObject;
-    id <GameModelDelegate> delegate_game_model;
     GameState gameState;
     NSString *otherPlayerID;
     BOOL receivedRandom;
@@ -84,7 +83,7 @@ typedef enum {
 }
 @property (nonatomic, retain) NSMutableDictionary *dictionary_my_device_dimensions;
 @property (nonatomic, assign) BOOL isPlayer1;
-@property (retain) id <GameModelDelegate> delegate_game_model;
+
 @property (strong, nonatomic) AVAudioPlayer *audio_player;
 @property (nonatomic, assign) BOOL less_time_left;
 -(NSDictionary *)getDimensionsForMyDevice:(NSString *)device_type;

@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface GlobalSingleton : NSObject
+#import "GameModel.h"
+@interface GlobalSingleton : NSObject{
+    id <GameModelDelegate> delegate_game_model;
+}
 + (GlobalSingleton *)sharedManager;
 @property (nonatomic, retain) NSString *string_my_device_type;
 @property (nonatomic, retain) NSMutableDictionary *dictionary_xy_player;
@@ -40,6 +42,7 @@
 @property (nonatomic, retain) NSString *string_difficulty;
 @property (nonatomic, retain) NSString *me;
 @property (nonatomic, retain) NSString *gc_opponent;
+@property (nonatomic, retain) id <GameModelDelegate> delegate_game_model;
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal

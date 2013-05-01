@@ -20,9 +20,9 @@
 #import "iPhoneCGRect.h"
 #import "SettingsViewController.h"
 #import "MyEnums.h"
-#import "SHK.h"
+/*#import "SHK.h"
 #import "SHKActionSheet.h"
-#import "SHKItem.h"
+#import "SHKItem.h"*/
 @interface GameController ()
 @property (readonly) GameModel *gameModelObject;
 @property (readonly) BoardUIView *boardModelObject;
@@ -39,7 +39,7 @@
 -(GameModel *) gameModelObject{
     if(!gameModelObject){
         gameModelObject = [[GameModel alloc] init];
-        gameModelObject.delegate_game_model = self;
+        [GlobalSingleton sharedManager].delegate_game_model = self;
     }
     return gameModelObject;
 }
@@ -74,6 +74,11 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 
 
 #pragma mark DelegateGameModelCalls
+-(void)removePopoverAndSpinner{
+    
+    [view_popover removeFromSuperview];
+    [spinner removeFromSuperview];
+}
 - (void)changeMyTurnLabelMessage:(BOOL)status{
     
     if (status) {
@@ -316,15 +321,10 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 -(void)share{
     NSLog(@"share");
-    // Create the item to share (in this example, a url)
-	NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
+	/*NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
 	SHKItem *item = [SHKItem URL:url title:@"ShareKit is Awesome!"];
-    
-	// Get the ShareKit action sheet
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-    [actionSheet showInView:self.view];
-    //[actionSheet showFromToolbar:self.navigationController.toolbar];
-    //[actionSheet showFromRect:CGRectMake(0, 0, 500, 600) inView:self.view animated:YES];
+    [actionSheet showInView:self.view];*/
 }
 -(void)playerVsPlayer{
     [self.gameModelObject playSound:kButtonClick];
