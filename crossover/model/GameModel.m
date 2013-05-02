@@ -172,7 +172,11 @@
             if(abs(diff_row) <= 1 && abs(diff_col) <=1
                && [RulesForSingleJumpVsPalyer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y]){
                 [self sendTurn:[[NSDictionary alloc] initWithObjectsAndKeys:
-                                [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions", nil]];
+                                [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions",
+                                [NSString stringWithFormat:@"%d", tag_coin_picked], @"move",
+                                [NSString stringWithFormat:@"%d", int_array_index], @"newposition",
+                                 @"0", @"captured",
+                                nil]];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
@@ -181,8 +185,6 @@
                 if ([GlobalSingleton sharedManager].GC) {
                     [GlobalSingleton sharedManager].GC_my_turn = FALSE;
                     [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:FALSE];
-                    [GlobalSingleton sharedManager].int_GC_move = tag_coin_picked;
-                    [GlobalSingleton sharedManager].int_GC_newposition = int_array_index;
                     //[self sendMove];
                 }
                 if (![GlobalSingleton sharedManager].GC) {
@@ -195,6 +197,12 @@
                       ( abs(diff_row)==2 && abs(diff_col) ==0) ||
                       ( abs(diff_row)==2 && abs(diff_col) ==2) )
                      && ([RulesForDoubleJumpvsPlayer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y])){
+                [self sendTurn:[[NSDictionary alloc] initWithObjectsAndKeys:
+                                [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions",
+                                [NSString stringWithFormat:@"%d", tag_coin_picked], @"move",
+                                [NSString stringWithFormat:@"%d", int_array_index], @"newposition",
+                                [NSString stringWithFormat:@"%d", coin_eliminated], @"captured",
+                                nil]];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
@@ -419,6 +427,11 @@
     int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
     NSString *statusString = [NSString stringWithFormat:@"Player %d's Turn (that's you)", playerNum];
     
+    NSError *error = NULL;
+    NSString *responseData = [NSString stringWithUTF8String:[match.matchData bytes]];
+    NSLog(@"statusString%@",responseData);
+    //NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+    
     [GlobalSingleton sharedManager].GC_my_turn = TRUE;
     [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
     
@@ -463,6 +476,7 @@
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSData *data =
     [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"jsonString %@", jsonString);
     NSUInteger currentIndex = [currentMatch.participants
                                indexOfObject:currentMatch.currentParticipant];
     GKTurnBasedParticipant *nextParticipant;
@@ -472,6 +486,9 @@
                                    matchData:data completionHandler:^(NSError *error) {
                                        if (error) {
                                            NSLog(@"%@", error);
+                                       }
+                                       else{
+                                           NSLog(@"endTurnWithNextParticipant");
                                        }
                                    }];
     
