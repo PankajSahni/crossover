@@ -425,22 +425,22 @@
 -(void)takeTurn:(GKTurnBasedMatch *)match {
     NSLog(@"Taking turn for existing game...");
     int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
-    NSString *statusString = [NSString stringWithFormat:@"Player %d's Turn (that's you)", playerNum];
-    
+    NSString *playerNumString = [NSString stringWithFormat:@"%d", playerNum];
+    NSLog(@"statusString%@",playerNumString);
     NSError *error = NULL;
-    NSString *responseData = [NSString stringWithUTF8String:[match.matchData bytes]];
-    NSLog(@"statusString%@",responseData);
-    //NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
-    
+    NSData *responseData = match.matchData;
+    NSDictionary *dictionary_response = 
+[NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+    NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"player_positions"]];
+    [GlobalSingleton sharedManager].array_initial_player_positions = nil;
+    [GlobalSingleton sharedManager].array_initial_player_positions = player_positions;
     [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+    [GlobalSingleton sharedManager].string_my_turn = playerNumString;
     [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
+    [[GlobalSingleton sharedManager].delegate_game_model getBoard];
+    [[GlobalSingleton sharedManager].delegate_game_model removePopoverAndSpinner];
+    [[GlobalSingleton sharedManager].delegate_game_model animateComputerOrGameCenterMove:dictionary_response];
     
-
-    if ([match.matchData bytes]) {
-      /*  NSString *storySoFar = [NSString stringWithUTF8String:[match.matchData bytes]];
-        mainTextController.text = storySoFar;
-        [self checkForEnding:match.matchData];*/
-    }
 }
 
 -(void)layoutMatch:(GKTurnBasedMatch *)match {
