@@ -173,6 +173,8 @@
                && [RulesForSingleJumpVsPalyer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y]){
                 [self sendTurn:[[NSDictionary alloc] initWithObjectsAndKeys:
                                 [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions",
+                                [GlobalSingleton sharedManager].array_captured_p1_coins, @"captured_p1_coins",
+                                [GlobalSingleton sharedManager].array_captured_p2_coins, @"captured_p2_coins",
                                 [NSString stringWithFormat:@"%d", tag_coin_picked], @"move",
                                 [NSString stringWithFormat:@"%d", int_array_index], @"newposition",
                                  @"0", @"captured",
@@ -199,6 +201,8 @@
                      && ([RulesForDoubleJumpvsPlayer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y])){
                 [self sendTurn:[[NSDictionary alloc] initWithObjectsAndKeys:
                                 [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions",
+                                [GlobalSingleton sharedManager].array_captured_p1_coins, @"captured_p1_coins",
+                                [GlobalSingleton sharedManager].array_captured_p2_coins, @"captured_p2_coins",
                                 [NSString stringWithFormat:@"%d", tag_coin_picked], @"move",
                                 [NSString stringWithFormat:@"%d", int_array_index], @"newposition",
                                 [NSString stringWithFormat:@"%d", coin_eliminated], @"captured",
@@ -422,24 +426,34 @@
     [[GlobalSingleton sharedManager].delegate_game_model removePopoverAndSpinner];
 }
 
--(void)takeTurn:(GKTurnBasedMatch *)match {
-    NSLog(@"Taking turn for existing game...");
+-(void)processTurn:(GKTurnBasedMatch *)match{
     int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
     NSString *playerNumString = [NSString stringWithFormat:@"%d", playerNum];
     NSLog(@"statusString%@",playerNumString);
     NSError *error = NULL;
     NSData *responseData = match.matchData;
-    NSDictionary *dictionary_response = 
-[NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
-    NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"player_positions"]];
+    NSDictionary *dictionary_response =
+    [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"player_positions"]];
+    NSMutableArray *captured_p1_coins = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"captured_p1_coins"]];
+    NSMutableArray *captured_p2_coins = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"captured_p2_coins"]];
+    
     [GlobalSingleton sharedManager].array_initial_player_positions = nil;
     [GlobalSingleton sharedManager].array_initial_player_positions = player_positions;
-    [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+    [GlobalSingleton sharedManager].array_captured_p1_coins = nil;
+    [GlobalSingleton sharedManager].array_captured_p1_coins = captured_p1_coins;
+    [GlobalSingleton sharedManager].array_captured_p2_coins = nil;
+    [GlobalSingleton sharedManager].array_captured_p2_coins = captured_p2_coins;
     [GlobalSingleton sharedManager].string_my_turn = playerNumString;
-    [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
     [[GlobalSingleton sharedManager].delegate_game_model getBoard];
     [[GlobalSingleton sharedManager].delegate_game_model removePopoverAndSpinner];
     [[GlobalSingleton sharedManager].delegate_game_model animateComputerOrGameCenterMove:dictionary_response];
+}
+-(void)takeTurn:(GKTurnBasedMatch *)match {
+    NSLog(@"Taking turn for existing game...");
+    [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+    [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
+    [self processTurn:match];
     
 }
 
@@ -453,18 +467,20 @@
         int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
         statusString = [NSString stringWithFormat:@"Player %d's Turn", playerNum];
     }
-   /* statusLabel.text = statusString;
-    textInputField.enabled = NO;
-    NSString *storySoFar = [NSString stringWithUTF8String:[match.matchData bytes]];
-    mainTextController.text = storySoFar;
-    [self checkForEnding:match.matchData];*/
+    [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+    [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:FALSE];
+    [self processTurn:match];
 }
 
 -(void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match {
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Another game needs your attention!" message:notice delegate:self cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
     [av show];
 }
-
+-(void)notifyEndGame{
+    NSString *message = @"message";
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Game Ended, Go back and choose new game" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [av show];
+}
 -(void)recieveEndGame:(GKTurnBasedMatch *)match {
     [self layoutMatch:match];
 }

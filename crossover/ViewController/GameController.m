@@ -78,6 +78,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     
     [view_popover removeFromSuperview];
     [spinner removeFromSuperview];
+    [self refreshCapturedBlocks];
 }
 - (void)changeMyTurnLabelMessage:(BOOL)status{
     
