@@ -15,7 +15,7 @@
 //
 
 #import "GCTurnBasedMatchHelper.h"
-
+#import "GlobalSingleton.h"
 @implementation GCTurnBasedMatchHelper
 @synthesize gameCenterAvailable;
 @synthesize currentMatch;
@@ -64,7 +64,8 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     if ([GKLocalPlayer localPlayer].isAuthenticated && 
         !userAuthenticated) {
         NSLog(@"Authentication changed: player authenticated.");
-        userAuthenticated = TRUE;           
+        userAuthenticated = TRUE;
+        [self findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
     } else if (![GKLocalPlayer localPlayer].isAuthenticated && 
                userAuthenticated) {
         NSLog(@"Authentication changed: player not authenticated");
@@ -90,6 +91,7 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
          authenticateWithCompletionHandler:setGKEventHandlerDelegate];        
     } else {
         NSLog(@"Already authenticated!");
+        [self findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
         setGKEventHandlerDelegate(nil);
     }
 }
@@ -113,6 +115,8 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
 #pragma mark GKTurnBasedMatchmakerViewControllerDelegate
 
 -(void)turnBasedMatchmakerViewController: (GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)match {
+    
+    [self handleMatchEnded:match];
     [presentingViewController dismissModalViewControllerAnimated:YES];
     self.currentMatch = match;
     GKTurnBasedParticipant *firstParticipant = [match.participants objectAtIndex:0];
@@ -125,6 +129,7 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     } else {
         if ([match.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) {
             NSLog(@"It's your turn!");
+            
             // It's your turn!
             [delegate takeTurn:match];
         } else {
@@ -203,6 +208,59 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     } else {
         [delegate sendNotice:@"Another Game Ended!" forMatch:match];
     }
+//[self deleteMatch];
+
 }
 
+-(void)deleteMatch{
+    //   load all of the matches the player is currently a part of
+    [GKTurnBasedMatch loadMatchesWithCompletionHandler:^(NSArray *matches, NSError *error)
+    {
+        NSLog(@"Error loading matches: %@", error);
+        
+        //   create some placeholder match data
+        NSString *matchString         = @"Deleting match";
+        NSData *matchData            = [matchString dataUsingEncoding:NSUTF8StringEncoding];
+        
+        //   for each match
+        for (GKTurnBasedMatch *match in matches)
+        {
+            //   log the id of the match
+            NSLog(@"ID of match we are removing: %@", match.matchID);
+            
+            //   for each player we set their outcome to 'tied'
+            for (GKTurnBasedParticipant *participant in match.participants)
+                participant.matchOutcome      = GKTurnBasedMatchOutcomeTied;
+            
+            //   end the match
+            [match endMatchInTurnWithMatchData:matchData completionHandler:^(NSError *error)
+             {
+                 NSLog(@"Error ending the match: %@", error);
+                 
+                 //   and then remove it
+                 [match removeWithCompletionHandler:^(NSError *error)
+                  {
+                      NSLog(@"Error removing match: %@", error);
+                  }];
+             }];
+        }
+    }];
+}
+/*
+- (void)removeFromGameCenter
+{
+    [match removeWithCompletionHandler:^(NSError * error)
+     {
+         if (error)
+         {
+             NSLog(@"Error removing match %@: %@",
+                   _match.matchID, error.localizedDescription);
+             return;
+         }
+         
+         NSLog(@"Match %@ removed from Game Center",
+               _match.matchID);
+         _terminated = YES;
+     }];
+}*/
 @end

@@ -40,6 +40,8 @@
 @synthesize me;
 @synthesize gc_opponent;
 @synthesize delegate_game_model;
+@synthesize game_uiviewcontroller;
+@synthesize isPlayer1;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc

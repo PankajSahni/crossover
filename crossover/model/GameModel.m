@@ -199,6 +199,7 @@
                       ( abs(diff_row)==2 && abs(diff_col) ==0) ||
                       ( abs(diff_row)==2 && abs(diff_col) ==2) )
                      && ([RulesForDoubleJumpvsPlayer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y])){
+                coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
                 [self sendTurn:[[NSDictionary alloc] initWithObjectsAndKeys:
                                 [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions",
                                 [GlobalSingleton sharedManager].array_captured_p1_coins, @"captured_p1_coins",
@@ -211,7 +212,6 @@
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:int_array_index withObject:[GlobalSingleton sharedManager].string_my_turn];
-                coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
                 if ([GlobalSingleton sharedManager].GC) {
                     [GlobalSingleton sharedManager].GC_my_turn = FALSE;
                     [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:FALSE];
@@ -267,11 +267,6 @@
             }
         }
     }
-}
-
--(void)findMatchWithViewController:(UIViewController *)viewController{
-    [GlobalSingleton sharedManager].me = [[GKLocalPlayer localPlayer]alias];
-    [[GCTurnBasedMatchHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:viewController];
 }
 -(NSMutableDictionary *)updateTimerForPlayer{
     [self timerSound];
@@ -430,16 +425,26 @@
     int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
     NSString *playerNumString = [NSString stringWithFormat:@"%d", playerNum];
     NSLog(@"statusString%@",playerNumString);
+    if (playerNum == 1) {
+        [GlobalSingleton sharedManager].isPlayer1 = YES;
+    }else{
+        [GlobalSingleton sharedManager].isPlayer1 = NO;
+    }
+    NSLog(@"isPlayer1 %d",isPlayer1);
     NSError *error = NULL;
     NSData *responseData = match.matchData;
     NSDictionary *dictionary_response =
     [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+    NSLog(@"dictionary_response%@",dictionary_response);
 NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"player_positions"]];
     NSMutableArray *captured_p1_coins = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"captured_p1_coins"]];
     NSMutableArray *captured_p2_coins = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"captured_p2_coins"]];
     
     [GlobalSingleton sharedManager].array_initial_player_positions = nil;
     [GlobalSingleton sharedManager].array_initial_player_positions = player_positions;
+    /*for (int i =0; i <= 48; i++) {
+        NSLog(@"player_positions %d %@",i,[player_positions objectAtIndex:i]);
+    }*/
     [GlobalSingleton sharedManager].array_captured_p1_coins = nil;
     [GlobalSingleton sharedManager].array_captured_p1_coins = captured_p1_coins;
     [GlobalSingleton sharedManager].array_captured_p2_coins = nil;
@@ -448,6 +453,11 @@ NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictio
     [[GlobalSingleton sharedManager].delegate_game_model getBoard];
     [[GlobalSingleton sharedManager].delegate_game_model removePopoverAndSpinner];
     [[GlobalSingleton sharedManager].delegate_game_model animateComputerOrGameCenterMove:dictionary_response];
+    
+    [[GCTurnBasedMatchHelper sharedInstance]
+     findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
+    [[GlobalSingleton sharedManager].delegate_game_model addPopoverAndSpinner];
+    
 }
 -(void)takeTurn:(GKTurnBasedMatch *)match {
     NSLog(@"Taking turn for existing game...");

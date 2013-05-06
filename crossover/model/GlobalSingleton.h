@@ -42,6 +42,8 @@
 @property (nonatomic, retain) NSString *string_difficulty;
 @property (nonatomic, retain) NSString *me;
 @property (nonatomic, retain) NSString *gc_opponent;
+@property (nonatomic, retain) UIViewController *game_uiviewcontroller;
+@property (nonatomic, assign) BOOL isPlayer1;
 @property (nonatomic, retain) id <GameModelDelegate> delegate_game_model;
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal

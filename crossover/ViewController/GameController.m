@@ -75,10 +75,13 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 
 #pragma mark DelegateGameModelCalls
 -(void)removePopoverAndSpinner{
-    
     [view_popover removeFromSuperview];
     [spinner removeFromSuperview];
     [self refreshCapturedBlocks];
+}
+-(void)addPopoverAndSpinner{
+    [self.view addSubview:view_popover];
+    [self.view addSubview:spinner];
 }
 - (void)changeMyTurnLabelMessage:(BOOL)status{
     
@@ -222,12 +225,16 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     }
     NSString *opposite_player;
     if ([GlobalSingleton sharedManager].GC) {
-        if (self.gameModelObject.isPlayer1) {
+        NSLog(@"self.gameModelObject.isPlayer1 %d",self.gameModelObject.isPlayer1);
+        if ([GlobalSingleton sharedManager].isPlayer1) {
+            
             opposite_player = @"2";
         }else{
+            
             opposite_player = @"1";
         }
     }else{
+        
         opposite_player = @"2";
     }
     
@@ -242,14 +249,18 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                      animations:^{
                          UIButton *move_coin = (UIButton *)[self.view viewWithTag:move+2000];
                          move_coin.frame = move_to;
+                         
                      }
                      completion:^(BOOL finished){
                          [[GlobalSingleton sharedManager].array_initial_player_positions
                           replaceObjectAtIndex:move withObject:@"0"];
                          [[GlobalSingleton sharedManager].array_initial_player_positions
                           replaceObjectAtIndex:newposition withObject:opposite_player];
+                         
                          if (captured) {
+                             
                              [self animateEliminatedCapturedCoinWithIndex:captured];
+                             
                          }else {
                              if (![GlobalSingleton sharedManager].GC) {
                                  [self.gameModelObject togglePlayer];
@@ -405,14 +416,11 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
         if([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"] && [[GlobalSingleton sharedManager].string_my_turn isEqualToString:@"2"]){
             NSDictionary *computer_turn = [self.gameModelObject computerTurn];
             [self animateComputerOrGameCenterMove:computer_turn];
+            
         }
     }
 }
--(void)GCFindMatch{
-    AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    [self.gameModelObject findMatchWithViewController:delegate.viewController];
-    
-}
+
 -(void)playerVsGameCenter{
     [self.gameModelObject playSound:kButtonClick];
     button_vs_player.alpha = 0.5;
@@ -429,14 +437,11 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                          [button_vs_player removeFromSuperview];
                          [button_vs_computer removeFromSuperview];
                          [button_vs_gamecenter removeFromSuperview];
-                         
                          [self.view addSubview:spinner];
-                         
-                         
                          [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
-                         [self performSelector:@selector(GCFindMatch) withObject:nil afterDelay:5.0];
                          [GlobalSingleton sharedManager].GC = TRUE;
-                         
+                         AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+                         [GlobalSingleton sharedManager].game_uiviewcontroller = delegate.viewController;
                      }];
 	[UIView commitAnimations];
     
