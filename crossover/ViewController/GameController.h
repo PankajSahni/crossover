@@ -26,6 +26,11 @@
     UIButton *button_medium;
     UIButton *button_hard;
     UIButton *button_cancel;
+    UIButton *button_settings;
+    UIButton *button_pause;
+    UIButton *button_refresh;
+    UIButton *button_share_2;
+    UIButton *button_mainmenu;
     UIView *view_popover;
     UIActivityIndicatorView *spinner;
     CGRect cgrect_dragged_button;

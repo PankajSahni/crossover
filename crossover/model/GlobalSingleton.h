@@ -46,6 +46,8 @@
 @property (nonatomic, assign) BOOL isPlayer1;
 @property (nonatomic, retain) id <GameModelDelegate> delegate_game_model;
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
+@property (nonatomic, assign) BOOL animation_in_progress;
+@property (nonatomic, retain) NSDictionary *save_game;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal
                                          width:(float )widthVal

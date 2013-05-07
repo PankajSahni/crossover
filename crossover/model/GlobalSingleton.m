@@ -42,6 +42,8 @@
 @synthesize delegate_game_model;
 @synthesize game_uiviewcontroller;
 @synthesize isPlayer1;
+@synthesize animation_in_progress;
+@synthesize save_game;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc

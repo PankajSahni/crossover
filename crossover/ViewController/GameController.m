@@ -161,7 +161,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 #pragma mark Animations
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
-    
+    [self disableButtonDuringAnimation:FALSE];
     CGRect move_to;
     NSString *player_at_position = [[GlobalSingleton sharedManager].array_initial_player_positions objectAtIndex:captured];
     if ([player_at_position isEqualToString:@"1"]) {
@@ -208,7 +208,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                              [self animateComputerOrGameCenterMove:computer_turn];
                          }
                          [self refreshCapturedBlocks];
-                         
+                         [self disableButtonDuringAnimation:TRUE];
                      }];
     
 	[UIView commitAnimations];
@@ -245,6 +245,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     imageview_blank_coin.frame = button.frame;
     [self.view insertSubview:imageview_blank_coin belowSubview:button];
     [self.gameModelObject playSound:kMove];
+    [self disableButtonDuringAnimation:FALSE];
     [UIView animateWithDuration:1.0
                      animations:^{
                          UIButton *move_coin = (UIButton *)[self.view viewWithTag:move+2000];
@@ -258,13 +259,12 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                           replaceObjectAtIndex:newposition withObject:opposite_player];
                          
                          if (captured) {
-                             
                              [self animateEliminatedCapturedCoinWithIndex:captured];
-                             
                          }else {
                              if (![GlobalSingleton sharedManager].GC) {
                                  [self.gameModelObject togglePlayer];
                              }
+                             [self disableButtonDuringAnimation:TRUE];
                              [self getBoard];
                          }
                      }];
@@ -272,6 +272,14 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     
 }
 
+-(void)disableButtonDuringAnimation:(BOOL)off_on{
+    
+    button_refresh.enabled = off_on;
+    button_share_2.enabled = off_on;
+    button_mainmenu.enabled = off_on;
+    button_pause.enabled = off_on;
+    button_settings.enabled = off_on;
+}
 -(void)getTimer{
     [GlobalSingleton sharedManager].int_minutes_p1 = 2;
     [GlobalSingleton sharedManager].int_seconds_p1 = 0;
@@ -386,6 +394,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event{
+    [self disableButtonDuringAnimation:FALSE];
     tag_coin_picked = ctrl.tag - 2000;
     
     UIImage *image_blank_coin = [UIImage imageNamed:@"blank_coin.png"];
@@ -395,6 +404,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view insertSubview:imageview_blank_coin belowSubview:button];
 }
 - (void) dragMoving:(UIControl *) ctrl withEvent:(UIEvent *) event{
+    [self disableButtonDuringAnimation:FALSE];
     UITouch *t = [[event allTouches] anyObject];
     CGPoint pPrev = [t previousLocationInView:ctrl];
     CGPoint p = [t locationInView:ctrl];
@@ -405,6 +415,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     ctrl.center = center;
 }
 - (IBAction) dragEnded:(UIControl *) ctrl withEvent:(UIEvent *) event{
+    [self disableButtonDuringAnimation:TRUE];
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint end_point = [touch locationInView:self.view];
     int captured = [self.gameModelObject
@@ -902,36 +913,36 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     
 }
 -(void)getAllOptionButtonsForUser{
-    UIButton *settings_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    settings_button.frame = [cgRectObject settingsButtonCGRect];
-    [settings_button setBackgroundImage:[UIImage imageNamed:@"button_settings.png"]
+    button_settings = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_settings.frame = [cgRectObject settingsButtonCGRect];
+    [button_settings setBackgroundImage:[UIImage imageNamed:@"button_settings.png"]
                             forState:UIControlStateNormal];
-    [settings_button addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:settings_button];
-    UIButton *pause_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    pause_button.frame = [cgRectObject pauseButtonCGRect];
-    [pause_button setBackgroundImage:[UIImage imageNamed:@"button_pause.png"]
+    [button_settings addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_settings];
+    button_pause = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_pause.frame = [cgRectObject pauseButtonCGRect];
+    [button_pause setBackgroundImage:[UIImage imageNamed:@"button_pause.png"]
                                forState:UIControlStateNormal];
-    [pause_button addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:pause_button];
-    UIButton *refresh_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    refresh_button.frame = [cgRectObject refreshButtonCGRect];
-    [refresh_button setBackgroundImage:[UIImage imageNamed:@"button_refresh.png"]
+    [button_pause addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_pause];
+    button_refresh = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_refresh.frame = [cgRectObject refreshButtonCGRect];
+    [button_refresh setBackgroundImage:[UIImage imageNamed:@"button_refresh.png"]
                                forState:UIControlStateNormal];
-    [refresh_button addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:refresh_button];
-    UIButton *share_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    share_button.frame = [cgRectObject shareButtonCGRect];
-    [share_button setBackgroundImage:[UIImage imageNamed:@"button_share.png"]
+    [button_refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_refresh];
+    button_share_2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_share_2.frame = [cgRectObject shareButtonCGRect];
+    [button_share_2 setBackgroundImage:[UIImage imageNamed:@"button_share.png"]
                                forState:UIControlStateNormal];
-    [share_button addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:share_button];
-    UIButton *mainmenu_button = [UIButton buttonWithType:UIButtonTypeCustom];
-    mainmenu_button.frame = [cgRectObject mainmenuButtonCGRect];
-    [mainmenu_button setBackgroundImage:[UIImage imageNamed:@"button_mainmenu.png"]
+    [button_share_2 addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_share_2];
+    button_mainmenu = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_mainmenu.frame = [cgRectObject mainmenuButtonCGRect];
+    [button_mainmenu setBackgroundImage:[UIImage imageNamed:@"button_mainmenu.png"]
                             forState:UIControlStateNormal];
-    [mainmenu_button addTarget:self action:@selector(mainmenu) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:mainmenu_button];
+    [button_mainmenu addTarget:self action:@selector(mainmenu) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_mainmenu];
 }
 -(void)setPlayerLabels{
     CGRect cgrect_temp = [cgRectObject labelplayerOneTurnCGRect];

@@ -435,6 +435,7 @@
     NSData *responseData = match.matchData;
     NSDictionary *dictionary_response =
     [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+    [GlobalSingleton sharedManager].save_game = dictionary_response;
     NSLog(@"dictionary_response%@",dictionary_response);
 NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"player_positions"]];
     NSMutableArray *captured_p1_coins = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"captured_p1_coins"]];
@@ -454,9 +455,9 @@ NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictio
     [[GlobalSingleton sharedManager].delegate_game_model removePopoverAndSpinner];
     [[GlobalSingleton sharedManager].delegate_game_model animateComputerOrGameCenterMove:dictionary_response];
     
-    [[GCTurnBasedMatchHelper sharedInstance]
-     findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
-    [[GlobalSingleton sharedManager].delegate_game_model addPopoverAndSpinner];
+    //[[GCTurnBasedMatchHelper sharedInstance]
+    // findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
+    //[[GlobalSingleton sharedManager].delegate_game_model addPopoverAndSpinner];
     
 }
 -(void)takeTurn:(GKTurnBasedMatch *)match {
