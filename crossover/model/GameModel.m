@@ -435,33 +435,29 @@
     NSData *responseData = match.matchData;
     NSDictionary *dictionary_response =
     [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+    [GlobalSingleton sharedManager].save_game = nil;
     [GlobalSingleton sharedManager].save_game = dictionary_response;
-    NSLog(@"dictionary_response%@",dictionary_response);
-NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"player_positions"]];
+    [GlobalSingleton sharedManager].string_my_turn = playerNumString;
+    [self showMove:dictionary_response];
+}
+-(void)showMove:(NSDictionary *)dictionary_response{
+    NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"player_positions"]];
     NSMutableArray *captured_p1_coins = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"captured_p1_coins"]];
     NSMutableArray *captured_p2_coins = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"captured_p2_coins"]];
-    
     [GlobalSingleton sharedManager].array_initial_player_positions = nil;
     [GlobalSingleton sharedManager].array_initial_player_positions = player_positions;
-    /*for (int i =0; i <= 48; i++) {
-        NSLog(@"player_positions %d %@",i,[player_positions objectAtIndex:i]);
-    }*/
     [GlobalSingleton sharedManager].array_captured_p1_coins = nil;
     [GlobalSingleton sharedManager].array_captured_p1_coins = captured_p1_coins;
     [GlobalSingleton sharedManager].array_captured_p2_coins = nil;
     [GlobalSingleton sharedManager].array_captured_p2_coins = captured_p2_coins;
-    [GlobalSingleton sharedManager].string_my_turn = playerNumString;
+    
     [[GlobalSingleton sharedManager].delegate_game_model getBoard];
     [[GlobalSingleton sharedManager].delegate_game_model removePopoverAndSpinner];
     [[GlobalSingleton sharedManager].delegate_game_model animateComputerOrGameCenterMove:dictionary_response];
-    
-    //[[GCTurnBasedMatchHelper sharedInstance]
-    // findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
-    //[[GlobalSingleton sharedManager].delegate_game_model addPopoverAndSpinner];
-    
 }
 -(void)takeTurn:(GKTurnBasedMatch *)match {
     NSLog(@"Taking turn for existing game...");
+    [GlobalSingleton sharedManager].GC = TRUE;
     [GlobalSingleton sharedManager].GC_my_turn = TRUE;
     [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
     [self processTurn:match];

@@ -115,8 +115,6 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
 #pragma mark GKTurnBasedMatchmakerViewControllerDelegate
 
 -(void)turnBasedMatchmakerViewController: (GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)match {
-    
-    [self handleMatchEnded:match];
     [presentingViewController dismissModalViewControllerAnimated:YES];
     self.currentMatch = match;
     GKTurnBasedParticipant *firstParticipant = [match.participants objectAtIndex:0];
@@ -203,6 +201,18 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
 
 -(void)handleMatchEnded:(GKTurnBasedMatch *)match {
     NSLog(@"Game has ended");
+    NSString *matchString         = @"Deleting match";
+    NSData *matchData            = [matchString dataUsingEncoding:NSUTF8StringEncoding];
+    [match endMatchInTurnWithMatchData:matchData completionHandler:^(NSError *error)
+     {
+         NSLog(@"Error ending the match: %@", error);
+         
+         //   and then remove it
+         [match removeWithCompletionHandler:^(NSError *error)
+          {
+              NSLog(@"Error removing match: %@", error);
+          }];
+     }];
     if ([match.matchID isEqualToString:currentMatch.matchID]) {
         [delegate recieveEndGame:match];
     } else {

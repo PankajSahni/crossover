@@ -31,6 +31,7 @@
     UIButton *button_refresh;
     UIButton *button_share_2;
     UIButton *button_mainmenu;
+    UIButton *button_replay;
     UIView *view_popover;
     UIActivityIndicatorView *spinner;
     CGRect cgrect_dragged_button;

@@ -106,6 +106,7 @@ typedef enum {
 -(void)resetGame;
 -(void)playSound:(PlaySound)play_sound;
 -(void)setPlayersCapturedCGRect;
+-(void)showMove:(NSDictionary *)dictionary_response;
 -(CGRect)getNewDimensionsByReducingHeight:(int)height
                                     width:(int)width toPixel:(int)pixel;
 
