@@ -74,6 +74,9 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 
 
 #pragma mark DelegateGameModelCalls
+-(void)itsGameCenterTurn{
+    [self getPopoverForGameCenterTurnIfPlayingLocally];
+}
 -(void)removePopoverAndSpinner{
     [view_popover removeFromSuperview];
     [spinner removeFromSuperview];
@@ -160,6 +163,10 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self setPlayerLabels];
 }
 #pragma mark Animations
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    label_player_one.alpha = 1.0;
+    label_player_two.alpha = 1.0;
+}
 -(void)animateEliminatedCapturedCoinWithIndex:(int)captured{
     [self disableButtonDuringAnimation:FALSE];
     CGRect move_to;
@@ -307,6 +314,151 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     time_label_P2.text = @"02:00";
 }
 #pragma mark Events
+
+-(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
+    NSString *image_player = @"";
+    NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
+    if([player isEqualToString:@"1"]){
+        image_player = [all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_one_coin];
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+    }
+    else if([player isEqualToString:@"2"]){
+        image_player = [all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_two_coin];
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+    }
+    else if([player isEqualToString:@"0"]){
+        image_player = @"blank_coin.png";
+        [button setBackgroundImage:[UIImage imageNamed:image_player]
+                          forState:UIControlStateNormal];
+    }
+    else{
+        
+    }
+    if([GlobalSingleton sharedManager].GC){
+        if ([GlobalSingleton sharedManager].GC_my_turn &&
+            [[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
+            [self iAmDraggable:button];
+        }
+    }
+    else if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
+        [self iAmDraggable:button];
+    }
+    return button;
+    
+}
+- (void) iAmDraggable:(UIButton *) button{
+    
+    [button addTarget:self action:@selector(dragBegan:withEvent: )
+     forControlEvents: UIControlEventTouchDown];
+    [button addTarget:self action:@selector(dragMoving:withEvent: )
+     forControlEvents: UIControlEventTouchDragInside];
+    [button addTarget:self action:@selector(dragEnded:withEvent: )
+     forControlEvents: UIControlEventTouchUpInside |
+     UIControlEventTouchUpOutside];
+}
+-(void)startSpinnerOnDidLoad{
+    NSDictionary *device_dimensions =
+    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
+    CGRect rect_temp =
+    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 + 21 ,
+               [[device_dimensions valueForKey:@"height"] intValue]/2 + 21,
+               100,100);
+    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
+    spinner.frame = rect_temp;
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [spinner startAnimating];
+}
+-(void)refreshCapturedBlocks{
+    for (int i = 0; i <= 15; i ++) {
+        UIImageView *coin_for_player_one =  (UIImageView *)[self.view viewWithTag:i+4000];
+        UIImageView *coin_for_player_two =  (UIImageView *)[self.view viewWithTag:i+5000];
+        [coin_for_player_one removeFromSuperview];
+        [coin_for_player_two removeFromSuperview];
+    }
+    NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
+    UIImage *image_player_one =
+    [UIImage imageNamed:[all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_one_coin]];
+    UIImage *image_player_two =
+    [UIImage imageNamed:[all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_two_coin]];
+    for (int i = 0; i <= 15; i ++) {
+        if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"1"]){
+            imageview_captured = [[UIImageView alloc] initWithImage:image_player_one];
+            imageview_captured.frame =
+            [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
+            imageview_captured.tag = i + 4000;
+            [self.view addSubview:imageview_captured];
+            
+        }
+        if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"1"]){
+            imageview_captured = [[UIImageView alloc] initWithImage:image_player_two];
+            imageview_captured.frame =
+            [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
+            imageview_captured.tag = i + 5000;
+            [self.view addSubview:imageview_captured];
+        }
+    }
+    
+}
+-(void)getAllOptionButtonsForUser{
+    
+    button_settings = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_settings.frame = [cgRectObject settingsButtonCGRect];
+    [button_settings setBackgroundImage:[UIImage imageNamed:@"button_settings.png"]
+                               forState:UIControlStateNormal];
+    [button_settings addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_settings];
+    button_pause = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_pause.frame = [cgRectObject pauseButtonCGRect];
+    [button_pause setBackgroundImage:[UIImage imageNamed:@"button_pause.png"]
+                            forState:UIControlStateNormal];
+    [button_pause addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_pause];
+    button_refresh = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_refresh.frame = [cgRectObject refreshButtonCGRect];
+    [button_refresh setBackgroundImage:[UIImage imageNamed:@"button_refresh.png"]
+                              forState:UIControlStateNormal];
+    [button_refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_refresh];
+    button_share_2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_share_2.frame = [cgRectObject shareButtonCGRect];
+    [button_share_2 setBackgroundImage:[UIImage imageNamed:@"button_share.png"]
+                              forState:UIControlStateNormal];
+    [button_share_2 addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_share_2];
+    button_mainmenu = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_mainmenu.frame = [cgRectObject mainmenuButtonCGRect];
+    [button_mainmenu setBackgroundImage:[UIImage imageNamed:@"button_mainmenu.png"]
+                               forState:UIControlStateNormal];
+    [button_mainmenu addTarget:self action:@selector(mainmenu) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_mainmenu];
+}
+-(void)setPlayerLabels{
+    CGRect cgrect_temp = [cgRectObject labelplayerOneTurnCGRect];
+    label_player_one = [[UILabel alloc] initWithFrame: cgrect_temp];
+    [self.view addSubview:label_player_one];
+    cgrect_temp = [cgRectObject labelplayerTwoTurnCGRect];
+    label_player_two = [[UILabel alloc] initWithFrame: cgrect_temp];
+    [self.view addSubview:label_player_two];
+    UIFont *font_digital = [UIFont
+                            fontWithName:@"Pump Demi Bold LET"
+                            size:[cgRectObject settingFontSize]];
+    [label_player_one setFont:font_digital];
+    [label_player_two setFont:font_digital];
+    label_player_one.textColor = [UIColor whiteColor];
+    label_player_two.textColor = [UIColor whiteColor];
+    label_player_one.backgroundColor = [UIColor clearColor];
+    label_player_two.backgroundColor = [UIColor clearColor];
+    label_player_one.text = @"player 1";
+    if ([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"]) {
+        [label_player_two setText:@"computer"];
+    }else{
+        label_player_two.text = @"player 2";
+    }
+    
+}
+
 -(void)startGame{
     [self.gameModelObject playSound:kButtonClick];
     button_new_game.alpha = 0.5;
@@ -329,9 +481,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                      }];
 	[UIView commitAnimations];
 }
--(void)help{
-    [self getPopOverToHelp];
-}
+
 -(void)showWinner:(int)winner{
     [timer invalidate];
     ShowWinnerViewController *showWinner = [[ShowWinnerViewController alloc] init];
@@ -339,61 +489,8 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     showWinner.winner = winner;
     [self presentModalViewController:showWinner animated:YES];
 }
--(void)share{
-    NSLog(@"share");
-	/*NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
-	SHKItem *item = [SHKItem URL:url title:@"ShareKit is Awesome!"];
-	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-    [actionSheet showInView:self.view];*/
-}
--(void)playerVsPlayer{
-    [GlobalSingleton sharedManager].GC = FALSE;
-    [self.gameModelObject playSound:kButtonClick];
-    button_vs_player.alpha = 0.5;
-    button_vs_computer.alpha = 0.5;
-    button_vs_gamecenter.alpha = 0.5;
-    [UIView animateWithDuration:1.0
-                     animations:^{
-                         button_vs_player.alpha = 0;
-                         button_vs_computer.alpha = 0;
-                         button_vs_gamecenter.alpha = 0;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         [button_vs_player removeFromSuperview];
-                         [button_vs_computer removeFromSuperview];
-                         [button_vs_gamecenter removeFromSuperview];
-                         [view_popover removeFromSuperview];
-                         [self getTimer];
-                         [self StartTimer];
-                     }];
-	[UIView commitAnimations];
-    
-}
--(void)playerVsComputer{
-    [GlobalSingleton sharedManager].GC = FALSE;
-    [self.gameModelObject playSound:kButtonClick];
-    button_vs_player.alpha = 0.5;
-    button_vs_computer.alpha = 0.5;
-    button_vs_gamecenter.alpha = 0.5;
-    [UIView animateWithDuration:1.0
-                     animations:^{
-                         button_vs_player.alpha = 0;
-                         button_vs_computer.alpha = 0;
-                         button_vs_gamecenter.alpha = 0;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         [button_vs_player removeFromSuperview];
-                         [button_vs_computer removeFromSuperview];
-                         [button_vs_gamecenter removeFromSuperview];
-                         [view_popover removeFromSuperview];
-                         [label_player_two setText:@"computer"];
-                         [self getPopOverToSelectDifficulty];
-                     }];
-	[UIView commitAnimations];
-    [GlobalSingleton sharedManager].string_opponent = @"computer";
-}
+
+
 
 - (void) dragBegan:(UIControl *) ctrl withEvent:(UIEvent *) event{
     [self disableButtonDuringAnimation:FALSE];
@@ -434,32 +531,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     }
 }
 
--(void)playerVsGameCenter{
-    [self.gameModelObject playSound:kButtonClick];
-    button_vs_player.alpha = 0.5;
-    button_vs_computer.alpha = 0.5;
-    button_vs_gamecenter.alpha = 0.5;
-    [UIView animateWithDuration:1.0
-                     animations:^{
-                         button_vs_player.alpha = 0;
-                         button_vs_computer.alpha = 0;
-                         button_vs_gamecenter.alpha = 0;
-                         
-                     }
-                     completion:^(BOOL finished){
-                         [button_vs_player removeFromSuperview];
-                         [button_vs_computer removeFromSuperview];
-                         [button_vs_gamecenter removeFromSuperview];
-                         [self getGameCenterChanges];
-                         [self.view addSubview:spinner];
-                         [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
-                         [GlobalSingleton sharedManager].GC = TRUE;
-                         AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-                         [GlobalSingleton sharedManager].game_uiviewcontroller = delegate.viewController;
-                     }];
-	[UIView commitAnimations];
-    
-}
+
 
 -(void)getGameCenterChanges{
     
@@ -474,13 +546,12 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:button_replay];
     
 }
--(void)replay{
-    
-    [self.gameModelObject showMove:[GlobalSingleton sharedManager].save_game];
-}
+
 -(void) StartTimer{
+    if(![GlobalSingleton sharedManager].GC || [GlobalSingleton sharedManager].need_timer){
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerTick) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    }
 }
 - (void)timerTick{
     
@@ -502,32 +573,21 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     }
     [UIView commitAnimations];
 }
-- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-    label_player_one.alpha = 1.0;
-    label_player_two.alpha = 1.0;
+#pragma mark Remove Backgrounds
+-(void)removeRefreshSubViews{
+    [button_yes removeFromSuperview];
+    [button_no removeFromSuperview];
 }
--(void)pause{
+-(void)removeDifficultyButtons{
     [self.gameModelObject playSound:kButtonClick];
-    [timer invalidate];
-    [self getPopoverToPause];
+    [button_simple removeFromSuperview];
+    [button_medium removeFromSuperview];
+    [button_hard removeFromSuperview];
+    [view_popover removeFromSuperview];
+    [self getTimer];
+    [self StartTimer];
 }
--(void)refresh{
-    [self.gameModelObject playSound:kButtonClick];
-    [timer invalidate];
-    [self getPopoverToRefresh];
-}
-
-- (void)settings{
-    //[self.gameModelObject playSound:kButtonClick];
-    [timer invalidate];
-    [self presentModalViewController:self.settingsViewControllerObject animated:NO];
-}
--(void)mainmenu{
-    [self.gameModelObject playSound:kButtonClick];
-    [timer invalidate];
-    [self getPopoverForMainmenu];
-}
-#pragma mark Backgrounds
+#pragma mark Add Backgrounds
 -(void) getBoard{
     if ([GlobalSingleton sharedManager].GC) {
         [self getGameCenterChanges];
@@ -597,9 +657,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [view_popover addSubview:imageview_crossover_logo];
     [self.view addSubview:view_popover];
 }
--(void)new_game{
-    [self yes_mainmenu];
-}
+
 -(void) getPopOverToStartGame{
     [self getPopOver:0.8];
     int button_width = 240;
@@ -654,12 +712,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_resume addTarget:self action:@selector(resume) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_resume];
 }
--(void)resume{
-    [self.gameModelObject playSound:kButtonClick];
-    [self StartTimer];
-    [button_resume removeFromSuperview];
-    [view_popover removeFromSuperview];
-}
+
 -(void)getPopoverForMainmenu{
     [self getPopOver:1.0];
     int button_width = 240;
@@ -686,27 +739,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:button_no];
 }
 
--(void)receivedPushForGCTurn{
-    [self getPopOver:0.8];
-    [self.view addSubview:spinner];
-    [button_vs_computer removeFromSuperview];
-    [button_vs_gamecenter removeFromSuperview];
-    [button_vs_computer removeFromSuperview];
-    [button_simple removeFromSuperview];
-    [button_medium removeFromSuperview];
-    [button_hard removeFromSuperview];
-    [button_yes removeFromSuperview];
-    [button_new_game removeFromSuperview];
-    [button_help removeFromSuperview];
-    [button_share removeFromSuperview];
-    [self getGameCenterChanges];
-    [self.view addSubview:spinner];
-    [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
-    [GlobalSingleton sharedManager].GC = TRUE;
-    AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    [GlobalSingleton sharedManager].game_uiviewcontroller = delegate.viewController;
-    
-}
+
 -(void)getPopoverForGameCenterTurnIfPlayingLocally{
     [self getPopOver:1.0];
     int button_width = 240;
@@ -732,11 +765,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_no addTarget:self action:@selector(no) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_no];
 }
--(void)yes_showmove{
-    [GlobalSingleton sharedManager].GC = TRUE;
-    [self.gameModelObject resetGame];
-    [self.gameModelObject showMove:[GlobalSingleton sharedManager].save_game];
-}
+
 -(void)getPopoverToRefresh{
     [self getPopOver:1.0];
     int button_width = 240;
@@ -762,29 +791,8 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_no addTarget:self action:@selector(no) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_no];
 }
--(void)yes_refresh{
-    [self.gameModelObject resetGame];
-     [self getTimer];
-    [self StartTimer];
-    //[timer invalidate];
-    //[self StartTimer];
-}
--(void)yes_mainmenu{
-    
-    [GlobalSingleton sharedManager].string_opponent = nil;
-    [self.gameModelObject resetGame];
-    [self getPopOverToStartGame];
-}
--(void)no{
-    [self.gameModelObject playSound:kButtonClick];
-    [self StartTimer];
-    [self removeRefreshSubViews];
-    [view_popover removeFromSuperview];
-}
--(void)removeRefreshSubViews{
-    [button_yes removeFromSuperview];
-    [button_no removeFromSuperview];
-}
+
+
 -(void)getPopOverToSelectPlayer{
     [self getPopOver:0.8];
     int button_width = 240;
@@ -839,11 +847,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_cancel addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_cancel];
 }
--(void)cancel{
-    [button_cancel removeFromSuperview];
-    [view_popover removeFromSuperview];
-    [self getPopOverToStartGame];
-}
+
 -(void)getPopOverToSelectDifficulty{
     [self getPopOver:0.8];
     int button_width = 240;
@@ -881,14 +885,134 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self.view addSubview:button_hard];
     
 }
--(void)removeDifficultyButtons{
+
+#pragma mark Button Events
+-(void)share{
+    NSLog(@"share");
+	/*NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
+     SHKItem *item = [SHKItem URL:url title:@"ShareKit is Awesome!"];
+     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+     [actionSheet showInView:self.view];*/
+}
+-(void)playerVsGameCenter{
     [self.gameModelObject playSound:kButtonClick];
-    [button_simple removeFromSuperview];
-    [button_medium removeFromSuperview];
-    [button_hard removeFromSuperview];
+    button_vs_player.alpha = 0.5;
+    button_vs_computer.alpha = 0.5;
+    button_vs_gamecenter.alpha = 0.5;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         button_vs_player.alpha = 0;
+                         button_vs_computer.alpha = 0;
+                         button_vs_gamecenter.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         [button_vs_player removeFromSuperview];
+                         [button_vs_computer removeFromSuperview];
+                         [button_vs_gamecenter removeFromSuperview];
+                         [self getGameCenterChanges];
+                         [self.view addSubview:spinner];
+                         [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
+                         [GlobalSingleton sharedManager].GC = TRUE;
+                         AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+                         [GlobalSingleton sharedManager].game_uiviewcontroller = delegate.viewController;
+                     }];
+	[UIView commitAnimations];
+    
+}
+-(void)playerVsPlayer{
+    [GlobalSingleton sharedManager].GC = FALSE;
+    [self.gameModelObject playSound:kButtonClick];
+    button_vs_player.alpha = 0.5;
+    button_vs_computer.alpha = 0.5;
+    button_vs_gamecenter.alpha = 0.5;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         button_vs_player.alpha = 0;
+                         button_vs_computer.alpha = 0;
+                         button_vs_gamecenter.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         [button_vs_player removeFromSuperview];
+                         [button_vs_computer removeFromSuperview];
+                         [button_vs_gamecenter removeFromSuperview];
+                         [view_popover removeFromSuperview];
+                         [self getTimer];
+                         [self StartTimer];
+                     }];
+	[UIView commitAnimations];
+    
+}
+-(void)playerVsComputer{
+    [GlobalSingleton sharedManager].GC = FALSE;
+    [self.gameModelObject playSound:kButtonClick];
+    button_vs_player.alpha = 0.5;
+    button_vs_computer.alpha = 0.5;
+    button_vs_gamecenter.alpha = 0.5;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         button_vs_player.alpha = 0;
+                         button_vs_computer.alpha = 0;
+                         button_vs_gamecenter.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                         [button_vs_player removeFromSuperview];
+                         [button_vs_computer removeFromSuperview];
+                         [button_vs_gamecenter removeFromSuperview];
+                         [view_popover removeFromSuperview];
+                         [label_player_two setText:@"computer"];
+                         [self getPopOverToSelectDifficulty];
+                     }];
+	[UIView commitAnimations];
+    [GlobalSingleton sharedManager].string_opponent = @"computer";
+}
+-(void)yes_showmove{
+    [GlobalSingleton sharedManager].GC = TRUE;
+    [self.gameModelObject resetGame];
+    [self.gameModelObject showMove:[GlobalSingleton sharedManager].save_game];
+}
+-(void)new_game{
+    [self yes_mainmenu];
+}
+-(void)replay{
+    [self.gameModelObject showMove:[GlobalSingleton sharedManager].save_game];
+}
+-(void)cancel{
+    [button_cancel removeFromSuperview];
     [view_popover removeFromSuperview];
-    [self getTimer];
+    [self getPopOverToStartGame];
+}
+-(void)resume{
+    [self.gameModelObject playSound:kButtonClick];
     [self StartTimer];
+    [button_resume removeFromSuperview];
+    [view_popover removeFromSuperview];
+}
+-(void)pause{
+    [self.gameModelObject playSound:kButtonClick];
+    [timer invalidate];
+    [self getPopoverToPause];
+}
+-(void)refresh{
+    [self.gameModelObject playSound:kButtonClick];
+    [timer invalidate];
+    [self getPopoverToRefresh];
+}
+
+- (void)settings{
+    //[self.gameModelObject playSound:kButtonClick];
+    [timer invalidate];
+    [self presentModalViewController:self.settingsViewControllerObject animated:NO];
+}
+-(void)mainmenu{
+    [self.gameModelObject playSound:kButtonClick];
+    [timer invalidate];
+    [self getPopoverForMainmenu];
+}
+-(void)help{
+    [self getPopOverToHelp];
 }
 -(void)simple{
     [self removeDifficultyButtons];
@@ -904,152 +1028,46 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self removeDifficultyButtons];
     [GlobalSingleton sharedManager].string_difficulty = @"hard";
 }
--(UIButton *)getCoinWithPlayer:(UIButton *)button ForPlayer:(NSString *)player{
-    NSString *image_player = @"";
-    NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
-    if([player isEqualToString:@"1"]){
-        image_player = [all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_one_coin];
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-                          forState:UIControlStateNormal];
-    }
-    else if([player isEqualToString:@"2"]){
-        image_player = [all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_two_coin];
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-                          forState:UIControlStateNormal];
-    }
-    else if([player isEqualToString:@"0"]){
-        image_player = @"blank_coin.png";
-        [button setBackgroundImage:[UIImage imageNamed:image_player]
-                          forState:UIControlStateNormal];
-    }
-    else{
-        
-    }
-    if([GlobalSingleton sharedManager].GC){
-        if ([GlobalSingleton sharedManager].GC_my_turn &&
-            [[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
-            [self iAmDraggable:button];
-        }
-    }
-    else if ([[GlobalSingleton sharedManager].string_my_turn isEqualToString:player]) {
-        [self iAmDraggable:button];
-    }
-    return button;
-    
+-(void)yes_refresh{
+    [self.gameModelObject resetGame];
+    [self getTimer];
+    [self StartTimer];
+    //[timer invalidate];
+    //[self StartTimer];
 }
-- (void) iAmDraggable:(UIButton *) button{
+-(void)yes_mainmenu{
     
-    [button addTarget:self action:@selector(dragBegan:withEvent: )
-     forControlEvents: UIControlEventTouchDown];
-    [button addTarget:self action:@selector(dragMoving:withEvent: )
-     forControlEvents: UIControlEventTouchDragInside];
-    [button addTarget:self action:@selector(dragEnded:withEvent: )
-     forControlEvents: UIControlEventTouchUpInside |
-     UIControlEventTouchUpOutside];
+    [GlobalSingleton sharedManager].string_opponent = nil;
+    [self.gameModelObject resetGame];
+    [self getPopOverToStartGame];
 }
--(void)startSpinnerOnDidLoad{
-    NSDictionary *device_dimensions =
-    [self.gameModelObject getDimensionsForMyDevice:[GlobalSingleton sharedManager].string_my_device_type];
-    CGRect rect_temp =
-    CGRectMake([[device_dimensions valueForKey:@"width"] intValue]/2 + 21 ,
-               [[device_dimensions valueForKey:@"height"] intValue]/2 + 21,
-               100,100);
-    spinner = [[UIActivityIndicatorView alloc]initWithFrame:rect_temp];
-    spinner.frame = rect_temp;
-    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [spinner startAnimating];
+-(void)no{
+    [self.gameModelObject playSound:kButtonClick];
+    [self StartTimer];
+    [self removeRefreshSubViews];
+    [view_popover removeFromSuperview];
 }
--(void)refreshCapturedBlocks{
-    for (int i = 0; i <= 15; i ++) {
-        UIImageView *coin_for_player_one =  (UIImageView *)[self.view viewWithTag:i+4000];
-        UIImageView *coin_for_player_two =  (UIImageView *)[self.view viewWithTag:i+5000];
-        [coin_for_player_one removeFromSuperview];
-        [coin_for_player_two removeFromSuperview];
-    }
-    NSArray *all_coins = [self.gameModelObject getArrayOfCoinColors];
-      UIImage *image_player_one = 
-   [UIImage imageNamed:[all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_one_coin]];
-    UIImage *image_player_two =
-    [UIImage imageNamed:[all_coins objectAtIndex:[GlobalSingleton sharedManager].int_player_two_coin]];
-    for (int i = 0; i <= 15; i ++) {
-        if([[[GlobalSingleton sharedManager].array_captured_p1_coins objectAtIndex:i] isEqualToString:@"1"]){
-            imageview_captured = [[UIImageView alloc] initWithImage:image_player_one];
-            imageview_captured.frame =
-            [[[GlobalSingleton sharedManager].array_captured_p1_cgrect objectAtIndex:i] CGRectValue];
-            imageview_captured.tag = i + 4000;
-            [self.view addSubview:imageview_captured];
-           
-        }
-        if([[[GlobalSingleton sharedManager].array_captured_p2_coins objectAtIndex:i] isEqualToString:@"1"]){
-            imageview_captured = [[UIImageView alloc] initWithImage:image_player_two];
-            imageview_captured.frame =
-            [[[GlobalSingleton sharedManager].array_captured_p2_cgrect objectAtIndex:i] CGRectValue];
-            imageview_captured.tag = i + 5000;
-            [self.view addSubview:imageview_captured];
-        }
-    }
+#pragma mark App Delegate
+-(void)receivedPushForGCTurn{
+    [self getPopOver:0.8];
+    [self.view addSubview:spinner];
+    [button_vs_computer removeFromSuperview];
+    [button_vs_gamecenter removeFromSuperview];
+    [button_vs_computer removeFromSuperview];
+    [button_simple removeFromSuperview];
+    [button_medium removeFromSuperview];
+    [button_hard removeFromSuperview];
+    [button_yes removeFromSuperview];
+    [button_new_game removeFromSuperview];
+    [button_help removeFromSuperview];
+    [button_share removeFromSuperview];
+    [self getGameCenterChanges];
+    [self.view addSubview:spinner];
+    [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
+    [GlobalSingleton sharedManager].GC = TRUE;
+    AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [GlobalSingleton sharedManager].game_uiviewcontroller = delegate.viewController;
     
-}
--(void)getAllOptionButtonsForUser{
-    
-    button_settings = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_settings.frame = [cgRectObject settingsButtonCGRect];
-    [button_settings setBackgroundImage:[UIImage imageNamed:@"button_settings.png"]
-                            forState:UIControlStateNormal];
-    [button_settings addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_settings];
-    button_pause = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_pause.frame = [cgRectObject pauseButtonCGRect];
-    [button_pause setBackgroundImage:[UIImage imageNamed:@"button_pause.png"]
-                               forState:UIControlStateNormal];
-    [button_pause addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_pause];
-    button_refresh = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_refresh.frame = [cgRectObject refreshButtonCGRect];
-    [button_refresh setBackgroundImage:[UIImage imageNamed:@"button_refresh.png"]
-                               forState:UIControlStateNormal];
-    [button_refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_refresh];
-    button_share_2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_share_2.frame = [cgRectObject shareButtonCGRect];
-    [button_share_2 setBackgroundImage:[UIImage imageNamed:@"button_share.png"]
-                               forState:UIControlStateNormal];
-    [button_share_2 addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_share_2];
-    button_mainmenu = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_mainmenu.frame = [cgRectObject mainmenuButtonCGRect];
-    [button_mainmenu setBackgroundImage:[UIImage imageNamed:@"button_mainmenu.png"]
-                            forState:UIControlStateNormal];
-    [button_mainmenu addTarget:self action:@selector(mainmenu) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button_mainmenu];
-}
--(void)setPlayerLabels{
-    CGRect cgrect_temp = [cgRectObject labelplayerOneTurnCGRect];
-    label_player_one = [[UILabel alloc] initWithFrame: cgrect_temp];
-    [self.view addSubview:label_player_one];
-    cgrect_temp = [cgRectObject labelplayerTwoTurnCGRect];
-    label_player_two = [[UILabel alloc] initWithFrame: cgrect_temp];
-    [self.view addSubview:label_player_two];
-    UIFont *font_digital = [UIFont
-                            fontWithName:@"Pump Demi Bold LET"
-                            size:[cgRectObject settingFontSize]];
-    [label_player_one setFont:font_digital];
-    [label_player_two setFont:font_digital];
-    label_player_one.textColor = [UIColor whiteColor];
-    label_player_two.textColor = [UIColor whiteColor];
-    label_player_one.backgroundColor = [UIColor clearColor];
-    label_player_two.backgroundColor = [UIColor clearColor];
-    label_player_one.text = @"player 1";
-    if ([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"]) {
-        [label_player_two setText:@"computer"];
-    }else{
-        label_player_two.text = @"player 2";
-    }
-    
-}
--(void)itsGameCenterTurn{
-    
-    [self getPopoverForGameCenterTurnIfPlayingLocally];
 }
 #pragma mark Unused
 - (void)viewDidUnload{

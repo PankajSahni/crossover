@@ -48,6 +48,7 @@
 -(int)getCellStatusWithRow:(int)row AndCoumn:(int)column;
 @property (nonatomic, assign) BOOL animation_in_progress;
 @property (nonatomic, retain) NSDictionary *save_game;
+@property (nonatomic, assign) BOOL need_timer;
 - (CGRect )getFrameAccordingToDeviceWithXvalue:(float )xVal
                                         yValue:(float )yVal
                                          width:(float )widthVal

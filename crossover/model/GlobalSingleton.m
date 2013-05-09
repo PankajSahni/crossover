@@ -44,6 +44,7 @@
 @synthesize isPlayer1;
 @synthesize animation_in_progress;
 @synthesize save_game;
+@synthesize need_timer;
 static GlobalSingleton *sharedManager; // self
 
 //- (void)dealloc
