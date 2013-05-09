@@ -51,4 +51,5 @@
     UILabel *label_player_two;
     NSTimer *timer_label;
 }
+-(void)receivedPushForGCTurn;
 @end

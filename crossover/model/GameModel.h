@@ -72,6 +72,7 @@ typedef enum {
 -(void)updateUIOnReset;
 -(void)removePopoverAndSpinner;
 -(void)addPopoverAndSpinner;
+-(void)itsGameCenterTurn;
 @end
 
 @interface GameModel : NSObject<GCTurnBasedMatchHelperDelegate>{
@@ -106,6 +107,7 @@ typedef enum {
 -(void)resetGame;
 -(void)playSound:(PlaySound)play_sound;
 -(void)setPlayersCapturedCGRect;
+-(void)takeTurn:(GKTurnBasedMatch *)match;
 -(void)showMove:(NSDictionary *)dictionary_response;
 -(CGRect)getNewDimensionsByReducingHeight:(int)height
                                     width:(int)width toPixel:(int)pixel;

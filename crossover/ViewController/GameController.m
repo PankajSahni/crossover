@@ -347,6 +347,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [actionSheet showInView:self.view];*/
 }
 -(void)playerVsPlayer{
+    [GlobalSingleton sharedManager].GC = FALSE;
     [self.gameModelObject playSound:kButtonClick];
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
@@ -370,6 +371,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     
 }
 -(void)playerVsComputer{
+    [GlobalSingleton sharedManager].GC = FALSE;
     [self.gameModelObject playSound:kButtonClick];
     button_vs_player.alpha = 0.5;
     button_vs_computer.alpha = 0.5;
@@ -683,6 +685,58 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_no addTarget:self action:@selector(no) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_no];
 }
+
+-(void)receivedPushForGCTurn{
+    [self getPopOver:0.8];
+    [self.view addSubview:spinner];
+    [button_vs_computer removeFromSuperview];
+    [button_vs_gamecenter removeFromSuperview];
+    [button_vs_computer removeFromSuperview];
+    [button_simple removeFromSuperview];
+    [button_medium removeFromSuperview];
+    [button_hard removeFromSuperview];
+    [button_yes removeFromSuperview];
+    [button_new_game removeFromSuperview];
+    [button_help removeFromSuperview];
+    [button_share removeFromSuperview];
+    [self getGameCenterChanges];
+    [self.view addSubview:spinner];
+    [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
+    [GlobalSingleton sharedManager].GC = TRUE;
+    AppDelegate * delegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [GlobalSingleton sharedManager].game_uiviewcontroller = delegate.viewController;
+    
+}
+-(void)getPopoverForGameCenterTurnIfPlayingLocally{
+    [self getPopOver:1.0];
+    int button_width = 240;
+    int button_height = 100;
+    int button_x_1 = 200;
+    int button_x_2 = 600;
+    int button_y = 350;
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x_1 yValue:button_y
+                                                                                      width:button_width height:button_height];
+    
+    button_yes = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_yes.frame = rect_temp;
+    [button_yes setBackgroundImage:[UIImage imageNamed:@"button_yes.png"]
+                          forState:UIControlStateNormal];
+    [button_yes addTarget:self action:@selector(yes_showmove) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_yes];
+    rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:button_x_2 yValue:button_y width:button_width height:button_height];
+    
+    button_no = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_no.frame = rect_temp;
+    [button_no setBackgroundImage:[UIImage imageNamed:@"button_no.png"]
+                         forState:UIControlStateNormal];
+    [button_no addTarget:self action:@selector(no) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_no];
+}
+-(void)yes_showmove{
+    [GlobalSingleton sharedManager].GC = TRUE;
+    [self.gameModelObject resetGame];
+    [self.gameModelObject showMove:[GlobalSingleton sharedManager].save_game];
+}
 -(void)getPopoverToRefresh{
     [self getPopOver:1.0];
     int button_width = 240;
@@ -992,6 +1046,10 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
         label_player_two.text = @"player 2";
     }
     
+}
+-(void)itsGameCenterTurn{
+    
+    [self getPopoverForGameCenterTurnIfPlayingLocally];
 }
 #pragma mark Unused
 - (void)viewDidUnload{

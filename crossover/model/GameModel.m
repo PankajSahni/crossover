@@ -171,6 +171,7 @@
             int diff_col = start_y - end_y;
             if(abs(diff_row) <= 1 && abs(diff_col) <=1
                && [RulesForSingleJumpVsPalyer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y]){
+                if ([GlobalSingleton sharedManager].GC) {
                 [self sendTurn:[[NSDictionary alloc] initWithObjectsAndKeys:
                                 [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions",
                                 [GlobalSingleton sharedManager].array_captured_p1_coins, @"captured_p1_coins",
@@ -179,6 +180,7 @@
                                 [NSString stringWithFormat:@"%d", int_array_index], @"newposition",
                                  @"0", @"captured",
                                 nil]];
+                }
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
@@ -200,6 +202,7 @@
                       ( abs(diff_row)==2 && abs(diff_col) ==2) )
                      && ([RulesForDoubleJumpvsPlayer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y])){
                 coin_eliminated = end_x +(diff_row/2)+ (7*(end_y +(diff_col/2)));
+                if ([GlobalSingleton sharedManager].GC) {
                 [self sendTurn:[[NSDictionary alloc] initWithObjectsAndKeys:
                                 [GlobalSingleton sharedManager].array_initial_player_positions, @"player_positions",
                                 [GlobalSingleton sharedManager].array_captured_p1_coins, @"captured_p1_coins",
@@ -208,6 +211,7 @@
                                 [NSString stringWithFormat:@"%d", int_array_index], @"newposition",
                                 [NSString stringWithFormat:@"%d", coin_eliminated], @"captured",
                                 nil]];
+                }
                 [[GlobalSingleton sharedManager].array_initial_player_positions
                  replaceObjectAtIndex:tag_coin_picked withObject:@"0"];
                 [[GlobalSingleton sharedManager].array_initial_player_positions
@@ -438,7 +442,15 @@
     [GlobalSingleton sharedManager].save_game = nil;
     [GlobalSingleton sharedManager].save_game = dictionary_response;
     [GlobalSingleton sharedManager].string_my_turn = playerNumString;
+    if (![GlobalSingleton sharedManager].GC) {
+        [[GlobalSingleton sharedManager].delegate_game_model itsGameCenterTurn];
+        
+    }
+    else{
+        [GlobalSingleton sharedManager].GC_my_turn = TRUE;
     [self showMove:dictionary_response];
+        
+    }
 }
 -(void)showMove:(NSDictionary *)dictionary_response{
     NSMutableArray *player_positions = [[NSMutableArray alloc] initWithArray:[dictionary_response objectForKey:@"player_positions"]];
@@ -456,15 +468,15 @@
     [[GlobalSingleton sharedManager].delegate_game_model animateComputerOrGameCenterMove:dictionary_response];
 }
 -(void)takeTurn:(GKTurnBasedMatch *)match {
+
     NSLog(@"Taking turn for existing game...");
-    [GlobalSingleton sharedManager].GC = TRUE;
-    [GlobalSingleton sharedManager].GC_my_turn = TRUE;
+    //[GlobalSingleton sharedManager].GC_my_turn = TRUE;
     [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
     [self processTurn:match];
-    
 }
 
 -(void)layoutMatch:(GKTurnBasedMatch *)match {
+    
     NSLog(@"Viewing match where it's not our turn...");
     NSString *statusString;
     
@@ -474,11 +486,10 @@
         int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
         statusString = [NSString stringWithFormat:@"Player %d's Turn", playerNum];
     }
-    [GlobalSingleton sharedManager].GC_my_turn = FALSE;
+    //[GlobalSingleton sharedManager].GC_my_turn = FALSE;
     [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:FALSE];
     [self processTurn:match];
 }
-
 -(void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match {
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Another game needs your attention!" message:notice delegate:self cancelButtonTitle:@"Sweet!" otherButtonTitles:nil];
     [av show];
@@ -509,6 +520,10 @@
                                    matchData:data completionHandler:^(NSError *error) {
                                        if (error) {
                                            NSLog(@"%@", error);
+                                           
+                                           [self showAlertWithTitle:@"Internet Connection Issue." andMessage:@"Please check your internet connection. We are resetting your turn"];
+                                           [self showMove:[GlobalSingleton sharedManager].save_game];
+                                           [GlobalSingleton sharedManager].GC_my_turn = TRUE;
                                        }
                                        else{
                                            NSLog(@"endTurnWithNextParticipant");
@@ -516,7 +531,10 @@
                                    }];
     
 }
-
+-(void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [av show];
+}
 #pragma mark GCHelperDelegate
 - (void)tryStartGame {
     

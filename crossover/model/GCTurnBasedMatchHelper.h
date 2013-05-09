@@ -23,6 +23,7 @@
 - (void)takeTurn:(GKTurnBasedMatch *)match;
 - (void)recieveEndGame:(GKTurnBasedMatch *)match;
 - (void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match;
+-(void)matchMakingCancelledByUserGCHelper;
 @end
 
 @interface GCTurnBasedMatchHelper : NSObject <GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate> {

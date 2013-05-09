@@ -140,11 +140,13 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
 
 -(void)turnBasedMatchmakerViewControllerWasCancelled: (GKTurnBasedMatchmakerViewController *)viewController {
     [presentingViewController dismissModalViewControllerAnimated:YES];
+    [delegate matchMakingCancelledByUserGCHelper];
     NSLog(@"has cancelled");
 }
 
 -(void)turnBasedMatchmakerViewController: (GKTurnBasedMatchmakerViewController *)viewController didFailWithError:(NSError *)error {
     [presentingViewController dismissModalViewControllerAnimated:YES];
+    [delegate matchMakingCancelledByUserGCHelper];
     NSLog(@"Error finding match: %@", error.localizedDescription);
 }
 
@@ -159,6 +161,7 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
         } 
     }
     NSLog(@"playerquitforMatch, %@, %@", match, match.currentParticipant);
+    [delegate matchMakingCancelledByUserGCHelper];
     [match participantQuitInTurnWithOutcome:GKTurnBasedMatchOutcomeQuit nextParticipant:part matchData:match.matchData completionHandler:nil];
 }
 
