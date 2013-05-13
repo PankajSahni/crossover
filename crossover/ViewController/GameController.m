@@ -537,11 +537,12 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 - (void)timerTick{
     
-    
+    if ([GlobalSingleton sharedManager].need_timer) {
     NSDictionary *dictionary_time_now = [[self gameModelObject] updateTimerForPlayer];
     [self blinkActivePlayer];
     time_label_P1.text = [dictionary_time_now objectForKey:@"player_one"];
     time_label_P2.text = [dictionary_time_now objectForKey:@"player_two"];
+    }
 }
 -(void)blinkActivePlayer{
     [UIView beginAnimations:nil context:NULL];

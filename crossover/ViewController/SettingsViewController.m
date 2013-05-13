@@ -144,7 +144,7 @@
     }
 }
 -(void)setTimerButtons{
-    if ([GlobalSingleton sharedManager].bool_sound) {
+    if ([GlobalSingleton sharedManager].need_timer) {
         [button_offbutton_case_off_timer addTarget:self action:@selector(timerOff) forControlEvents:UIControlEventTouchUpInside];
         [button_onbutton_case_off_timer removeFromSuperview];
         [button_offbutton_case_on_timer removeFromSuperview];
@@ -166,6 +166,15 @@
     [self.gameModelObject playSound:kButtonClick];
     [GlobalSingleton sharedManager].bool_sound = TRUE;
     [self setSoundButtons];
+}
+-(void)timerOff{
+    [GlobalSingleton sharedManager].need_timer = FALSE;
+    [self setTimerButtons];
+}
+-(void)timerOn{
+    [self.gameModelObject playSound:kButtonClick];
+    [GlobalSingleton sharedManager].need_timer = TRUE;
+    [self setTimerButtons];
 }
 -(void)setPlayerLabels{
     CGRect cgrect_temp =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:260
