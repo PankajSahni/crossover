@@ -24,6 +24,7 @@
 - (void)recieveEndGame:(GKTurnBasedMatch *)match;
 - (void)sendNotice:(NSString *)notice forMatch:(GKTurnBasedMatch *)match;
 -(void)matchMakingCancelledByUserGCHelper;
+-(void)updatePlayerLabels;
 @end
 
 @interface GCTurnBasedMatchHelper : NSObject <GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate> {
@@ -39,7 +40,7 @@
 @property (nonatomic, retain) id <GCTurnBasedMatchHelperDelegate> delegate;
 @property (assign, readonly) BOOL gameCenterAvailable;
 @property (nonatomic, retain) GKTurnBasedMatch *currentMatch;
-
+@property (retain) NSMutableDictionary *playersDict;
 + (GCTurnBasedMatchHelper *)sharedInstance;
 - (void)authenticateLocalUser;
 - (void)authenticationChanged;

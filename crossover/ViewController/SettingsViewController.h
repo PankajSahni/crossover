@@ -25,10 +25,14 @@
     UIButton *player_two_coin;
     int active_player;
     UIButton *imageview_sound;
-    UIButton *button_offbutton_case_on;
-    UIButton *button_onbutton_case_off;
-    UIButton *button_onbutton_case_on;
-    UIButton *button_offbutton_case_off;
+    UIButton *button_offbutton_case_on_sound;
+    UIButton *button_onbutton_case_off_sound;
+    UIButton *button_onbutton_case_on_sound;
+    UIButton *button_offbutton_case_off_sound;
+    UIButton *button_offbutton_case_on_timer;
+    UIButton *button_onbutton_case_off_timer;
+    UIButton *button_onbutton_case_on_timer;
+    UIButton *button_offbutton_case_off_timer;
     UIScrollView *scrollview_coins;
 }
 @property (strong, nonatomic) NSTimer *timer;

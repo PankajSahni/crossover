@@ -53,12 +53,14 @@
 }
 -(void)viewDidLoad{
     [super viewDidLoad];
+    [self presentModalViewController:self.settingsViewControllerObject animated:NO];
     [self createCGRectObjectForDevice];
     [self startSpinnerOnDidLoad];
     [self.view addSubview:self.boardModelObject];
     [self getBoard];
     [self getAllOptionButtonsForUser];
-    [self setPlayerLabels];
+    
+    [self getPlayerLabels];
     [GlobalSingleton sharedManager].bool_sound = TRUE;
     
     [self getPopOverToStartGame];
@@ -98,9 +100,10 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 - (void)initialSetUpMessagesForLabel:(NSString *)string{
     [debugLabel setText:string];
 }
+/* Peer Connection
 -(void)updateGCPlayerLabels{
-    //timer_label = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(blinkActiveGCPlayer) userInfo:nil repeats:YES];
-    //[[NSRunLoop currentRunLoop] addTimer:timer_label forMode:NSDefaultRunLoopMode];
+    timer_label = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(blinkActiveGCPlayer) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer_label forMode:NSDefaultRunLoopMode];
     if (self.gameModelObject.isPlayer1) {
         label_player_one.text = [[GlobalSingleton sharedManager].me stringByAppendingString:@": Player One"];
         label_player_two.text = [[GlobalSingleton sharedManager].gc_opponent stringByAppendingString:@": Player Two"];
@@ -108,16 +111,15 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
         label_player_one.text = [[GlobalSingleton sharedManager].gc_opponent stringByAppendingString:@": Player One"];
         label_player_two.text = [[GlobalSingleton sharedManager].me stringByAppendingString:@": Player Two"];
     }
-}
+}*/
 -(void)blinkActiveGCPlayer{
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-    
-    if ([GlobalSingleton sharedManager].GC_my_turn) {
-        label_player_two.alpha = 0.0;
-    }else{
+    if ([GlobalSingleton sharedManager].GC_my_turn && [GlobalSingleton sharedManager].isPlayer1) {
         label_player_one.alpha = 0.0;
+    }else{
+        label_player_two.alpha = 0.0;
     }
     [UIView commitAnimations];
 }
@@ -160,7 +162,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [view_popover removeFromSuperview];
     [self refreshCapturedBlocks];
     [self getBoard];
-    [self setPlayerLabels];
+    [self getPlayerLabels];
 }
 #pragma mark Animations
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
@@ -232,7 +234,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     }
     NSString *opposite_player;
     if ([GlobalSingleton sharedManager].GC) {
-        NSLog(@"self.gameModelObject.isPlayer1 %d",self.gameModelObject.isPlayer1);
         if ([GlobalSingleton sharedManager].isPlayer1) {
             
             opposite_player = @"2";
@@ -286,6 +287,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     button_mainmenu.enabled = off_on;
     button_pause.enabled = off_on;
     button_settings.enabled = off_on;
+    button_replay.enabled = off_on;
 }
 -(void)getTimer{
     [GlobalSingleton sharedManager].int_minutes_p1 = 2;
@@ -434,30 +436,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_mainmenu addTarget:self action:@selector(mainmenu) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_mainmenu];
 }
--(void)setPlayerLabels{
-    CGRect cgrect_temp = [cgRectObject labelplayerOneTurnCGRect];
-    label_player_one = [[UILabel alloc] initWithFrame: cgrect_temp];
-    [self.view addSubview:label_player_one];
-    cgrect_temp = [cgRectObject labelplayerTwoTurnCGRect];
-    label_player_two = [[UILabel alloc] initWithFrame: cgrect_temp];
-    [self.view addSubview:label_player_two];
-    UIFont *font_digital = [UIFont
-                            fontWithName:@"Pump Demi Bold LET"
-                            size:[cgRectObject settingFontSize]];
-    [label_player_one setFont:font_digital];
-    [label_player_two setFont:font_digital];
-    label_player_one.textColor = [UIColor whiteColor];
-    label_player_two.textColor = [UIColor whiteColor];
-    label_player_one.backgroundColor = [UIColor clearColor];
-    label_player_two.backgroundColor = [UIColor clearColor];
-    label_player_one.text = @"player 1";
-    if ([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"]) {
-        [label_player_two setText:@"computer"];
-    }else{
-        label_player_two.text = @"player 2";
-    }
-    
-}
+
 
 -(void)startGame{
     [self.gameModelObject playSound:kButtonClick];
@@ -538,12 +517,15 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_pause removeFromSuperview];
     [button_refresh removeFromSuperview];
     [button_replay removeFromSuperview];
+    [label_player_one removeFromSuperview];
+    [label_player_two removeFromSuperview];
     button_replay = [UIButton buttonWithType:UIButtonTypeCustom];
     button_replay.frame = [cgRectObject refreshButtonCGRect];
     [button_replay setBackgroundImage:[UIImage imageNamed:@"button_refresh.png"]
                               forState:UIControlStateNormal];
     [button_replay addTarget:self action:@selector(replay) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_replay];
+    [self getPlayerLabels];
     
 }
 
@@ -588,10 +570,47 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [self StartTimer];
 }
 #pragma mark Add Backgrounds
--(void) getBoard{
-    if ([GlobalSingleton sharedManager].GC) {
-        [self getGameCenterChanges];
+-(void)getPlayerLabels{
+    
+    [label_player_one removeFromSuperview];
+    [label_player_two removeFromSuperview];
+    CGRect cgrect_temp = [cgRectObject labelplayerOneTurnCGRect];
+    label_player_one = [[UILabel alloc] initWithFrame: cgrect_temp];
+    [self.view addSubview:label_player_one];
+    cgrect_temp = [cgRectObject labelplayerTwoTurnCGRect];
+    label_player_two = [[UILabel alloc] initWithFrame: cgrect_temp];
+    [self.view addSubview:label_player_two];
+    UIFont *font_digital = [UIFont
+                            fontWithName:@"Pump Demi Bold LET"
+                            size:[cgRectObject settingFontSize]];
+    [label_player_one setFont:font_digital];
+    [label_player_two setFont:font_digital];
+    label_player_one.textColor = [UIColor whiteColor];
+    label_player_two.textColor = [UIColor whiteColor];
+    label_player_one.backgroundColor = [UIColor clearColor];
+    label_player_two.backgroundColor = [UIColor clearColor];
+    label_player_one.text = @"player 1";
+    if ([[GlobalSingleton sharedManager].string_opponent isEqualToString:@"computer"]) {
+        [label_player_two setText:@"computer"];
+    }else{
+        label_player_two.text = @"player 2";
     }
+    if ([GlobalSingleton sharedManager].GC) {
+        if ([GlobalSingleton sharedManager].isPlayer1) {
+            label_player_one.text = [GKLocalPlayer localPlayer].alias;
+            label_player_two.text = [GlobalSingleton sharedManager].gc_opponent;
+        }
+        else{
+            label_player_two.text = [GKLocalPlayer localPlayer].alias;
+            label_player_one.text = [GlobalSingleton sharedManager].gc_opponent;
+        }
+        timer_label = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
+                                                     selector:@selector(blinkActiveGCPlayer) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:timer_label forMode:NSDefaultRunLoopMode];
+    }
+    
+}
+-(void) getBoard{
     [self.gameModelObject setCoinColors];
     tag_coin_picked = 0;
     NSMutableArray *board_dimensions = [self.gameModelObject getBoardDimensions];
@@ -910,7 +929,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                          [button_vs_player removeFromSuperview];
                          [button_vs_computer removeFromSuperview];
                          [button_vs_gamecenter removeFromSuperview];
-                         [self getGameCenterChanges];
                          [self.view addSubview:spinner];
                          [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
                          [GlobalSingleton sharedManager].GC = TRUE;
@@ -1049,6 +1067,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 #pragma mark App Delegate
 -(void)receivedPushForGCTurn{
+    [self getGameCenterChanges];
     [self getPopOver:0.8];
     [self.view addSubview:spinner];
     [button_vs_computer removeFromSuperview];
@@ -1061,7 +1080,6 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     [button_new_game removeFromSuperview];
     [button_help removeFromSuperview];
     [button_share removeFromSuperview];
-    [self getGameCenterChanges];
     [self.view addSubview:spinner];
     [[GCTurnBasedMatchHelper sharedInstance] authenticateLocalUser];
     [GlobalSingleton sharedManager].GC = TRUE;

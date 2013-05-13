@@ -60,7 +60,8 @@
     [self loadAllCoins];
     [self setPlayerLabels];
     [self soundOnOffButtonDefaultOn];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(blinkActivePlayer) userInfo:nil repeats:YES];
+    [self timerOnOffButtonDefaultOn];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(blinkActivePlayer) userInfo:nil repeats:YES];
     
 }
 -(void)blinkActivePlayer{
@@ -70,8 +71,10 @@
     
     if (active_player == 2) {
         label_player_two.alpha = 0.0;
+        
     }else{
         label_player_one.alpha = 0.0;
+        
     }
     [UIView commitAnimations];
 }
@@ -84,39 +87,75 @@
         CGRect cgrect_onbutton_case_off =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:710 yValue:290 width:90 height:35];
         CGRect cgrect_onbutton_case_on =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:710 yValue:290 width:90 height:35];
         CGRect cgrect_offbutton_case_off =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:640 yValue:290 width:90 height:35];
-    button_offbutton_case_on = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_onbutton_case_off = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_onbutton_case_on = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_offbutton_case_off = [UIButton buttonWithType:UIButtonTypeCustom];
-    button_offbutton_case_on.frame = cgrect_offbutton_case_on;
-    button_onbutton_case_off.frame = cgrect_onbutton_case_off;
-    button_onbutton_case_on.frame = cgrect_onbutton_case_on;
-    button_offbutton_case_off.frame = cgrect_offbutton_case_off;
-    
-    // OFF->A ON->B
-    [button_offbutton_case_on setBackgroundImage:
+    button_offbutton_case_on_sound = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_onbutton_case_off_sound = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_onbutton_case_on_sound = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_offbutton_case_off_sound = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_offbutton_case_on_sound.frame = cgrect_offbutton_case_on;
+    button_onbutton_case_off_sound.frame = cgrect_onbutton_case_off;
+    button_onbutton_case_on_sound.frame = cgrect_onbutton_case_on;
+    button_offbutton_case_off_sound.frame = cgrect_offbutton_case_off;
+    [button_offbutton_case_on_sound setBackgroundImage:
      [UIImage imageNamed:@"offbutton_case_off.png"] forState:UIControlStateNormal];
-    [button_onbutton_case_on setBackgroundImage:
+    [button_onbutton_case_on_sound setBackgroundImage:
      [UIImage imageNamed:@"onbutton_case_off.png"] forState:UIControlStateNormal];
-    [button_onbutton_case_off setBackgroundImage:
+    [button_onbutton_case_off_sound setBackgroundImage:
      [UIImage imageNamed:@"onbutton_case_on.png"] forState:UIControlStateNormal];
-    [button_offbutton_case_off setBackgroundImage:
+    [button_offbutton_case_off_sound setBackgroundImage:
      [UIImage imageNamed:@"offbutton_case_on.png"] forState:UIControlStateNormal];
     [self setSoundButtons];
 }
+-(void)timerOnOffButtonDefaultOn{
+    CGRect cgrect_offbutton_case_on =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:640 yValue:340 width:90 height:35];
+    CGRect cgrect_onbutton_case_off =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:710 yValue:340 width:90 height:35];
+    CGRect cgrect_onbutton_case_on =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:710 yValue:340 width:90 height:35];
+    CGRect cgrect_offbutton_case_off =  [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:640 yValue:340 width:90 height:35];
+    button_offbutton_case_on_timer = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_onbutton_case_off_timer = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_onbutton_case_on_timer = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_offbutton_case_off_timer = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_offbutton_case_on_timer.frame = cgrect_offbutton_case_on;
+    button_onbutton_case_off_timer.frame = cgrect_onbutton_case_off;
+    button_onbutton_case_on_timer.frame = cgrect_onbutton_case_on;
+    button_offbutton_case_off_timer.frame = cgrect_offbutton_case_off;
+    [button_offbutton_case_on_timer setBackgroundImage:
+     [UIImage imageNamed:@"offbutton_case_off.png"] forState:UIControlStateNormal];
+    [button_onbutton_case_on_timer setBackgroundImage:
+     [UIImage imageNamed:@"onbutton_case_off.png"] forState:UIControlStateNormal];
+    [button_onbutton_case_off_timer setBackgroundImage:
+     [UIImage imageNamed:@"onbutton_case_on.png"] forState:UIControlStateNormal];
+    [button_offbutton_case_off_timer setBackgroundImage:
+     [UIImage imageNamed:@"offbutton_case_on.png"] forState:UIControlStateNormal];
+    [self setTimerButtons];
+}
 -(void)setSoundButtons{
     if ([GlobalSingleton sharedManager].bool_sound) {
-        [button_offbutton_case_off addTarget:self action:@selector(soundOff) forControlEvents:UIControlEventTouchUpInside];
-        [button_onbutton_case_off removeFromSuperview];
-        [button_offbutton_case_on removeFromSuperview];
-        [self.view addSubview:button_offbutton_case_off];
-        [self.view addSubview:button_onbutton_case_on];
+        [button_offbutton_case_off_sound addTarget:self action:@selector(soundOff) forControlEvents:UIControlEventTouchUpInside];
+        [button_onbutton_case_off_sound removeFromSuperview];
+        [button_offbutton_case_on_sound removeFromSuperview];
+        [self.view addSubview:button_offbutton_case_off_sound];
+        [self.view addSubview:button_onbutton_case_on_sound];
     }else {
-        [button_onbutton_case_off addTarget:self action:@selector(soundOn) forControlEvents:UIControlEventTouchUpInside];
-        [button_offbutton_case_off removeFromSuperview];
-        [button_onbutton_case_on removeFromSuperview];
-        [self.view addSubview:button_onbutton_case_off];
-        [self.view addSubview:button_offbutton_case_on];
+        [button_onbutton_case_off_sound addTarget:self action:@selector(soundOn) forControlEvents:UIControlEventTouchUpInside];
+        [button_offbutton_case_off_sound removeFromSuperview];
+        [button_onbutton_case_on_sound removeFromSuperview];
+        [self.view addSubview:button_onbutton_case_off_sound];
+        [self.view addSubview:button_offbutton_case_on_sound];
+    }
+}
+-(void)setTimerButtons{
+    if ([GlobalSingleton sharedManager].bool_sound) {
+        [button_offbutton_case_off_timer addTarget:self action:@selector(timerOff) forControlEvents:UIControlEventTouchUpInside];
+        [button_onbutton_case_off_timer removeFromSuperview];
+        [button_offbutton_case_on_timer removeFromSuperview];
+        [self.view addSubview:button_offbutton_case_off_timer];
+        [self.view addSubview:button_onbutton_case_on_timer];
+    }else {
+        [button_onbutton_case_off_timer addTarget:self action:@selector(timerOn) forControlEvents:UIControlEventTouchUpInside];
+        [button_offbutton_case_off_timer removeFromSuperview];
+        [button_onbutton_case_on_timer removeFromSuperview];
+        [self.view addSubview:button_onbutton_case_off_timer];
+        [self.view addSubview:button_offbutton_case_on_timer];
     }
 }
 -(void)soundOff{

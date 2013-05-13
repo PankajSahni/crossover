@@ -169,6 +169,19 @@
             
             int diff_row = start_x - end_x;
             int diff_col = start_y - end_y;
+            /*NSString *player = @"";
+            if ([GlobalSingleton sharedManager].gc_newgame) {
+                player = @"1";
+            }
+            else if ([[[GlobalSingleton sharedManager].save_game objectForKey:@"player"] isEqualToString:@"2"]){
+                player = @"1";
+            }
+            else if ([[[GlobalSingleton sharedManager].save_game objectForKey:@"player"] isEqualToString:@"1"]){
+                player = @"2";
+            }
+            else{
+                 player = @"2";
+            }*/
             if(abs(diff_row) <= 1 && abs(diff_col) <=1
                && [RulesForSingleJumpVsPalyer captureRuleStartX:start_x StartY:start_y endX:end_x endY:end_y]){
                 if ([GlobalSingleton sharedManager].GC) {
@@ -178,6 +191,7 @@
                                 [GlobalSingleton sharedManager].array_captured_p2_coins, @"captured_p2_coins",
                                 [NSString stringWithFormat:@"%d", tag_coin_picked], @"move",
                                 [NSString stringWithFormat:@"%d", int_array_index], @"newposition",
+                                 //player , @"player",
                                  @"0", @"captured",
                                 nil]];
                 }
@@ -210,6 +224,7 @@
                                 [NSString stringWithFormat:@"%d", tag_coin_picked], @"move",
                                 [NSString stringWithFormat:@"%d", int_array_index], @"newposition",
                                 [NSString stringWithFormat:@"%d", coin_eliminated], @"captured",
+                                //player , @"player",
                                 nil]];
                 }
                 [[GlobalSingleton sharedManager].array_initial_player_positions
@@ -426,6 +441,7 @@
 }
 
 -(void)processTurn:(GKTurnBasedMatch *)match{
+    
     int playerNum = [match.participants indexOfObject:match.currentParticipant] + 1;
     NSString *playerNumString = [NSString stringWithFormat:@"%d", playerNum];
     NSLog(@"statusString%@",playerNumString);
@@ -434,11 +450,16 @@
     }else{
         [GlobalSingleton sharedManager].isPlayer1 = NO;
     }
+    
     NSLog(@"isPlayer1 %d",isPlayer1);
+    
     NSError *error = NULL;
+    
     NSData *responseData = match.matchData;
+    
     NSDictionary *dictionary_response =
     [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+    
     [GlobalSingleton sharedManager].save_game = nil;
     [GlobalSingleton sharedManager].save_game = dictionary_response;
     [GlobalSingleton sharedManager].string_my_turn = playerNumString;
@@ -465,6 +486,7 @@
     
     [[GlobalSingleton sharedManager].delegate_game_model getBoard];
     [[GlobalSingleton sharedManager].delegate_game_model removePopoverAndSpinner];
+    [[GlobalSingleton sharedManager].delegate_game_model getGameCenterChanges];
     [[GlobalSingleton sharedManager].delegate_game_model animateComputerOrGameCenterMove:dictionary_response];
 }
 -(void)takeTurn:(GKTurnBasedMatch *)match {
@@ -474,7 +496,9 @@
     [[GlobalSingleton sharedManager].delegate_game_model changeMyTurnLabelMessage:TRUE];
     [self processTurn:match];
 }
-
+-(void)updatePlayerLabels{
+    [[GlobalSingleton sharedManager].delegate_game_model getPlayerLabels];
+}
 -(void)layoutMatch:(GKTurnBasedMatch *)match {
     
     NSLog(@"Viewing match where it's not our turn...");
@@ -687,12 +711,6 @@
         
         
         MessageMove *messageTypeMove = (MessageMove *) [data bytes];
-        
-        
-        NSLog(@"newposition %d",messageTypeMove->newposition);
-        NSLog(@"move %d",messageTypeMove->move);
-        NSLog(@"captured %d",messageTypeMove->captured);
-        
         NSDictionary *received_dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
                                              [NSString stringWithFormat:@"%d", messageTypeMove->newposition ],@"newposition",
                                              [NSString stringWithFormat:@"%d", messageTypeMove->move ],@"move",

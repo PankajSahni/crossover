@@ -73,6 +73,8 @@ typedef enum {
 -(void)removePopoverAndSpinner;
 -(void)addPopoverAndSpinner;
 -(void)itsGameCenterTurn;
+-(void)getGameCenterChanges;
+-(void)getPlayerLabels;
 @end
 
 @interface GameModel : NSObject<GCTurnBasedMatchHelperDelegate>{

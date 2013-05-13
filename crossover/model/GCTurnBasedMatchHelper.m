@@ -65,6 +65,7 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
         !userAuthenticated) {
         NSLog(@"Authentication changed: player authenticated.");
         userAuthenticated = TRUE;
+        NSLog(@"[UIDevice currentDevice] systemVersion %@",[[UIDevice currentDevice] systemVersion]);
         [self findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
     } else if (![GKLocalPlayer localPlayer].isAuthenticated && 
                userAuthenticated) {
@@ -117,11 +118,20 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
 -(void)turnBasedMatchmakerViewController: (GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)match {
     [presentingViewController dismissModalViewControllerAnimated:YES];
     self.currentMatch = match;
+    NSLog(@"match.participants %@",match.participants);
     GKTurnBasedParticipant *firstParticipant = [match.participants objectAtIndex:0];
+    GKTurnBasedParticipant *secondParticipant = [match.participants objectAtIndex:1];
+    
+//    /[self lookupPlayers:match.participants];
+    if (![firstParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) {
+        [self playerForPlayerID:(NSString *)firstParticipant.playerID];
+    }else{
+        [self playerForPlayerID:(NSString *)secondParticipant.playerID];
+    }
     if (firstParticipant.lastTurnDate == NULL) {
         // It's a new game!
         NSLog(@"It's a new game!");
-        
+        [GlobalSingleton sharedManager].gc_newgame = TRUE;
         [delegate enterNewGame:match];
         
     } else {
@@ -138,6 +148,94 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     }
 }
 
+- (void)playerForPlayerID:(NSString*)playerID {
+    [GKPlayer loadPlayersForIdentifiers:[NSArray arrayWithObject:playerID] withCompletionHandler:^(NSArray *players, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"Error retrieving player info: %@", error.localizedDescription);
+        } else {
+            // Populate players dict
+            for (GKPlayer *player in players) {
+                [GlobalSingleton sharedManager].gc_opponent = player.alias;
+                [delegate updatePlayerLabels];
+            }
+        }
+    }];
+}
+/*
+- (void)getPlayersForMatch:(GKTurnBasedMatch*)match {
+    
+    NSMutableArray *identifiers = [NSMutableArray array];
+    
+    for(GKTurnBasedParticipant *participant in match.participants) {
+        if(participant.playerID == nil) {
+            continue;
+        }
+        [identifiers addObject:participant.playerID];
+    }
+    
+    [GKPlayer loadPlayersForIdentifiers:identifiers withCompletionHandler:^(NSArray *players, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"Error retrieving player info: %@", error.localizedDescription);
+        } else {
+            // Populate players dict
+            for (GKPlayer *player in players) {
+                [self.playersDict setObject:player forKey:player.playerID];
+            }
+            [self.delegate playersLoaded];
+        }
+    }];
+}
+
+- (void)getPlayersForMatches:(NSArray*)matches {
+    NSMutableArray *identifiers = [NSMutableArray array];
+    
+    for(GKTurnBasedMatch *match in matches) {
+        for(GKTurnBasedParticipant *participant in match.participants) {
+            if(participant.playerID == nil) {
+                continue;
+            }
+            [identifiers addObject:participant.playerID];
+        }
+    }
+    
+    [GKPlayer loadPlayersForIdentifiers:identifiers withCompletionHandler:^(NSArray *players, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"Error retrieving player info: %@", error.localizedDescription);
+        } else {
+            // Populate players dict
+            for (GKPlayer *player in players) {
+                [self.playersDict setObject:player forKey:player.playerID];
+            }
+            [self.delegate playersLoaded];
+        }
+    }];
+}
+- (void)lookupPlayers:(NSArray *)playersIDs{
+    
+    [GKPlayer loadPlayersForIdentifiers:playersIDs withCompletionHandler:^(NSArray *players, NSError *error) {
+        if (error != nil) {
+            
+            NSLog(@"Error retrieving player info: %@", error.localizedDescription);
+        } else {
+            
+            // Populate players dict
+            NSMutableDictionary *playersDict = [NSMutableDictionary dictionaryWithCapacity:players.count];
+            for (GKPlayer *player in players) {
+                
+                NSLog(@"Found player: %@", player.alias);
+                [GlobalSingleton sharedManager].gc_opponent = player.alias;
+                [playersDict setObject:player forKey:player.playerID];
+            }
+            
+        }
+        
+    }];
+    
+}
+*/
 -(void)turnBasedMatchmakerViewControllerWasCancelled: (GKTurnBasedMatchmakerViewController *)viewController {
     [presentingViewController dismissModalViewControllerAnimated:YES];
     [delegate matchMakingCancelledByUserGCHelper];
@@ -179,7 +277,6 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     viewController.turnBasedMatchmakerDelegate = self;
     [presentingViewController presentModalViewController:viewController animated:YES];
 }
-
 -(void)handleTurnEventForMatch:(GKTurnBasedMatch *)match {
     NSLog(@"Turn has happened");
     if ([match.matchID isEqualToString:currentMatch.matchID]) {
@@ -221,7 +318,7 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     } else {
         [delegate sendNotice:@"Another Game Ended!" forMatch:match];
     }
-//[self deleteMatch];
+[self deleteMatch];
 
 }
 
