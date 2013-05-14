@@ -45,7 +45,7 @@
     }
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     return YES;
 }
 
@@ -127,5 +127,15 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+// Delegation methods
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
+    NSString *str = [NSString stringWithFormat:@"Device Token=%@",devToken];
+    NSLog(@"This is device token%@", devToken);
+   // self.registered = YES;
+    //[self sendProviderDeviceToken:devTokenBytes]; // this will send token to your server's database
+}
 
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSLog(@"Error in registration. Error: %@", err);
+}
 @end

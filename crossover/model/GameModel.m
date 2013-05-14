@@ -697,7 +697,7 @@
             if (gameState == kGameStateWaitingForRandomNumber) {
                 [self setGameState:kGameStateWaitingForStart];
             }
-            [[GlobalSingleton sharedManager].delegate_game_model updateGCPlayerLabels];
+            //[[GlobalSingleton sharedManager].delegate_game_model updateGCPlayerLabels];
             [self tryStartGame];
         }
         

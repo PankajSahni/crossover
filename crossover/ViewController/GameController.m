@@ -63,7 +63,7 @@
     [self getPlayerLabels];
     [GlobalSingleton sharedManager].bool_sound = TRUE;
     
-    [self getPopOverToStartGame];
+    //[self getPopOverToStartGame];
 }
 -(void)createCGRectObjectForDevice{
 if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||
@@ -158,6 +158,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
     timer = nil;
     [self.gameModelObject playSound:kButtonClick];
     [imageview_captured removeFromSuperview];
+    [label_message removeFromSuperview];
     [self removeRefreshSubViews];
     [view_popover removeFromSuperview];
     [self refreshCapturedBlocks];
@@ -560,6 +561,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 -(void)removeRefreshSubViews{
     [button_yes removeFromSuperview];
     [button_no removeFromSuperview];
+    [label_message removeFromSuperview];
 }
 -(void)removeDifficultyButtons{
     [self.gameModelObject playSound:kButtonClick];
@@ -757,9 +759,25 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                          forState:UIControlStateNormal];
     [button_no addTarget:self action:@selector(no) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_no];
+    [self getMessageLabel:@"ARE YOU SURE YOU WANT TO JUMP TO MAIN MENU. THIS WILL QUIT YOUR CURRENT GAME ?"];
 }
 
-
+-(void)getMessageLabel:(NSString *)message{
+    CGRect rect_temp = [[GlobalSingleton sharedManager] getFrameAccordingToDeviceWithXvalue:130 yValue:220
+                                                                               width:750 height:140];
+    label_message = [[UILabel alloc]initWithFrame:rect_temp];
+    label_message.text = message;
+    UIFont *font_digital = [UIFont
+                            fontWithName:@"Pump Demi Bold LET"
+                            size:32];
+    [label_message setFont:font_digital];
+    label_message.textColor = [UIColor whiteColor];
+    label_message.backgroundColor = [UIColor yellowColor];
+    label_message.numberOfLines = 2;
+    label_message.lineBreakMode = UILineBreakModeWordWrap;
+    label_message.textAlignment = UITextAlignmentCenter;
+    [self.view addSubview:label_message];
+}
 -(void)getPopoverForGameCenterTurnIfPlayingLocally{
     [self getPopOver:1.0];
     int button_width = 240;
@@ -810,6 +828,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                           forState:UIControlStateNormal];
     [button_no addTarget:self action:@selector(no) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_no];
+    [self getMessageLabel:@"ARE YOU SURE YOU WANT TO RESTART ?"];
 }
 
 
@@ -866,6 +885,17 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                                   forState:UIControlStateNormal];
     [button_cancel addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button_cancel];
+    rect_temp = [[GlobalSingleton sharedManager]
+                 getFrameAccordingToDeviceWithXvalue:50 yValue:100 width:920 height:650];
+    webview_help = [[UIWebView alloc] initWithFrame:rect_temp];
+    NSString *localFilePath = [[NSBundle mainBundle] pathForResource:@"howtoplay" ofType:@"html"] ;
+    NSURLRequest *localRequest = [NSURLRequest requestWithURL:
+                                  [NSURL fileURLWithPath:localFilePath]] ;
+    [webview_help loadRequest:localRequest];
+    webview_help.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:webview_help];
+    
+
 }
 
 -(void)getPopOverToSelectDifficulty{
@@ -1000,6 +1030,7 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
 }
 -(void)cancel{
     [button_cancel removeFromSuperview];
+    [webview_help removeFromSuperview];
     [view_popover removeFromSuperview];
     [self getPopOverToStartGame];
 }

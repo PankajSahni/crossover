@@ -39,6 +39,7 @@
 -(CGRect)labelplayerTwoTurnCGRect{
     return CGRectMake(680, 290, 200, 30);
 }
+
 -(int)settingFontSize{
     return 18;
 }

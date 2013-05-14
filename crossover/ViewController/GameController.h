@@ -45,11 +45,13 @@
     UILabel *time_label_P1;
     UILabel *time_label_P2;
     UILabel *debugLabel;
+    UILabel *label_message;
     id cgRectObject;
     UIImageView *imageview_captured;
     UILabel *label_player_one;
     UILabel *label_player_two;
     NSTimer *timer_label;
+    UIWebView *webview_help;
 }
 -(void)receivedPushForGCTurn;
 @end

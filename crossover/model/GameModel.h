@@ -68,7 +68,6 @@ typedef enum {
 -(void)getBoard;
 -(void)showWinner:(int)winner;
 -(void)matchMakingCancelledByUser;
--(void)updateGCPlayerLabels;
 -(void)updateUIOnReset;
 -(void)removePopoverAndSpinner;
 -(void)addPopoverAndSpinner;

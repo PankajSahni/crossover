@@ -76,7 +76,7 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
 }
 
 #pragma mark User functions
-
+/*
 - (void)authenticateLocalUser { 
     
     if (!gameCenterAvailable) return;
@@ -96,7 +96,43 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
         setGKEventHandlerDelegate(nil);
     }
 }
-
+*/
+-(void)authenticateLocalUser {
+    
+    if (!self.checkingLocalPlayer) {
+        self.checkingLocalPlayer = YES;
+        GKLocalPlayer *thisPlayer = [GKLocalPlayer localPlayer];
+        
+        if (!thisPlayer.authenticated) {
+            
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+            
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+                
+                [thisPlayer setAuthenticateHandler:(^(UIViewController* viewcontroller, NSError *error) {
+                    
+                    if (viewcontroller) {
+                        [self.delegate presentViewController:viewcontroller];
+                    } else {
+                        NSLog(@"error %@", error);
+                        ///[self finishGameCenterAuthWithError:error];
+                    }
+                    
+                })];
+                
+            } else {
+                
+                [[GKLocalPlayer localPlayer]
+                 authenticateWithCompletionHandler:^(NSError *error)
+                 {
+                     [self finishGameCenterAuthWithError:error];
+                 }
+                 ];
+            }
+            
+        }
+    }
+}
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController {
     if (!gameCenterAvailable) return;               
     

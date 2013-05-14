@@ -18,6 +18,10 @@
 		048736D217054D4F00ECBA8F /* RulesForSingleJumpVsPalyer.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736CB17054D4F00ECBA8F /* RulesForSingleJumpVsPalyer.m */; };
 		048736D317054D4F00ECBA8F /* ValidMoveDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736CD17054D4F00ECBA8F /* ValidMoveDirections.m */; };
 		048736D617054FED00ECBA8F /* PlayerPlacements.m in Sources */ = {isa = PBXBuildFile; fileRef = 048736D517054FED00ECBA8F /* PlayerPlacements.m */; };
+		04BC6E18174246CB00F506F5 /* DigitalRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04BC6E14174246CB00F506F5 /* DigitalRegular.ttf */; };
+		04BC6E19174246CB00F506F5 /* howtoplay.html in Resources */ = {isa = PBXBuildFile; fileRef = 04BC6E15174246CB00F506F5 /* howtoplay.html */; };
+		04BC6E1A174246CB00F506F5 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 04BC6E16174246CB00F506F5 /* style.css */; };
+		04BC6E1B174246CB00F506F5 /* winner.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 04BC6E17174246CB00F506F5 /* winner.TTF */; };
 		04D1899A17016B7A00CCE3D5 /* DigitalRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899217016B7A00CCE3D5 /* DigitalRegular.ttf */; };
 		04D1899B17016B7A00CCE3D5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899317016B7A00CCE3D5 /* InfoPlist.strings */; };
 		04D1899C17016B7A00CCE3D5 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1899517016B7A00CCE3D5 /* ViewController_iPad.xib */; };
@@ -295,6 +299,10 @@
 		048736CD17054D4F00ECBA8F /* ValidMoveDirections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidMoveDirections.m; sourceTree = "<group>"; };
 		048736D417054FED00ECBA8F /* PlayerPlacements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerPlacements.h; sourceTree = "<group>"; };
 		048736D517054FED00ECBA8F /* PlayerPlacements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerPlacements.m; sourceTree = "<group>"; };
+		04BC6E14174246CB00F506F5 /* DigitalRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DigitalRegular.ttf; sourceTree = "<group>"; };
+		04BC6E15174246CB00F506F5 /* howtoplay.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = howtoplay.html; sourceTree = "<group>"; };
+		04BC6E16174246CB00F506F5 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		04BC6E17174246CB00F506F5 /* winner.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = winner.TTF; sourceTree = "<group>"; };
 		04D1899217016B7A00CCE3D5 /* DigitalRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DigitalRegular.ttf; sourceTree = "<group>"; };
 		04D1899417016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04D1899617016B7A00CCE3D5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
@@ -656,6 +664,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04BC6E13174246CB00F506F5 /* html */ = {
+			isa = PBXGroup;
+			children = (
+				04BC6E14174246CB00F506F5 /* DigitalRegular.ttf */,
+				04BC6E15174246CB00F506F5 /* howtoplay.html */,
+				04BC6E16174246CB00F506F5 /* style.css */,
+				04BC6E17174246CB00F506F5 /* winner.TTF */,
+			);
+			name = html;
+			path = Supporting/html;
+			sourceTree = "<group>";
+		};
 		04D1899117016B7A00CCE3D5 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -721,6 +741,7 @@
 		04E4688316DE0A88008479F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				04BC6E13174246CB00F506F5 /* html */,
 				04EA5077172648A700A7CEBC /* sounds */,
 				04EA5075172644C900A7CEBC /* winner.TTF */,
 				472D191016F792D50002BAC8 /* main.m */,
@@ -1563,6 +1584,10 @@
 				472257CF1729A97500D79912 /* button_simple.png in Resources */,
 				04FE37EE172A722000592F01 /* button_cancel.png in Resources */,
 				045B995C172E684900C82E50 /* button_game_center@2x~ipad.png in Resources */,
+				04BC6E18174246CB00F506F5 /* DigitalRegular.ttf in Resources */,
+				04BC6E19174246CB00F506F5 /* howtoplay.html in Resources */,
+				04BC6E1A174246CB00F506F5 /* style.css in Resources */,
+				04BC6E1B174246CB00F506F5 /* winner.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1728,7 +1753,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1743,9 +1768,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PROVISIONING_PROFILE = "5CEB9AE6-9E6C-4CD0-B73B-F9C65EEBED33";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CEB9AE6-9E6C-4CD0-B73B-F9C65EEBED33";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1761,7 +1784,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1769,10 +1792,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "5CEB9AE6-9E6C-4CD0-B73B-F9C65EEBED33";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CEB9AE6-9E6C-4CD0-B73B-F9C65EEBED33";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1782,7 +1804,7 @@
 		04E4689A16DE0A89008479F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1791,10 +1813,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "crossover/crossover-Prefix.pch";
 				INFOPLIST_FILE = "crossover/crossover-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1802,7 +1822,7 @@
 		04E4689B16DE0A89008479F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gurvinder Batra (Q3HXH3MWZ2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1811,9 +1831,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "crossover/crossover-Prefix.pch";
 				INFOPLIST_FILE = "crossover/crossover-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF77E452-ABC0-4DDA-B2A9-677638D81E6D";
 				WRAPPER_EXTENSION = app;
 			};
