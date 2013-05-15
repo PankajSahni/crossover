@@ -534,7 +534,6 @@
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSData *data =
     [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"jsonString %@", jsonString);
     NSUInteger currentIndex = [currentMatch.participants
                                indexOfObject:currentMatch.currentParticipant];
     GKTurnBasedParticipant *nextParticipant;

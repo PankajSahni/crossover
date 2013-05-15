@@ -771,8 +771,9 @@ if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iph
                             fontWithName:@"Pump Demi Bold LET"
                             size:32];
     [label_message setFont:font_digital];
-    label_message.textColor = [UIColor whiteColor];
-    label_message.backgroundColor = [UIColor yellowColor];
+    label_message.textColor =
+    [UIColor colorWithRed:248/255.0f green:209/255.0f blue:132/255.0f alpha:1];
+    label_message.backgroundColor = [UIColor clearColor];
     label_message.numberOfLines = 2;
     label_message.lineBreakMode = UILineBreakModeWordWrap;
     label_message.textAlignment = UITextAlignmentCenter;

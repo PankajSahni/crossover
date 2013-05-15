@@ -66,17 +66,17 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
 
 - (void)authenticationChanged {
     
-    if ([GKLocalPlayer localPlayer].isAuthenticated && 
+    if ([GKLocalPlayer localPlayer].isAuthenticated &&
         !userAuthenticated) {
         NSLog(@"Authentication changed: player authenticated.");
         userAuthenticated = TRUE;
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-        
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
-           [self performSelector:@selector(delayedFindMatchCallForIOS6) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(delayedFindMatchCallForIOS6) withObject:nil afterDelay:0.5];
+        /*if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+           
         }else{
             [self findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
-        }
+        }*/
     } else if (![GKLocalPlayer localPlayer].isAuthenticated &&
                userAuthenticated) {
         NSLog(@"Authentication changed: player not authenticated");
