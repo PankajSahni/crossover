@@ -63,7 +63,7 @@
     [self getPlayerLabels];
     [GlobalSingleton sharedManager].bool_sound = TRUE;
     
-    //[self getPopOverToStartGame];
+    [self getPopOverToStartGame];
 }
 -(void)createCGRectObjectForDevice{
 if ([[GlobalSingleton sharedManager].string_my_device_type isEqualToString:@"iphone"] ||

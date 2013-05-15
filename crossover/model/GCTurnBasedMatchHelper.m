@@ -59,15 +59,25 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     return self;
 }
 
-- (void)authenticationChanged {    
+- (void)delayedFindMatchCallForIOS6 {
+    [self findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
+
+}
+
+- (void)authenticationChanged {
     
     if ([GKLocalPlayer localPlayer].isAuthenticated && 
         !userAuthenticated) {
         NSLog(@"Authentication changed: player authenticated.");
         userAuthenticated = TRUE;
-        NSLog(@"[UIDevice currentDevice] systemVersion %@",[[UIDevice currentDevice] systemVersion]);
-        [self findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
-    } else if (![GKLocalPlayer localPlayer].isAuthenticated && 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+        
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
+           [self performSelector:@selector(delayedFindMatchCallForIOS6) withObject:nil afterDelay:0.5];
+        }else{
+            [self findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
+        }
+    } else if (![GKLocalPlayer localPlayer].isAuthenticated &&
                userAuthenticated) {
         NSLog(@"Authentication changed: player not authenticated");
         userAuthenticated = FALSE;
@@ -76,7 +86,7 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
 }
 
 #pragma mark User functions
-/*
+
 - (void)authenticateLocalUser { 
     
     if (!gameCenterAvailable) return;
@@ -89,14 +99,15 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
     NSLog(@"Authenticating local user...");
     if ([GKLocalPlayer localPlayer].authenticated == NO) {     
         [[GKLocalPlayer localPlayer] 
-         authenticateWithCompletionHandler:setGKEventHandlerDelegate];        
+         authenticateWithCompletionHandler:setGKEventHandlerDelegate];
     } else {
         NSLog(@"Already authenticated!");
         [self findMatchWithMinPlayers:2 maxPlayers:2 viewController:[GlobalSingleton sharedManager].game_uiviewcontroller];
         setGKEventHandlerDelegate(nil);
     }
 }
-*/
+
+/*
 -(void)authenticateLocalUser {
     
     if (!self.checkingLocalPlayer) {
@@ -133,6 +144,7 @@ static GCTurnBasedMatchHelper *sharedHelper = nil;
         }
     }
 }
+ */
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController {
     if (!gameCenterAvailable) return;               
     
